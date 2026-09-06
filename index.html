@@ -1271,7 +1271,8 @@ async function confirmOrder() {
     document
       .getElementById("successCode")
       .textContent = code;
-
+    
+      openPaymentQR();
 
   } catch (error) {
 
