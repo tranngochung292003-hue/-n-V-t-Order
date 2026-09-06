@@ -1437,5 +1437,109 @@ document
   }
 }
 </style>
+<!-- QR THANH TOÁN -->
+<div id="paymentQR" class="payment-qr">
+  <div class="payment-box">
+    <button class="payment-close" onclick="closePaymentQR()">×</button>
+
+    <h2>💳 Thanh toán đơn hàng</h2>
+    <p>Quét mã QR bên dưới để thanh toán</p>
+
+    <img src="qr-thanh-toan.jpg" alt="QR thanh toán">
+
+    <div class="payment-info">
+      <strong>MB Bank</strong>
+      <br>
+      Số tài khoản: <strong>0978472704</strong>
+      <br>
+      Chủ tài khoản: <strong>TRAN NGOC HUNG</strong>
+    </div>
+
+    <button class="payment-done" onclick="closePaymentQR()">
+      ✅ Tôi đã thanh toán
+    </button>
+  </div>
+</div>
+
+<style>
+.payment-qr {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.75);
+  z-index: 10000;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.payment-box {
+  position: relative;
+  background: white;
+  width: 100%;
+  max-width: 400px;
+  border-radius: 20px;
+  padding: 25px;
+  text-align: center;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+}
+
+.payment-box h2 {
+  margin-top: 0;
+  color: #222;
+}
+
+.payment-box p {
+  color: #666;
+}
+
+.payment-box img {
+  width: 100%;
+  max-width: 320px;
+  border-radius: 10px;
+  margin: 10px auto;
+}
+
+.payment-info {
+  background: #f5f5f5;
+  border-radius: 12px;
+  padding: 12px;
+  line-height: 1.7;
+  margin-top: 10px;
+}
+
+.payment-close {
+  position: absolute;
+  right: 12px;
+  top: 8px;
+  border: none;
+  background: none;
+  font-size: 30px;
+  cursor: pointer;
+}
+
+.payment-done {
+  width: 100%;
+  margin-top: 15px;
+  padding: 13px;
+  border: none;
+  border-radius: 10px;
+  background: #16a34a;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+</style>
+
+<script>
+function openPaymentQR() {
+  document.getElementById("paymentQR").style.display = "flex";
+}
+
+function closePaymentQR() {
+  document.getElementById("paymentQR").style.display = "none";
+}
+</script>
 </body>
 </html>
