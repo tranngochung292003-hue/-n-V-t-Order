@@ -208,7 +208,38 @@
     </div>
 
     <button onclick="order()">
-      Đặt hàng
+
+  Đặt hàng
+
+</button>
+
+<div id="orderForm" style="display:none; margin-top:20px;">
+
+  <h3>📦 Thông tin đặt hàng</h3>
+
+  <input id="customerName" type="text" placeholder="Họ và tên"
+
+    style="width:100%; padding:12px; margin:8px 0;">
+
+  <input id="customerPhone" type="tel" placeholder="Số điện thoại"
+
+    style="width:100%; padding:12px; margin:8px 0;">
+
+  <textarea id="customerAddress" placeholder="Địa chỉ nhận hàng"
+
+    style="width:100%; padding:12px; margin:8px 0; height:80px;"></textarea>
+
+  <textarea id="customerNote" placeholder="Ghi chú"
+
+    style="width:100%; padding:12px; margin:8px 0; height:60px;"></textarea>
+
+  <button onclick="confirmOrder()">
+
+    Xác nhận đặt hàng
+
+  </button>
+
+</div>
     </button>
   </div>
 
