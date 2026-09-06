@@ -309,16 +309,14 @@
 
   function order() {
 
-    if (cart.length === 0) {
-      alert("Bạn chưa chọn món!");
-      return;
-    }
+  if (cart.length === 0) {
 
-    alert("Đã tạo đơn hàng! Bước tiếp theo chúng ta sẽ làm phần nhập thông tin khách hàng.");
+    alert("Bạn chưa chọn món!");
+
+    return;
 
   }
 
-</script>
+  document.getElementById("orderForm").style.display = "block";
 
-</body>
-</html>
+}
