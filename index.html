@@ -838,6 +838,126 @@
       XÁC NHẬN ĐẶT HÀNG
     */
     function confirmOrder() {
+
+  const name =
+
+    document.getElementById("customerName").value.trim();
+
+  const phone =
+
+    document.getElementById("customerPhone").value.trim();
+
+  const address =
+
+    document.getElementById("customerAddress").value.trim();
+
+  const note =
+
+    document.getElementById("customerNote").value.trim();
+
+  if (!name) {
+
+    alert("⚠️ Vui lòng nhập họ và tên!");
+
+    return;
+
+  }
+
+  if (!phone) {
+
+    alert("⚠️ Vui lòng nhập số điện thoại!");
+
+    return;
+
+  }
+
+  if (!address) {
+
+    alert("⚠️ Vui lòng nhập địa chỉ!");
+
+    return;
+
+  }
+
+  if (phone.length < 8) {
+
+    alert("⚠️ Số điện thoại chưa hợp lệ!");
+
+    return;
+
+  }
+
+  const orderCode =
+
+    "CC" + Date.now().toString().slice(-6);
+
+  const totalQuantity = cart.reduce(
+
+    (total, item) => total + item.quantity,
+
+    0
+
+  );
+
+  const itemsText = cart.map(
+
+    item => item.name + " x " + item.quantity
+
+  ).join(", ");
+
+  const orderData = {
+
+    code: orderCode,
+
+    name: name,
+
+    phone: phone,
+
+    address: address,
+
+    note: note,
+
+    items: itemsText,
+
+    quantity: totalQuantity,
+
+    createdAt: new Date().toLocaleString("vi-VN")
+
+  };
+
+  const GOOGLE_SCRIPT_URL =
+
+    "https://script.google.com/macros/s/AKfycbyJOhN6AdQYK7Rs9qpxaA4sOZvSboj7e2mwCYmehR1iKQDlIL3KaCTjhfJ3lFsZHi7R/exec";
+
+  fetch(GOOGLE_SCRIPT_URL, {
+
+    method: "POST",
+
+    mode: "no-cors",
+
+    headers: {
+
+      "Content-Type": "text/plain;charset=utf-8"
+
+    },
+
+    body: JSON.stringify(orderData)
+
+  });
+
+  localStorage.setItem(
+
+    "last_order",
+
+    JSON.stringify(orderData)
+
+  );
+
+  document.getElementById("formContent").style.display = "none";
+
+  document.getElementById("successBox").style.display = "block";
+
+}
       const name =
         document.getElementById(
           "customerName"
