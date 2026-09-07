@@ -1486,7 +1486,7 @@ function renderProducts(){
 
 <img
     class="product-image"
-src="./${product.image}"
+src="${product.image}"
     alt="${product.name}"
     loading="lazy"
     decoding="async"
@@ -2791,7 +2791,7 @@ async function loadProducts(){
     try{
 
         const response = await fetch(
-            API_URL + "?action=products"
+GOOGLE_SCRIPT_URL + "?action=products"
         );
 
 
