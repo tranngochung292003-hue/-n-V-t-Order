@@ -159,6 +159,7 @@ header{
     object-fit:cover;
     display:block;
     background:#111820;
+    content-visibility:auto;
 }
 
 .product-info{
@@ -1483,12 +1484,14 @@ function renderProducts(){
 
         <div class="product">
 
-            <img
-                class="product-image"
-                src="${product.image}"
-                alt="${product.name}"
-                onerror="this.style.display='none'"
-            >
+<img
+    class="product-image"
+    src="${product.image}"
+    alt="${product.name}"
+    loading="lazy"
+    decoding="async"
+    onerror="this.style.display='none'"
+>
 
             <div class="product-info">
 
@@ -2778,10 +2781,11 @@ async function loadProducts(){
 
     try{
 
-const response =
-    await fetch(
-        GOOGLE_SCRIPT_URL + "?action=products"
+if(action === "products"){
+    return jsonResponse(
+      getProducts()
     );
+}
 
 
         const data =
