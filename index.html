@@ -1486,11 +1486,11 @@ function renderProducts(){
 
 <img
     class="product-image"
-src="${product.image}"
+    src="${product.image}"
     alt="${product.name}"
     loading="lazy"
     decoding="async"
-
+    onerror="this.src='https://via.placeholder.com/300x300?text=No+Image'"
 >
 
             <div class="product-info">
