@@ -2781,7 +2781,10 @@ async function loadProducts(){
 
     try{
 
-
+        const response =
+            await fetch(
+                GOOGLE_SCRIPT_URL + "?action=products"
+            );
 
 
         const data =
@@ -2798,6 +2801,7 @@ async function loadProducts(){
 
             updateCart();
 
+
         }else{
 
             alert(
@@ -2805,6 +2809,19 @@ async function loadProducts(){
             );
 
         }
+
+
+    }catch(error){
+
+        console.log(error);
+
+        alert(
+            "Lỗi kết nối API"
+        );
+
+    }
+
+}
 
 
     }catch(error){
