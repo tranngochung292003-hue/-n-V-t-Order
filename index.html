@@ -1468,9 +1468,6 @@ function saveData(){
 ================================================== */
 
     /* ==================================================
-   RENDER PRODUCTS
-================================================== */
-
 function renderProducts(){
 
     const box =
@@ -1487,6 +1484,48 @@ function renderProducts(){
 
     products.forEach(product => {
 
+
+        box.innerHTML += `
+
+        <div class="product">
+
+            <img
+            class="product-image"
+            src="${product.image}"
+            alt="${product.name}"
+            onerror="this.style.display='none'"
+            >
+
+            <div class="product-info">
+
+                <div class="product-name">
+                    ${product.name}
+                </div>
+
+
+                <div class="product-price">
+                    ${money(product.price)}
+                </div>
+
+
+                <button
+                class="add-btn"
+                onclick="addToCart(${product.id})"
+                >
+                🛒 Thêm vào giỏ
+                </button>
+
+
+            </div>
+
+        </div>
+
+        `;
+
+
+    });
+
+}
 
         box.innerHTML += `
 
