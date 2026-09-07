@@ -1485,12 +1485,17 @@ function renderProducts(){
         <div class="product">
 
 <img
+
     class="product-image"
+
     src="${product.image}"
+
     alt="${product.name}"
+
     loading="lazy"
+
     decoding="async"
-    onerror="console.log('Lỗi ảnh:', this.src)"
+
 >
 
             <div class="product-info">
@@ -2782,7 +2787,6 @@ function closeWelcomePopup(){
 ============================== */
 
 
-const API_URL =
 "https://script.google.com/macros/s/AKfycbxva6g2yr098N7spmEGl_LbvNZKlDo_C2tPQUkI3IsAIpMyJtiGvPJhYNNXaGEXeUPm/exec";
     const API_URL = GOOGLE_SCRIPT_URL;
 
@@ -2792,46 +2796,34 @@ async function loadProducts(){
     try{
 
         const response = await fetch(
-    GOOGLE_SCRIPT_URL + "?action=products"
-);
 
+            GOOGLE_SCRIPT_URL + "?action=products"
 
-        const data =
-        await response.json();
+        );
 
-
-        console.log("PRODUCT DATA:",data);
-
+        const data = await response.json();
 
         if(data.success){
 
-            products =
-            data.products;
-
+            products = data.products;
 
             renderProducts();
 
-
             updateCart();
-
 
         }else{
 
-            alert(
-                "Không tải được sản phẩm"
-            );
+            console.log(data);
+
+            alert("Không tải được sản phẩm");
 
         }
-
 
     }catch(error){
 
         console.error(error);
 
-
-        alert(
-            "Lỗi kết nối API"
-        );
+        alert("Lỗi kết nối API");
 
     }
 
