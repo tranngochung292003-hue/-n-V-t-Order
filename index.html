@@ -2777,6 +2777,15 @@ function closeWelcomePopup(){
 ==================================================
 */
 
+/* ==============================
+   LOAD PRODUCTS
+============================== */
+
+
+const API_URL =
+"https://script.google.com/macros/s/AKfycbxva6g2yr098N7spmEGl_LbvNZKlDo_C2tPQUkI3IsAIpMyJtiGvPJhYNNXaGEXeUPm/exec";
+
+
 async function loadProducts(){
 
     try{
@@ -2786,20 +2795,26 @@ async function loadProducts(){
         );
 
 
-        const data = await response.json();
+        const data =
+        await response.json();
+
+
+        console.log("PRODUCT DATA:",data);
 
 
         if(data.success){
 
-            products = data.products;
+            products =
+            data.products;
+
 
             renderProducts();
 
+
             updateCart();
 
-        }else{
 
-            console.log(data);
+        }else{
 
             alert(
                 "Không tải được sản phẩm"
@@ -2810,7 +2825,8 @@ async function loadProducts(){
 
     }catch(error){
 
-        console.log(error);
+        console.error(error);
+
 
         alert(
             "Lỗi kết nối API"
@@ -2821,7 +2837,9 @@ async function loadProducts(){
 }
 
 
+
 loadProducts();
+
 
 openWelcomePopup();
 
