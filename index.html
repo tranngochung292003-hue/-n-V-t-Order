@@ -2782,19 +2782,17 @@ async function loadProducts(){
     try{
 
         const response =
-            await fetch(
-                GOOGLE_SCRIPT_URL + "?action=products"
-            );
+        await fetch(API_URL + "?action=products");
 
 
         const data =
-            await response.json();
+        await response.json();
 
 
         if(data.success){
 
             products =
-                data.products;
+            data.products;
 
 
             renderProducts();
@@ -2805,10 +2803,23 @@ async function loadProducts(){
         }else{
 
             alert(
-                "Không tải được sản phẩm"
+              "Không tải được sản phẩm"
             );
 
         }
+
+
+    }catch(error){
+
+        console.log(error);
+
+        alert(
+          "Lỗi kết nối API"
+        );
+
+    }
+
+}
 
 
     }catch(error){
@@ -2821,7 +2832,6 @@ async function loadProducts(){
 
     }
 
-}
 
 
     }catch(error){
