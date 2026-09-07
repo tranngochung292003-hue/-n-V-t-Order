@@ -2152,16 +2152,29 @@ async function useVoucherServer(
    CONFIRM ORDER
 ================================================== */
 
+```javascript
 async function confirmOrder(){
 
-    // CHỐNG BẤM NHIỀU LẦN
+    // ==============================
+    // CHỐNG GỬI ĐƠN TRÙNG
+    // ==============================
+
     const button = document.querySelector(
         '#orderModal .confirm-btn'
     );
 
+    if(!button){
+        return;
+    }
+
     if(button.disabled){
         return;
     }
+
+
+    // ==============================
+    // LẤY THÔNG TIN KHÁCH
+    // ==============================
 
     const name =
         document.getElementById(
@@ -2183,6 +2196,10 @@ async function confirmOrder(){
             "customerNote"
         ).value.trim();
 
+
+    // ==============================
+    // KIỂM TRA
+    // ==============================
 
     if(!name){
 
@@ -2216,19 +2233,32 @@ async function confirmOrder(){
     }
 
 
-    // TÍNH TIỀN HIỆN TẠI
+    // ==============================
+    // TÍNH TIỀN
+    // ==============================
+
     const finalData =
         calculateTotal();
 
 
+    // ==============================
     // KHÓA NÚT NGAY LẬP TỨC
+    // ==============================
+
     button.disabled = true;
 
-    const oldText = button.innerHTML;
+    button.style.opacity = "0.6";
+
+    const oldText =
+        button.innerHTML;
 
     button.innerHTML =
         "⏳ Đang gửi đơn...";
 
+
+    // ==============================
+    // TẠO MÃ ĐƠN
+    // ==============================
 
     const orderCode =
         "CC" +
@@ -2236,6 +2266,10 @@ async function confirmOrder(){
             .toString()
             .slice(-8);
 
+
+    // ==============================
+    // SẢN PHẨM
+    // ==============================
 
     const itemNames =
         cart
@@ -2257,9 +2291,15 @@ async function confirmOrder(){
 
     const quantities =
         cart
-            .map(item => item.quantity)
+            .map(item =>
+                item.quantity
+            )
             .join(", ");
 
+
+    // ==============================
+    // DỮ LIỆU ĐƠN
+    // ==============================
 
     const payload = {
 
@@ -2308,6 +2348,10 @@ async function confirmOrder(){
     };
 
 
+    // ==============================
+    // GỬI ĐƠN
+    // ==============================
+
     try{
 
         await fetch(
@@ -2332,7 +2376,10 @@ async function confirmOrder(){
         );
 
 
+        // ==============================
         // XÓA GIỎ HÀNG
+        // ==============================
+
         cart = [];
 
         appliedVoucher = null;
@@ -2343,8 +2390,17 @@ async function confirmOrder(){
 
         updateCart();
 
+
+        // ==============================
+        // ĐÓNG FORM
+        // ==============================
+
         closeOrderForm();
 
+
+        // ==============================
+        // THÔNG BÁO
+        // ==============================
 
         alert(
             "✅ Đặt hàng thành công!\n\n" +
@@ -2356,6 +2412,10 @@ async function confirmOrder(){
         );
 
 
+        // ==============================
+        // HIỆN QR
+        // ==============================
+
         openPaymentQR();
 
 
@@ -2363,8 +2423,11 @@ async function confirmOrder(){
 
         console.error(error);
 
-        // CHO PHÉP BẤM LẠI NẾU GỬI THẤT BẠI
+
+        // CHO PHÉP GỬI LẠI
         button.disabled = false;
+
+        button.style.opacity = "1";
 
         button.innerHTML =
             oldText;
@@ -2378,6 +2441,7 @@ async function confirmOrder(){
     }
 
 }
+```
 
 
 /* ==================================================
