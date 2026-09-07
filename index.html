@@ -432,6 +432,10 @@ header{
     font-weight:900;
 }
 
+.confirm-btn:disabled{
+    cursor:not-allowed;
+}
+
 /* PAYMENT QR */
 .payment-qr{
     display:none;
@@ -510,6 +514,7 @@ header{
     gap:10px;
     z-index:80;
 }
+
 .contact-btn{
     text-decoration:none;
     color:#fff;
@@ -523,6 +528,7 @@ header{
     background:#ff4fa3;
     color:#fff;
 }
+
 .zalo{
     background:#008fe5;
 }
@@ -536,6 +542,73 @@ footer{
     padding:30px 20px;
     color:#657483;
     border-top:1px solid #122331;
+}
+
+/* ==============================
+   POPUP CHÀO MỪNG
+============================== */
+
+.welcome-popup{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.82);
+    z-index:500;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+}
+
+.welcome-box{
+    width:100%;
+    max-width:450px;
+    background:linear-gradient(145deg,#0d1117,#071b2e);
+    border:1px solid #00d4ff;
+    border-radius:24px;
+    padding:28px 22px;
+    text-align:center;
+    box-shadow:0 0 35px rgba(0,212,255,.25);
+    animation:welcomeShow .35s ease;
+}
+
+.welcome-icon{
+    font-size:55px;
+    margin-bottom:10px;
+}
+
+.welcome-box h2{
+    color:#00d4ff;
+    font-size:26px;
+    margin-bottom:12px;
+}
+
+.welcome-box p{
+    color:#d9e2ea;
+    line-height:1.7;
+    margin-bottom:20px;
+}
+
+.welcome-close{
+    width:100%;
+    border:none;
+    padding:13px;
+    border-radius:12px;
+    background:linear-gradient(135deg,#00d4ff,#0077ff);
+    color:#001018;
+    font-size:16px;
+    font-weight:900;
+}
+
+@keyframes welcomeShow{
+    from{
+        opacity:0;
+        transform:scale(.9);
+    }
+
+    to{
+        opacity:1;
+        transform:scale(1);
+    }
 }
 
 /* MOBILE */
@@ -598,76 +671,14 @@ footer{
         width:100%;
     }
 }
-/* ==============================
-   POPUP CHÀO MỪNG
-============================== */
-
-.welcome-popup{
-    display:none;
-    position:fixed;
-    inset:0;
-    background:rgba(0,0,0,.82);
-    z-index:500;
-    align-items:center;
-    justify-content:center;
-    padding:20px;
-}
-
-.welcome-box{
-    width:100%;
-    max-width:450px;
-    background:linear-gradient(145deg,#0d1117,#071b2e);
-    border:1px solid #00d4ff;
-    border-radius:24px;
-    padding:28px 22px;
-    text-align:center;
-    box-shadow:0 0 35px rgba(0,212,255,.25);
-    animation:welcomeShow .35s ease;
-}
-
-.welcome-icon{
-    font-size:55px;
-    margin-bottom:10px;
-}
-
-.welcome-box h2{
-    color:#00d4ff;
-    font-size:26px;
-    margin-bottom:12px;
-}
-
-.welcome-box p{
-    color:#d9e2ea;
-    line-height:1.7;
-    margin-bottom:20px;
-}
-
-.welcome-close{
-    width:100%;
-    border:none;
-    padding:13px;
-    border-radius:12px;
-    background:linear-gradient(135deg,#00d4ff,#0077ff);
-    color:#001018;
-    font-size:16px;
-    font-weight:900;
-}
-
-@keyframes welcomeShow{
-    from{
-        opacity:0;
-        transform:scale(.9);
-    }
-    to{
-        opacity:1;
-        transform:scale(1);
-    }
-}
 </style>
 </head>
 
 <body>
-    <!-- POPUP CHÀO MỪNG -->
+
+<!-- ==============================
+     POPUP CHÀO MỪNG
+============================== -->
 
 <div id="welcomePopup" class="welcome-popup">
 
@@ -698,7 +709,11 @@ footer{
 
 </div>
 
+
+<!-- HEADER -->
+
 <header>
+
     <div class="header-inner">
 
         <div class="logo">
@@ -707,22 +722,34 @@ footer{
 
         <div class="header-actions">
 
-            <button class="header-btn" onclick="openWallet()">
+            <button
+                class="header-btn"
+                onclick="openWallet()"
+            >
                 💰 Số dư
             </button>
 
-            <button class="header-btn" onclick="openCart()">
+            <button
+                class="header-btn"
+                onclick="openCart()"
+            >
                 🛒 Giỏ hàng
             </button>
 
         </div>
+
     </div>
+
 </header>
 
 
+<!-- HERO -->
+
 <section class="hero">
 
-    <h1>Đặt Hàng Online</h1>
+    <h1>
+        Đặt Hàng Online
+    </h1>
 
     <p>
         ChiChuChe Shop — Đặt món nhanh chóng,
@@ -732,25 +759,52 @@ footer{
 </section>
 
 
+<!-- ACCOUNT -->
+
 <section class="account-box">
 
     <div class="account-card">
-        <small>💰 Số dư tài khoản</small>
-        <strong id="walletDisplay">0đ</strong>
+
+        <small>
+            💰 Số dư tài khoản
+        </small>
+
+        <strong id="walletDisplay">
+            0đ
+        </strong>
+
     </div>
 
-    <div class="account-card">
-        <small>🎟️ Voucher</small>
-        <strong id="voucherDisplay">0</strong>
-    </div>
 
     <div class="account-card">
-        <small>🛒 Sản phẩm trong giỏ</small>
-        <strong id="cartDisplay">0</strong>
+
+        <small>
+            🎟️ Voucher
+        </small>
+
+        <strong id="voucherDisplay">
+            0
+        </strong>
+
+    </div>
+
+
+    <div class="account-card">
+
+        <small>
+            🛒 Sản phẩm trong giỏ
+        </small>
+
+        <strong id="cartDisplay">
+            0
+        </strong>
+
     </div>
 
 </section>
 
+
+<!-- PRODUCTS -->
 
 <main class="container">
 
@@ -758,21 +812,40 @@ footer{
         🔥 Sản phẩm
     </h2>
 
-    <div id="products" class="products"></div>
+    <div
+        id="products"
+        class="products"
+    ></div>
 
 </main>
 
+
+<!-- CART BAR -->
 
 <div class="cart-bar">
 
     <div class="cart-inner">
 
         <div class="cart-summary">
-            🛒 <span id="cartCount">0</span> sản phẩm
-            · <span id="cartTotal">0đ</span>
+
+            🛒
+            <span id="cartCount">
+                0
+            </span>
+            sản phẩm
+
+            ·
+
+            <span id="cartTotal">
+                0đ
+            </span>
+
         </div>
 
-        <button class="checkout-btn" onclick="openCart()">
+        <button
+            class="checkout-btn"
+            onclick="openCart()"
+        >
             Xem giỏ hàng
         </button>
 
@@ -780,6 +853,8 @@ footer{
 
 </div>
 
+
+<!-- CONTACT -->
 
 <div class="contact-buttons">
 
@@ -790,13 +865,16 @@ footer{
     >
         💬 Zalo
     </a>
+
+
     <a
-    href="https://www.facebook.com/hunghauuu"
-    target="_blank"
-    class="contact-btn facebook"
->
-    📘 Facebook
-</a>
+        href="https://www.facebook.com/hunghauuu"
+        target="_blank"
+        class="contact-btn facebook"
+    >
+        📘 Facebook
+    </a>
+
 
     <a
         href="tel:0978472704"
@@ -810,13 +888,18 @@ footer{
 
 <!-- CART MODAL -->
 
-<div id="cartModal" class="modal">
+<div
+    id="cartModal"
+    class="modal"
+>
 
     <div class="modal-box">
 
         <div class="modal-header">
 
-            <h2>🛒 Giỏ hàng</h2>
+            <h2>
+                🛒 Giỏ hàng
+            </h2>
 
             <button
                 class="close-btn"
@@ -827,24 +910,48 @@ footer{
 
         </div>
 
+
         <div id="cartItems"></div>
 
 
         <div class="total-box">
 
             <div class="total-row">
-                <span>Tạm tính</span>
-                <strong id="subtotal">0đ</strong>
+
+                <span>
+                    Tạm tính
+                </span>
+
+                <strong id="subtotal">
+                    0đ
+                </strong>
+
             </div>
+
 
             <div class="total-row">
-                <span>Giảm voucher</span>
-                <strong id="discount">0đ</strong>
+
+                <span>
+                    Giảm voucher
+                </span>
+
+                <strong id="discount">
+                    0đ
+                </strong>
+
             </div>
 
+
             <div class="total-row total-final">
-                <span>Tổng</span>
-                <span id="finalTotal">0đ</span>
+
+                <span>
+                    Tổng
+                </span>
+
+                <span id="finalTotal">
+                    0đ
+                </span>
+
             </div>
 
         </div>
@@ -854,9 +961,13 @@ footer{
 
         <div class="voucher-box">
 
-            <strong>🎟️ Voucher của khách</strong>
+            <strong>
+                🎟️ Voucher của khách
+            </strong>
+
 
             <div class="form-group">
+
                 <label>
                     Số điện thoại được cấp voucher
                 </label>
@@ -866,7 +977,9 @@ footer{
                     type="tel"
                     placeholder="Nhập số điện thoại"
                 >
+
             </div>
+
 
             <div class="voucher-row">
 
@@ -876,11 +989,15 @@ footer{
                     placeholder="Ví dụ: GIAM10"
                 >
 
-                <button onclick="applyVoucher()">
+
+                <button
+                    onclick="applyVoucher()"
+                >
                     Áp dụng
                 </button>
 
             </div>
+
 
             <div
                 id="voucherMessage"
@@ -894,7 +1011,9 @@ footer{
 
         <div class="wallet-box">
 
-            <div>💰 Số dư hiện tại</div>
+            <div>
+                💰 Số dư hiện tại
+            </div>
 
             <div
                 class="wallet-balance"
@@ -902,6 +1021,7 @@ footer{
             >
                 0đ
             </div>
+
 
             <button
                 class="topup-btn"
@@ -927,13 +1047,18 @@ footer{
 
 <!-- ORDER MODAL -->
 
-<div id="orderModal" class="modal">
+<div
+    id="orderModal"
+    class="modal"
+>
 
     <div class="modal-box">
 
         <div class="modal-header">
 
-            <h2>📝 Thông tin đặt hàng</h2>
+            <h2>
+                📝 Thông tin đặt hàng
+            </h2>
 
             <button
                 class="close-btn"
@@ -947,7 +1072,9 @@ footer{
 
         <div class="form-group">
 
-            <label>Họ và tên *</label>
+            <label>
+                Họ và tên *
+            </label>
 
             <input
                 id="customerName"
@@ -960,7 +1087,9 @@ footer{
 
         <div class="form-group">
 
-            <label>Số điện thoại *</label>
+            <label>
+                Số điện thoại *
+            </label>
 
             <input
                 id="customerPhone"
@@ -973,7 +1102,9 @@ footer{
 
         <div class="form-group">
 
-            <label>Địa chỉ nhận hàng *</label>
+            <label>
+                Địa chỉ nhận hàng *
+            </label>
 
             <textarea
                 id="customerAddress"
@@ -985,7 +1116,9 @@ footer{
 
         <div class="form-group">
 
-            <label>Ghi chú</label>
+            <label>
+                Ghi chú
+            </label>
 
             <textarea
                 id="customerNote"
@@ -999,7 +1132,9 @@ footer{
 
             <div class="total-row">
 
-                <span>Tổng thanh toán</span>
+                <span>
+                    Tổng thanh toán
+                </span>
 
                 <strong
                     id="orderFinalTotal"
@@ -1014,6 +1149,7 @@ footer{
 
 
         <button
+            id="confirmOrderButton"
             class="confirm-btn"
             onclick="confirmOrder()"
         >
@@ -1027,13 +1163,18 @@ footer{
 
 <!-- WALLET MODAL -->
 
-<div id="walletModal" class="modal">
+<div
+    id="walletModal"
+    class="modal"
+>
 
     <div class="modal-box">
 
         <div class="modal-header">
 
-            <h2>💰 Ví của bạn</h2>
+            <h2>
+                💰 Ví của bạn
+            </h2>
 
             <button
                 class="close-btn"
@@ -1047,7 +1188,9 @@ footer{
 
         <div class="wallet-box">
 
-            <div>Số dư hiện tại</div>
+            <div>
+                Số dư hiện tại
+            </div>
 
             <div
                 class="wallet-balance"
@@ -1055,6 +1198,7 @@ footer{
             >
                 0đ
             </div>
+
 
             <button
                 class="topup-btn"
@@ -1082,13 +1226,18 @@ footer{
 
 <!-- TOPUP -->
 
-<div id="topupModal" class="modal">
+<div
+    id="topupModal"
+    class="modal"
+>
 
     <div class="modal-box">
 
         <div class="modal-header">
 
-            <h2>💳 Nạp tiền</h2>
+            <h2>
+                💳 Nạp tiền
+            </h2>
 
             <button
                 class="close-btn"
@@ -1111,7 +1260,9 @@ footer{
 
         <div class="form-group">
 
-            <label>Số tiền muốn nạp</label>
+            <label>
+                Số tiền muốn nạp
+            </label>
 
             <input
                 id="topupAmount"
@@ -1123,24 +1274,33 @@ footer{
         </div>
 
 
-        <div class="payment-info" style="
-            margin-top:18px;
-            padding:15px;
-            background:#07111c;
-            border-radius:12px;
-        ">
+        <div
+            class="payment-info"
+            style="
+                margin-top:18px;
+                padding:15px;
+                background:#07111c;
+                border-radius:12px;
+            "
+        >
 
-            <strong>MB Bank</strong>
+            <strong>
+                MB Bank
+            </strong>
 
             <br>
 
             Số tài khoản:
-            <strong>0978472704</strong>
+            <strong>
+                0978472704
+            </strong>
 
             <br>
 
             Chủ tài khoản:
-            <strong>TRAN NGOC HUNG</strong>
+            <strong>
+                TRAN NGOC HUNG
+            </strong>
 
         </div>
 
@@ -1159,7 +1319,10 @@ footer{
 
 <!-- PAYMENT QR -->
 
-<div id="paymentQR" class="payment-qr">
+<div
+    id="paymentQR"
+    class="payment-qr"
+>
 
     <div class="payment-box">
 
@@ -1170,32 +1333,45 @@ footer{
             ×
         </button>
 
-        <h2>💳 Thanh toán</h2>
+
+        <h2>
+            💳 Thanh toán
+        </h2>
+
 
         <p>
             Quét mã QR bên dưới để thanh toán
         </p>
+
 
         <img
             src="QR NH.jpg"
             alt="QR thanh toán"
         >
 
+
         <div class="payment-info">
 
-            <strong>MB Bank</strong>
+            <strong>
+                MB Bank
+            </strong>
 
             <br>
 
             Số tài khoản:
-            <strong>0978472704</strong>
+            <strong>
+                0978472704
+            </strong>
 
             <br>
 
             Chủ tài khoản:
-            <strong>TRAN NGOC HUNG</strong>
+            <strong>
+                TRAN NGOC HUNG
+            </strong>
 
         </div>
+
 
         <button
             class="payment-done"
@@ -1208,6 +1384,8 @@ footer{
 
 </div>
 
+
+<!-- FOOTER -->
 
 <footer>
     © 2026 ChiChuChe Shop · Đặt hàng online
@@ -1321,6 +1499,10 @@ function renderProducts(){
     const box =
         document.getElementById("products");
 
+    if(!box){
+        return;
+    }
+
     box.innerHTML = "";
 
     products.forEach(product => {
@@ -1385,12 +1567,6 @@ function addToCart(id){
         });
 
     }
-
-    /*
-      Khi thay đổi giỏ hàng,
-      voucher cũ có thể không còn đủ điều kiện.
-      Vì vậy yêu cầu khách áp dụng lại voucher.
-    */
 
     appliedVoucher = null;
 
@@ -1517,7 +1693,9 @@ function renderCart(){
                 p => p.id === item.id
             );
 
-        if(!product) return;
+        if(!product){
+            return;
+        }
 
 
         box.innerHTML += `
@@ -1540,10 +1718,7 @@ function renderCart(){
                 <div class="quantity">
 
                     <button
-                        onclick="changeQuantity(
-                            ${product.id},
-                            -1
-                        )"
+                        onclick="changeQuantity(${product.id},-1)"
                     >
                         −
                     </button>
@@ -1553,19 +1728,14 @@ function renderCart(){
                     </strong>
 
                     <button
-                        onclick="changeQuantity(
-                            ${product.id},
-                            1
-                        )"
+                        onclick="changeQuantity(${product.id},1)"
                     >
                         +
                     </button>
 
                     <button
                         class="remove-btn"
-                        onclick="removeItem(
-                            ${product.id}
-                        )"
+                        onclick="removeItem(${product.id})"
                     >
                         ✕
                     </button>
@@ -1595,7 +1765,9 @@ function changeQuantity(id,change){
             item => item.id === id
         );
 
-    if(!item) return;
+    if(!item){
+        return;
+    }
 
 
     item.quantity += change;
@@ -1645,7 +1817,7 @@ function removeItem(id){
 
 
 /* ==================================================
-   TÍNH TẠM TÍNH
+   SUBTOTAL
 ================================================== */
 
 function getSubtotal(){
@@ -1785,25 +1957,19 @@ function checkVoucherServer(
 
 
 /* ==================================================
-   ÁP DỤNG VOUCHER
+   APPLY VOUCHER
 ================================================== */
 
 async function applyVoucher(){
 
     const codeInput =
-        document.getElementById(
-            "voucherInput"
-        );
+        document.getElementById("voucherInput");
 
     const phoneInput =
-        document.getElementById(
-            "voucherPhone"
-        );
+        document.getElementById("voucherPhone");
 
     const message =
-        document.getElementById(
-            "voucherMessage"
-        );
+        document.getElementById("voucherMessage");
 
 
     const code =
@@ -1915,13 +2081,12 @@ async function applyVoucher(){
 
             message.textContent =
                 "✅ " +
-                (result.message ||
-                "Voucher đã được áp dụng.")
-                +
-                " Giảm "
-                +
-                money(result.discount)
-                +
+                (
+                    result.message ||
+                    "Voucher đã được áp dụng."
+                ) +
+                " Giảm " +
+                money(result.discount) +
                 ".";
 
 
@@ -2131,9 +2296,8 @@ function requestTopup(){
 
     const amount =
         Number(
-            document.getElementById(
-                "topupAmount"
-            ).value
+            document.getElementById("topupAmount")
+                .value
         );
 
 
@@ -2147,11 +2311,6 @@ function requestTopup(){
 
     }
 
-
-    /*
-      Phần này hiện chỉ ghi nhận yêu cầu.
-      Số dư thực tế chưa được tự động cộng.
-    */
 
     alert(
         "Đã ghi nhận yêu cầu nạp "
@@ -2192,7 +2351,7 @@ function closePaymentQR(){
 
 
 /* ==================================================
-   DÙNG VOUCHER SAU KHI ĐẶT HÀNG
+   USE VOUCHER
 ================================================== */
 
 async function useVoucherServer(
@@ -2247,44 +2406,53 @@ async function useVoucherServer(
    CONFIRM ORDER
 ================================================== */
 
-```javascript
 async function confirmOrder(){
 
-    // ==============================
-    // CHỐNG GỬI ĐƠN TRÙNG
-    // ==============================
+    /* ==============================
+       LẤY NÚT
+    ============================== */
 
-    const button = document.querySelector(
-        '#orderModal .confirm-btn'
-    );
+    const button =
+        document.getElementById(
+            "confirmOrderButton"
+        );
+
 
     if(!button){
         return;
     }
+
+
+    /* ==============================
+       CHỐNG BẤM TRÙNG
+    ============================== */
 
     if(button.disabled){
         return;
     }
 
 
-    // ==============================
-    // LẤY THÔNG TIN KHÁCH
-    // ==============================
+    /* ==============================
+       LẤY THÔNG TIN
+    ============================== */
 
     const name =
         document.getElementById(
             "customerName"
         ).value.trim();
 
+
     const phone =
         document.getElementById(
             "customerPhone"
         ).value.trim();
 
+
     const address =
         document.getElementById(
             "customerAddress"
         ).value.trim();
+
 
     const note =
         document.getElementById(
@@ -2292,13 +2460,16 @@ async function confirmOrder(){
         ).value.trim();
 
 
-    // ==============================
-    // KIỂM TRA
-    // ==============================
+    /* ==============================
+       KIỂM TRA
+    ============================== */
 
     if(!name){
 
-        alert("Vui lòng nhập họ tên.");
+        alert(
+            "Vui lòng nhập họ tên."
+        );
+
         return;
 
     }
@@ -2306,7 +2477,10 @@ async function confirmOrder(){
 
     if(!phone){
 
-        alert("Vui lòng nhập số điện thoại.");
+        alert(
+            "Vui lòng nhập số điện thoại."
+        );
+
         return;
 
     }
@@ -2314,7 +2488,10 @@ async function confirmOrder(){
 
     if(!address){
 
-        alert("Vui lòng nhập địa chỉ.");
+        alert(
+            "Vui lòng nhập địa chỉ."
+        );
+
         return;
 
     }
@@ -2322,38 +2499,44 @@ async function confirmOrder(){
 
     if(cart.length === 0){
 
-        alert("🛒 Giỏ hàng đang trống.");
+        alert(
+            "🛒 Giỏ hàng đang trống."
+        );
+
         return;
 
     }
 
 
-    // ==============================
-    // TÍNH TIỀN
-    // ==============================
+    /* ==============================
+       TÍNH TIỀN
+    ============================== */
 
     const finalData =
         calculateTotal();
 
 
-    // ==============================
-    // KHÓA NÚT NGAY LẬP TỨC
-    // ==============================
-
-    button.disabled = true;
-
-    button.style.opacity = "0.6";
+    /* ==============================
+       KHÓA NÚT NGAY LẬP TỨC
+    ============================== */
 
     const oldText =
         button.innerHTML;
+
+
+    button.disabled =
+        true;
+
+    button.style.opacity =
+        "0.6";
 
     button.innerHTML =
         "⏳ Đang gửi đơn...";
 
 
-    // ==============================
-    // TẠO MÃ ĐƠN
-    // ==============================
+    /* ==============================
+       TẠO MÃ ĐƠN
+    ============================== */
 
     const orderCode =
         "CC" +
@@ -2362,9 +2545,9 @@ async function confirmOrder(){
             .slice(-8);
 
 
-    // ==============================
-    // SẢN PHẨM
-    // ==============================
+    /* ==============================
+       SẢN PHẨM
+    ============================== */
 
     const itemNames =
         cart
@@ -2376,7 +2559,7 @@ async function confirmOrder(){
                     );
 
                 return product
-                    ? product.name
+                    ? product.name + " x" + item.quantity
                     : "";
 
             })
@@ -2392,9 +2575,9 @@ async function confirmOrder(){
             .join(", ");
 
 
-    // ==============================
-    // DỮ LIỆU ĐƠN
-    // ==============================
+    /* ==============================
+       DỮ LIỆU ĐƠN
+    ============================== */
 
     const payload = {
 
@@ -2443,9 +2626,9 @@ async function confirmOrder(){
     };
 
 
-    // ==============================
-    // GỬI ĐƠN
-    // ==============================
+    /* ==============================
+       GỬI ĐƠN
+    ============================== */
 
     try{
 
@@ -2471,9 +2654,27 @@ async function confirmOrder(){
         );
 
 
-        // ==============================
-        // XÓA GIỎ HÀNG
-        // ==============================
+        /* ==============================
+           ĐÁNH DẤU VOUCHER ĐÃ DÙNG
+        ============================== */
+
+        if(
+            appliedVoucher &&
+            appliedVoucher.code &&
+            appliedVoucher.phone
+        ){
+
+            useVoucherServer(
+                appliedVoucher.phone,
+                appliedVoucher.code
+            );
+
+        }
+
+
+        /* ==============================
+           XÓA GIỎ HÀNG
+        ============================== */
 
         cart = [];
 
@@ -2486,16 +2687,16 @@ async function confirmOrder(){
         updateCart();
 
 
-        // ==============================
-        // ĐÓNG FORM
-        // ==============================
+        /* ==============================
+           ĐÓNG FORM
+        ============================== */
 
         closeOrderForm();
 
 
-        // ==============================
-        // THÔNG BÁO
-        // ==============================
+        /* ==============================
+           THÔNG BÁO
+        ============================== */
 
         alert(
             "✅ Đặt hàng thành công!\n\n" +
@@ -2507,11 +2708,25 @@ async function confirmOrder(){
         );
 
 
-        // ==============================
-        // HIỆN QR
-        // ==============================
+        /* ==============================
+           HIỆN QR
+        ============================== */
 
         openPaymentQR();
+
+
+        /* ==============================
+           RESET NÚT
+        ============================== */
+
+        button.disabled =
+            false;
+
+        button.style.opacity =
+            "1";
+
+        button.innerHTML =
+            oldText;
 
 
     }catch(error){
@@ -2519,10 +2734,15 @@ async function confirmOrder(){
         console.error(error);
 
 
-        // CHO PHÉP GỬI LẠI
-        button.disabled = false;
+        /* ==============================
+           CHO PHÉP GỬI LẠI
+        ============================== */
 
-        button.style.opacity = "1";
+        button.disabled =
+            false;
+
+        button.style.opacity =
+            "1";
 
         button.innerHTML =
             oldText;
@@ -2536,7 +2756,6 @@ async function confirmOrder(){
     }
 
 }
-```
 
 
 /* ==================================================
@@ -2545,22 +2764,40 @@ async function confirmOrder(){
 
 function openWelcomePopup(){
 
-    document.getElementById("welcomePopup")
-        .style.display = "flex";
+    const popup =
+        document.getElementById(
+            "welcomePopup"
+        );
+
+    if(popup){
+
+        popup.style.display =
+            "flex";
+
+    }
 
 }
 
 
 function closeWelcomePopup(){
 
-    document.getElementById("welcomePopup")
-        .style.display = "none";
+    const popup =
+        document.getElementById(
+            "welcomePopup"
+        );
+
+    if(popup){
+
+        popup.style.display =
+            "none";
+
+    }
 
 }
 
 
 /* ==================================================
-   START
+   START WEBSITE
 ================================================== */
 
 renderProducts();
