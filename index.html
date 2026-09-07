@@ -2781,29 +2781,26 @@ async function loadProducts(){
 
     try{
 
-        const response =
-        await fetch(API_URL + "?action=products");
+        const response = await fetch(
+            API_URL + "?action=products"
+        );
 
 
-        const data =
-        await response.json();
+        const data = await response.json();
 
 
         if(data.success){
 
-            products =
-            data.products;
-
+            products = data.products;
 
             renderProducts();
 
             updateCart();
 
-
         }else{
 
             alert(
-              "Không tải được sản phẩm"
+                "Không tải được sản phẩm"
             );
 
         }
@@ -2814,42 +2811,17 @@ async function loadProducts(){
         console.log(error);
 
         alert(
-          "Lỗi kết nối API"
-        );
-
-    }
-
-}
-
-
-    catch(error){
-
-        console.log(error);
-
-        alert(
-            "Lỗi kết nối API"
-        );
-
-    }
-
-
-
-    }catch(error){
-
-        console.log(error);
-
-        alert(
             "Lỗi kết nối API"
         );
 
     }
 
 }
-
 
 
 loadProducts();
 
+openWelcomePopup();
 openWelcomePopup();
 
 </script>
