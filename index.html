@@ -2778,10 +2778,11 @@ async function loadProducts(){
 
     try{
 
-        const response =
-            await fetch(
-                GOOGLE_SCRIPT_URL
-            );
+const response =
+    await fetch(
+        GOOGLE_SCRIPT_URL +
+        "?action=getProducts"
+    );
 
 
         const data =
