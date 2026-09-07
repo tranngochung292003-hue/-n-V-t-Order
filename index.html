@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="vi">
 <head>
 <meta charset="UTF-8">
@@ -510,6 +511,7 @@ header{
     gap:10px;
     z-index:80;
 }
+
 .contact-btn{
     text-decoration:none;
     color:#fff;
@@ -523,6 +525,7 @@ header{
     background:#ff4fa3;
     color:#fff;
 }
+
 .zalo{
     background:#008fe5;
 }
@@ -598,10 +601,8 @@ footer{
         width:100%;
     }
 }
-/* ==============================
-   POPUP CHÀO MỪNG
-============================== */
 
+/* POPUP CHÀO MỪNG */
 .welcome-popup{
     display:none;
     position:fixed;
@@ -664,133 +665,181 @@ footer{
     }
 }
 </style>
+
 </head>
 
 <body>
-    <!-- POPUP CHÀO MỪNG -->
+
+<!-- POPUP CHÀO MỪNG -->
 
 <div id="welcomePopup" class="welcome-popup">
 
-    <div class="welcome-box">
+```
+<div class="welcome-box">
 
-        <div class="welcome-icon">
-            🛍️
-        </div>
-
-        <h2>
-            Chào mừng đến ChiChuChe Shop!
-        </h2>
-
-        <p>
-            🎉 Cảm ơn bạn đã ghé thăm shop.<br>
-            🛒 Chúc bạn mua hàng vui vẻ!<br>
-            💙 Cảm ơn bạn đã ủng hộ ChiChuChe Shop.
-        </p>
-
-        <button
-            class="welcome-close"
-            onclick="closeWelcomePopup()"
-        >
-            ✅ Đã hiểu
-        </button>
-
+    <div class="welcome-icon">
+        🛍️
     </div>
+
+    <h2>
+        Chào mừng đến ChiChuChe Shop!
+    </h2>
+
+    <p>
+        🎉 Cảm ơn bạn đã ghé thăm shop.<br>
+        🛒 Chúc bạn mua hàng vui vẻ!<br>
+        💙 Cảm ơn bạn đã ủng hộ ChiChuChe Shop.
+    </p>
+
+    <button
+        class="welcome-close"
+        onclick="closeWelcomePopup()"
+    >
+        ✅ Đã hiểu
+    </button>
+
+</div>
+```
 
 </div>
 
 <header>
-    <div class="header-inner">
 
-        <div class="logo">
-            🛍️ <span>ChiChuChe</span> Shop
-        </div>
+```
+<div class="header-inner">
 
-        <div class="header-actions">
-
-            <button class="header-btn" onclick="openWallet()">
-                💰 Số dư
-            </button>
-
-            <button class="header-btn" onclick="openCart()">
-                🛒 Giỏ hàng
-            </button>
-
-        </div>
-    </div>
-</header>
-
-
-<section class="hero">
-
-    <h1>Đặt Hàng Online</h1>
-
-    <p>
-        ChiChuChe Shop — Đặt món nhanh chóng,
-        tiện lợi và an toàn.
-    </p>
-
-</section>
-
-
-<section class="account-box">
-
-    <div class="account-card">
-        <small>💰 Số dư tài khoản</small>
-        <strong id="walletDisplay">0đ</strong>
+    <div class="logo">
+        🛍️ <span>ChiChuChe</span> Shop
     </div>
 
-    <div class="account-card">
-        <small>🎟️ Voucher</small>
-        <strong id="voucherDisplay">0</strong>
-    </div>
+    <div class="header-actions">
 
-    <div class="account-card">
-        <small>🛒 Sản phẩm trong giỏ</small>
-        <strong id="cartDisplay">0</strong>
-    </div>
+        <button
+            class="header-btn"
+            onclick="openWallet()"
+        >
+            💰 Số dư
+        </button>
 
-</section>
-
-
-<main class="container">
-
-    <h2 class="section-title">
-        🔥 Sản phẩm
-    </h2>
-
-    <div id="products" class="products"></div>
-
-</main>
-
-
-<div class="cart-bar">
-
-    <div class="cart-inner">
-
-        <div class="cart-summary">
-            🛒 <span id="cartCount">0</span> sản phẩm
-            · <span id="cartTotal">0đ</span>
-        </div>
-
-        <button class="checkout-btn" onclick="openCart()">
-            Xem giỏ hàng
+        <button
+            class="header-btn"
+            onclick="openCart()"
+        >
+            🛒 Giỏ hàng
         </button>
 
     </div>
 
 </div>
+```
 
+</header>
+
+<section class="hero">
+
+```
+<h1>Đặt Hàng Online</h1>
+
+<p>
+    ChiChuChe Shop — Đặt món nhanh chóng,
+    tiện lợi và an toàn.
+</p>
+```
+
+</section>
+
+<section class="account-box">
+
+```
+<div class="account-card">
+
+    <small>💰 Số dư tài khoản</small>
+
+    <strong id="walletDisplay">
+        0đ
+    </strong>
+
+</div>
+
+<div class="account-card">
+
+    <small>🎟️ Voucher</small>
+
+    <strong id="voucherDisplay">
+        0
+    </strong>
+
+</div>
+
+<div class="account-card">
+
+    <small>🛒 Sản phẩm trong giỏ</small>
+
+    <strong id="cartDisplay">
+        0
+    </strong>
+
+</div>
+```
+
+</section>
+
+<main class="container">
+
+```
+<h2 class="section-title">
+    🔥 Sản phẩm
+</h2>
+
+<div
+    id="products"
+    class="products"
+></div>
+```
+
+</main>
+
+<div class="cart-bar">
+
+```
+<div class="cart-inner">
+
+    <div class="cart-summary">
+
+        🛒
+        <span id="cartCount">0</span>
+        sản phẩm
+
+        ·
+
+        <span id="cartTotal">0đ</span>
+
+    </div>
+
+    <button
+        class="checkout-btn"
+        onclick="openCart()"
+    >
+        Xem giỏ hàng
+    </button>
+
+</div>
+```
+
+</div>
 
 <div class="contact-buttons">
 
-    <a
-        href="https://zalo.me/0978472704"
-        target="_blank"
-        class="contact-btn zalo"
-    >
-        💬 Zalo
-    </a>
-    <a
+```
+<a
+    href="https://zalo.me/0978472704"
+    target="_blank"
+    class="contact-btn zalo"
+>
+    💬 Zalo
+</a>
+
+<a
     href="https://www.facebook.com/hunghauuu"
     target="_blank"
     class="contact-btn facebook"
@@ -798,421 +847,484 @@ footer{
     📘 Facebook
 </a>
 
-    <a
-        href="tel:0978472704"
-        class="contact-btn phone"
-    >
-        📞 Gọi
-    </a>
+<a
+    href="tel:0978472704"
+    class="contact-btn phone"
+>
+    📞 Gọi
+</a>
+```
 
 </div>
 
-
 <!-- CART MODAL -->
 
-<div id="cartModal" class="modal">
+<div
+    id="cartModal"
+    class="modal"
+>
 
-    <div class="modal-box">
+```
+<div class="modal-box">
 
-        <div class="modal-header">
+    <div class="modal-header">
 
-            <h2>🛒 Giỏ hàng</h2>
-
-            <button
-                class="close-btn"
-                onclick="closeCart()"
-            >
-                ×
-            </button>
-
-        </div>
-
-        <div id="cartItems"></div>
-
-
-        <div class="total-box">
-
-            <div class="total-row">
-                <span>Tạm tính</span>
-                <strong id="subtotal">0đ</strong>
-            </div>
-
-            <div class="total-row">
-                <span>Giảm voucher</span>
-                <strong id="discount">0đ</strong>
-            </div>
-
-            <div class="total-row total-final">
-                <span>Tổng</span>
-                <span id="finalTotal">0đ</span>
-            </div>
-
-        </div>
-
-
-        <!-- VOUCHER -->
-
-        <div class="voucher-box">
-
-            <strong>🎟️ Voucher của khách</strong>
-
-            <div class="form-group">
-                <label>
-                    Số điện thoại được cấp voucher
-                </label>
-
-                <input
-                    id="voucherPhone"
-                    type="tel"
-                    placeholder="Nhập số điện thoại"
-                >
-            </div>
-
-            <div class="voucher-row">
-
-                <input
-                    id="voucherInput"
-                    type="text"
-                    placeholder="Ví dụ: GIAM10"
-                >
-
-                <button onclick="applyVoucher()">
-                    Áp dụng
-                </button>
-
-            </div>
-
-            <div
-                id="voucherMessage"
-                class="voucher-message"
-            ></div>
-
-        </div>
-
-
-        <!-- WALLET -->
-
-        <div class="wallet-box">
-
-            <div>💰 Số dư hiện tại</div>
-
-            <div
-                class="wallet-balance"
-                id="walletModalDisplay"
-            >
-                0đ
-            </div>
-
-            <button
-                class="topup-btn"
-                onclick="openTopup()"
-            >
-                ➕ Nạp tiền
-            </button>
-
-        </div>
-
+        <h2>🛒 Giỏ hàng</h2>
 
         <button
-            class="confirm-btn"
-            onclick="openOrderForm()"
+            class="close-btn"
+            onclick="closeCart()"
         >
-            Tiếp tục đặt hàng
+            ×
         </button>
 
     </div>
 
-</div>
+    <div id="cartItems"></div>
 
+    <div class="total-box">
 
-<!-- ORDER MODAL -->
+        <div class="total-row">
 
-<div id="orderModal" class="modal">
+            <span>Tạm tính</span>
 
-    <div class="modal-box">
-
-        <div class="modal-header">
-
-            <h2>📝 Thông tin đặt hàng</h2>
-
-            <button
-                class="close-btn"
-                onclick="closeOrderForm()"
-            >
-                ×
-            </button>
+            <strong id="subtotal">
+                0đ
+            </strong>
 
         </div>
 
+        <div class="total-row">
 
-        <div class="form-group">
+            <span>Giảm voucher</span>
 
-            <label>Họ và tên *</label>
-
-            <input
-                id="customerName"
-                type="text"
-                placeholder="Nhập họ tên"
-            >
+            <strong id="discount">
+                0đ
+            </strong>
 
         </div>
 
+        <div class="total-row total-final">
+
+            <span>Tổng</span>
+
+            <span id="finalTotal">
+                0đ
+            </span>
+
+        </div>
+
+    </div>
+
+    <!-- VOUCHER -->
+
+    <div class="voucher-box">
+
+        <strong>
+            🎟️ Voucher của khách
+        </strong>
 
         <div class="form-group">
 
-            <label>Số điện thoại *</label>
+            <label>
+                Số điện thoại được cấp voucher
+            </label>
 
             <input
-                id="customerPhone"
+                id="voucherPhone"
                 type="tel"
                 placeholder="Nhập số điện thoại"
             >
 
         </div>
 
-
-        <div class="form-group">
-
-            <label>Địa chỉ nhận hàng *</label>
-
-            <textarea
-                id="customerAddress"
-                placeholder="Nhập địa chỉ nhận hàng"
-            ></textarea>
-
-        </div>
-
-
-        <div class="form-group">
-
-            <label>Ghi chú</label>
-
-            <textarea
-                id="customerNote"
-                placeholder="Ví dụ: giao buổi tối..."
-            ></textarea>
-
-        </div>
-
-
-        <div class="total-box">
-
-            <div class="total-row">
-
-                <span>Tổng thanh toán</span>
-
-                <strong
-                    id="orderFinalTotal"
-                    class="total-final"
-                >
-                    0đ
-                </strong>
-
-            </div>
-
-        </div>
-
-
-        <button
-            class="confirm-btn"
-            onclick="confirmOrder()"
-        >
-            ✅ Xác nhận đặt hàng
-        </button>
-
-    </div>
-
-</div>
-
-
-<!-- WALLET MODAL -->
-
-<div id="walletModal" class="modal">
-
-    <div class="modal-box">
-
-        <div class="modal-header">
-
-            <h2>💰 Ví của bạn</h2>
-
-            <button
-                class="close-btn"
-                onclick="closeWallet()"
-            >
-                ×
-            </button>
-
-        </div>
-
-
-        <div class="wallet-box">
-
-            <div>Số dư hiện tại</div>
-
-            <div
-                class="wallet-balance"
-                id="walletBigDisplay"
-            >
-                0đ
-            </div>
-
-            <button
-                class="topup-btn"
-                onclick="openTopup()"
-            >
-                ➕ Nạp tiền
-            </button>
-
-        </div>
-
-
-        <p style="
-            margin-top:18px;
-            color:#8795a3;
-            line-height:1.6;
-        ">
-            Bạn có thể nạp tiền vào ví để sử dụng
-            khi thanh toán đơn hàng.
-        </p>
-
-    </div>
-
-</div>
-
-
-<!-- TOPUP -->
-
-<div id="topupModal" class="modal">
-
-    <div class="modal-box">
-
-        <div class="modal-header">
-
-            <h2>💳 Nạp tiền</h2>
-
-            <button
-                class="close-btn"
-                onclick="closeTopup()"
-            >
-                ×
-            </button>
-
-        </div>
-
-
-        <p style="
-            color:#9ba9b7;
-            line-height:1.6;
-        ">
-            Chọn số tiền muốn nạp, sau đó chuyển khoản
-            theo thông tin bên dưới.
-        </p>
-
-
-        <div class="form-group">
-
-            <label>Số tiền muốn nạp</label>
+        <div class="voucher-row">
 
             <input
-                id="topupAmount"
-                type="number"
-                min="10000"
-                placeholder="Ví dụ: 100000"
+                id="voucherInput"
+                type="text"
+                placeholder="Ví dụ: GIAM10"
             >
 
-        </div>
-
-
-        <div class="payment-info" style="
-            margin-top:18px;
-            padding:15px;
-            background:#07111c;
-            border-radius:12px;
-        ">
-
-            <strong>MB Bank</strong>
-
-            <br>
-
-            Số tài khoản:
-            <strong>0978472704</strong>
-
-            <br>
-
-            Chủ tài khoản:
-            <strong>TRAN NGOC HUNG</strong>
+            <button
+                onclick="applyVoucher()"
+            >
+                Áp dụng
+            </button>
 
         </div>
 
+        <div
+            id="voucherMessage"
+            class="voucher-message"
+        ></div>
+
+    </div>
+
+    <!-- WALLET -->
+
+    <div class="wallet-box">
+
+        <div>
+            💰 Số dư hiện tại
+        </div>
+
+        <div
+            class="wallet-balance"
+            id="walletModalDisplay"
+        >
+            0đ
+        </div>
 
         <button
-            class="confirm-btn"
-            onclick="requestTopup()"
+            class="topup-btn"
+            onclick="openTopup()"
         >
-            📤 Tôi đã chuyển khoản
+            ➕ Nạp tiền
         </button>
 
     </div>
 
+    <button
+        class="confirm-btn"
+        onclick="openOrderForm()"
+    >
+        Tiếp tục đặt hàng
+    </button>
+
+</div>
+```
+
 </div>
 
+<!-- ORDER MODAL -->
 
-<!-- PAYMENT QR -->
+<div
+    id="orderModal"
+    class="modal"
+>
 
-<div id="paymentQR" class="payment-qr">
+```
+<div class="modal-box">
 
-    <div class="payment-box">
+    <div class="modal-header">
+
+        <h2>
+            📝 Thông tin đặt hàng
+        </h2>
 
         <button
-            class="payment-close"
-            onclick="closePaymentQR()"
+            class="close-btn"
+            onclick="closeOrderForm()"
         >
             ×
         </button>
 
-        <h2>💳 Thanh toán</h2>
+    </div>
 
-        <p>
-            Quét mã QR bên dưới để thanh toán
-        </p>
+    <div class="form-group">
 
-        <img
-            src="QR NH.jpg"
-            alt="QR thanh toán"
+        <label>
+            Họ và tên *
+        </label>
+
+        <input
+            id="customerName"
+            type="text"
+            placeholder="Nhập họ tên"
         >
 
-        <div class="payment-info">
+    </div>
 
-            <strong>MB Bank</strong>
+    <div class="form-group">
 
-            <br>
+        <label>
+            Số điện thoại *
+        </label>
 
-            Số tài khoản:
-            <strong>0978472704</strong>
+        <input
+            id="customerPhone"
+            type="tel"
+            placeholder="Nhập số điện thoại"
+        >
 
-            <br>
+    </div>
 
-            Chủ tài khoản:
-            <strong>TRAN NGOC HUNG</strong>
+    <div class="form-group">
+
+        <label>
+            Địa chỉ nhận hàng *
+        </label>
+
+        <textarea
+            id="customerAddress"
+            placeholder="Nhập địa chỉ nhận hàng"
+        ></textarea>
+
+    </div>
+
+    <div class="form-group">
+
+        <label>
+            Ghi chú
+        </label>
+
+        <textarea
+            id="customerNote"
+            placeholder="Ví dụ: giao buổi tối..."
+        ></textarea>
+
+    </div>
+
+    <div class="total-box">
+
+        <div class="total-row">
+
+            <span>
+                Tổng thanh toán
+            </span>
+
+            <strong
+                id="orderFinalTotal"
+                class="total-final"
+            >
+                0đ
+            </strong>
 
         </div>
 
+    </div>
+
+    <button
+        class="confirm-btn"
+        onclick="confirmOrder()"
+    >
+        ✅ Xác nhận đặt hàng
+    </button>
+
+</div>
+```
+
+</div>
+
+<!-- WALLET MODAL -->
+
+<div
+    id="walletModal"
+    class="modal"
+>
+
+```
+<div class="modal-box">
+
+    <div class="modal-header">
+
+        <h2>
+            💰 Ví của bạn
+        </h2>
+
         <button
-            class="payment-done"
-            onclick="closePaymentQR()"
+            class="close-btn"
+            onclick="closeWallet()"
         >
-            ✅ Tôi đã thanh toán
+            ×
         </button>
 
     </div>
 
+    <div class="wallet-box">
+
+        <div>
+            Số dư hiện tại
+        </div>
+
+        <div
+            class="wallet-balance"
+            id="walletBigDisplay"
+        >
+            0đ
+        </div>
+
+        <button
+            class="topup-btn"
+            onclick="openTopup()"
+        >
+            ➕ Nạp tiền
+        </button>
+
+    </div>
+
+    <p style="
+        margin-top:18px;
+        color:#8795a3;
+        line-height:1.6;
+    ">
+        Bạn có thể nạp tiền vào ví để sử dụng
+        khi thanh toán đơn hàng.
+    </p>
+
+</div>
+```
+
 </div>
 
+<!-- TOPUP -->
+
+<div
+    id="topupModal"
+    class="modal"
+>
+
+```
+<div class="modal-box">
+
+    <div class="modal-header">
+
+        <h2>
+            💳 Nạp tiền
+        </h2>
+
+        <button
+            class="close-btn"
+            onclick="closeTopup()"
+        >
+            ×
+        </button>
+
+    </div>
+
+    <p style="
+        color:#9ba9b7;
+        line-height:1.6;
+    ">
+        Chọn số tiền muốn nạp, sau đó chuyển khoản
+        theo thông tin bên dưới.
+    </p>
+
+    <div class="form-group">
+
+        <label>
+            Số tiền muốn nạp
+        </label>
+
+        <input
+            id="topupAmount"
+            type="number"
+            min="10000"
+            placeholder="Ví dụ: 100000"
+        >
+
+    </div>
+
+    <div
+        class="payment-info"
+        style="
+            margin-top:18px;
+            padding:15px;
+            background:#07111c;
+            border-radius:12px;
+        "
+    >
+
+        <strong>
+            MB Bank
+        </strong>
+
+        <br>
+
+        Số tài khoản:
+        <strong>
+            0978472704
+        </strong>
+
+        <br>
+
+        Chủ tài khoản:
+        <strong>
+            TRAN NGOC HUNG
+        </strong>
+
+    </div>
+
+    <button
+        class="confirm-btn"
+        onclick="requestTopup()"
+    >
+        📤 Tôi đã chuyển khoản
+    </button>
+
+</div>
+```
+
+</div>
+
+<!-- PAYMENT QR -->
+
+<div
+    id="paymentQR"
+    class="payment-qr"
+>
+
+```
+<div class="payment-box">
+
+    <button
+        class="payment-close"
+        onclick="closePaymentQR()"
+    >
+        ×
+    </button>
+
+    <h2>
+        💳 Thanh toán
+    </h2>
+
+    <p>
+        Quét mã QR bên dưới để thanh toán
+    </p>
+
+    <img
+        src="QR NH.jpg"
+        alt="QR thanh toán"
+    >
+
+    <div class="payment-info">
+
+        <strong>
+            MB Bank
+        </strong>
+
+        <br>
+
+        Số tài khoản:
+        <strong>
+            0978472704
+        </strong>
+
+        <br>
+
+        Chủ tài khoản:
+        <strong>
+            TRAN NGOC HUNG
+        </strong>
+
+    </div>
+
+    <button
+        class="payment-done"
+        onclick="closePaymentQR()"
+    >
+        ✅ Tôi đã thanh toán
+    </button>
+
+</div>
+```
+
+</div>
 
 <footer>
     © 2026 ChiChuChe Shop · Đặt hàng online
 </footer>
-
 
 <script>
 
@@ -1255,7 +1367,7 @@ const products = [
         id:4,
         name:"Chi Hâm",
         price:25000,
-        image:"1788673307404_699809316174268462_6915972963407532642_0311ff7072b15e5ad33cd8b6b48b9f9e.jpg"
+        image:"1788673307404_699809316174268462_6915973307532642_0311ff7072b15e5ad33cd8b6b48b9f9e.jpg"
     }
 
 ];
@@ -1386,12 +1498,6 @@ function addToCart(id){
 
     }
 
-    /*
-      Khi thay đổi giỏ hàng,
-      voucher cũ có thể không còn đủ điều kiện.
-      Vì vậy yêu cầu khách áp dụng lại voucher.
-    */
-
     appliedVoucher = null;
 
     saveData();
@@ -1428,7 +1534,6 @@ function updateCart(){
         }
 
     });
-
 
     document.getElementById("cartCount")
         .textContent = count;
@@ -1468,7 +1573,6 @@ function openCart(){
 
 }
 
-
 function closeCart(){
 
     document.getElementById("cartModal")
@@ -1487,7 +1591,6 @@ function renderCart(){
         document.getElementById("cartItems");
 
     box.innerHTML = "";
-
 
     if(cart.length === 0){
 
@@ -1509,7 +1612,6 @@ function renderCart(){
 
     }
 
-
     cart.forEach(item => {
 
         const product =
@@ -1518,7 +1620,6 @@ function renderCart(){
             );
 
         if(!product) return;
-
 
         box.innerHTML += `
 
@@ -1535,7 +1636,6 @@ function renderCart(){
                     </div>
 
                 </div>
-
 
                 <div class="quantity">
 
@@ -1578,7 +1678,6 @@ function renderCart(){
 
     });
 
-
     calculateTotal();
 
 }
@@ -1597,9 +1696,7 @@ function changeQuantity(id,change){
 
     if(!item) return;
 
-
     item.quantity += change;
-
 
     if(item.quantity <= 0){
 
@@ -1609,7 +1706,6 @@ function changeQuantity(id,change){
             );
 
     }
-
 
     appliedVoucher = null;
 
@@ -1695,10 +1791,8 @@ function checkVoucherServer(
                     Math.random() * 10000
                 );
 
-
             const script =
                 document.createElement("script");
-
 
             const timeout =
                 setTimeout(() => {
@@ -1712,7 +1806,6 @@ function checkVoucherServer(
                     );
 
                 },15000);
-
 
             function cleanup(){
 
@@ -1738,7 +1831,6 @@ function checkVoucherServer(
 
             }
 
-
             window[callbackName] =
                 function(data){
 
@@ -1747,7 +1839,6 @@ function checkVoucherServer(
                     resolve(data);
 
                 };
-
 
             script.src =
                 GOOGLE_SCRIPT_URL
@@ -1761,7 +1852,6 @@ function checkVoucherServer(
                 + "&callback="
                 + encodeURIComponent(callbackName);
 
-
             script.onerror =
                 function(){
 
@@ -1774,7 +1864,6 @@ function checkVoucherServer(
                     );
 
                 };
-
 
             document.body.appendChild(script);
 
@@ -1805,20 +1894,16 @@ async function applyVoucher(){
             "voucherMessage"
         );
 
-
     const code =
         codeInput.value
             .trim()
             .toUpperCase();
 
-
     const phone =
         phoneInput.value.trim();
 
-
     const subtotal =
         getSubtotal();
-
 
     if(!phone){
 
@@ -1832,7 +1917,6 @@ async function applyVoucher(){
 
     }
 
-
     if(!code){
 
         message.style.color =
@@ -1844,7 +1928,6 @@ async function applyVoucher(){
         return;
 
     }
-
 
     if(subtotal <= 0){
 
@@ -1858,13 +1941,11 @@ async function applyVoucher(){
 
     }
 
-
     message.style.color =
         "#00d4ff";
 
     message.textContent =
         "⏳ Đang kiểm tra voucher...";
-
 
     try{
 
@@ -1875,7 +1956,6 @@ async function applyVoucher(){
                 subtotal
             );
 
-
         if(!result){
 
             throw new Error(
@@ -1883,7 +1963,6 @@ async function applyVoucher(){
             );
 
         }
-
 
         if(result.success){
 
@@ -1909,21 +1988,18 @@ async function applyVoucher(){
 
             };
 
-
             message.style.color =
                 "#22c55e";
 
             message.textContent =
                 "✅ " +
-                (result.message ||
-                "Voucher đã được áp dụng.")
-                +
-                " Giảm "
-                +
-                money(result.discount)
-                +
+                (
+                    result.message ||
+                    "Voucher đã được áp dụng."
+                ) +
+                " Giảm " +
+                money(result.discount) +
                 ".";
-
 
             saveData();
 
@@ -1941,7 +2017,6 @@ async function applyVoucher(){
 
             updateCart();
 
-
             message.style.color =
                 "#ff5577";
 
@@ -1953,7 +2028,6 @@ async function applyVoucher(){
                 );
 
         }
-
 
     }catch(error){
 
@@ -1979,9 +2053,7 @@ function calculateTotal(){
     const subtotal =
         getSubtotal();
 
-
     discountAmount = 0;
-
 
     if(appliedVoucher){
 
@@ -1989,7 +2061,6 @@ function calculateTotal(){
             Number(
                 appliedVoucher.discount
             ) || 0;
-
 
         if(discountAmount > subtotal){
 
@@ -2000,7 +2071,6 @@ function calculateTotal(){
 
     }
 
-
     const finalTotal =
         Math.max(
             0,
@@ -2008,26 +2078,21 @@ function calculateTotal(){
             discountAmount
         );
 
-
     document.getElementById("subtotal")
         .textContent =
         money(subtotal);
-
 
     document.getElementById("discount")
         .textContent =
         "-" + money(discountAmount);
 
-
     document.getElementById("finalTotal")
         .textContent =
         money(finalTotal);
 
-
     document.getElementById("orderFinalTotal")
         .textContent =
         money(finalTotal);
-
 
     return {
 
@@ -2061,17 +2126,14 @@ function openOrderForm(){
 
     }
 
-
     calculateTotal();
 
     closeCart();
-
 
     document.getElementById("orderModal")
         .style.display = "flex";
 
 }
-
 
 function closeOrderForm(){
 
@@ -2093,7 +2155,6 @@ function openWallet(){
         .style.display = "flex";
 
 }
-
 
 function closeWallet(){
 
@@ -2118,14 +2179,12 @@ function openTopup(){
 
 }
 
-
 function closeTopup(){
 
     document.getElementById("topupModal")
         .style.display = "none";
 
 }
-
 
 function requestTopup(){
 
@@ -2135,7 +2194,6 @@ function requestTopup(){
                 "topupAmount"
             ).value
         );
-
 
     if(!amount || amount < 10000){
 
@@ -2147,24 +2205,13 @@ function requestTopup(){
 
     }
 
-
-    /*
-      Phần này hiện chỉ ghi nhận yêu cầu.
-      Số dư thực tế chưa được tự động cộng.
-    */
-
     alert(
-        "Đã ghi nhận yêu cầu nạp "
-        +
-        money(amount)
-        +
-        ".\n\n"
-        +
-        "Sau khi quản trị viên xác nhận "
-        +
+        "Đã ghi nhận yêu cầu nạp " +
+        money(amount) +
+        ".\n\n" +
+        "Sau khi quản trị viên xác nhận " +
         "chuyển khoản, số dư mới được cộng."
     );
-
 
     closeTopup();
 
@@ -2181,7 +2228,6 @@ function openPaymentQR(){
         .style.display = "flex";
 
 }
-
 
 function closePaymentQR(){
 
@@ -2247,29 +2293,33 @@ async function useVoucherServer(
    CONFIRM ORDER
 ================================================== */
 
-```javascript
 async function confirmOrder(){
 
-    // ==============================
-    // CHỐNG GỬI ĐƠN TRÙNG
-    // ==============================
+    /* ==============================
+       CHỐNG GỬI ĐƠN TRÙNG
+    ============================== */
 
-    const button = document.querySelector(
-        '#orderModal .confirm-btn'
-    );
+    const button =
+        document.querySelector(
+            '#orderModal .confirm-btn'
+        );
 
     if(!button){
+
         return;
+
     }
 
     if(button.disabled){
+
         return;
+
     }
 
 
-    // ==============================
-    // LẤY THÔNG TIN KHÁCH
-    // ==============================
+    /* ==============================
+       LẤY THÔNG TIN KHÁCH
+    ============================== */
 
     const name =
         document.getElementById(
@@ -2292,53 +2342,62 @@ async function confirmOrder(){
         ).value.trim();
 
 
-    // ==============================
-    // KIỂM TRA
-    // ==============================
+    /* ==============================
+       KIỂM TRA
+    ============================== */
 
     if(!name){
 
-        alert("Vui lòng nhập họ tên.");
+        alert(
+            "Vui lòng nhập họ tên."
+        );
+
         return;
 
     }
-
 
     if(!phone){
 
-        alert("Vui lòng nhập số điện thoại.");
+        alert(
+            "Vui lòng nhập số điện thoại."
+        );
+
         return;
 
     }
-
 
     if(!address){
 
-        alert("Vui lòng nhập địa chỉ.");
+        alert(
+            "Vui lòng nhập địa chỉ."
+        );
+
         return;
 
     }
-
 
     if(cart.length === 0){
 
-        alert("🛒 Giỏ hàng đang trống.");
+        alert(
+            "🛒 Giỏ hàng đang trống."
+        );
+
         return;
 
     }
 
 
-    // ==============================
-    // TÍNH TIỀN
-    // ==============================
+    /* ==============================
+       TÍNH TIỀN
+    ============================== */
 
     const finalData =
         calculateTotal();
 
 
-    // ==============================
-    // KHÓA NÚT NGAY LẬP TỨC
-    // ==============================
+    /* ==============================
+       KHÓA NÚT NGAY LẬP TỨC
+    ============================== */
 
     button.disabled = true;
 
@@ -2351,9 +2410,9 @@ async function confirmOrder(){
         "⏳ Đang gửi đơn...";
 
 
-    // ==============================
-    // TẠO MÃ ĐƠN
-    // ==============================
+    /* ==============================
+       TẠO MÃ ĐƠN
+    ============================== */
 
     const orderCode =
         "CC" +
@@ -2362,9 +2421,9 @@ async function confirmOrder(){
             .slice(-8);
 
 
-    // ==============================
-    // SẢN PHẨM
-    // ==============================
+    /* ==============================
+       SẢN PHẨM
+    ============================== */
 
     const itemNames =
         cart
@@ -2392,9 +2451,9 @@ async function confirmOrder(){
             .join(", ");
 
 
-    // ==============================
-    // DỮ LIỆU ĐƠN
-    // ==============================
+    /* ==============================
+       DỮ LIỆU ĐƠN
+    ============================== */
 
     const payload = {
 
@@ -2443,9 +2502,9 @@ async function confirmOrder(){
     };
 
 
-    // ==============================
-    // GỬI ĐƠN
-    // ==============================
+    /* ==============================
+       GỬI ĐƠN
+    ============================== */
 
     try{
 
@@ -2471,9 +2530,9 @@ async function confirmOrder(){
         );
 
 
-        // ==============================
-        // XÓA GIỎ HÀNG
-        // ==============================
+        /* ==============================
+           XÓA GIỎ HÀNG
+        ============================== */
 
         cart = [];
 
@@ -2486,16 +2545,16 @@ async function confirmOrder(){
         updateCart();
 
 
-        // ==============================
-        // ĐÓNG FORM
-        // ==============================
+        /* ==============================
+           ĐÓNG FORM
+        ============================== */
 
         closeOrderForm();
 
 
-        // ==============================
-        // THÔNG BÁO
-        // ==============================
+        /* ==============================
+           THÔNG BÁO
+        ============================== */
 
         alert(
             "✅ Đặt hàng thành công!\n\n" +
@@ -2507,9 +2566,9 @@ async function confirmOrder(){
         );
 
 
-        // ==============================
-        // HIỆN QR
-        // ==============================
+        /* ==============================
+           HIỆN QR
+        ============================== */
 
         openPaymentQR();
 
@@ -2519,7 +2578,10 @@ async function confirmOrder(){
         console.error(error);
 
 
-        // CHO PHÉP GỬI LẠI
+        /* ==============================
+           CHO PHÉP GỬI LẠI
+        ============================== */
+
         button.disabled = false;
 
         button.style.opacity = "1";
@@ -2536,7 +2598,6 @@ async function confirmOrder(){
     }
 
 }
-```
 
 
 /* ==================================================
@@ -2549,7 +2610,6 @@ function openWelcomePopup(){
         .style.display = "flex";
 
 }
-
 
 function closeWelcomePopup(){
 
