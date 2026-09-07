@@ -2154,23 +2154,29 @@ async function useVoucherServer(
 
 async function confirmOrder(){
 
+    // CHỐNG BẤM NHIỀU LẦN
+    const button = document.querySelector(
+        '#orderModal .confirm-btn'
+    );
+
+    if(button.disabled){
+        return;
+    }
+
     const name =
         document.getElementById(
             "customerName"
         ).value.trim();
-
 
     const phone =
         document.getElementById(
             "customerPhone"
         ).value.trim();
 
-
     const address =
         document.getElementById(
             "customerAddress"
         ).value.trim();
-
 
     const note =
         document.getElementById(
@@ -2180,10 +2186,7 @@ async function confirmOrder(){
 
     if(!name){
 
-        alert(
-            "Vui lòng nhập họ tên."
-        );
-
+        alert("Vui lòng nhập họ tên.");
         return;
 
     }
@@ -2191,10 +2194,7 @@ async function confirmOrder(){
 
     if(!phone){
 
-        alert(
-            "Vui lòng nhập số điện thoại."
-        );
-
+        alert("Vui lòng nhập số điện thoại.");
         return;
 
     }
@@ -2202,103 +2202,36 @@ async function confirmOrder(){
 
     if(!address){
 
-        alert(
-            "Vui lòng nhập địa chỉ."
-        );
-
+        alert("Vui lòng nhập địa chỉ.");
         return;
 
     }
 
 
-    const totalData =
-        calculateTotal();
+    if(cart.length === 0){
 
-
-    /*
-      Nếu đang dùng voucher,
-      kiểm tra lại voucher lần cuối
-      trước khi tạo đơn.
-    */
-
-    if(appliedVoucher){
-
-        try{
-
-            const verify =
-                await checkVoucherServer(
-                    appliedVoucher.phone,
-                    appliedVoucher.code,
-                    totalData.subtotal
-                );
-
-
-            if(!verify || !verify.success){
-
-                appliedVoucher = null;
-
-                saveData();
-
-                calculateTotal();
-
-                alert(
-                    "❌ Voucher không còn hợp lệ. Vui lòng kiểm tra lại."
-                );
-
-                closeOrderForm();
-
-                openCart();
-
-                return;
-
-            }
-
-
-            discountAmount =
-                Number(
-                    verify.discount
-                ) || 0;
-
-
-            appliedVoucher.discount =
-                discountAmount;
-
-
-            appliedVoucher.finalTotal =
-                Number(
-                    verify.finalTotal
-                ) ||
-                Math.max(
-                    0,
-                    totalData.subtotal -
-                    discountAmount
-                );
-
-
-            saveData();
-
-        }catch(error){
-
-            console.error(error);
-
-            alert(
-                "❌ Không thể xác nhận voucher. Vui lòng thử lại."
-            );
-
-            return;
-
-        }
+        alert("🛒 Giỏ hàng đang trống.");
+        return;
 
     }
 
 
+    // TÍNH TIỀN HIỆN TẠI
     const finalData =
         calculateTotal();
 
 
+    // KHÓA NÚT NGAY LẬP TỨC
+    button.disabled = true;
+
+    const oldText = button.innerHTML;
+
+    button.innerHTML =
+        "⏳ Đang gửi đơn...";
+
+
     const orderCode =
-        "CC"
-        +
+        "CC" +
         Date.now()
             .toString()
             .slice(-8);
@@ -2318,14 +2251,13 @@ async function confirmOrder(){
                     : "";
 
             })
+            .filter(Boolean)
             .join(", ");
 
 
     const quantities =
         cart
-            .map(
-                item => item.quantity
-            )
+            .map(item => item.quantity)
             .join(", ");
 
 
@@ -2382,9 +2314,11 @@ async function confirmOrder(){
             GOOGLE_SCRIPT_URL,
             {
 
-                method:"POST",
+                method:
+                    "POST",
 
-                mode:"no-cors",
+                mode:
+                    "no-cors",
 
                 headers:{
                     "Content-Type":
@@ -2398,64 +2332,50 @@ async function confirmOrder(){
         );
 
 
-        /*
-          Nếu đơn có voucher,
-          đánh dấu voucher đã sử dụng.
-        */
+        // XÓA GIỎ HÀNG
+        cart = [];
 
-        if(appliedVoucher){
+        appliedVoucher = null;
 
-            await useVoucherServer(
+        discountAmount = 0;
 
-                appliedVoucher.phone,
+        saveData();
 
-                appliedVoucher.code
+        updateCart();
 
-            );
+        closeOrderForm();
 
-        }
+
+        alert(
+            "✅ Đặt hàng thành công!\n\n" +
+            "Mã đơn: " +
+            orderCode +
+            "\n\n" +
+            "Tổng tiền: " +
+            money(finalData.total)
+        );
+
+
+        openPaymentQR();
 
 
     }catch(error){
 
-        console.log(error);
+        console.error(error);
+
+        // CHO PHÉP BẤM LẠI NẾU GỬI THẤT BẠI
+        button.disabled = false;
+
+        button.innerHTML =
+            oldText;
+
+
+        alert(
+            "❌ Không thể gửi đơn hàng.\n\n" +
+            "Vui lòng kiểm tra kết nối và thử lại."
+        );
 
     }
-
-
-    /*
-      Xóa giỏ hàng sau khi đặt.
-    */
-
-    cart = [];
-
-    appliedVoucher = null;
-
-    discountAmount = 0;
-
-    saveData();
-
-    updateCart();
-
-    closeOrderForm();
-
-
-    alert(
-        "✅ Đặt hàng thành công!\n\n"
-        +
-        "Mã đơn: "
-        +
-        orderCode
-        +
-        "\n\n"
-        +
-        "Tổng tiền: "
-        +
-        money(finalData.total)
-    );
-
-
-    openPaymentQR();
 
 }
 
