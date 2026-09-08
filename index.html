@@ -191,7 +191,7 @@ header{
     padding:12px;
     background:linear-gradient(135deg,#00d4ff,#0077ff);
     color:#001018;
-    font-weight:800;
+font-weight:800;
 }
 
 /* CART BAR */
@@ -394,7 +394,7 @@ header{
 }
 
 .voucher-message{
-    margin-top:8px;
+margin-top:8px;
     font-size:14px;
     line-height:1.5;
 }
@@ -570,6 +570,658 @@ footer{
     max-width:450px;
     background:linear-gradient(145deg,#0d1117,#071b2e);
     border:1px solid #00d4ff;
+    border-radius:24px;
+    padding:28px 22px;
+    text-align:center;
+    box-shadow:0 0 35px rgba(0,212,255,.25);
+    animation:welcomeShow .35s ease;
+}
+
+.welcome-icon{
+font-size:55px;
+    margin-bottom:10px;
+}
+
+.welcome-box h2{
+    color:#00d4ff;
+    font-size:26px;
+    margin-bottom:12px;
+}
+
+.welcome-box p{
+    color:#d9e2ea;
+    line-height:1.7;
+    margin-bottom:20px;
+}
+
+.welcome-close{
+    width:100%;
+    border:none;
+    padding:13px;
+    border-radius:12px;
+    background:linear-gradient(135deg,#00d4ff,#0077ff);
+    color:#001018;
+    font-size:16px;
+    font-weight:900;
+}
+
+@keyframes welcomeShow{
+    from{
+        opacity:0;
+        transform:scale(.9);
+    }
+
+    to{
+        opacity:1;
+        transform:scale(1);
+    }
+}
+
+/* MOBILE */
+@media(max-width:850px){
+
+    .products{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .account-box{
+        grid-template-columns:1fr;
+        padding:0 20px;
+    }
+
+    .hero{
+        margin:15px;
+    }
+}
+
+@media(max-width:520px){
+
+    .header-inner{
+        flex-direction:column;
+    }
+
+    .hero h1{
+        font-size:30px;
+    }
+
+    .products{
+        grid-template-columns:1fr 1fr;
+        gap:10px;
+    }
+
+    .produ
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ăn Vặt Lâm Thao</title>
+
+<style>
+html, body {
+
+    touch-action: manipulation;
+
+}
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    background:#05070a;
+    color:#fff;
+    min-height:100vh;
+}
+
+button,input,textarea{
+    font-family:inherit;
+}
+
+button{
+    cursor:pointer;
+}
+
+/* HEADER */
+header{
+    background:linear-gradient(135deg,#05070a,#071b2e,#003b66);
+    border-bottom:1px solid #00d4ff;
+    padding:16px 20px;
+    position:sticky;
+    top:0;
+    z-index:100;
+}
+
+.header-inner{
+    max-width:1100px;
+    margin:auto;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:15px;
+}
+
+.logo{
+    font-size:24px;
+    font-weight:800;
+    color:#00d4ff;
+}
+
+.logo span{
+    color:#fff;
+}
+
+.header-actions{
+    display:flex;
+    gap:10px;
+}
+
+.header-btn{
+    border:1px solid #00d4ff;
+    background:#07111c;
+    color:#fff;
+    padding:10px 15px;
+    border-radius:12px;
+    font-weight:700;
+}
+
+/* HERO */
+.hero{
+    max-width:1100px;
+    margin:25px auto;
+    padding:45px 25px;
+    border:1px solid #073c5c;
+    border-radius:25px;
+    background:
+        radial-gradient(circle at top right,#003b66 0,#07111c 40%,#05070a 80%);
+    text-align:center;
+}
+
+.hero h1{
+    font-size:42px;
+    color:#00d4ff;
+    margin-bottom:12px;
+}
+
+.hero p{
+    color:#b8c5d1;
+    font-size:17px;
+}
+
+/* ACCOUNT */
+.account-box{
+    max-width:1100px;
+    margin:20px auto;
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:15px;
+}
+
+.account-card{
+    background:#0d1117;
+    border:1px solid #12344a;
+    border-radius:18px;
+    padding:20px;
+}
+
+.account-card small{
+    color:#8795a3;
+    display:block;
+    margin-bottom:7px;
+}
+
+.account-card strong{
+    color:#00d4ff;
+    font-size:22px;
+}
+
+/* PRODUCTS */
+.container{
+    max-width:1100px;
+    margin:auto;
+    padding:10px 20px 120px;
+}
+
+.section-title{
+    font-size:28px;
+    margin:25px 0 18px;
+    color:#00d4ff;
+}
+
+.products{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:18px;
+}
+
+.product{
+    background:#0d1117;
+    border:1px solid #12344a;
+    border-radius:20px;
+    overflow:hidden;
+    transition:.2s;
+}
+
+.product:hover{
+    transform:translateY(-4px);
+    border-color:#00d4ff;
+    box-shadow:0 0 20px rgba(0,212,255,.15);
+}
+
+.product-image{
+    width:100%;
+    height:240px;
+    object-fit:cover;
+    display:block;
+    background:#111820;
+    content-visibility:auto;
+}
+
+.product-info{
+    padding:15px;
+}
+
+.product-name{
+    font-size:18px;
+    font-weight:700;
+    margin-bottom:8px;
+}
+
+.product-price{
+    color:#00d4ff;
+    font-size:20px;
+    font-weight:800;
+    margin-bottom:14px;
+}
+
+.add-btn{
+    width:100%;
+    border:none;
+    border-radius:12px;
+    padding:12px;
+background:linear-gradient(135deg,#00d4ff,#0077ff);
+    color:#001018;
+    font-weight:800;
+}
+
+/* CART BAR */
+.cart-bar{
+    position:fixed;
+    bottom:0;
+    left:0;
+    right:0;
+    background:#080c11;
+    border-top:1px solid #00d4ff;
+    padding:12px 20px;
+    z-index:90;
+}
+
+.cart-inner{
+    max-width:1100px;
+    margin:auto;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:15px;
+}
+
+.cart-summary{
+    font-weight:700;
+}
+
+.cart-summary span{
+    color:#00d4ff;
+}
+
+.checkout-btn{
+    border:none;
+    background:#00d4ff;
+    color:#001018;
+    font-weight:800;
+    padding:13px 22px;
+    border-radius:12px;
+}
+
+/* MODAL */
+.modal{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.8);
+    z-index:200;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+}
+
+.modal-box{
+    width:100%;
+    max-width:520px;
+    max-height:90vh;
+    overflow:auto;
+    background:#0d1117;
+    border:1px solid #00d4ff;
+    border-radius:22px;
+    padding:22px;
+}
+
+.modal-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:18px;
+}
+
+.modal-header h2{
+    color:#00d4ff;
+}
+
+.close-btn{
+    border:none;
+    background:none;
+    color:#fff;
+    font-size:30px;
+}
+
+/* CART */
+.cart-item{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:10px;
+    padding:13px 0;
+    border-bottom:1px solid #1b2935;
+}
+
+.cart-item-name{
+    font-weight:700;
+}
+
+.cart-item-price{
+    color:#00d4ff;
+    font-size:14px;
+    margin-top:4px;
+}
+
+.quantity{
+    display:flex;
+    align-items:center;
+    gap:8px;
+}
+
+.quantity button{
+    width:30px;
+    height:30px;
+    border:1px solid #00d4ff;
+    background:#07111c;
+    color:#fff;
+    border-radius:8px;
+}
+
+.remove-btn{
+    border:none;
+    background:none;
+    color:#ff5577;
+}
+
+/* TOTAL */
+.total-box{
+    margin-top:18px;
+    padding:15px;
+    background:#07111c;
+    border:1px solid #12344a;
+    border-radius:14px;
+}
+
+.total-row{
+    display:flex;
+    justify-content:space-between;
+    margin:7px 0;
+}
+
+.total-final{
+    font-size:22px;
+    color:#00d4ff;
+    font-weight:800;
+}
+
+/* FORM */
+.form-group{
+    margin-top:15px;
+}
+
+.form-group label{
+    display:block;
+    margin-bottom:7px;
+    color:#b8c5d1;
+}
+
+.form-group input,
+.form-group textarea,
+.voucher-row input{
+    width:100%;
+    border:1px solid #24465b;
+    background:#05070a;
+    color:#fff;
+    padding:12px;
+    border-radius:10px;
+    outline:none;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.voucher-row input:focus{
+    border-color:#00d4ff;
+}
+
+.form-group textarea{
+    min-height:80px;
+    resize:vertical;
+}
+
+/* VOUCHER */
+.voucher-box{
+    margin-top:18px;
+    padding:15px;
+    background:#07111c;
+    border:1px solid #12344a;
+    border-radius:14px;
+}
+
+.voucher-row{
+    display:flex;
+    gap:8px;
+    margin-top:10px;
+}
+
+.voucher-row button{
+    border:none;
+background:#0077ff;
+    color:#fff;
+    padding:10px 14px;
+    border-radius:10px;
+    font-weight:700;
+}
+
+.voucher-message{
+    margin-top:8px;
+    font-size:14px;
+    line-height:1.5;
+}
+
+/* WALLET */
+.wallet-box{
+    margin-top:18px;
+    padding:18px;
+    border:1px solid #00d4ff;
+    background:linear-gradient(135deg,#071b2e,#07111c);
+    border-radius:16px;
+}
+
+.wallet-balance{
+    font-size:30px;
+    color:#00d4ff;
+    font-weight:800;
+    margin:8px 0;
+}
+
+.topup-btn{
+    width:100%;
+    border:none;
+    padding:12px;
+    border-radius:10px;
+    background:#0077ff;
+    color:#fff;
+    font-weight:800;
+}
+
+/* CONFIRM */
+.confirm-btn{
+    width:100%;
+    border:none;
+    margin-top:20px;
+    padding:14px;
+    border-radius:12px;
+    background:linear-gradient(135deg,#00d4ff,#0077ff);
+    color:#001018;
+    font-size:16px;
+    font-weight:900;
+}
+
+.confirm-btn:disabled{
+    cursor:not-allowed;
+}
+
+/* PAYMENT QR */
+.payment-qr{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.85);
+    z-index:300;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+}
+
+.payment-box{
+    max-width:400px;
+    width:100%;
+    background:#0d1117;
+    border:1px solid #00d4ff;
+    border-radius:22px;
+    padding:25px;
+    text-align:center;
+    position:relative;
+}
+
+.payment-close{
+    position:absolute;
+    right:15px;
+    top:10px;
+    background:none;
+    border:none;
+    color:#fff;
+    font-size:30px;
+}
+
+.payment-box h2{
+    color:#00d4ff;
+    margin-bottom:10px;
+}
+
+.payment-box p{
+    color:#9ba9b7;
+    margin-bottom:15px;
+}
+
+.payment-box img{
+    width:260px;
+    max-width:100%;
+    border-radius:10px;
+    background:#fff;
+    padding:8px;
+}
+
+.payment-info{
+    margin-top:15px;
+    line-height:1.7;
+    color:#d9e2ea;
+}
+
+.payment-done{
+    width:100%;
+    margin-top:18px;
+    padding:13px;
+    border:none;
+    border-radius:10px;
+    background:#00d4ff;
+    color:#001018;
+    font-weight:900;
+}
+
+/* CONTACT */
+.contact-buttons{
+    position:fixed;
+    right:18px;
+    bottom:85px;
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    z-index:80;
+}
+
+.contact-btn{
+    text-decoration:none;
+    color:#fff;
+    padding:11px 15px;
+    border-radius:30px;
+    font-weight:700;
+    box-shadow:0 5px 20px rgba(0,0,0,.3);
+}
+
+.contact-btn.facebook{
+    background:#ff4fa3;
+    color:#fff;
+}
+
+.zalo{
+    background:#008fe5;
+}
+
+.phone{
+    background:#16a34a;
+}
+
+footer{
+    text-align:center;
+    padding:30px 20px;
+    color:#657483;
+    border-top:1px solid #122331;
+}
+
+/* ==============================
+   POPUP CHÀO MỪNG
+============================== */
+
+.welcome-popup{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.82);
+    z-index:500;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+}
+
+.welcome-box{
+    width:100%;
+    max-width:450px;
+    background:linear-gradient(145deg,#0d1117,#071b2e);
+border:1px solid #00d4ff;
     border-radius:24px;
     padding:28px 22px;
     text-align:center;
@@ -754,7 +1406,7 @@ footer{
 <section class="hero">
 
     <h1>
-        Đặt Hàng Online
+Đặt Hàng Online
     </h1>
 
     <p>
@@ -937,8 +1589,7 @@ footer{
                 <strong id="discount">
                     0đ
                 </strong>
-
-            </div>
+</div>
 
             <div class="total-row total-final">
 
@@ -1094,51 +1745,8 @@ footer{
 
             <textarea
                 id="customerAddress"
-                placeholder="Nhập địa chỉ nhận hàng"
+placeholder="Nhập địa chỉ nhận hàng"
             ></textarea>
-            <div class="form-group">
-
-    <button
-        type="button"
-        class="confirm-btn"
-        onclick="getLocation()"
-    >
-        📍 Lấy vị trí hiện tại
-    </button>
-
-</div>
-
-
-<div class="form-group">
-
-    <label>
-        Vĩ độ
-    </label>
-
-    <input
-        id="latitude"
-        type="text"
-        readonly
-        placeholder="Chưa lấy vị trí"
-    >
-
-</div>
-
-
-<div class="form-group">
-
-    <label>
-        Kinh độ
-    </label>
-
-    <input
-        id="longitude"
-        type="text"
-        readonly
-        placeholder="Chưa lấy vị trí"
-    >
-
-</div>
 
         </div>
 
@@ -1297,7 +1905,7 @@ footer{
             style="
                 margin-top:18px;
                 padding:15px;
-                background:#07111c;
+background:#07111c;
                 border-radius:12px;
             "
         >
@@ -1459,7 +2067,7 @@ function saveData(){
 
     localStorage.setItem(
         "voucherData",
-        JSON.stringify(appliedVoucher)
+JSON.stringify(appliedVoucher)
     );
 
 }
@@ -1626,7 +2234,6 @@ function closeCart(){
         .style.display = "none";
 
 }
-
 /* ==================================================
    RENDER CART
 ================================================== */
@@ -1790,7 +2397,7 @@ function getSubtotal(){
     cart.forEach(item => {
 
         const product =
-            products.find(
+products.find(
                 p => p.id === item.id
             );
 
@@ -1932,8 +2539,7 @@ async function applyVoucher(){
 
     const phone =
         phoneInput.value.trim();
-
-    const subtotal =
+const subtotal =
         getSubtotal();
 
     if(!phone){
@@ -2102,7 +2708,7 @@ function calculateTotal(){
     }
 
     const finalTotal =
-        Math.max(
+Math.max(
             0,
             subtotal -
             discountAmount
@@ -2138,71 +2744,7 @@ function calculateTotal(){
     };
 
 }
-let customerLocation = "";
 
-
-function getLocation(){
-
-    if(!navigator.geolocation){
-
-        alert(
-          "Điện thoại không hỗ trợ định vị"
-        );
-
-        return;
-
-    }
-
-
-    navigator.geolocation.getCurrentPosition(
-
-        function(position){
-
-
-            const lat =
-            position.coords.latitude;
-
-
-            const lng =
-            position.coords.longitude;
-
-
-            customerLocation =
-            lat + "," + lng;
-
-
-            document.getElementById(
-                "customerLocation"
-            ).value =
-            customerLocation;
-
-
-            alert(
-             "✅ Đã lấy vị trí thành công"
-            );
-
-
-        },
-
-
-        function(error){
-
-            alert(
-            "❌ Không lấy được vị trí. Hãy bật GPS và cho phép trình duyệt."
-            );
-
-        },
-
-        {
-            enableHighAccuracy:true
-        }
-
-
-    );
-
-
-}
-    
 /* ==================================================
    ORDER FORM
 ================================================== */
@@ -2341,7 +2883,7 @@ async function useVoucherServer(
     try{
 
         await fetch(
-            GOOGLE_SCRIPT_URL,
+GOOGLE_SCRIPT_URL,
             {
 
                 method:"POST",
@@ -2511,8 +3053,7 @@ async function confirmOrder(){
     /* ==============================
        SẢN PHẨM
     ============================== */
-
-    const itemNames =
+const itemNames =
         cart
             .map(item => {
 
@@ -2556,8 +3097,6 @@ async function confirmOrder(){
 
         address:
             address,
-        location:
-    customerLocation,
 
         note:
             note,
