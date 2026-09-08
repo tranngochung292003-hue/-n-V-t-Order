@@ -3170,58 +3170,57 @@ const itemNames =
        DỮ LIỆU ĐƠN
     ============================== */
 
-    const payload = {
+const payload = {
 
-        action:
-            "order",
+    action:
+        "order",
 
-        code:
-            orderCode,
+    code:
+        orderCode,
 
-        name:
-            name,
+    name:
+        name,
 
-        phone:
-            phone,
+    phone:
+        phone,
 
-        address:
-            address,
-        latitude:
-    document.getElementById("latitude").value.trim(),
+    address:
+        address,
 
-longitude:
-    document.getElementById("longitude").value.trim(),
+    latitude:
+        document.getElementById("latitude").value.trim(),
 
-        note:
-            note,
-        latitude: latitude,
-longitude: longitude,
+    longitude:
+        document.getElementById("longitude").value.trim(),
 
-        items:
-            itemNames,
+    note:
+        note,
 
-        quantity:
-            quantities,
+    items:
+        itemNames,
 
-        subtotal:
-            finalData.subtotal,
+    quantity:
+        quantities,
 
-        discount:
-            finalData.discount,
+    subtotal:
+        finalData.subtotal,
 
-        total:
-            finalData.total,
+    discount:
+        finalData.discount,
 
-        voucher:
-            appliedVoucher
-                ? appliedVoucher.code
-                : "",
+    total:
+        finalData.total,
 
-        createdAt:
-            new Date()
-                .toLocaleString("vi-VN")
+    voucher:
+        appliedVoucher
+            ? appliedVoucher.code
+            : "",
 
-    };
+    createdAt:
+        new Date()
+            .toLocaleString("vi-VN")
+
+};
 
     /* ==============================
        GỬI ĐƠN
