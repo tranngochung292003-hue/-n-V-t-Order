@@ -1096,6 +1096,49 @@ footer{
                 id="customerAddress"
                 placeholder="Nhập địa chỉ nhận hàng"
             ></textarea>
+            <div class="form-group">
+
+    <button
+        type="button"
+        class="confirm-btn"
+        onclick="getLocation()"
+    >
+        📍 Lấy vị trí hiện tại
+    </button>
+
+</div>
+
+
+<div class="form-group">
+
+    <label>
+        Vĩ độ
+    </label>
+
+    <input
+        id="latitude"
+        type="text"
+        readonly
+        placeholder="Chưa lấy vị trí"
+    >
+
+</div>
+
+
+<div class="form-group">
+
+    <label>
+        Kinh độ
+    </label>
+
+    <input
+        id="longitude"
+        type="text"
+        readonly
+        placeholder="Chưa lấy vị trí"
+    >
+
+</div>
 
         </div>
 
@@ -2095,7 +2138,71 @@ function calculateTotal(){
     };
 
 }
+let customerLocation = "";
 
+
+function getLocation(){
+
+    if(!navigator.geolocation){
+
+        alert(
+          "Điện thoại không hỗ trợ định vị"
+        );
+
+        return;
+
+    }
+
+
+    navigator.geolocation.getCurrentPosition(
+
+        function(position){
+
+
+            const lat =
+            position.coords.latitude;
+
+
+            const lng =
+            position.coords.longitude;
+
+
+            customerLocation =
+            lat + "," + lng;
+
+
+            document.getElementById(
+                "customerLocation"
+            ).value =
+            customerLocation;
+
+
+            alert(
+             "✅ Đã lấy vị trí thành công"
+            );
+
+
+        },
+
+
+        function(error){
+
+            alert(
+            "❌ Không lấy được vị trí. Hãy bật GPS và cho phép trình duyệt."
+            );
+
+        },
+
+        {
+            enableHighAccuracy:true
+        }
+
+
+    );
+
+
+}
+    
 /* ==================================================
    ORDER FORM
 ================================================== */
@@ -2449,6 +2556,8 @@ async function confirmOrder(){
 
         address:
             address,
+        location:
+    customerLocation,
 
         note:
             note,
