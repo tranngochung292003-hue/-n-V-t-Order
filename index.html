@@ -1757,29 +1757,10 @@ placeholder="Nhập địa chỉ nhận hàng"
         type="button"
         onclick="getLocation()"
     >
-        📍 Lấy vị trí hiện tại
+        📍 📍 Bắt buộc gửi vị trí để đặt hàng
     </button>
-</div>
 
-<div class="form-group">
-    <label>Vĩ độ</label>
-    <input
-        type="text"
-        id="latitude"
-        readonly
-        placeholder="Chưa lấy vị trí"
-    >
-</div>
 
-<div class="form-group">
-    <label>Kinh độ</label>
-    <input
-        type="text"
-        id="longitude"
-        readonly
-        placeholder="Chưa lấy vị trí"
-    >
-</div>
 
         </div>
 
@@ -3101,6 +3082,27 @@ const longitude =
         return;
 
     }
+    // KIỂM TRA KHÁCH ĐÃ GỬI VỊ TRÍ CHƯA
+
+const latitude =
+
+document.getElementById("latitude").value.trim();
+
+const longitude =
+
+document.getElementById("longitude").value.trim();
+
+if(!latitude || !longitude){
+
+    alert(
+
+        "📍 Vui lòng bấm 'Lấy vị trí hiện tại' trước khi đặt hàng."
+
+    );
+
+    return;
+
+}
 
     if(cart.length === 0){
 
