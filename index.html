@@ -2237,20 +2237,28 @@ function renderProducts(){
         return;
     }
 
-    box.innerHTML = "";
-
     const filteredProducts =
         category === "all"
             ? products
-            : products.filter(product =>
-                String(product.category || "")
-                    .trim()
-                    .toLowerCase()
-                ===
-                String(category)
-                    .trim()
-                    .toLowerCase()
-            );
+            : products.filter(product => {
+
+                const productCategory =
+                    String(product.category || "")
+                        .trim()
+                        .normalize("NFC")
+                        .toLowerCase();
+
+                const selectedCategory =
+                    String(category || "")
+                        .trim()
+                        .normalize("NFC")
+                        .toLowerCase();
+
+                return productCategory === selectedCategory;
+
+            });
+
+    box.innerHTML = "";
 
     filteredProducts.forEach(product => {
 
@@ -2292,7 +2300,6 @@ function renderProducts(){
     });
 
 }
-
 /* ==================================================
    ADD CART
 ================================================== */
