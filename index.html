@@ -1758,25 +1758,9 @@ placeholder="Nhập địa chỉ nhận hàng"
     </button>
 </div>
 
-<div class="form-group">
-    <label>Vĩ độ</label>
-    <input
-        type="text"
-        id="latitude"
-        readonly
-        placeholder="Chưa lấy vị trí"
-    >
-</div>
+<input type="hidden" id="latitude">
+<input type="hidden" id="longitude">
 
-<div class="form-group">
-    <label>Kinh độ</label>
-    <input
-        type="text"
-        id="longitude"
-        readonly
-        placeholder="Chưa lấy vị trí"
-    >
-</div>
 
         </div>
 
@@ -2044,9 +2028,7 @@ function getLocation(){
 
     if(!navigator.geolocation){
 
-        alert(
-            "❌ Điện thoại không hỗ trợ định vị."
-        );
+        alert("❌ Thiết bị không hỗ trợ định vị.");
 
         return;
     }
@@ -2061,21 +2043,15 @@ function getLocation(){
             const longitude =
                 position.coords.longitude;
 
-            document.getElementById("latitude")
-                .value =
+            document.getElementById("latitude").value =
                 latitude.toFixed(7);
 
-            document.getElementById("longitude")
-                .value =
+            document.getElementById("longitude").value =
                 longitude.toFixed(7);
 
             alert(
                 "✅ Đã lấy vị trí thành công!\n\n" +
-                "Vĩ độ: " +
-                latitude.toFixed(7) +
-                "\n" +
-                "Kinh độ: " +
-                longitude.toFixed(7)
+                "Bạn có thể tiếp tục đặt hàng."
             );
 
         },
@@ -2083,16 +2059,16 @@ function getLocation(){
         function(error){
 
             alert(
-                "❌ Không lấy được vị trí.\n" +
-                "Hãy bật GPS và cho phép trình duyệt."
+                "❌ Bạn chưa cho phép truy cập vị trí.\n\n" +
+                "Vui lòng cho phép định vị để có thể đặt hàng."
             );
 
         },
 
         {
-            enableHighAccuracy:true,
-            timeout:15000,
-            maximumAge:0
+            enableHighAccuracy: true,
+            timeout: 15000,
+            maximumAge: 0
         }
 
     );
@@ -3064,6 +3040,21 @@ async function confirmOrder(){
 
 const longitude =
     document.getElementById("longitude").value.trim();
+    const latitude =
+    document.getElementById("latitude").value.trim();
+
+const longitude =
+    document.getElementById("longitude").value.trim();
+
+if(!latitude || !longitude){
+
+    alert(
+        "📍 Vui lòng cho phép truy cập vị trí " +
+        "trước khi đặt hàng."
+    );
+
+    return;
+}
 
     /* ==============================
        KIỂM TRA
