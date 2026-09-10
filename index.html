@@ -1471,6 +1471,30 @@ border:1px solid #00d4ff;
     <h2 class="section-title">
         🔥 Menu
     </h2>
+    <div class="category-menu">
+
+    <button
+        class="category-btn active"
+        onclick="filterProducts('all', this)"
+    >
+        🍢 Tất cả
+    </button>
+
+    <button
+        class="category-btn"
+        onclick="filterProducts('Đồ ăn', this)"
+    >
+        🍢 Đồ ăn
+    </button>
+
+    <button
+        class="category-btn"
+        onclick="filterProducts('Đồ uống', this)"
+    >
+        🥤 Đồ uống
+    </button>
+
+</div>
 
     <div
         id="products"
@@ -2159,19 +2183,88 @@ function renderProducts(){
 
         <div class="product">
 
-<img
+            <img
+                class="product-image"
+                src="${product.image}"
+                alt="${product.name}"
+                loading="lazy"
+                decoding="async"
+            >
 
-    class="product-image"
+            <div class="product-info">
 
-    src="${product.image}"
+                <div class="product-name">
+                    ${product.name}
+                </div>
 
-    alt="${product.name}"
+                <div class="product-price">
+                    ${money(product.price)}
+                </div>
 
-    loading="lazy"
+                <button
+                    class="add-btn"
+                    onclick="addToCart(${product.id})"
+                >
+                    🛒 Thêm vào giỏ
+                </button>
 
-    decoding="async"
+            </div>
 
->
+        </div>
+
+        `;
+
+    });
+
+}
+    function filterProducts(category, button){
+
+    const buttons =
+        document.querySelectorAll(".category-btn");
+
+    buttons.forEach(btn => {
+        btn.classList.remove("active");
+    });
+
+    if(button){
+        button.classList.add("active");
+    }
+
+    const box =
+        document.getElementById("products");
+
+    if(!box){
+        return;
+    }
+
+    box.innerHTML = "";
+
+    const filteredProducts =
+        category === "all"
+            ? products
+            : products.filter(product =>
+                String(product.category || "")
+                    .trim()
+                    .toLowerCase()
+                ===
+                String(category)
+                    .trim()
+                    .toLowerCase()
+            );
+
+    filteredProducts.forEach(product => {
+
+        box.innerHTML += `
+
+        <div class="product">
+
+            <img
+                class="product-image"
+                src="${product.image}"
+                alt="${product.name}"
+                loading="lazy"
+                decoding="async"
+            >
 
             <div class="product-info">
 
