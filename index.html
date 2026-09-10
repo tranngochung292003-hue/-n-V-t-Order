@@ -790,35 +790,102 @@ header{
     margin:25px 0 18px;
     color:#00d4ff;
 }
-    .category-menu{
-display:flex;
-gap:10px;
-margin-bottom:20px;
-padding:6px;
-background:#07111c;
-border:1px solid #12344a;
-border-radius:18px;
-overflow-x:auto;
-scrollbar-width:none;
+    ```css
+/* =========================
+   DANH MỤC SẢN PHẨM
+========================= */
+
+.category-menu{
+    display:grid;
+    grid-template-columns:repeat(4, 1fr);
+    gap:8px;
+    width:100%;
+    margin-bottom:20px;
+    padding:6px;
+    background:#07111c;
+    border:1px solid #12344a;
+    border-radius:18px;
+    overflow:hidden;
 }
 
-.category-menu::-webkit-scrollbar{
-display:none;
-}
+/* =========================
+   NÚT DANH MỤC
+========================= */
 
 .category-btn{
-flex:1;
-min-width:120px;
-border:1px solid #24465b;
-border-radius:14px;
-padding:12px 16px;
-background:#0d1117;
-color:#b8c5d1;
-font-size:15px;
-font-weight:800;
-white-space:nowrap;
-transition:all .2s ease;
+    width:100%;
+    min-width:0;
+    border:1px solid #24465b;
+    border-radius:14px;
+    padding:12px 5px;
+    background:#0d1117;
+    color:#b8c5d1;
+    font-size:15px;
+    font-weight:800;
+    white-space:nowrap;
+    text-align:center;
+    cursor:pointer;
+    transition:all .2s ease;
 }
+
+.category-btn:hover{
+    border-color:#00d4ff;
+    color:#fff;
+    transform:translateY(-1px);
+}
+
+.category-btn.active{
+    background:linear-gradient(135deg,#00d4ff,#0077ff);
+    border-color:#00d4ff;
+    color:#001018;
+    box-shadow:0 5px 18px rgba(0,212,255,.25);
+}
+
+.category-btn:active{
+    transform:scale(.96);
+}
+
+/* =========================
+   ĐIỆN THOẠI
+========================= */
+
+@media(max-width:520px){
+
+    .category-menu{
+        grid-template-columns:repeat(4, 1fr);
+        gap:5px;
+        padding:5px;
+        margin-bottom:16px;
+    }
+
+    .category-btn{
+        padding:11px 2px;
+        font-size:12px;
+        border-radius:11px;
+    }
+
+}
+
+/* =========================
+   ĐIỆN THOẠI RẤT NHỎ
+========================= */
+
+@media(max-width:360px){
+
+    .category-menu{
+        gap:3px;
+        padding:4px;
+    }
+
+    .category-btn{
+        padding:10px 1px;
+        font-size:11px;
+        border-radius:9px;
+    }
+
+}
+```
+
 
 .category-btn:hover{
 border-color:#00d4ff;
@@ -1549,7 +1616,14 @@ border:1px solid #00d4ff;
         class="category-btn"
         onclick="filterProducts('Đồ ăn', this)"
     >
-        🍔 Đồ ăn
+        🍔 Đồ Xiên
+    </button>
+
+    <button
+        class="category-btn"
+        onclick="filterProducts('Đồ ăn nhanh', this)"
+    >
+        🍟 Đồ ăn nhanh
     </button>
 
     <button
@@ -1560,7 +1634,6 @@ border:1px solid #00d4ff;
     </button>
 
 </div>
-
     <div
         id="products"
         class="products"
