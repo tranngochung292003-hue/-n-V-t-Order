@@ -2943,13 +2943,16 @@ function closePaymentQR(){
 
 async function useVoucherServer(
     phone,
-    code
+    code,
+    orderCode,
+    discount,
+    finalTotal
 ){
 
     try{
 
         await fetch(
-GOOGLE_SCRIPT_URL,
+            GOOGLE_SCRIPT_URL,
             {
 
                 method:"POST",
@@ -2970,7 +2973,16 @@ GOOGLE_SCRIPT_URL,
                         phone,
 
                     code:
-                        code
+                        code,
+
+                    orderCode:
+                        orderCode,
+
+                    discount:
+                        discount,
+
+                    finalTotal:
+                        finalTotal
 
                 })
 
@@ -2987,7 +2999,6 @@ GOOGLE_SCRIPT_URL,
     }
 
 }
-
 /* ==================================================
    CONFIRM ORDER
 ================================================== */
@@ -3262,10 +3273,13 @@ const payload = {
             appliedVoucher.phone
         ){
 
-            useVoucherServer(
-                appliedVoucher.phone,
-                appliedVoucher.code
-            );
+await useVoucherServer(
+    phone,
+    appliedVoucher.code,
+    orderCode,
+    finalData.discount,
+    finalData.total
+);
 
         }
 
