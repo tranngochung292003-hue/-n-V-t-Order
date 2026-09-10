@@ -1729,11 +1729,14 @@ border:1px solid #00d4ff;
                 Số điện thoại *
             </label>
 
-            <input
-                id="customerPhone"
-                type="tel"
-                placeholder="Nhập số điện thoại"
-            >
+<input
+    id="customerPhone"
+    type="tel"
+    inputmode="numeric"
+    maxlength="10"
+    placeholder="Nhập số điện thoại"
+    oninput="this.value=this.value.replace(/[^0-9]/g,'')"
+>
 
         </div>
 
@@ -3067,15 +3070,24 @@ if(!latitude || !longitude){
 
     }
 
-    if(!phone){
+if(!phone){
 
-        alert(
-            "Vui lòng nhập số điện thoại."
-        );
+    alert(
+        "📱 Vui lòng nhập số điện thoại."
+    );
 
-        return;
+    return;
+}
 
-    }
+if(!/^0\d{9}$/.test(phone)){
+
+    alert(
+        "❌ Số điện thoại không hợp lệ.\n\n" +
+        "Vui lòng nhập đúng 10 chữ số và bắt đầu bằng số 0."
+    );
+
+    return;
+}
 
     if(!address){
 
