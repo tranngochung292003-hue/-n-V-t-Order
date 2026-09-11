@@ -38,6 +38,11 @@ header{background:rgba(255,250,245,.96);border-bottom:1px solid var(--border);pa
 .checkout-btn{background:var(--brand);box-shadow:0 3px 8px rgba(139,94,60,.2)}
 @media(max-width:900px){.products{grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.product-image{height:175px}}
 @media(max-width:640px){header{padding:10px 12px}.logo{font-size:19px}.hero{margin:10px 10px 8px;padding:20px 14px;border-radius:16px}.hero h1{font-size:25px}.hero p{font-size:13px}.container{padding:4px 10px 105px}.section-title{font-size:21px;margin:17px 0 10px}.category-menu{top:58px;margin-bottom:12px;border-radius:12px}.category-btn{min-width:auto;padding:8px 12px;font-size:13px}.products{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.product{border-radius:12px}.product-image{height:165px}.product-info{padding:9px 10px 11px}.product-name{font-size:14px;min-height:39px}.product-price{font-size:16px}.add-btn{width:36px;height:36px;font-size:23px;line-height:36px}.cart-inner{gap:8px}.cart-summary{font-size:13px}.checkout-btn{padding:10px 13px;font-size:13px}}
+
+/* ===== DENFOOD-STYLE UPGRADE ===== */
+.den-header{max-width:1200px!important;justify-content:space-between!important;gap:18px}.header-search{flex:1;max-width:560px;display:flex;align-items:center;gap:8px;background:#f7f1e9;border:1px solid #e5d7c9;border-radius:12px;padding:8px 13px}.header-search input{width:100%;border:0;outline:0;background:transparent;color:#3d3028;font-size:14px}.header-cart{position:relative;border:1px solid #e0d0c1;background:#fff;border-radius:11px;padding:10px 13px;color:#5b3a25;font-weight:800}.header-cart b{position:absolute;right:-6px;top:-7px;background:#8b5e3c;color:#fff;border-radius:99px;min-width:19px;height:19px;font-size:11px;display:grid;place-items:center}.den-hero{max-width:1200px;min-height:190px;display:flex;align-items:center;justify-content:space-between;text-align:left;padding:28px 34px;border-radius:18px}.hero-content{min-width:0}.hero-badge{display:inline-block;background:#ead7c4;color:#70472d;border-radius:99px;padding:6px 11px;font-size:11px;font-weight:900;letter-spacing:.4px;margin-bottom:8px}.den-hero h1{font-size:34px;margin:0 0 7px;color:#4d301e}.den-hero h1 span{color:#8b5e3c}.den-hero p{font-size:14px}.ship-chips{display:flex;flex-wrap:wrap;gap:7px;margin-top:13px}.ship-chips span{background:rgba(255,255,255,.72);border:1px solid #e5d7c9;border-radius:99px;padding:5px 9px;font-size:11px;color:#66564a}.hero-voucher{background:#fff;border:2px dashed #b9875f;border-radius:14px;padding:16px 20px;min-width:180px;text-align:center;box-shadow:0 5px 15px rgba(91,58,37,.07)}.hero-voucher strong{display:block;color:#8b4f2b;font-size:18px}.hero-voucher small{display:block;color:#76665a;margin-top:4px}.section-head{display:flex;justify-content:space-between;align-items:end}.eyebrow{font-size:10px;color:#a17b5e;font-weight:900;letter-spacing:1.2px;margin-bottom:2px}.section-title{font-size:23px!important}.category-menu{padding:5px!important;background:#fff!important;border-radius:13px!important}.category-btn{border-radius:10px!important}.category-btn.active{background:#8b5e3c!important}.den-product{border-radius:13px!important;box-shadow:0 2px 9px rgba(91,58,37,.07)!important}.product-photo-wrap{position:relative;overflow:hidden}.product-image{height:215px!important;background:#f1e8df}.photo-badge{position:absolute;left:8px;top:8px;background:rgba(255,255,255,.94);color:#7a4d31;border-radius:99px;padding:4px 7px;font-size:10px;font-weight:800;box-shadow:0 2px 6px rgba(0,0,0,.08)}.product-meta{display:flex;align-items:center;gap:4px;font-size:11px;margin:3px 0 7px;color:#6f6259}.product-meta .stars{color:#e3a11b;letter-spacing:1px;font-size:11px}.product-meta b{color:#5a473a}.product-meta .sold{color:#95867a}.den-product .product-price{font-size:17px!important;color:#7e472a}.den-product .add-btn{width:38px!important;height:38px!important;background:#8b5e3c!important;font-size:25px!important}.den-product .add-btn:active{transform:scale(.94)}
+@media(max-width:700px){.den-header{flex-wrap:wrap;gap:8px}.logo{font-size:18px}.header-search{order:3;flex-basis:100%;max-width:none}.header-cart{padding:8px 10px}.header-cart span{display:none}.den-hero{margin:9px 10px 7px;padding:18px 16px;display:block;min-height:auto}.den-hero h1{font-size:27px}.hero-voucher{display:none}.ship-chips{flex-wrap:nowrap;overflow:auto;scrollbar-width:none}.ship-chips span{white-space:nowrap}.product-image{height:170px!important}.product-info{padding:9px!important}.product-name{font-size:14px!important}.product-meta{font-size:10px}.section-title{font-size:20px!important}}
+
 </style>
 </head>
 <body>
@@ -80,40 +85,39 @@ header{background:rgba(255,250,245,.96);border-bottom:1px solid var(--border);pa
 <!-- HEADER -->
 
 <header>
-
-    <div class="header-inner">
-
-<div class="logo">
-🍴🎀 Ăn Vặt Lâm Thao
-</div>
+  <div class="header-inner den-header">
+    <div class="logo">🍴🎀 <span>Ăn Vặt Lâm Thao</span></div>
+    <div class="header-search">
+      <span>🔍</span>
+      <input id="productSearch" type="search" placeholder="Tìm món ăn, đồ uống..." oninput="searchProducts(this.value)">
     </div>
-
+    <button class="header-cart" onclick="openCart()">🛒 <span>Giỏ hàng</span><b id="headerCartCount">0</b></button>
+  </div>
 </header>
 
 <!-- HERO -->
-
-<section class="hero">
-
-    <h1>
-Đặt Hàng Online
-    </h1>
-
-    <p>
-        🥘 Ăn Vặt Lâm Thao — Đặt món nhanh chóng, tiện lợi và an toàn.<br>
-        🛵 Hỗ trợ ship: Việt Trì · Thị xã PT · Lâm Thao · KCN Phú Hà · KCN Thuỵ Vân<br>
-        🔴 Hotline: <span class="hotline-white">0978472704</span><br>
-        🎁 Khách mới giảm 20% với mã <strong>KHACHMOI</strong>
-    </p>
-
+<section class="hero den-hero">
+  <div class="hero-content">
+    <div class="hero-badge">🔥 ĂN VẶT NGON MỖI NGÀY</div>
+    <h1>Đặt món online <span>nhanh chóng</span></h1>
+    <p>🥘 Món ngon, giá hợp lý · 🛵 Giao hàng tận nơi · 🎁 Khách mới giảm 20%</p>
+    <div class="ship-chips">
+      <span>📍 Việt Trì</span><span>📍 Thị xã PT</span><span>📍 Lâm Thao</span><span>📍 KCN Phú Hà</span><span>📍 KCN Thuỵ Vân</span>
+    </div>
+  </div>
+  <div class="hero-voucher"><strong>🎁 KHACHMOI</strong><small>Giảm 20% cho đơn đầu tiên</small></div>
 </section>
 
 <!-- PRODUCTS -->
 
 <main class="container">
 
-    <h2 class="section-title">
-        🔥 Menu
-    </h2>
+    <div class="section-head">
+      <div>
+        <div class="eyebrow">THỰC ĐƠN HÔM NAY</div>
+        <h2 class="section-title">🔥 Món ngon được yêu thích</h2>
+      </div>
+    </div>
     <div class="category-menu">
 
     <button
@@ -637,108 +641,51 @@ JSON.stringify(appliedVoucher)
    RENDER PRODUCTS
 ================================================== */
 
-function renderProducts(){
-    const box = document.getElementById("products");
-    if(!box){ return; }
-    box.innerHTML = "";
-    products.forEach(product => {
-        box.innerHTML += `
-        <div class="product">
-            <img class="product-image" src="${product.image}" alt="${product.name}" loading="lazy" decoding="async">
-            <div class="product-info">
-                <div class="product-name">${product.name}</div>
-                <div class="product-rating" aria-label="Đánh giá 5 sao">★★★★★ <span>5.0</span></div>
-                <div class="product-bottom">
-                    <div class="product-price">${money(product.price)}</div>
-                    <button class="add-btn" onclick="addToCart(${product.id})" aria-label="Thêm vào giỏ hàng">+</button>
-                </div>
-            </div>
-        </div>`;
-    });
-}
-    function filterProducts(category, button){
-
-    const buttons =
-        document.querySelectorAll(".category-btn");
-
-    buttons.forEach(btn => {
-        btn.classList.remove("active");
-    });
-
-    if(button){
-        button.classList.add("active");
-    }
-
-    const box =
-        document.getElementById("products");
-
-    if(!box){
-        return;
-    }
-
-    const filteredProducts =
-        category === "all"
-            ? products
-            : products.filter(product => {
-
-                const productCategory =
-                    String(product.category || "")
-                        .trim()
-                        .normalize("NFC")
-                        .toLowerCase();
-
-                const selectedCategory =
-                    String(category || "")
-                        .trim()
-                        .normalize("NFC")
-                        .toLowerCase();
-
-                return productCategory === selectedCategory;
-
-            });
-
-    box.innerHTML = "";
-
-    filteredProducts.forEach(product => {
-
-        box.innerHTML += `
-
-        <div class="product">
-
-            <img
-                class="product-image"
-                src="${product.image}"
-                alt="${product.name}"
-                loading="lazy"
-                decoding="async"
-            >
-
-            <div class="product-info">
-
-                <div class="product-name">
-                    ${product.name}
-                </div>
-
-                <div class="product-price">
-                    ${money(product.price)}
-                </div>
-
-                <button
-                    class="add-btn"
-                    onclick="addToCart(${product.id})"
-                >
-                    🛒 Thêm vào giỏ
-                </button>
-
-            </div>
-
+function productCard(product){
+    const rating = product.rating || 5;
+    const sold = product.sold || product.sales || '';
+    const stars = '★★★★★';
+    return `
+      <article class="product den-product">
+        <div class="product-photo-wrap">
+          <img class="product-image" src="${product.image || ''}" alt="${product.name || ''}" loading="lazy" decoding="async" onerror="this.style.opacity='.25'">
+          <span class="photo-badge">${sold ? '🔥 Bán chạy' : '✨ Mới'}</span>
         </div>
-
-        `;
-
-    });
-
+        <div class="product-info">
+          <div class="product-name">${product.name || ''}</div>
+          <div class="product-meta"><span class="stars">${stars}</span><b>${rating}</b>${sold ? `<span class="sold">· ${sold} đã bán</span>` : ''}</div>
+          <div class="product-bottom">
+            <div class="product-price">${money(product.price)}</div>
+            <button class="add-btn" onclick="addToCart(${product.id})" aria-label="Thêm ${product.name || ''} vào giỏ">+</button>
+          </div>
+        </div>
+      </article>`;
 }
+
+function renderProducts(){
+    const box=document.getElementById('products');
+    if(!box) return;
+    box.innerHTML=products.map(productCard).join('');
+}
+
+function filterProducts(category, button){
+    document.querySelectorAll('.category-btn').forEach(btn=>btn.classList.remove('active'));
+    if(button) button.classList.add('active');
+    const box=document.getElementById('products');
+    if(!box) return;
+    const selected=String(category||'all').trim().normalize('NFC').toLowerCase();
+    const filtered=selected==='all' ? products : products.filter(p=>String(p.category||'').trim().normalize('NFC').toLowerCase()===selected);
+    box.innerHTML=filtered.map(productCard).join('');
+}
+
+function searchProducts(keyword){
+    const q=String(keyword||'').trim().toLowerCase();
+    const box=document.getElementById('products');
+    if(!box) return;
+    const filtered=!q ? products : products.filter(p=>String(p.name||'').toLowerCase().includes(q) || String(p.category||'').toLowerCase().includes(q));
+    box.innerHTML=filtered.map(productCard).join('');
+}
+
 /* ==================================================
    ADD CART
 ================================================== */
