@@ -32,72 +32,285 @@ button{
     cursor:pointer;
 }
 
-/* HEADER */
+/* ==============================
+   HEADER PREMIUM
+============================== */
+
 header{
-    background:linear-gradient(135deg,#05070a,#071b2e,#003b66);
-    border-bottom:1px solid #00d4ff;
-    padding:16px 20px;
+    background:
+    linear-gradient(
+        135deg,
+        #020617,
+        #071b2e,
+        #003b66
+    );
+
+    border-bottom:
+    1px solid rgba(0,212,255,.4);
+
+    padding:14px 20px;
+
     position:sticky;
     top:0;
+
     z-index:100;
+
+    backdrop-filter:blur(15px);
 }
+
 
 .header-inner{
-    max-width:1100px;
+
+    max-width:1200px;
+
     margin:auto;
+
     display:flex;
+
     align-items:center;
+
     justify-content:space-between;
-    gap:15px;
+
+    gap:20px;
+
 }
+
+
+/* LOGO */
 
 .logo{
-    font-size:24px;
-    font-weight:800;
+
+    font-size:28px;
+
+    font-weight:900;
+
     color:#00d4ff;
+
+    letter-spacing:.5px;
+
+    text-shadow:
+    0 0 15px rgba(0,212,255,.5);
+
 }
 
-.logo span{
-    color:#fff;
-}
+
+/* BUTTON HEADER */
 
 .header-actions{
+
     display:flex;
-    gap:10px;
+
+    gap:12px;
+
 }
+
 
 .header-btn{
-    border:1px solid #00d4ff;
-    background:#07111c;
-    color:#fff;
-    padding:10px 15px;
-    border-radius:12px;
-    font-weight:700;
+
+    border:
+
+    1px solid rgba(0,212,255,.5);
+
+
+    background:
+
+    rgba(7,17,28,.8);
+
+
+    color:white;
+
+
+    padding:
+
+    11px 18px;
+
+
+    border-radius:16px;
+
+
+    font-weight:800;
+
+
+    transition:.25s;
+
+
 }
 
-/* HERO */
-.hero{
-    max-width:1100px;
-    margin:25px auto;
-    padding:45px 25px;
-    border:1px solid #073c5c;
-    border-radius:25px;
-    background:
-        radial-gradient(circle at top right,#003b66 0,#07111c 40%,#05070a 80%);
-    text-align:center;
+
+.header-btn:hover{
+
+
+    background:#00d4ff;
+
+
+    color:#001018;
+
+
+    transform:translateY(-2px);
+
+
+    box-shadow:
+
+    0 0 20px rgba(0,212,255,.5);
+
 }
+
+/* ==============================
+   HERO PREMIUM
+============================== */
+
+
+.hero{
+
+
+    max-width:1200px;
+
+
+    margin:30px auto;
+
+
+    padding:60px 25px;
+
+
+    border-radius:35px;
+
+
+
+    background:
+
+
+    radial-gradient(
+        circle at top right,
+        rgba(0,212,255,.25),
+        transparent 35%
+    ),
+
+
+    linear-gradient(
+        145deg,
+        #071b2e,
+        #020617
+    );
+
+
+
+    border:
+
+    1px solid rgba(0,212,255,.35);
+
+
+
+    text-align:center;
+
+
+
+    position:relative;
+
+
+    overflow:hidden;
+
+
+}
+
+
+/* ánh sáng nền */
+
+.hero::before{
+
+
+    content:"";
+
+
+    position:absolute;
+
+
+    width:300px;
+
+    height:300px;
+
+
+    background:#00d4ff;
+
+
+    filter:blur(120px);
+
+
+    opacity:.15;
+
+
+    top:-100px;
+
+
+    right:-100px;
+
+
+}
+
+
+
 
 .hero h1{
-    font-size:42px;
+
+
+    position:relative;
+
+
+    font-size:48px;
+
+
+    font-weight:900;
+
+
     color:#00d4ff;
-    margin-bottom:12px;
+
+
+    margin-bottom:18px;
+
+
+    text-shadow:
+
+
+    0 0 25px rgba(0,212,255,.5);
+
+
 }
+
+
 
 .hero p{
-    color:#b8c5d1;
-    font-size:17px;
+
+
+    position:relative;
+
+
+    color:#d1d9e0;
+
+
+    font-size:18px;
+
+
+    line-height:1.8;
+
+
 }
 
+
+
+/* hotline */
+
+.hotline-white{
+
+
+    color:#00ff88;
+
+
+    font-weight:900;
+
+
+    font-size:20px;
+
+
+}
 /* ACCOUNT */
 .account-box{
     max-width:1100px;
@@ -1444,48 +1657,155 @@ border:1px solid #00d4ff;
     }
 }
 
+/* =========================
+   MENU CATEGORY NÂNG CẤP
+========================= */
+
+.category-menu{
+    display:flex;
+    gap:12px;
+    padding:12px;
+    margin-bottom:25px;
+    
+    background:
+    linear-gradient(135deg,#07111c,#05070a);
+
+    border:1px solid #12344a;
+    border-radius:22px;
+
+    overflow-x:auto;
+}
+
+
+/* Ẩn thanh kéo ngang */
+.category-menu::-webkit-scrollbar{
+    display:none;
+}
+
+
+.category-btn{
+
+    min-width:120px;
+
+    padding:13px 18px;
+
+    border-radius:30px;
+
+    border:1px solid #24465b;
+
+    background:#0d1117;
+
+    color:#b8c5d1;
+
+    font-weight:800;
+
+    transition:.3s;
+
+}
+
+
+/* Khi chọn */
+.category-btn.active{
+
+    background:
+    linear-gradient(135deg,#00d4ff,#0077ff);
+
+    color:#001018;
+
+    border-color:#00d4ff;
+
+    box-shadow:
+    0 0 20px rgba(0,212,255,.4);
+
+}
+
+
+/* Hiệu ứng bấm trên điện thoại */
+.category-btn:active{
+
+    transform:scale(.92);
+
+}
+
+
+/* =========================
+   MOBILE ĐẸP HƠN
+========================= */
+
+
 @media(max-width:520px){
 
-    .header-inner{
-        flex-direction:column;
-    }
 
-    .hero h1{
-        font-size:30px;
-    }
+.logo{
 
-    .products{
-        grid-template-columns:1fr 1fr;
-        gap:10px;
-    }
+    font-size:21px;
 
-    .product-image{
-        height:180px;
-    }
+}
 
-    .product-info{
-        padding:11px;
-    }
 
-    .product-name{
-        font-size:15px;
-    }
 
-    .product-price{
-        font-size:17px;
-    }
+.header-btn{
 
-    .contact-buttons{
-        right:10px;
-    }
+    padding:9px 12px;
 
-    .voucher-row{
-        flex-direction:column;
-    }
+    font-size:14px;
 
-    .voucher-row button{
-        width:100%;
-    }
+}
+
+
+
+.hero{
+
+    padding:35px 18px;
+
+    border-radius:20px;
+
+}
+
+
+
+.hero h1{
+
+    font-size:30px;
+
+}
+
+
+
+.hero p{
+
+    font-size:15px;
+
+}
+
+
+
+.product{
+
+    border-radius:16px;
+
+}
+
+
+
+.product-image{
+
+    height:170px;
+
+}
+
+
+
+.add-btn{
+
+    padding:10px;
+
+    border-radius:10px;
+
+}
+
+
+
 }
 </style>
 </head>
