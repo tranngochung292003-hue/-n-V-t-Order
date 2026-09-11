@@ -783,6 +783,18 @@ JSON.stringify(appliedVoucher)
    RENDER PRODUCTS
 ================================================== */
 
+function safeText(value){
+    return String(value ?? '').replace(/[&<>"']/g, function(char){
+        return {
+            '&':'&amp;',
+            '<':'&lt;',
+            '>':'&gt;',
+            '"':'&quot;',
+            "'":'&#39;'
+        }[char];
+    });
+}
+
 function productCard(product){
     const rating = product.rating || 5;
     const sold = product.sold || product.sales || '';
@@ -1967,65 +1979,100 @@ async function loadProducts(){
 
     if(productsLoaded) return;
 
-    const box=document.getElementById("products");
+    const box = document.getElementById('products');
 
     if(box && !box.innerHTML.trim()){
-        box.innerHTML=`
+        box.innerHTML = `
           <div style="grid-column:1/-1;text-align:center;padding:28px 10px;color:#9a887a">
             ⏳ Đang tải thực đơn...
           </div>`;
     }
 
+    // Apps Script hỗ trợ JSONP cho action=getProducts.
+    // Ưu tiên JSONP để tránh lỗi CORS trên iPhone/Safari/GitHub Pages.
     try{
+        const data = await new Promise((resolve, reject) => {
+            const callbackName = '__anvatProducts_' + Date.now() + '_' + Math.floor(Math.random()*100000);
+            const script = document.createElement('script');
+            let finished = false;
 
-        const response = await fetch(
-            GOOGLE_SCRIPT_URL + "?action=products",
-            {cache:"no-store"}
-        );
+            const cleanup = () => {
+                finished = true;
+                try{ delete window[callbackName]; }catch(e){ window[callbackName] = undefined; }
+                if(script.parentNode) script.parentNode.removeChild(script);
+            };
 
-        if(!response.ok){
-            throw new Error("HTTP " + response.status);
-        }
+            window[callbackName] = function(result){
+                cleanup();
+                resolve(result);
+            };
 
-        const data = await response.json();
+            script.onerror = function(){
+                cleanup();
+                reject(new Error('JSONP product request failed'));
+            };
 
-        if(data.success){
+            script.src = GOOGLE_SCRIPT_URL
+                + '?action=getProducts&callback='
+                + encodeURIComponent(callbackName)
+                + '&_=' + Date.now();
 
-            products = Array.isArray(data.products)
-                ? data.products
-                : [];
+            document.head.appendChild(script);
 
+            setTimeout(() => {
+                if(!finished){
+                    cleanup();
+                    reject(new Error('JSONP product request timeout'));
+                }
+            }, 15000);
+        });
+
+        if(data && data.success && Array.isArray(data.products)){
+            products = data.products;
             productsLoaded = true;
-
             renderProducts();
             updateCart();
+            return;
+        }
 
-        }else{
+        throw new Error((data && data.message) || 'API không trả về danh sách sản phẩm');
 
-            console.log(data);
+    }catch(jsonpError){
+        console.warn('JSONP tải sản phẩm thất bại, thử fetch:', jsonpError);
 
-            if(box){
-                box.innerHTML=`
-                  <div style="grid-column:1/-1;text-align:center;padding:28px 10px;color:#9a887a">
-                    ⚠️ Không tải được thực đơn. Vui lòng tải lại trang.
-                  </div>`;
+        // Phương án dự phòng nếu JSONP bị chặn.
+        try{
+            const response = await fetch(
+                GOOGLE_SCRIPT_URL + '?action=products&_=' + Date.now(),
+                {cache:'no-store'}
+            );
+
+            if(!response.ok){
+                throw new Error('HTTP ' + response.status);
             }
 
+            const data = await response.json();
+
+            if(data && data.success && Array.isArray(data.products)){
+                products = data.products;
+                productsLoaded = true;
+                renderProducts();
+                updateCart();
+                return;
+            }
+
+            throw new Error((data && data.message) || 'Không có dữ liệu sản phẩm');
+
+        }catch(fetchError){
+            console.error('Không tải được sản phẩm:', fetchError);
+            if(box){
+                box.innerHTML = `
+                  <div style="grid-column:1/-1;text-align:center;padding:28px 10px;color:#9a887a">
+                    ⚠️ Không tải được thực đơn. Vui lòng kiểm tra Apps Script và tải lại trang.
+                  </div>`;
+            }
         }
-
-    }catch(error){
-
-        console.error(error);
-
-        if(box){
-            box.innerHTML=`
-              <div style="grid-column:1/-1;text-align:center;padding:28px 10px;color:#9a887a">
-                ⚠️ Kết nối thực đơn chậm. Vui lòng tải lại trang.
-              </div>`;
-        }
-
     }
-
 }
 
 loadProducts();
