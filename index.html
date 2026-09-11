@@ -1,1523 +1,46 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-
 <meta charset="UTF-8">
-
-<meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
->
-
-<title>Ăn Vặt Lâm Thao - Đặt Hàng Online</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ăn Vặt Lâm Thao</title>
 
 <style>
-
-/* ==================================================
-   CƠ BẢN
-================================================== */
-
-html,
-body{
-    touch-action:manipulation;
-}
-
-*{
-    box-sizing:border-box;
-    margin:0;
-    padding:0;
-}
-
-body{
-    font-family:Arial,Helvetica,sans-serif;
-    background:#05070a;
-    color:#fff;
-    min-height:100vh;
-    padding-bottom:90px;
-}
-
-button,
-input,
-textarea{
-    font-family:inherit;
-}
-
-button{
-    cursor:pointer;
-}
-
-a{
-    -webkit-tap-highlight-color:transparent;
-}
-
-button{
-    -webkit-tap-highlight-color:transparent;
-}
-
-
-/* ==================================================
-   HEADER
-================================================== */
-
-header{
-    position:sticky;
-    top:0;
-    z-index:100;
-
-    background:
-        linear-gradient(
-            135deg,
-            #05070a,
-            #071b2e,
-            #003b66
-        );
-
-    border-bottom:1px solid #00d4ff;
-
-    padding:14px 20px;
-
-    backdrop-filter:blur(10px);
-}
-
-.header-inner{
-    max-width:1100px;
-    margin:auto;
-
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-
-    gap:15px;
-}
-
-.logo{
-    font-size:23px;
-    font-weight:900;
-    color:#00d4ff;
-
-    white-space:nowrap;
-}
-
-.header-actions{
-    display:flex;
-    gap:8px;
-}
-
-.header-btn{
-    border:1px solid #00d4ff;
-
-    background:#07111c;
-    color:#fff;
-
-    padding:10px 14px;
-
-    border-radius:12px;
-
-    font-weight:800;
-}
-
-.header-btn:active{
-    transform:scale(.97);
-}
-
-
-/* ==================================================
-   HERO
-================================================== */
-
-.hero{
-    max-width:1100px;
-
-    margin:22px auto;
-
-    padding:42px 25px;
-
-    border:1px solid #073c5c;
-
-    border-radius:24px;
-
-    background:
-        radial-gradient(
-            circle at top right,
-            #003b66 0,
-            #07111c 42%,
-            #05070a 80%
-        );
-
-    text-align:center;
-}
-
-.hero h1{
-    font-size:42px;
-
-    color:#00d4ff;
-
-    margin-bottom:14px;
-
-    font-weight:900;
-}
-
-.hero p{
-    color:#c5d0da;
-
-    font-size:16px;
-
-    line-height:1.8;
-}
-
-.hero .hotline{
-    color:#fff;
-
-    font-weight:900;
-}
-
-.hero .voucher-highlight{
-    display:inline-block;
-
-    margin-top:10px;
-
-    padding:7px 12px;
-
-    border-radius:10px;
-
-    background:#071b2e;
-
-    border:1px solid #00d4ff;
-
-    color:#00d4ff;
-
-    font-weight:900;
-}
-
-
-/* ==================================================
-   ACCOUNT
-================================================== */
-
-.account-box{
-    max-width:1100px;
-
-    margin:20px auto;
-
-    display:grid;
-
-    grid-template-columns:
-        repeat(3,1fr);
-
-    gap:15px;
-
-    padding:0 20px;
-}
-
-.account-card{
-    background:#0d1117;
-
-    border:1px solid #12344a;
-
-    border-radius:18px;
-
-    padding:18px;
-}
-
-.account-card small{
-    color:#8795a3;
-
-    display:block;
-
-    margin-bottom:8px;
-}
-
-.account-card strong{
-    color:#00d4ff;
-
-    font-size:22px;
-}
-
-
-/* ==================================================
-   CONTAINER
-================================================== */
-
-.container{
-    max-width:1100px;
-
-    margin:auto;
-
-    padding:0 20px 120px;
-}
-
-.section-title{
-    font-size:28px;
-
-    margin:28px 0 16px;
-
-    color:#00d4ff;
-}
-
-
-/* ==================================================
-   TÌM KIẾM
-================================================== */
-
-.search-box{
-    margin-bottom:16px;
-}
-
-.search-box input{
-    width:100%;
-
-    padding:14px 16px;
-
-    border-radius:14px;
-
-    border:1px solid #24465b;
-
-    background:#0d1117;
-
-    color:#fff;
-
-    font-size:16px;
-
-    outline:none;
-}
-
-.search-box input:focus{
-    border-color:#00d4ff;
-
-    box-shadow:
-        0 0 0 2px
-        rgba(0,212,255,.1);
-}
-
-
-/* ==================================================
-   CATEGORY
-================================================== */
-
-.category-menu{
-    display:flex;
-
-    gap:10px;
-
-    margin-bottom:20px;
-
-    padding:6px;
-
-    background:#07111c;
-
-    border:1px solid #12344a;
-
-    border-radius:18px;
-
-    overflow-x:auto;
-
-    scrollbar-width:none;
-}
-
-.category-menu::-webkit-scrollbar{
-    display:none;
-}
-
-.category-btn{
-    flex:1;
-
-    min-width:115px;
-
-    border:1px solid #24465b;
-
-    border-radius:14px;
-
-    padding:12px 15px;
-
-    background:#0d1117;
-
-    color:#b8c5d1;
-
-    font-size:15px;
-
-    font-weight:800;
-
-    white-space:nowrap;
-
-    transition:.2s;
-}
-
-.category-btn:hover{
-    border-color:#00d4ff;
-
-    color:#fff;
-}
-
-.category-btn.active{
-    background:
-        linear-gradient(
-            135deg,
-            #00d4ff,
-            #0077ff
-        );
-
-    border-color:#00d4ff;
-
-    color:#001018;
-
-    box-shadow:
-        0 5px 18px
-        rgba(0,212,255,.25);
-}
-
-.category-btn:active{
-    transform:scale(.96);
-}
-
-
-/* ==================================================
-   PRODUCTS
-================================================== */
-
-.products{
-    display:grid;
-
-    grid-template-columns:
-        repeat(4,1fr);
-
-    gap:18px;
-}
-
-.product{
-    position:relative;
-
-    background:#0d1117;
-
-    border:1px solid #12344a;
-
-    border-radius:20px;
-
-    overflow:hidden;
-
-    transition:.2s;
-
-    min-width:0;
-}
-
-.product:hover{
-    transform:translateY(-4px);
-
-    border-color:#00d4ff;
-
-    box-shadow:
-        0 0 20px
-        rgba(0,212,255,.15);
-}
-
-.product-image{
-    width:100%;
-
-    height:240px;
-
-    object-fit:cover;
-
-    display:block;
-
-    background:#111820;
-
-    content-visibility:auto;
-}
-
-.product-info{
-    padding:14px;
-}
-
-.product-name{
-    font-size:17px;
-
-    font-weight:800;
-
-    margin-bottom:8px;
-
-    min-height:42px;
-
-    line-height:1.35;
-}
-
-.product-price{
-    color:#00d4ff;
-
-    font-size:20px;
-
-    font-weight:900;
-
-    margin-bottom:12px;
-}
-
-.add-btn{
-    width:100%;
-
-    border:none;
-
-    border-radius:12px;
-
-    padding:12px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #00d4ff,
-            #0077ff
-        );
-
-    color:#001018;
-
-    font-weight:900;
-
-    font-size:15px;
-}
-
-.add-btn:active{
-    transform:scale(.97);
-}
-
-
-/* ==================================================
-   LOADING
-================================================== */
-
-.loading-box{
-    grid-column:1/-1;
-
-    text-align:center;
-
-    padding:50px 20px;
-
-    color:#8795a3;
-}
-
-.loading-icon{
-    font-size:38px;
-
-    margin-bottom:10px;
-}
-
-
-/* ==================================================
-   EMPTY
-================================================== */
-
-.empty-box{
-    grid-column:1/-1;
-
-    text-align:center;
-
-    padding:45px 20px;
-
-    color:#8795a3;
-
-    background:#0d1117;
-
-    border:1px solid #12344a;
-
-    border-radius:18px;
-}
-
-
-/* ==================================================
-   CART BAR
-================================================== */
-
-.cart-bar{
-    position:fixed;
-
-    left:0;
-    right:0;
-    bottom:0;
-
-    background:#080c11;
-
-    border-top:1px solid #00d4ff;
-
-    padding:11px 20px;
-
-    z-index:90;
-
-    box-shadow:
-        0 -5px 25px
-        rgba(0,0,0,.35);
-}
-
-.cart-inner{
-    max-width:1100px;
-
-    margin:auto;
-
-    display:flex;
-
-    justify-content:space-between;
-
-    align-items:center;
-
-    gap:15px;
-}
-
-.cart-summary{
-    font-weight:800;
-}
-
-.cart-summary span{
-    color:#00d4ff;
-}
-
-.checkout-btn{
-    border:none;
-
-    background:#00d4ff;
-
-    color:#001018;
-
-    font-weight:900;
-
-    padding:12px 20px;
-
-    border-radius:12px;
-
-    white-space:nowrap;
-}
-
-
-/* ==================================================
-   MODAL
-================================================== */
-
-.modal{
-    display:none;
-
-    position:fixed;
-
-    inset:0;
-
-    background:
-        rgba(0,0,0,.82);
-
-    z-index:200;
-
-    align-items:center;
-
-    justify-content:center;
-
-    padding:18px;
-}
-
-.modal-box{
-    width:100%;
-
-    max-width:520px;
-
-    max-height:90vh;
-
-    overflow:auto;
-
-    background:#0d1117;
-
-    border:1px solid #00d4ff;
-
-    border-radius:22px;
-
-    padding:22px;
-
-    box-shadow:
-        0 15px 50px
-        rgba(0,0,0,.5);
-}
-
-.modal-header{
-    display:flex;
-
-    justify-content:space-between;
-
-    align-items:center;
-
-    margin-bottom:18px;
-}
-
-.modal-header h2{
-    color:#00d4ff;
-
-    font-size:23px;
-}
-
-.close-btn{
-    border:none;
-
-    background:none;
-
-    color:#fff;
-
-    font-size:30px;
-
-    line-height:1;
-}
-
-
-/* ==================================================
-   CART ITEMS
-================================================== */
-
-.cart-item{
-    display:flex;
-
-    justify-content:space-between;
-
-    align-items:center;
-
-    gap:12px;
-
-    padding:13px 0;
-
-    border-bottom:1px solid #1b2935;
-}
-
-.cart-item-left{
-    flex:1;
-
-    min-width:0;
-}
-
-.cart-item-name{
-    font-weight:800;
-
-    line-height:1.35;
-}
-
-.cart-item-price{
-    color:#00d4ff;
-
-    font-size:14px;
-
-    margin-top:4px;
-}
-
-.quantity{
-    display:flex;
-
-    align-items:center;
-
-    gap:7px;
-
-    flex-shrink:0;
-}
-
-.quantity button{
-    width:31px;
-
-    height:31px;
-
-    border:1px solid #00d4ff;
-
-    background:#07111c;
-
-    color:#fff;
-
-    border-radius:8px;
-
-    font-weight:900;
-}
-
-.quantity strong{
-    min-width:20px;
-
-    text-align:center;
-}
-
-.remove-btn{
-    border:none !important;
-
-    background:none !important;
-
-    color:#ff5577 !important;
-
-    width:auto !important;
-}
-
-
-/* ==================================================
-   TOTAL
-================================================== */
-
-.total-box{
-    margin-top:18px;
-
-    padding:15px;
-
-    background:#07111c;
-
-    border:1px solid #12344a;
-
-    border-radius:14px;
-}
-
-.total-row{
-    display:flex;
-
-    justify-content:space-between;
-
-    gap:15px;
-
-    margin:7px 0;
-}
-
-.total-final{
-    font-size:22px;
-
-    color:#00d4ff;
-
-    font-weight:900;
-}
-
-
-/* ==================================================
-   FORM
-================================================== */
-
-.form-group{
-    margin-top:15px;
-}
-
-.form-group label{
-    display:block;
-
-    margin-bottom:7px;
-
-    color:#b8c5d1;
-
-    font-weight:700;
-}
-
-.form-group input,
-.form-group textarea,
-.voucher-row input{
-    width:100%;
-
-    border:1px solid #24465b;
-
-    background:#05070a;
-
-    color:#fff;
-
-    padding:12px;
-
-    border-radius:10px;
-
-    outline:none;
-
-    font-size:16px;
-}
-
-.form-group input:focus,
-.form-group textarea:focus,
-.voucher-row input:focus{
-    border-color:#00d4ff;
-}
-
-.form-group textarea{
-    min-height:80px;
-
-    resize:vertical;
-}
-
-
-/* ==================================================
-   LOCATION BUTTON
-================================================== */
-
-.location-btn{
-    width:100%;
-
-    border:1px solid #00d4ff;
-
-    background:#071b2e;
-
-    color:#00d4ff;
-
-    padding:13px;
-
-    border-radius:11px;
-
-    font-weight:900;
-}
-
-.location-btn.success{
-    background:#06351f;
-
-    border-color:#22c55e;
-
-    color:#22c55e;
-}
-
-
-/* ==================================================
-   VOUCHER
-================================================== */
-
-.voucher-box{
-    margin-top:18px;
-
-    padding:15px;
-
-    background:#07111c;
-
-    border:1px solid #12344a;
-
-    border-radius:14px;
-}
-
-.voucher-row{
-    display:flex;
-
-    gap:8px;
-
-    margin-top:10px;
-}
-
-.voucher-row input{
-    flex:1;
-}
-
-.voucher-row button{
-    border:none;
-
-    background:#0077ff;
-
-    color:#fff;
-
-    padding:10px 14px;
-
-    border-radius:10px;
-
-    font-weight:800;
-
-    white-space:nowrap;
-}
-
-.voucher-message{
-    margin-top:8px;
-
-    font-size:14px;
-
-    line-height:1.5;
-}
-
-
-/* ==================================================
-   WALLET
-================================================== */
-
-.wallet-box{
-    margin-top:18px;
-
-    padding:18px;
-
-    border:1px solid #00d4ff;
-
-    background:
-        linear-gradient(
-            135deg,
-            #071b2e,
-            #07111c
-        );
-
-    border-radius:16px;
-}
-
-.wallet-balance{
-    font-size:30px;
-
-    color:#00d4ff;
-
-    font-weight:900;
-
-    margin:8px 0;
-}
-
-.topup-btn{
-    width:100%;
-
-    border:none;
-
-    padding:12px;
-
-    border-radius:10px;
-
-    background:#0077ff;
-
-    color:#fff;
-
-    font-weight:900;
-}
-
-
-/* ==================================================
-   CONFIRM
-================================================== */
-
-.confirm-btn{
-    width:100%;
-
-    border:none;
-
-    margin-top:20px;
-
-    padding:14px;
-
-    border-radius:12px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #00d4ff,
-            #0077ff
-        );
-
-    color:#001018;
-
-    font-size:16px;
-
-    font-weight:900;
-}
-
-.confirm-btn:disabled{
-    cursor:not-allowed;
-
-    opacity:.6;
-}
-
-
-/* ==================================================
-   PAYMENT QR
-================================================== */
-
-.payment-qr{
-    display:none;
-
-    position:fixed;
-
-    inset:0;
-
-    background:
-        rgba(0,0,0,.88);
-
-    z-index:300;
-
-    align-items:center;
-
-    justify-content:center;
-
-    padding:18px;
-}
-
-.payment-box{
-    max-width:400px;
-
-    width:100%;
-
-    background:#0d1117;
-
-    border:1px solid #00d4ff;
-
-    border-radius:22px;
-
-    padding:24px;
-
-    text-align:center;
-
-    position:relative;
-}
-
-.payment-close{
-    position:absolute;
-
-    right:15px;
-
-    top:10px;
-
-    background:none;
-
-    border:none;
-
-    color:#fff;
-
-    font-size:30px;
-}
-
-.payment-box h2{
-    color:#00d4ff;
-
-    margin-bottom:10px;
-}
-
-.payment-box p{
-    color:#9ba9b7;
-
-    margin-bottom:15px;
-
-    line-height:1.5;
-}
-
-.payment-box img{
-    width:260px;
-
-    max-width:100%;
-
-    border-radius:10px;
-
-    background:#fff;
-
-    padding:8px;
-}
-
-.payment-info{
-    margin-top:15px;
-
-    line-height:1.7;
-
-    color:#d9e2ea;
-}
-
-.payment-done{
-    width:100%;
-
-    margin-top:18px;
-
-    padding:13px;
-
-    border:none;
-
-    border-radius:10px;
-
-    background:#00d4ff;
-
-    color:#001018;
-
-    font-weight:900;
-}
-
-
-/* ==================================================
-   CONTACT
-================================================== */
-
-.contact-buttons{
-    position:fixed;
-
-    right:15px;
-
-    bottom:82px;
-
-    display:flex;
-
-    flex-direction:column;
-
-    gap:8px;
-
-    z-index:80;
-}
-
-.contact-btn{
-    text-decoration:none;
-
-    color:#fff;
-
-    padding:10px 13px;
-
-    border-radius:30px;
-
-    font-weight:800;
-
-    font-size:14px;
-
-    box-shadow:
-        0 5px 20px
-        rgba(0,0,0,.3);
-}
-
-.contact-btn.facebook{
-    background:#ff4fa3;
-}
-
-.contact-btn.zalo{
-    background:#008fe5;
-}
-
-.contact-btn.phone{
-    background:#16a34a;
-}
-
-
-/* ==================================================
-   FOOTER
-================================================== */
-
-footer{
-    text-align:center;
-
-    padding:30px 20px;
-
-    color:#657483;
-
-    border-top:1px solid #122331;
-
-    line-height:1.7;
-}
-
-
-/* ==================================================
-   WELCOME POPUP
-================================================== */
-
-.welcome-popup{
-    display:none;
-
-    position:fixed;
-
-    inset:0;
-
-    background:
-        rgba(0,0,0,.82);
-
-    z-index:500;
-
-    align-items:center;
-
-    justify-content:center;
-
-    padding:20px;
-}
-
-.welcome-box{
-    width:100%;
-
-    max-width:450px;
-
-    background:
-        linear-gradient(
-            145deg,
-            #0d1117,
-            #071b2e
-        );
-
-    border:1px solid #00d4ff;
-
-    border-radius:24px;
-
-    padding:28px 22px;
-
-    text-align:center;
-
-    box-shadow:
-        0 0 35px
-        rgba(0,212,255,.25);
-
-    animation:
-        welcomeShow .35s ease;
-}
-
-.welcome-icon{
-    font-size:55px;
-
-    margin-bottom:10px;
-}
-
-.welcome-box h2{
-    color:#00d4ff;
-
-    font-size:26px;
-
-    margin-bottom:12px;
-}
-
-.welcome-box p{
-    color:#d9e2ea;
-
-    line-height:1.7;
-
-    margin-bottom:20px;
-}
-
-.welcome-close{
-    width:100%;
-
-    border:none;
-
-    padding:13px;
-
-    border-radius:12px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #00d4ff,
-            #0077ff
-        );
-
-    color:#001018;
-
-    font-size:16px;
-
-    font-weight:900;
-}
-
-@keyframes welcomeShow{
-
-    from{
-        opacity:0;
-
-        transform:scale(.9);
-    }
-
-    to{
-        opacity:1;
-
-        transform:scale(1);
-    }
-
-}
-
-
-/* ==================================================
-   MOBILE
-================================================== */
-
-@media(max-width:850px){
-
-    .products{
-        grid-template-columns:
-            repeat(2,1fr);
-
-        gap:12px;
-    }
-
-    .account-box{
-        grid-template-columns:1fr;
-    }
-
-    .hero{
-        margin:15px;
-    }
-
-}
-
-@media(max-width:520px){
-
-    body{
-        padding-bottom:82px;
-    }
-
-    header{
-        padding:11px 12px;
-    }
-
-    .header-inner{
-        gap:8px;
-    }
-
-    .logo{
-        font-size:17px;
-
-        overflow:hidden;
-
-        text-overflow:ellipsis;
-    }
-
-    .header-actions{
-        gap:5px;
-    }
-
-    .header-btn{
-        padding:8px 9px;
-
-        font-size:12px;
-    }
-
-    .hero{
-        margin:12px;
-
-        padding:28px 15px;
-
-        border-radius:20px;
-    }
-
-    .hero h1{
-        font-size:30px;
-    }
-
-    .hero p{
-        font-size:14px;
-    }
-
-    .account-box{
-        padding:0 12px;
-
-        gap:10px;
-    }
-
-    .account-card{
-        padding:14px;
-    }
-
-    .container{
-        padding:
-            0 12px 100px;
-    }
-
-    .section-title{
-        font-size:24px;
-
-        margin-top:22px;
-    }
-
-    .category-menu{
-        gap:7px;
-
-        padding:5px;
-
-        margin-bottom:15px;
-    }
-
-    .category-btn{
-        min-width:105px;
-
-        padding:10px 9px;
-
-        font-size:13px;
-    }
-
-    .products{
-        grid-template-columns:
-            repeat(2,1fr);
-
-        gap:10px;
-    }
-
-    .product{
-        border-radius:15px;
-    }
-
-    .product-image{
-        height:170px;
-    }
-
-    .product-info{
-        padding:10px;
-    }
-
-    .product-name{
-        font-size:14px;
-
-        min-height:38px;
-    }
-
-    .product-price{
-        font-size:17px;
-
-        margin-bottom:9px;
-    }
-
-    .add-btn{
-        padding:10px 5px;
-
-        font-size:13px;
-    }
-
-    .cart-bar{
-        padding:9px 10px;
-    }
-
-    .cart-inner{
-        gap:8px;
-    }
-
-    .cart-summary{
-        font-size:13px;
-    }
-
-    .checkout-btn{
-        padding:11px 12px;
-
-        font-size:13px;
-    }
-
-    .contact-buttons{
-        right:8px;
-
-        bottom:75px;
-    }
-
-    .contact-btn{
-        padding:8px 10px;
-
-        font-size:12px;
-    }
-
-    .voucher-row{
-        flex-direction:column;
-    }
-
-    .voucher-row button{
-        width:100%;
-    }
-
-    .modal{
-        padding:10px;
-    }
-
-    .modal-box{
-        padding:17px;
-
-        max-height:94vh;
-
-        border-radius:18px;
-    }
-
-    .payment-box{
-        padding:20px;
-    }
-
-}
-
-
-/* ==================================================
-   REDUCED MOTION
-================================================== */
-
-@media(prefers-reduced-motion:reduce){
-
-    *,
-    *::before,
-    *::after{
-        scroll-behavior:auto !important;
-
-        animation-duration:.01ms !important;
-
-        animation-iteration-count:1 !important;
-
-        transition-duration:.01ms !important;
-    }
-
-}
-
+html,body{touch-action:manipulation}
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--brand:#e53935;--brand-dark:#c62828;--brand-soft:#fff1f0;--text:#222;--border:#eee;--bg:#f7f7f7;--white:#fff}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;font-size:15px;line-height:1.5}
+button,input,textarea{font-family:inherit}button{cursor:pointer}a{text-decoration:none}
+header{background:#fff;border-bottom:1px solid var(--border);padding:12px 18px;position:sticky;top:0;z-index:100}
+.header-inner{max-width:1180px;margin:auto;display:flex;align-items:center;justify-content:center;gap:16px}.logo{font-size:22px;font-weight:800;color:#111;white-space:nowrap}
+.hero{max-width:1180px;margin:18px auto 10px;padding:24px 20px;background:#fff;border:1px solid var(--border);border-radius:14px;text-align:center;box-shadow:0 4px 18px rgba(0,0,0,.07)}
+.hero h1{font-size:30px;line-height:1.2;color:#111;margin-bottom:8px;font-weight:800}.hero p{color:#666;font-size:14px;line-height:1.7}.hotline-white{color:var(--brand);font-weight:800}
+.container{max-width:1180px;margin:auto;padding:8px 18px 110px}.section-title{font-size:24px;line-height:1.25;margin:22px 0 14px;color:#111;font-weight:800}
+.category-menu{display:flex;gap:8px;margin-bottom:18px;padding:4px;background:#fff;border:1px solid var(--border);border-radius:12px;overflow-x:auto;scrollbar-width:none;position:sticky;top:66px;z-index:50}.category-menu::-webkit-scrollbar{display:none}
+.category-btn{flex:0 0 auto;min-width:105px;border:1px solid transparent;border-radius:9px;padding:9px 14px;background:#fff;color:#555;font-size:14px;font-weight:700;white-space:nowrap}.category-btn:hover{background:#fafafa;color:#111}.category-btn.active{background:var(--brand);color:#fff;border-color:var(--brand)}
+.products{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}.product{background:#fff;border:1px solid #eee;border-radius:12px;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,.04);transition:transform .18s ease,box-shadow .18s ease}.product:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.09)}
+.product-image{width:100%;height:210px;object-fit:cover;display:block;background:#f3f3f3}.product-info{padding:12px 13px 14px}.product-name{font-size:15px;font-weight:600;line-height:1.45;color:#222;min-height:43px;margin-bottom:6px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}.product-price{color:var(--brand);font-size:18px;font-weight:800;margin-bottom:10px}.add-btn{width:100%;border:1px solid var(--brand);border-radius:8px;padding:9px 10px;background:var(--brand);color:#fff;font-size:14px;font-weight:800}.add-btn:hover{background:var(--brand-dark);border-color:var(--brand-dark)}
+.cart-bar{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid #e7e7e7;padding:10px 16px;z-index:90;box-shadow:0 -3px 14px rgba(0,0,0,.06)}.cart-inner{max-width:1180px;margin:auto;display:flex;justify-content:space-between;align-items:center;gap:12px}.cart-summary{font-size:14px;font-weight:700;color:#333}.cart-summary span{color:var(--brand);font-weight:800}.checkout-btn{border:none;background:var(--brand);color:#fff;font-weight:800;padding:11px 20px;border-radius:9px;font-size:14px}
+.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:200;align-items:center;justify-content:center;padding:14px}.modal-box{width:100%;max-width:520px;max-height:92vh;overflow:auto;background:#fff;border-radius:16px;padding:18px;box-shadow:0 15px 50px rgba(0,0,0,.2)}.modal-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}.modal-header h2{font-size:20px;color:#111;font-weight:800}.close-btn{border:none;background:#f5f5f5;color:#444;width:34px;height:34px;border-radius:50%;font-size:23px;line-height:1}
+.cart-item{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 0;border-bottom:1px solid #eee}.cart-item-name{font-weight:700;font-size:14px;color:#222}.cart-item-price{color:var(--brand);font-size:13px;margin-top:3px}.quantity{display:flex;align-items:center;gap:7px}.quantity button{width:30px;height:30px;border:1px solid #ddd;background:#fff;color:#333;border-radius:7px}.remove-btn{border:none;background:none;color:#e53935;font-size:13px}
+.total-box{margin-top:15px;padding:13px;background:#fafafa;border:1px solid #eee;border-radius:10px}.total-row{display:flex;justify-content:space-between;margin:6px 0;font-size:14px}.total-final{font-size:20px;color:var(--brand);font-weight:800}
+.form-group{margin-top:13px}.form-group label{display:block;margin-bottom:6px;color:#444;font-size:14px;font-weight:600}.form-group input,.form-group textarea,.voucher-row input{width:100%;border:1px solid #ddd;background:#fff;color:#222;padding:11px 12px;border-radius:8px;outline:none;font-size:15px}.form-group input:focus,.form-group textarea:focus,.voucher-row input:focus{border-color:var(--brand);box-shadow:0 0 0 2px rgba(229,57,53,.08)}.form-group textarea{min-height:78px;resize:vertical}
+.voucher-box{margin-top:15px;padding:13px;background:var(--brand-soft);border:1px solid #ffd4d2;border-radius:10px}.voucher-box strong{font-size:14px;color:#333}.voucher-row{display:flex;gap:8px;margin-top:9px}.voucher-row button{border:none;background:var(--brand);color:#fff;padding:10px 14px;border-radius:8px;font-weight:800;white-space:nowrap}.voucher-message{margin-top:7px;font-size:13px;line-height:1.5}
+.confirm-btn{width:100%;border:none;margin-top:17px;padding:12px;border-radius:9px;background:var(--brand);color:#fff;font-size:15px;font-weight:800}.confirm-btn:disabled{cursor:not-allowed}.location-btn{width:100%;border:1px solid var(--brand);background:#fff;color:var(--brand);padding:11px;border-radius:8px;font-size:14px;font-weight:800}
+.payment-qr{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:300;align-items:center;justify-content:center;padding:16px}.payment-box{max-width:400px;width:100%;background:#fff;border-radius:16px;padding:20px;text-align:center;position:relative;box-shadow:0 15px 50px rgba(0,0,0,.25)}.payment-close{position:absolute;right:12px;top:9px;background:#f5f5f5;border:none;color:#444;width:34px;height:34px;border-radius:50%;font-size:23px}.payment-box h2{color:#111;margin-bottom:8px;font-size:20px}.payment-box p{color:#666;margin-bottom:12px;font-size:14px}.payment-box img{width:260px;max-width:100%;border-radius:8px;background:#fff;padding:6px}.payment-info{margin-top:12px;line-height:1.7;color:#444;font-size:14px}.payment-done{width:100%;margin-top:15px;padding:11px;border:none;border-radius:8px;background:var(--brand);color:#fff;font-weight:800}
+.contact-buttons{position:fixed;right:14px;bottom:75px;display:flex;flex-direction:column;gap:8px;z-index:80}.contact-btn{color:#fff;padding:9px 12px;border-radius:22px;font-size:13px;font-weight:700;box-shadow:0 4px 14px rgba(0,0,0,.14)}.contact-btn.facebook{background:#1877f2}.zalo{background:#008fe5}.phone{background:#16a34a}footer{text-align:center;padding:28px 18px;color:#888;border-top:1px solid #eee;background:#fff;font-size:13px}
+.welcome-popup{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:500;align-items:center;justify-content:center;padding:16px}.welcome-box{width:100%;max-width:430px;background:#fff;border-radius:16px;padding:24px 20px;text-align:center;box-shadow:0 15px 50px rgba(0,0,0,.2);animation:welcomeShow .25s ease}.welcome-icon{font-size:48px;margin-bottom:8px}.welcome-box h2{color:#111;font-size:22px;margin-bottom:10px}.welcome-box p{color:#555;line-height:1.7;margin-bottom:18px;font-size:14px}.welcome-close{width:100%;border:none;padding:11px;border-radius:9px;background:var(--brand);color:#fff;font-size:15px;font-weight:800}@keyframes welcomeShow{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:scale(1)}}
+@media(max-width:900px){.products{grid-template-columns:repeat(3,minmax(0,1fr))}.product-image{height:190px}}
+@media(max-width:650px){header{padding:11px 12px}.logo{font-size:20px}.hero{margin:12px 10px 8px;padding:20px 13px;border-radius:12px}.hero h1{font-size:25px}.hero p{font-size:13px}.container{padding:5px 10px 105px}.section-title{font-size:21px;margin:18px 0 12px}.category-menu{top:59px}.products{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.product{border-radius:10px}.product-image{height:170px}.product-info{padding:10px}.product-name{font-size:14px;min-height:40px}.product-price{font-size:17px;margin-bottom:8px}.add-btn{font-size:13px;padding:8px 7px}.cart-bar{padding:9px 10px}.cart-summary{font-size:13px}.checkout-btn{padding:10px 14px;font-size:13px}.contact-buttons{right:8px;bottom:68px}.contact-btn{font-size:12px;padding:8px 10px}}
 </style>
-
 </head>
-
-
 <body>
 
-
-<!-- ==================================================
+<!-- ==============================
      POPUP CHÀO MỪNG
-================================================== -->
+============================== -->
 
-<div
-    id="welcomePopup"
-    class="welcome-popup"
->
+<div id="welcomePopup" class="welcome-popup">
 
     <div class="welcome-box">
 
@@ -1526,20 +49,15 @@ footer{
         </div>
 
         <h2>
-            Chào mừng đến Ăn Vặt Lâm Thao!
+            Chào mừng đến Ăn Vặt Lâm Thao!
         </h2>
 
         <p>
-
             🎉 Cảm ơn bạn đã ghé thăm shop.<br>
-
-            🎁 Voucher tặng bạn giảm 20%:
-            <strong>KHACHMOI</strong><br>
-
-            🚀 Ship hỏa tốc 24/7<br>
-
-            💟 Mua càng nhiều giá càng hời!
-
+            🎁 Voucher tặng bạn giảm 20% : KHACHMOI
+            🛒 Chúc bạn mua hàng vui vẻ!<br>
+            🚀 Ship hàng hoả tốc 24/7
+            💟 Mua càng nhiều giá càng hời .
         </p>
 
         <button
@@ -1553,210 +71,82 @@ footer{
 
 </div>
 
-
-<!-- ==================================================
-     HEADER
-================================================== -->
+<!-- HEADER -->
 
 <header>
 
     <div class="header-inner">
 
-        <div class="logo">
-            🍴🎀 Ăn Vặt Lâm Thao
-        </div>
-
-        <div class="header-actions">
-
-            <button
-                class="header-btn"
-                onclick="openWallet()"
-            >
-                💰 Số dư
-            </button>
-
-            <button
-                class="header-btn"
-                onclick="openCart()"
-            >
-                🛒 Giỏ hàng
-            </button>
-
-        </div>
-
+<div class="logo">
+🍴🎀 Ăn Vặt Lâm Thao
+</div>
     </div>
 
 </header>
 
-
-<!-- ==================================================
-     HERO
-================================================== -->
+<!-- HERO -->
 
 <section class="hero">
 
     <h1>
-        Đặt Hàng Online
+Đặt Hàng Online
     </h1>
 
     <p>
-        🥘 Ăn Vặt Lâm Thao — Đặt món nhanh chóng,
-        tiện lợi và an toàn.
+        🥘 Ăn Vặt Lâm Thao — Đặt món nhanh chóng, tiện lợi và an toàn.<br>
+        🛵 Hỗ trợ ship: Việt Trì · Thị xã PT · Lâm Thao · KCN Phú Hà · KCN Thuỵ Vân<br>
+        🔴 Hotline: <span class="hotline-white">0978472704</span><br>
+        🎁 Khách mới giảm 20% với mã <strong>KHACHMOI</strong>
     </p>
-
-    <p>
-        🛵 Hỗ trợ ship tận nơi:
-        Việt Trì · Thị xã PT · Lâm Thao ·
-        KCN Phú Hà · KCN Thuỵ Vân
-    </p>
-
-    <p>
-        🔴 Hotline:
-        <span class="hotline">
-            0978472704
-        </span>
-    </p>
-
-    <div class="voucher-highlight">
-        🎁 Voucher khách mới: KHACHMOI - GIẢM 20%
-    </div>
 
 </section>
 
-
-<!-- ==================================================
-     ACCOUNT
-================================================== -->
-
-<section class="account-box">
-
-    <div class="account-card">
-
-        <small>
-            💰 Số dư
-        </small>
-
-        <strong id="walletDisplay">
-            0đ
-        </strong>
-
-    </div>
-
-
-    <div class="account-card">
-
-        <small>
-            🎟️ Voucher
-        </small>
-
-        <strong id="voucherDisplay">
-            0
-        </strong>
-
-    </div>
-
-
-    <div class="account-card">
-
-        <small>
-            🛒 Sản phẩm trong giỏ
-        </small>
-
-        <strong id="cartDisplay">
-            0
-        </strong>
-
-    </div>
-
-</section>
-
-
-<!-- ==================================================
-     MENU
-================================================== -->
+<!-- PRODUCTS -->
 
 <main class="container">
 
     <h2 class="section-title">
         🔥 Menu
     </h2>
-
-
-    <!-- SEARCH -->
-
-    <div class="search-box">
-
-        <input
-            id="searchInput"
-            type="search"
-            placeholder="🔎 Tìm món ăn, đồ uống..."
-            oninput="searchProducts()"
-            autocomplete="off"
-        >
-
-    </div>
-
-
-    <!-- CATEGORY -->
-
     <div class="category-menu">
 
-        <button
-            class="category-btn active"
-            onclick="filterProducts('all',this)"
-        >
-            🍢 Tất cả
-        </button>
+    <button
+        class="category-btn active"
+        onclick="filterProducts('all', this)"
+    >
+        🍢 Tất cả
+    </button>
 
-        <button
-            class="category-btn"
-            onclick="filterProducts('Đồ ăn',this)"
-        >
-            🍢 Đồ Xiên
-        </button>
+    <button
+        class="category-btn"
+        onclick="filterProducts('Đồ ăn', this)"
+    >
+        🍔 Đồ Xiên
+    </button>
 
-        <button
-            class="category-btn"
-            onclick="filterProducts('Đồ ăn nhanh',this)"
-        >
-            🍔 Đồ ăn nhanh
-        </button>
+    <button
+        class="category-btn"
+        onclick="filterProducts('Đồ ăn nhanh', this)"
+    >
+        🍟 Đồ ăn nhanh
+    </button>
 
-        <button
-            class="category-btn"
-            onclick="filterProducts('Đồ uống',this)"
-        >
-            🥤 Đồ uống
-        </button>
+    <button
+        class="category-btn"
+        onclick="filterProducts('Đồ uống', this)"
+    >
+        🥤 Đồ uống
+    </button>
 
-    </div>
-
-
-    <!-- PRODUCTS -->
-
+</div>
     <div
         id="products"
         class="products"
-    >
-
-        <div class="loading-box">
-
-            <div class="loading-icon">
-                ⏳
-            </div>
-
-            Đang tải menu...
-
-        </div>
-
-    </div>
+    ></div>
 
 </main>
 
-
-<!-- ==================================================
-     CART BAR
-================================================== -->
+<!-- CART BAR -->
 
 <div class="cart-bar">
 
@@ -1765,11 +155,9 @@ footer{
         <div class="cart-summary">
 
             🛒
-
             <span id="cartCount">
                 0
             </span>
-
             sản phẩm
 
             ·
@@ -1779,7 +167,6 @@ footer{
             </span>
 
         </div>
-
 
         <button
             class="checkout-btn"
@@ -1792,32 +179,25 @@ footer{
 
 </div>
 
-
-<!-- ==================================================
-     CONTACT
-================================================== -->
+<!-- CONTACT -->
 
 <div class="contact-buttons">
 
     <a
         href="https://zalo.me/0978472704"
         target="_blank"
-        rel="noopener"
         class="contact-btn zalo"
     >
         💬 Zalo
     </a>
 
-
     <a
         href="https://www.facebook.com/hunghauuu"
         target="_blank"
-        rel="noopener"
         class="contact-btn facebook"
     >
         📘 Facebook
     </a>
-
 
     <a
         href="tel:0978472704"
@@ -1828,10 +208,7 @@ footer{
 
 </div>
 
-
-<!-- ==================================================
-     CART MODAL
-================================================== -->
+<!-- CART MODAL -->
 
 <div
     id="cartModal"
@@ -1855,9 +232,7 @@ footer{
 
         </div>
 
-
         <div id="cartItems"></div>
-
 
         <div class="total-box">
 
@@ -1873,7 +248,6 @@ footer{
 
             </div>
 
-
             <div class="total-row">
 
                 <span>
@@ -1883,9 +257,7 @@ footer{
                 <strong id="discount">
                     0đ
                 </strong>
-
-            </div>
-
+</div>
 
             <div class="total-row total-final">
 
@@ -1901,7 +273,6 @@ footer{
 
         </div>
 
-
         <!-- VOUCHER -->
 
         <div class="voucher-box">
@@ -1909,7 +280,6 @@ footer{
             <strong>
                 🎟️ Voucher của khách
             </strong>
-
 
             <div class="form-group">
 
@@ -1920,26 +290,18 @@ footer{
                 <input
                     id="voucherPhone"
                     type="tel"
-                    inputmode="numeric"
-                    maxlength="10"
                     placeholder="Nhập số điện thoại"
-                    oninput="
-                        this.value=this.value.replace(/[^0-9]/g,'')
-                    "
                 >
 
             </div>
-
 
             <div class="voucher-row">
 
                 <input
                     id="voucherInput"
                     type="text"
-                    placeholder="Ví dụ: KHACHMOI"
-                    autocomplete="off"
+                    placeholder="Ví dụ: GIAM10"
                 >
-
 
                 <button
                     onclick="applyVoucher()"
@@ -1949,7 +311,6 @@ footer{
 
             </div>
 
-
             <div
                 id="voucherMessage"
                 class="voucher-message"
@@ -1957,34 +318,7 @@ footer{
 
         </div>
 
-
-        <!-- WALLET -->
-
-        <div class="wallet-box">
-
-            <div>
-                💰 Số dư hiện tại
-            </div>
-
-            <div
-                class="wallet-balance"
-                id="walletModalDisplay"
-            >
-                0đ
-            </div>
-
-            <button
-                class="topup-btn"
-                onclick="openTopup()"
-            >
-                ➕ Nạp tiền
-            </button>
-
-        </div>
-
-
-        <button
-            class="confirm-btn"
+        <button class="confirm-btn"
             onclick="openOrderForm()"
         >
             Tiếp tục đặt hàng
@@ -1994,10 +328,7 @@ footer{
 
 </div>
 
-
-<!-- ==================================================
-     ORDER MODAL
-================================================== -->
+<!-- ORDER MODAL -->
 
 <div
     id="orderModal"
@@ -2021,7 +352,6 @@ footer{
 
         </div>
 
-
         <div class="form-group">
 
             <label>
@@ -2032,11 +362,9 @@ footer{
                 id="customerName"
                 type="text"
                 placeholder="Nhập họ tên"
-                autocomplete="name"
             >
 
         </div>
-
 
         <div class="form-group">
 
@@ -2044,20 +372,16 @@ footer{
                 Số điện thoại *
             </label>
 
-            <input
-                id="customerPhone"
-                type="tel"
-                inputmode="numeric"
-                maxlength="10"
-                placeholder="Nhập số điện thoại"
-                autocomplete="tel"
-                oninput="
-                    this.value=this.value.replace(/[^0-9]/g,'')
-                "
-            >
+<input
+    id="customerPhone"
+    type="tel"
+    inputmode="numeric"
+    maxlength="10"
+    placeholder="Nhập số điện thoại"
+    oninput="this.value=this.value.replace(/[^0-9]/g,'')"
+>
 
         </div>
-
 
         <div class="form-group">
 
@@ -2067,36 +391,25 @@ footer{
 
             <textarea
                 id="customerAddress"
-                placeholder="Nhập địa chỉ nhận hàng"
+placeholder="Nhập địa chỉ nhận hàng"
             ></textarea>
 
+
+<div class="form-group">
+    <button
+        type="button"
+        class="location-btn"
+        onclick="getLocation()"
+    >
+       📍 Bắt buộc gửi vị trí để đặt hàng
+    </button>
+</div>
+
+<input type="hidden" id="latitude">
+<input type="hidden" id="longitude">
+
+
         </div>
-
-
-        <div class="form-group">
-
-            <button
-                id="locationButton"
-                type="button"
-                class="location-btn"
-                onclick="getLocation()"
-            >
-                📍 Bắt buộc gửi vị trí để đặt hàng
-            </button>
-
-        </div>
-
-
-        <input
-            type="hidden"
-            id="latitude"
-        >
-
-        <input
-            type="hidden"
-            id="longitude"
-        >
-
 
         <div class="form-group">
 
@@ -2106,11 +419,10 @@ footer{
 
             <textarea
                 id="customerNote"
-                placeholder="Ví dụ: giao buổi tối, yêu cầu thêm tương..."
+                placeholder="Ví dụ: giao buổi tối , yêu cầu thêm từ quán..."
             ></textarea>
 
         </div>
-
 
         <div class="total-box">
 
@@ -2131,7 +443,6 @@ footer{
 
         </div>
 
-
         <button
             id="confirmOrderButton"
             class="confirm-btn"
@@ -2144,174 +455,7 @@ footer{
 
 </div>
 
-
-<!-- ==================================================
-     WALLET MODAL
-================================================== -->
-
-<div
-    id="walletModal"
-    class="modal"
->
-
-    <div class="modal-box">
-
-        <div class="modal-header">
-
-            <h2>
-                💰 Ví của bạn
-            </h2>
-
-            <button
-                class="close-btn"
-                onclick="closeWallet()"
-            >
-                ×
-            </button>
-
-        </div>
-
-
-        <div class="wallet-box">
-
-            <div>
-                Số dư hiện tại
-            </div>
-
-            <div
-                class="wallet-balance"
-                id="walletBigDisplay"
-            >
-                0đ
-            </div>
-
-            <button
-                class="topup-btn"
-                onclick="openTopup()"
-            >
-                ➕ Nạp tiền
-            </button>
-
-        </div>
-
-
-        <p
-            style="
-                margin-top:18px;
-                color:#8795a3;
-                line-height:1.6;
-            "
-        >
-            Bạn có thể nạp tiền vào ví để sử dụng
-            khi thanh toán đơn hàng.
-        </p>
-
-    </div>
-
-</div>
-
-
-<!-- ==================================================
-     TOPUP
-================================================== -->
-
-<div
-    id="topupModal"
-    class="modal"
->
-
-    <div class="modal-box">
-
-        <div class="modal-header">
-
-            <h2>
-                💳 Nạp tiền
-            </h2>
-
-            <button
-                class="close-btn"
-                onclick="closeTopup()"
-            >
-                ×
-            </button>
-
-        </div>
-
-
-        <p
-            style="
-                color:#9ba9b7;
-                line-height:1.6;
-            "
-        >
-            Chọn số tiền muốn nạp, sau đó chuyển khoản
-            theo thông tin bên dưới.
-        </p>
-
-
-        <div class="form-group">
-
-            <label>
-                Số tiền muốn nạp
-            </label>
-
-            <input
-                id="topupAmount"
-                type="number"
-                min="10000"
-                step="1000"
-                placeholder="Ví dụ: 100000"
-            >
-
-        </div>
-
-
-        <div
-            class="payment-info"
-            style="
-                margin-top:18px;
-                padding:15px;
-                background:#07111c;
-                border-radius:12px;
-            "
-        >
-
-            <strong>
-                MB Bank
-            </strong>
-
-            <br>
-
-            Số tài khoản:
-            <strong>
-                0978472704
-            </strong>
-
-            <br>
-
-            Chủ tài khoản:
-            <strong>
-                TRAN NGOC HUNG
-            </strong>
-
-        </div>
-
-
-        <button
-            class="confirm-btn"
-            onclick="requestTopup()"
-        >
-            📤 Tôi đã chuyển khoản
-        </button>
-
-    </div>
-
-</div>
-
-
-<!-- ==================================================
-     PAYMENT QR
-================================================== -->
+<!-- PAYMENT QR -->
 
 <div
     id="paymentQR"
@@ -2327,22 +471,18 @@ footer{
             ×
         </button>
 
-
         <h2>
             💳 Thanh toán
         </h2>
-
 
         <p>
             Quét mã QR bên dưới để thanh toán
         </p>
 
-
         <img
             src="QR NH.jpg"
             alt="QR thanh toán"
         >
-
 
         <div class="payment-info">
 
@@ -2366,7 +506,6 @@ footer{
 
         </div>
 
-
         <button
             class="payment-done"
             onclick="closePaymentQR()"
@@ -2378,30 +517,62 @@ footer{
 
 </div>
 
-
-<!-- ==================================================
-     FOOTER
-================================================== -->
+<!-- FOOTER -->
 
 <footer>
-
-    © 2026 Ăn Vặt Lâm Thao · Đặt hàng online
-
-    <br>
-
-    Việt Trì · Thị xã PT · Lâm Thao ·
-    KCN Phú Hà · KCN Thuỵ Vân
-
-    <br>
-
-    Hotline:
-    0978472704
-
+    © 2026 Ăn Vặt Lâm Thao · Đặt hàng online
 </footer>
 
-
 <script>
+function getLocation(){
 
+    if(!navigator.geolocation){
+
+        alert("❌ Thiết bị không hỗ trợ định vị.");
+
+        return;
+    }
+
+    navigator.geolocation.getCurrentPosition(
+
+        function(position){
+
+            const latitude =
+                position.coords.latitude;
+
+            const longitude =
+                position.coords.longitude;
+
+            document.getElementById("latitude").value =
+                latitude.toFixed(7);
+
+            document.getElementById("longitude").value =
+                longitude.toFixed(7);
+
+            alert(
+                "✅ Đã lấy vị trí thành công!\n\n" +
+                "Bạn có thể tiếp tục đặt hàng."
+            );
+
+        },
+
+        function(error){
+
+            alert(
+                "❌ Bạn chưa cho phép truy cập vị trí.\n\n" +
+                "Vui lòng cho phép định vị để có thể đặt hàng."
+            );
+
+        },
+
+        {
+            enableHighAccuracy: true,
+            timeout: 15000,
+            maximumAge: 0
+        }
+
+    );
+}
 
 /* ==================================================
    GOOGLE APPS SCRIPT
@@ -2410,34 +581,23 @@ footer{
 const GOOGLE_SCRIPT_URL =
 "https://script.google.com/macros/s/AKfycbxva6g2yr098N7spmEGl_LbvNZKlDo_C2tPQUkI3IsAIpMyJtiGvPJhYNNXaGEXeUPm/exec";
 
+/* ==================================================
+   PRODUCTS
+================================================== */
+
+let products = [];
 
 /* ==================================================
    DATA
 ================================================== */
 
-let products = [];
-
 let cart =
-    JSON.parse(
-        localStorage.getItem("cart")
-    ) || [];
-
-let wallet =
-    Number(
-        localStorage.getItem("wallet")
-    ) || 0;
+JSON.parse(localStorage.getItem("cart")) || [];
 
 let appliedVoucher =
-    JSON.parse(
-        localStorage.getItem("voucherData")
-    ) || null;
+JSON.parse(localStorage.getItem("voucherData")) || null;
 
 let discountAmount = 0;
-
-let currentCategory = "all";
-
-let searchKeyword = "";
-
 
 /* ==================================================
    MONEY
@@ -2445,15 +605,12 @@ let searchKeyword = "";
 
 function money(number){
 
-    return Number(number || 0)
-        .toLocaleString("vi-VN")
-        + "đ";
+    return Number(number).toLocaleString("vi-VN") + "đ";
 
 }
 
-
 /* ==================================================
-   SAVE DATA
+   SAVE
 ================================================== */
 
 function saveData(){
@@ -2464,154 +621,53 @@ function saveData(){
     );
 
     localStorage.setItem(
-        "wallet",
-        String(wallet)
-    );
-
-    localStorage.setItem(
         "voucherData",
-        JSON.stringify(appliedVoucher)
+JSON.stringify(appliedVoucher)
     );
 
 }
 
-
 /* ==================================================
-   PRODUCT ID
+   RENDER PRODUCTS
 ================================================== */
 
-function sameId(a,b){
+function renderProducts(){
 
-    return String(a) === String(b);
+    const box = document.getElementById("products");
 
-}
-
-
-/* ==================================================
-   GET PRODUCT
-================================================== */
-
-function getProductById(id){
-
-    return products.find(
-        product =>
-            sameId(product.id,id)
-    );
-
-}
-
-
-/* ==================================================
-   FILTER PRODUCT
-================================================== */
-
-function getVisibleProducts(){
-
-    let result = [...products];
-
-
-    if(currentCategory !== "all"){
-
-        const selected =
-            String(currentCategory)
-                .trim()
-                .normalize("NFC")
-                .toLowerCase();
-
-        result =
-            result.filter(product => {
-
-                const category =
-                    String(
-                        product.category || ""
-                    )
-                    .trim()
-                    .normalize("NFC")
-                    .toLowerCase();
-
-                return category === selected;
-
-            });
-
+    if(!box){
+        return;
     }
 
+    box.innerHTML = "";
 
-    if(searchKeyword){
+    products.forEach(product => {
 
-        const keyword =
-            searchKeyword
-                .toLowerCase()
-                .normalize("NFC");
-
-        result =
-            result.filter(product => {
-
-                const name =
-                    String(
-                        product.name || ""
-                    )
-                    .toLowerCase()
-                    .normalize("NFC");
-
-                return name.includes(keyword);
-
-            });
-
-    }
-
-
-    return result;
-
-}
-
-
-/* ==================================================
-   PRODUCT HTML
-================================================== */
-
-function productHTML(product){
-
-    const id =
-        String(product.id);
-
-    const name =
-        String(product.name || "Sản phẩm");
-
-    const image =
-        String(product.image || "");
-
-    const price =
-        Number(product.price || 0);
-
-
-    return `
+        box.innerHTML += `
 
         <div class="product">
 
             <img
                 class="product-image"
-                src="${escapeHTML(image)}"
-                alt="${escapeHTML(name)}"
+                src="${product.image}"
+                alt="${product.name}"
                 loading="lazy"
                 decoding="async"
-                onerror="
-                    this.style.display='none';
-                "
             >
 
             <div class="product-info">
 
                 <div class="product-name">
-                    ${escapeHTML(name)}
+                    ${product.name}
                 </div>
 
                 <div class="product-price">
-                    ${money(price)}
+                    ${money(product.price)}
                 </div>
 
                 <button
                     class="add-btn"
-                    onclick="addToCart('${escapeJS(id)}')"
+                    onclick="addToCart(${product.id})"
                 >
                     🛒 Thêm vào giỏ
                 </button>
@@ -2620,153 +676,94 @@ function productHTML(product){
 
         </div>
 
-    `;
+        `;
+
+    });
 
 }
+    function filterProducts(category, button){
 
+    const buttons =
+        document.querySelectorAll(".category-btn");
 
-/* ==================================================
-   ESCAPE HTML
-================================================== */
+    buttons.forEach(btn => {
+        btn.classList.remove("active");
+    });
 
-function escapeHTML(value){
-
-    return String(value)
-        .replace(/&/g,"&amp;")
-        .replace(/</g,"&lt;")
-        .replace(/>/g,"&gt;")
-        .replace(/"/g,"&quot;")
-        .replace(/'/g,"&#039;");
-
-}
-
-
-/* ==================================================
-   ESCAPE JS
-================================================== */
-
-function escapeJS(value){
-
-    return String(value)
-        .replace(/\\/g,"\\\\")
-        .replace(/'/g,"\\'")
-        .replace(/"/g,'\\"')
-        .replace(/\n/g,"\\n")
-        .replace(/\r/g,"\\r");
-
-}
-
-
-/* ==================================================
-   RENDER PRODUCTS
-================================================== */
-
-function renderProducts(){
+    if(button){
+        button.classList.add("active");
+    }
 
     const box =
-        document.getElementById(
-            "products"
-        );
+        document.getElementById("products");
 
     if(!box){
         return;
     }
 
+    const filteredProducts =
+        category === "all"
+            ? products
+            : products.filter(product => {
 
-    const visibleProducts =
-        getVisibleProducts();
+                const productCategory =
+                    String(product.category || "")
+                        .trim()
+                        .normalize("NFC")
+                        .toLowerCase();
 
+                const selectedCategory =
+                    String(category || "")
+                        .trim()
+                        .normalize("NFC")
+                        .toLowerCase();
 
-    if(visibleProducts.length === 0){
+                return productCategory === selectedCategory;
 
-        box.innerHTML = `
+            });
 
-            <div class="empty-box">
+    box.innerHTML = "";
 
-                😔 Không tìm thấy sản phẩm.
+    filteredProducts.forEach(product => {
 
-                <br><br>
+        box.innerHTML += `
 
-                Bạn thử chọn danh mục khác
-                hoặc tìm kiếm món khác nhé.
+        <div class="product">
+
+            <img
+                class="product-image"
+                src="${product.image}"
+                alt="${product.name}"
+                loading="lazy"
+                decoding="async"
+            >
+
+            <div class="product-info">
+
+                <div class="product-name">
+                    ${product.name}
+                </div>
+
+                <div class="product-price">
+                    ${money(product.price)}
+                </div>
+
+                <button
+                    class="add-btn"
+                    onclick="addToCart(${product.id})"
+                >
+                    🛒 Thêm vào giỏ
+                </button>
 
             </div>
 
+        </div>
+
         `;
 
-        return;
-
-    }
-
-
-    box.innerHTML =
-        visibleProducts
-            .map(productHTML)
-            .join("");
+    });
 
 }
-
-
-/* ==================================================
-   FILTER CATEGORY
-================================================== */
-
-function filterProducts(
-    category,
-    button
-){
-
-    currentCategory =
-        category;
-
-    document
-        .querySelectorAll(
-            ".category-btn"
-        )
-        .forEach(btn => {
-
-            btn.classList.remove(
-                "active"
-            );
-
-        });
-
-
-    if(button){
-
-        button.classList.add(
-            "active"
-        );
-
-    }
-
-
-    renderProducts();
-
-}
-
-
-/* ==================================================
-   SEARCH
-================================================== */
-
-function searchProducts(){
-
-    const input =
-        document.getElementById(
-            "searchInput"
-        );
-
-    searchKeyword =
-        input
-            ? input.value.trim()
-            : "";
-
-    renderProducts();
-
-}
-
-
 /* ==================================================
    ADD CART
 ================================================== */
@@ -2774,77 +771,28 @@ function searchProducts(){
 function addToCart(id){
 
     const existing =
-        cart.find(
-            item =>
-                sameId(item.id,id)
-        );
-
+        cart.find(item => item.id === id);
 
     if(existing){
 
-        existing.quantity =
-            Number(existing.quantity || 0) + 1;
+        existing.quantity++;
 
     }else{
 
         cart.push({
-
             id:id,
-
             quantity:1
-
         });
 
     }
 
-
-    /*
-       Khi thay đổi giỏ hàng,
-       voucher cũ phải kiểm tra lại.
-    */
-
     appliedVoucher = null;
-
-    discountAmount = 0;
-
 
     saveData();
 
     updateCart();
 
 }
-
-
-/* ==================================================
-   GET SUBTOTAL
-================================================== */
-
-function getSubtotal(){
-
-    let subtotal = 0;
-
-
-    cart.forEach(item => {
-
-        const product =
-            getProductById(item.id);
-
-
-        if(product){
-
-            subtotal +=
-                Number(product.price || 0) *
-                Number(item.quantity || 0);
-
-        }
-
-    });
-
-
-    return subtotal;
-
-}
-
 
 /* ==================================================
    UPDATE CART
@@ -2853,146 +801,54 @@ function getSubtotal(){
 function updateCart(){
 
     let count = 0;
-
+    let total = 0;
 
     cart.forEach(item => {
 
-        count +=
-            Number(item.quantity || 0);
+        const product =
+            products.find(
+                p => p.id === item.id
+            );
+
+        if(product){
+
+            count += item.quantity;
+
+            total +=
+                product.price *
+                item.quantity;
+
+        }
 
     });
 
+    document.getElementById("cartCount")
+        .textContent = count;
 
-    const total =
-        getSubtotal();
-
-
-    const cartCount =
-        document.getElementById(
-            "cartCount"
-        );
-
-    const cartTotal =
-        document.getElementById(
-            "cartTotal"
-        );
-
-    const cartDisplay =
-        document.getElementById(
-            "cartDisplay"
-        );
-
-
-    if(cartCount){
-
-        cartCount.textContent =
-            count;
-
-    }
-
-
-    if(cartTotal){
-
-        cartTotal.textContent =
-            money(total);
-
-    }
-
-
-    if(cartDisplay){
-
-        cartDisplay.textContent =
-            count;
-
-    }
-
-
-    const walletDisplay =
-        document.getElementById(
-            "walletDisplay"
-        );
-
-    const walletModalDisplay =
-        document.getElementById(
-            "walletModalDisplay"
-        );
-
-    const walletBigDisplay =
-        document.getElementById(
-            "walletBigDisplay"
-        );
-
-
-    if(walletDisplay){
-
-        walletDisplay.textContent =
-            money(wallet);
-
-    }
-
-
-    if(walletModalDisplay){
-
-        walletModalDisplay.textContent =
-            money(wallet);
-
-    }
-
-
-    if(walletBigDisplay){
-
-        walletBigDisplay.textContent =
-            money(wallet);
-
-    }
-
-
-    const voucherDisplay =
-        document.getElementById(
-            "voucherDisplay"
-        );
-
-
-    if(voucherDisplay){
-
-        voucherDisplay.textContent =
-            appliedVoucher
-                ? "1"
-                : "0";
-
-    }
+    document.getElementById("cartTotal")
+        .textContent = money(total);
 
 }
 
-
 /* ==================================================
-   OPEN CART
+   OPEN / CLOSE CART
 ================================================== */
 
 function openCart(){
 
     renderCart();
 
-    document
-        .getElementById("cartModal")
+    document.getElementById("cartModal")
         .style.display = "flex";
 
 }
 
-
-/* ==================================================
-   CLOSE CART
-================================================== */
-
 function closeCart(){
 
-    document
-        .getElementById("cartModal")
+    document.getElementById("cartModal")
         .style.display = "none";
 
 }
-
-
 /* ==================================================
    RENDER CART
 ================================================== */
@@ -3000,28 +856,21 @@ function closeCart(){
 function renderCart(){
 
     const box =
-        document.getElementById(
-            "cartItems"
-        );
+        document.getElementById("cartItems");
 
-    if(!box){
-        return;
-    }
-
+    box.innerHTML = "";
 
     if(cart.length === 0){
 
         box.innerHTML = `
 
-            <div
-                class="empty-box"
-                style="
-                    border:none;
-                    background:none;
-                "
-            >
+            <p style="
+                text-align:center;
+                color:#8795a3;
+                padding:25px 0;
+            ">
                 🛒 Giỏ hàng đang trống
-            </div>
+            </p>
 
         `;
 
@@ -3031,29 +880,25 @@ function renderCart(){
 
     }
 
-
-    let html = "";
-
-
     cart.forEach(item => {
 
         const product =
-            getProductById(item.id);
-
+            products.find(
+                p => p.id === item.id
+            );
 
         if(!product){
             return;
         }
 
-
-        html += `
+        box.innerHTML += `
 
             <div class="cart-item">
 
-                <div class="cart-item-left">
+                <div>
 
                     <div class="cart-item-name">
-                        ${escapeHTML(product.name)}
+                        ${product.name}
                     </div>
 
                     <div class="cart-item-price">
@@ -3062,45 +907,27 @@ function renderCart(){
 
                 </div>
 
-
                 <div class="quantity">
 
                     <button
-                        onclick="
-                            changeQuantity(
-                                '${escapeJS(String(product.id))}',
-                                -1
-                            )
-                        "
+                        onclick="changeQuantity(${product.id},-1)"
                     >
                         −
                     </button>
 
-
                     <strong>
-                        ${Number(item.quantity || 0)}
+                        ${item.quantity}
                     </strong>
 
-
                     <button
-                        onclick="
-                            changeQuantity(
-                                '${escapeJS(String(product.id))}',
-                                1
-                            )
-                        "
+                        onclick="changeQuantity(${product.id},1)"
                     >
                         +
                     </button>
 
-
                     <button
                         class="remove-btn"
-                        onclick="
-                            removeItem(
-                                '${escapeJS(String(product.id))}'
-                            )
-                        "
+                        onclick="removeItem(${product.id})"
                     >
                         ✕
                     </button>
@@ -3113,62 +940,37 @@ function renderCart(){
 
     });
 
-
-    box.innerHTML =
-        html ||
-        `
-            <div class="empty-box">
-                🛒 Giỏ hàng đang trống
-            </div>
-        `;
-
-
     calculateTotal();
 
 }
 
-
 /* ==================================================
-   CHANGE QUANTITY
+   QUANTITY
 ================================================== */
 
-function changeQuantity(
-    id,
-    change
-){
+function changeQuantity(id,change){
 
     const item =
         cart.find(
-            item =>
-                sameId(item.id,id)
+            item => item.id === id
         );
-
 
     if(!item){
         return;
     }
 
-
-    item.quantity =
-        Number(item.quantity || 0)
-        + Number(change);
-
+    item.quantity += change;
 
     if(item.quantity <= 0){
 
         cart =
             cart.filter(
-                item =>
-                    !sameId(item.id,id)
+                item => item.id !== id
             );
 
     }
 
-
     appliedVoucher = null;
-
-    discountAmount = 0;
-
 
     saveData();
 
@@ -3178,24 +980,18 @@ function changeQuantity(
 
 }
 
-
 /* ==================================================
-   REMOVE ITEM
+   REMOVE
 ================================================== */
 
 function removeItem(id){
 
     cart =
         cart.filter(
-            item =>
-                !sameId(item.id,id)
+            item => item.id !== id
         );
 
-
     appliedVoucher = null;
-
-    discountAmount = 0;
-
 
     saveData();
 
@@ -3205,9 +1001,37 @@ function removeItem(id){
 
 }
 
+/* ==================================================
+   SUBTOTAL
+================================================== */
+
+function getSubtotal(){
+
+    let subtotal = 0;
+
+    cart.forEach(item => {
+
+        const product =
+products.find(
+                p => p.id === item.id
+            );
+
+        if(product){
+
+            subtotal +=
+                product.price *
+                item.quantity;
+
+        }
+
+    });
+
+    return subtotal;
+
+}
 
 /* ==================================================
-   CHECK VOUCHER SERVER
+   JSONP CHECK VOUCHER
 ================================================== */
 
 function checkVoucherServer(
@@ -3219,7 +1043,6 @@ function checkVoucherServer(
     return new Promise(
         (resolve,reject) => {
 
-
             const callbackName =
                 "voucherCallback_" +
                 Date.now() +
@@ -3228,82 +1051,54 @@ function checkVoucherServer(
                     Math.random() * 10000
                 );
 
-
             const script =
-                document.createElement(
-                    "script"
-                );
-
-
-            let finished = false;
-
+                document.createElement("script");
 
             const timeout =
-                setTimeout(
-                    () => {
+                setTimeout(() => {
 
-                        cleanup();
+                    cleanup();
 
-                        reject(
-                            new Error(
-                                "Hết thời gian kiểm tra voucher"
-                            )
-                        );
+                    reject(
+                        new Error(
+                            "Hết thời gian kiểm tra voucher"
+                        )
+                    );
 
-                    },
-                    15000
-                );
-
+                },15000);
 
             function cleanup(){
 
-                clearTimeout(
-                    timeout
-                );
-
+                clearTimeout(timeout);
 
                 if(script.parentNode){
 
                     script.parentNode
-                        .removeChild(
-                            script
-                        );
+                        .removeChild(script);
 
                 }
 
-
                 try{
 
-                    delete window[
-                        callbackName
-                    ];
+                    delete window[callbackName];
 
-                }catch(error){
+                }catch(e){
 
-                    window[
-                        callbackName
-                    ] = undefined;
+                    window[callbackName] =
+                        undefined;
 
                 }
 
             }
 
-
             window[callbackName] =
                 function(data){
-
-                    if(finished){
-                        return;
-                    }
-
-                    finished = true;
 
                     cleanup();
 
                     resolve(data);
 
                 };
-
 
             script.src =
                 GOOGLE_SCRIPT_URL
@@ -3315,19 +1110,10 @@ function checkVoucherServer(
                 + "&subtotal="
                 + encodeURIComponent(subtotal)
                 + "&callback="
-                + encodeURIComponent(
-                    callbackName
-                );
-
+                + encodeURIComponent(callbackName);
 
             script.onerror =
                 function(){
-
-                    if(finished){
-                        return;
-                    }
-
-                    finished = true;
 
                     cleanup();
 
@@ -3339,16 +1125,12 @@ function checkVoucherServer(
 
                 };
 
-
-            document.body.appendChild(
-                script
-            );
+            document.body.appendChild(script);
 
         }
     );
 
 }
-
 
 /* ==================================================
    APPLY VOUCHER
@@ -3357,35 +1139,23 @@ function checkVoucherServer(
 async function applyVoucher(){
 
     const codeInput =
-        document.getElementById(
-            "voucherInput"
-        );
+        document.getElementById("voucherInput");
 
     const phoneInput =
-        document.getElementById(
-            "voucherPhone"
-        );
+        document.getElementById("voucherPhone");
 
     const message =
-        document.getElementById(
-            "voucherMessage"
-        );
-
+        document.getElementById("voucherMessage");
 
     const code =
         codeInput.value
             .trim()
             .toUpperCase();
 
-
     const phone =
-        phoneInput.value
-            .trim();
-
-
-    const subtotal =
+        phoneInput.value.trim();
+const subtotal =
         getSubtotal();
-
 
     if(!phone){
 
@@ -3399,20 +1169,6 @@ async function applyVoucher(){
 
     }
 
-
-    if(!/^0\d{9}$/.test(phone)){
-
-        message.style.color =
-            "#ff5577";
-
-        message.textContent =
-            "❌ Số điện thoại phải có 10 chữ số và bắt đầu bằng 0.";
-
-        return;
-
-    }
-
-
     if(!code){
 
         message.style.color =
@@ -3424,7 +1180,6 @@ async function applyVoucher(){
         return;
 
     }
-
 
     if(subtotal <= 0){
 
@@ -3438,13 +1193,11 @@ async function applyVoucher(){
 
     }
 
-
     message.style.color =
         "#00d4ff";
 
     message.textContent =
         "⏳ Đang kiểm tra voucher...";
-
 
     try{
 
@@ -3455,7 +1208,6 @@ async function applyVoucher(){
                 subtotal
             );
 
-
         if(!result){
 
             throw new Error(
@@ -3464,54 +1216,42 @@ async function applyVoucher(){
 
         }
 
-
         if(result.success){
 
             appliedVoucher = {
 
-                code:code,
+                code:
+                    code,
 
-                phone:phone,
+                phone:
+                    phone,
 
                 type:
                     result.type,
 
                 value:
-                    Number(result.value || 0),
+                    Number(result.value),
 
                 discount:
-                    Number(
-                        result.discount || 0
-                    ),
+                    Number(result.discount),
 
                 finalTotal:
-                    Number(
-                        result.finalTotal || 0
-                    )
+                    Number(result.finalTotal)
 
             };
-
 
             message.style.color =
                 "#22c55e";
 
-
             message.textContent =
-                "✅ "
-                +
+                "✅ " +
                 (
                     result.message ||
                     "Voucher đã được áp dụng."
-                )
-                +
-                " Giảm "
-                +
-                money(
-                    result.discount
-                )
-                +
+                ) +
+                " Giảm " +
+                money(result.discount) +
                 ".";
-
 
             saveData();
 
@@ -3523,22 +1263,17 @@ async function applyVoucher(){
 
             appliedVoucher = null;
 
-            discountAmount = 0;
-
             saveData();
 
             calculateTotal();
 
             updateCart();
 
-
             message.style.color =
                 "#ff5577";
 
-
             message.textContent =
-                "❌ "
-                +
+                "❌ " +
                 (
                     result.message ||
                     "Voucher không hợp lệ."
@@ -3560,7 +1295,6 @@ async function applyVoucher(){
 
 }
 
-
 /* ==================================================
    CALCULATE TOTAL
 ================================================== */
@@ -3570,17 +1304,14 @@ function calculateTotal(){
     const subtotal =
         getSubtotal();
 
-
     discountAmount = 0;
-
 
     if(appliedVoucher){
 
         discountAmount =
             Number(
-                appliedVoucher.discount || 0
-            );
-
+                appliedVoucher.discount
+            ) || 0;
 
         if(discountAmount > subtotal){
 
@@ -3591,83 +1322,46 @@ function calculateTotal(){
 
     }
 
-
     const finalTotal =
-        Math.max(
+Math.max(
             0,
-            subtotal - discountAmount
+            subtotal -
+            discountAmount
         );
 
+    document.getElementById("subtotal")
+        .textContent =
+        money(subtotal);
 
-    const subtotalElement =
-        document.getElementById(
-            "subtotal"
-        );
+    document.getElementById("discount")
+        .textContent =
+        "-" + money(discountAmount);
 
-    const discountElement =
-        document.getElementById(
-            "discount"
-        );
+    document.getElementById("finalTotal")
+        .textContent =
+        money(finalTotal);
 
-    const finalElement =
-        document.getElementById(
-            "finalTotal"
-        );
-
-    const orderFinalElement =
-        document.getElementById(
-            "orderFinalTotal"
-        );
-
-
-    if(subtotalElement){
-
-        subtotalElement.textContent =
-            money(subtotal);
-
-    }
-
-
-    if(discountElement){
-
-        discountElement.textContent =
-            "-" +
-            money(discountAmount);
-
-    }
-
-
-    if(finalElement){
-
-        finalElement.textContent =
-            money(finalTotal);
-
-    }
-
-
-    if(orderFinalElement){
-
-        orderFinalElement.textContent =
-            money(finalTotal);
-
-    }
-
+    document.getElementById("orderFinalTotal")
+        .textContent =
+        money(finalTotal);
 
     return {
 
-        subtotal:subtotal,
+        subtotal:
+            subtotal,
 
-        discount:discountAmount,
+        discount:
+            discountAmount,
 
-        total:finalTotal
+        total:
+            finalTotal
 
     };
 
 }
 
-
 /* ==================================================
-   OPEN ORDER FORM
+   ORDER FORM
 ================================================== */
 
 function openOrderForm(){
@@ -3682,129 +1376,21 @@ function openOrderForm(){
 
     }
 
-
     calculateTotal();
 
     closeCart();
 
-
-    document
-        .getElementById("orderModal")
+    document.getElementById("orderModal")
         .style.display = "flex";
 
 }
-
-
-/* ==================================================
-   CLOSE ORDER FORM
-================================================== */
 
 function closeOrderForm(){
 
-    document
-        .getElementById("orderModal")
+    document.getElementById("orderModal")
         .style.display = "none";
 
 }
-
-
-/* ==================================================
-   WALLET
-================================================== */
-
-function openWallet(){
-
-    updateCart();
-
-    document
-        .getElementById("walletModal")
-        .style.display = "flex";
-
-}
-
-
-function closeWallet(){
-
-    document
-        .getElementById("walletModal")
-        .style.display = "none";
-
-}
-
-
-/* ==================================================
-   TOPUP
-================================================== */
-
-function openTopup(){
-
-    closeWallet();
-
-    closeCart();
-
-    document
-        .getElementById("topupModal")
-        .style.display = "flex";
-
-}
-
-
-function closeTopup(){
-
-    document
-        .getElementById("topupModal")
-        .style.display = "none";
-
-}
-
-
-function requestTopup(){
-
-    const input =
-        document.getElementById(
-            "topupAmount"
-        );
-
-
-    const amount =
-        Number(
-            input.value
-        );
-
-
-    if(
-        !amount ||
-        amount < 10000
-    ){
-
-        alert(
-            "Số tiền nạp tối thiểu là 10.000đ."
-        );
-
-        return;
-
-    }
-
-
-    alert(
-
-        "Đã ghi nhận yêu cầu nạp "
-        +
-        money(amount)
-        +
-        ".\n\n"
-        +
-        "Sau khi quản trị viên xác nhận "
-        +
-        "chuyển khoản, số dư mới được cộng."
-
-    );
-
-
-    closeTopup();
-
-}
-
 
 /* ==================================================
    PAYMENT QR
@@ -3812,167 +1398,34 @@ function requestTopup(){
 
 function openPaymentQR(){
 
-    document
-        .getElementById("paymentQR")
+    document.getElementById("paymentQR")
         .style.display = "flex";
 
 }
 
-
 function closePaymentQR(){
 
-    document
-        .getElementById("paymentQR")
+    document.getElementById("paymentQR")
         .style.display = "none";
 
 }
 
-
 /* ==================================================
-   LOCATION
-================================================== */
-
-function getLocation(){
-
-    if(!navigator.geolocation){
-
-        alert(
-            "❌ Thiết bị không hỗ trợ định vị."
-        );
-
-        return;
-
-    }
-
-
-    const button =
-        document.getElementById(
-            "locationButton"
-        );
-
-
-    if(button){
-
-        button.textContent =
-            "⏳ Đang lấy vị trí...";
-
-        button.disabled = true;
-
-    }
-
-
-    navigator.geolocation.getCurrentPosition(
-
-        function(position){
-
-            const latitude =
-                position.coords.latitude;
-
-            const longitude =
-                position.coords.longitude;
-
-
-            document
-                .getElementById("latitude")
-                .value =
-                latitude.toFixed(7);
-
-
-            document
-                .getElementById("longitude")
-                .value =
-                longitude.toFixed(7);
-
-
-            if(button){
-
-                button.textContent =
-                    "✅ Đã lấy vị trí thành công";
-
-                button.classList.add(
-                    "success"
-                );
-
-                button.disabled = false;
-
-            }
-
-
-            alert(
-
-                "✅ Đã lấy vị trí thành công!\n\n"
-                +
-                "Bạn có thể tiếp tục đặt hàng."
-
-            );
-
-        },
-
-
-        function(error){
-
-            console.error(
-                "Geolocation error:",
-                error
-            );
-
-
-            if(button){
-
-                button.textContent =
-                    "📍 Bắt buộc gửi vị trí để đặt hàng";
-
-                button.disabled = false;
-
-            }
-
-
-            alert(
-
-                "❌ Bạn chưa cho phép truy cập vị trí.\n\n"
-                +
-                "Vui lòng cho phép định vị để có thể đặt hàng."
-
-            );
-
-        },
-
-
-        {
-
-            enableHighAccuracy:true,
-
-            timeout:15000,
-
-            maximumAge:0
-
-        }
-
-    );
-
-}
-
-
-/* ==================================================
-   USE VOUCHER SERVER
+   USE VOUCHER
 ================================================== */
 
 async function useVoucherServer(
-
     phone,
     code,
     orderCode,
     discount,
     finalTotal
-
 ){
 
     try{
 
         await fetch(
-
             GOOGLE_SCRIPT_URL,
-
             {
 
                 method:"POST",
@@ -3980,37 +1433,33 @@ async function useVoucherServer(
                 mode:"no-cors",
 
                 headers:{
-
                     "Content-Type":
                         "text/plain;charset=utf-8"
-
                 },
 
-                body:
-                    JSON.stringify({
+                body:JSON.stringify({
 
-                        action:
-                            "useVoucher",
+                    action:
+                        "useVoucher",
 
-                        phone:
-                            phone,
+                    phone:
+                        phone,
 
-                        code:
-                            code,
+                    code:
+                        code,
 
-                        orderCode:
-                            orderCode,
+                    orderCode:
+                        orderCode,
 
-                        discount:
-                            discount,
+                    discount:
+                        discount,
 
-                        finalTotal:
-                            finalTotal
+                    finalTotal:
+                        finalTotal
 
-                    })
+                })
 
             }
-
         );
 
     }catch(error){
@@ -4023,105 +1472,77 @@ async function useVoucherServer(
     }
 
 }
-
-
 /* ==================================================
    CONFIRM ORDER
 ================================================== */
 
 async function confirmOrder(){
 
+    /* ==============================
+       LẤY NÚT
+    ============================== */
+
     const button =
         document.getElementById(
             "confirmOrderButton"
         );
 
-
     if(!button){
         return;
     }
 
+    /* ==============================
+       CHỐNG BẤM TRÙNG
+    ============================== */
 
     if(button.disabled){
         return;
     }
 
+    /* ==============================
+       LẤY THÔNG TIN
+    ============================== */
 
     const name =
-        document
-            .getElementById(
-                "customerName"
-            )
-            .value
-            .trim();
-
+        document.getElementById(
+            "customerName"
+        ).value.trim();
 
     const phone =
-        document
-            .getElementById(
-                "customerPhone"
-            )
-            .value
-            .trim();
-
+        document.getElementById(
+            "customerPhone"
+        ).value.trim();
 
     const address =
-        document
-            .getElementById(
-                "customerAddress"
-            )
-            .value
-            .trim();
-
+        document.getElementById(
+            "customerAddress"
+        ).value.trim();
 
     const note =
-        document
-            .getElementById(
-                "customerNote"
-            )
-            .value
-            .trim();
+        document.getElementById(
+            "customerNote"
+        ).value.trim();
+const latitude =
+    document.getElementById("latitude").value.trim();
+
+const longitude =
+    document.getElementById("longitude").value.trim();
+
+if(!latitude || !longitude){
+
+    alert(
+        "📍 Vui lòng cho phép truy cập vị trí " +
+        "trước khi đặt hàng."
+    );
+
+    return;
+}
 
 
-    const latitude =
-        document
-            .getElementById(
-                "latitude"
-            )
-            .value
-            .trim();
 
-
-    const longitude =
-        document
-            .getElementById(
-                "longitude"
-            )
-            .value
-            .trim();
-
-
-    /* LOCATION */
-
-    if(
-        !latitude ||
-        !longitude
-    ){
-
-        alert(
-
-            "📍 Vui lòng cho phép truy cập vị trí "
-            +
-            "trước khi đặt hàng."
-
-        );
-
-        return;
-
-    }
-
-
-    /* NAME */
+    /* ==============================
+       KIỂM TRA
+    ============================== */
 
     if(!name){
 
@@ -4133,38 +1554,24 @@ async function confirmOrder(){
 
     }
 
+if(!phone){
 
-    /* PHONE */
+    alert(
+        "📱 Vui lòng nhập số điện thoại."
+    );
 
-    if(!phone){
+    return;
+}
 
-        alert(
-            "📱 Vui lòng nhập số điện thoại."
-        );
+if(!/^0\d{9}$/.test(phone)){
 
-        return;
+    alert(
+        "❌ Số điện thoại không hợp lệ.\n\n" +
+        "Vui lòng nhập đúng 10 chữ số và bắt đầu bằng số 0."
+    );
 
-    }
-
-
-    if(!/^0\d{9}$/.test(phone)){
-
-        alert(
-
-            "❌ Số điện thoại không hợp lệ.\n\n"
-            +
-            "Vui lòng nhập đúng 10 chữ số "
-            +
-            "và bắt đầu bằng số 0."
-
-        );
-
-        return;
-
-    }
-
-
-    /* ADDRESS */
+    return;
+}
 
     if(!address){
 
@@ -4176,9 +1583,6 @@ async function confirmOrder(){
 
     }
 
-
-    /* CART */
-
     if(cart.length === 0){
 
         alert(
@@ -4189,181 +1593,158 @@ async function confirmOrder(){
 
     }
 
-
-    /* TOTAL */
+    /* ==============================
+       TÍNH TIỀN
+    ============================== */
 
     const finalData =
         calculateTotal();
 
-
-    /* LOCK BUTTON */
+    /* ==============================
+       KHÓA NÚT NGAY LẬP TỨC
+    ============================== */
 
     const oldText =
         button.innerHTML;
 
+    button.disabled =
+        true;
 
-    button.disabled = true;
-
-    button.style.opacity = ".6";
+    button.style.opacity =
+        "0.6";
 
     button.innerHTML =
         "⏳ Đang gửi đơn...";
 
-
-    /* ORDER CODE */
+    /* ==============================
+       TẠO MÃ ĐƠN
+    ============================== */
 
     const orderCode =
-        "CC"
-        +
+        "CC" +
         Date.now()
             .toString()
             .slice(-8);
 
-
-    /* ITEM NAMES */
-
-    const itemNames =
+    /* ==============================
+       SẢN PHẨM
+    ============================== */
+const itemNames =
         cart
             .map(item => {
 
                 const product =
-                    getProductById(
-                        item.id
+                    products.find(
+                        p => p.id === item.id
                     );
 
-
                 return product
-
-                    ? product.name
-                        + " x"
-                        + Number(
-                            item.quantity || 0
-                        )
-
+                    ? product.name + " x" + item.quantity
                     : "";
 
             })
             .filter(Boolean)
             .join(", ");
 
-
-    /* QUANTITIES */
-
     const quantities =
         cart
-            .map(
-                item =>
-                    Number(
-                        item.quantity || 0
-                    )
+            .map(item =>
+                item.quantity
             )
             .join(", ");
 
+    /* ==============================
+       DỮ LIỆU ĐƠN
+    ============================== */
 
-    /* PAYLOAD */
+const payload = {
 
-    const payload = {
+    action:
+        "order",
 
-        action:"order",
+    code:
+        orderCode,
 
-        code:orderCode,
+    name:
+        name,
 
-        name:name,
+    phone:
+        phone,
 
-        phone:phone,
+    address:
+        address,
 
-        address:address,
+    latitude:
+        document.getElementById("latitude").value.trim(),
 
-        latitude:latitude,
+    longitude:
+        document.getElementById("longitude").value.trim(),
 
-        longitude:longitude,
+    note:
+        note,
 
-        note:note,
+    items:
+        itemNames,
 
-        items:itemNames,
+    quantity:
+        quantities,
 
-        quantity:quantities,
+    subtotal:
+        finalData.subtotal,
 
-        subtotal:
-            finalData.subtotal,
+    discount:
+        finalData.discount,
 
-        discount:
-            finalData.discount,
+    total:
+        finalData.total,
 
-        total:
-            finalData.total,
+    voucher:
+        appliedVoucher
+            ? appliedVoucher.code
+            : "",
 
-        voucher:
-            appliedVoucher
-                ? appliedVoucher.code
-                : "",
+    createdAt:
+        new Date()
+            .toLocaleString("vi-VN")
 
-        createdAt:
-            new Date()
-                .toLocaleString("vi-VN")
+};
 
-    };
-
+    /* ==============================
+       GỬI ĐƠN
+    ============================== */
 
     try{
 
-        /*
-           GỬI ĐƠN HÀNG
-        */
-
         await fetch(
-
             GOOGLE_SCRIPT_URL,
-
             {
 
-                method:"POST",
+                method:
+                    "POST",
 
-                mode:"no-cors",
+                mode:
+                    "no-cors",
 
                 headers:{
-
                     "Content-Type":
                         "text/plain;charset=utf-8"
-
                 },
 
                 body:
-                    JSON.stringify(
-                        payload
-                    )
+                    JSON.stringify(payload)
 
             }
-
         );
 
-
-        /*
+        /* ==============================
            ĐÁNH DẤU VOUCHER ĐÃ DÙNG
-        */
-
-        if(appliedVoucher){
-
-            await useVoucherServer(
-
-                appliedVoucher.phone,
-
-                appliedVoucher.code,
-
-                orderCode,
-
-                finalData.discount,
-
-                finalData.total
-
-            );
-
-        }
+        ============================== */
 
 
-        /*
-           XÓA GIỎ
-        */
+
+        /* ==============================
+           XÓA GIỎ HÀNG
+        ============================== */
 
         cart = [];
 
@@ -4375,148 +1756,77 @@ async function confirmOrder(){
 
         updateCart();
 
-
-        /*
+        /* ==============================
            ĐÓNG FORM
-        */
+        ============================== */
 
-        closeOrderForm();
+closeOrderForm();
 
+/* ==============================
+   THÔNG BÁO
+============================== */
 
-        /*
-           THÔNG BÁO
-        */
+alert(
+    "✅ Đặt hàng thành công!\n\n" +
+    "Mã đơn: " +
+    orderCode +
+    "\n\n" +
+    "Quán sẽ liên hệ khách hàng qua số điện thoại để xác nhận đơn.\n" +
+    "Vui lòng để ý điện thoại trong 1-3 phút nữa.\n\n" +
+    "Tổng tiền: " +
+    money(finalData.total)
+);
 
-        alert(
+/* ==============================
+   HIỆN QR
+============================== */
 
-            "✅ Đặt hàng thành công!\n\n"
-            +
-            "Mã đơn: "
-            +
-            orderCode
-            +
-            "\n\n"
-            +
-            "Quán sẽ liên hệ khách hàng "
-            +
-            "qua số điện thoại để xác nhận đơn.\n"
-            +
-            "Vui lòng để ý điện thoại trong "
-            +
-            "1-3 phút nữa.\n\n"
-            +
-            "Tổng tiền: "
-            +
-            money(finalData.total)
+openPaymentQR();
+        setTimeout(() => {
+    window.location.reload();
+}, 1500);
 
-        );
+        /* ==============================
+           RESET NÚT
+        ============================== */
 
+        button.disabled =
+            false;
 
-        /*
-           HIỆN QR
-        */
+        button.style.opacity =
+            "1";
 
-        openPaymentQR();
-
-
-        /*
-           RESET FORM SAU KHI ĐẶT
-        */
-
-        document
-            .getElementById(
-                "customerName"
-            )
-            .value = "";
-
-
-        document
-            .getElementById(
-                "customerPhone"
-            )
-            .value = "";
-
-
-        document
-            .getElementById(
-                "customerAddress"
-            )
-            .value = "";
-
-
-        document
-            .getElementById(
-                "customerNote"
-            )
-            .value = "";
-
-
-        document
-            .getElementById(
-                "latitude"
-            )
-            .value = "";
-
-
-        document
-            .getElementById(
-                "longitude"
-            )
-            .value = "";
-
-
-        const locationButton =
-            document.getElementById(
-                "locationButton"
-            );
-
-
-        if(locationButton){
-
-            locationButton.textContent =
-                "📍 Bắt buộc gửi vị trí để đặt hàng";
-
-            locationButton.classList.remove(
-                "success"
-            );
-
-        }
-
+        button.innerHTML =
+            oldText;
 
     }catch(error){
 
         console.error(error);
 
+        /* ==============================
+           CHO PHÉP GỬI LẠI
+        ============================== */
+
+        button.disabled =
+            false;
+
+        button.style.opacity =
+            "1";
+
+        button.innerHTML =
+            oldText;
 
         alert(
-
-            "❌ Không thể gửi đơn hàng.\n\n"
-            +
-            "Vui lòng kiểm tra kết nối "
-            +
-            "và thử lại."
-
+            "❌ Không thể gửi đơn hàng.\n\n" +
+            "Vui lòng kiểm tra kết nối và thử lại."
         );
 
     }
 
-
-    /*
-       RESET BUTTON
-    */
-
-    button.disabled = false;
-
-    button.style.opacity = "1";
-
-    button.innerHTML =
-        oldText;
-
 }
 
-
 /* ==================================================
-   WELCOME POPUP
+   POPUP CHÀO MỪNG
 ================================================== */
 
 function openWelcomePopup(){
@@ -4525,7 +1835,6 @@ function openWelcomePopup(){
         document.getElementById(
             "welcomePopup"
         );
-
 
     if(popup){
 
@@ -4536,14 +1845,12 @@ function openWelcomePopup(){
 
 }
 
-
 function closeWelcomePopup(){
 
     const popup =
         document.getElementById(
             "welcomePopup"
         );
-
 
     if(popup){
 
@@ -4554,57 +1861,30 @@ function closeWelcomePopup(){
 
 }
 
-
 /* ==================================================
+   LOAD WEBSITE
+==================================================
+*/
+
+/* ==============================
    LOAD PRODUCTS
-================================================== */
+============================== */
 
 async function loadProducts(){
 
-    const box =
-        document.getElementById(
-            "products"
-        );
-
-
     try{
 
-        const response =
-            await fetch(
+        const response = await fetch(
 
-                GOOGLE_SCRIPT_URL
-                +
-                "?action=products"
+            GOOGLE_SCRIPT_URL + "?action=products"
 
-            );
+        );
 
+        const data = await response.json();
 
-        if(!response.ok){
+        if(data.success){
 
-            throw new Error(
-                "HTTP "
-                +
-                response.status
-            );
-
-        }
-
-
-        const data =
-            await response.json();
-
-
-        if(
-            data &&
-            data.success &&
-            Array.isArray(
-                data.products
-            )
-        ){
-
-            products =
-                data.products;
-
+            products = data.products;
 
             renderProducts();
 
@@ -4612,128 +1892,27 @@ async function loadProducts(){
 
         }else{
 
-            console.log(
-                "Products response:",
-                data
-            );
+            console.log(data);
 
-
-            box.innerHTML = `
-
-                <div class="empty-box">
-
-                    ❌ Không tải được menu.
-
-                    <br><br>
-
-                    Vui lòng tải lại trang.
-
-                </div>
-
-            `;
+            alert("Không tải được sản phẩm");
 
         }
 
     }catch(error){
 
-        console.error(
-            "Lỗi loadProducts:",
-            error
-        );
+        console.error(error);
 
-
-        box.innerHTML = `
-
-            <div class="empty-box">
-
-                ❌ Không thể tải menu.
-
-                <br><br>
-
-                Hãy kiểm tra kết nối
-                rồi tải lại trang.
-
-            </div>
-
-        `;
+        alert("Lỗi kết nối API");
 
     }
 
 }
 
+loadProducts();
 
-/* ==================================================
-   CLOSE MODAL WHEN CLICK OUTSIDE
-================================================== */
-
-document.addEventListener(
-    "click",
-    function(event){
-
-        const modalIds = [
-
-            "cartModal",
-
-            "orderModal",
-
-            "walletModal",
-
-            "topupModal"
-
-        ];
-
-
-        modalIds.forEach(
-            function(id){
-
-                const modal =
-                    document.getElementById(
-                        id
-                    );
-
-
-                if(
-                    event.target === modal
-                ){
-
-                    modal.style.display =
-                        "none";
-
-                }
-
-            }
-        );
-
-    }
-);
-
-
-/* ==================================================
-   START WEBSITE
-================================================== */
-
-document.addEventListener(
-    "DOMContentLoaded",
-    function(){
-
-        updateCart();
-
-        loadProducts();
-
-        setTimeout(
-            function(){
-
-                openWelcomePopup();
-
-            },
-            500
-        );
-
-    }
-);
+openWelcomePopup();
 
 </script>
-
 
 </body>
 </html>
