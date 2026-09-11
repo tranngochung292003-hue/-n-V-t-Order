@@ -57,119 +57,64 @@ header{background:rgba(255,250,245,.96);border-bottom:1px solid var(--border);pa
 @media(max-width:700px){.quick-benefits{grid-template-columns:repeat(2,1fr);padding:0 12px;gap:8px}.quick-benefits>div{padding:9px;font-size:18px}.quick-benefits b{font-size:11px}.quick-benefits small{font-size:9px}.popular-row{margin-top:15px}.popular-row b{font-size:16px}.popular-row small{display:none}.category-menu{position:sticky;top:61px}.products{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.product-image{height:155px}.product-info{padding:9px}.product-name{font-size:13px;min-height:37px}.product-price{font-size:15px}.add-btn{width:37px;height:37px;font-size:23px}.photo-badge{font-size:9px;padding:3px 7px}}
 @media(min-width:701px){.products{grid-template-columns:repeat(4,minmax(0,1fr))}}
 
-/* =========================================================
-   MOBILE 100% UX - AN VAT LAM THAO
-   ========================================================= */
-@media (max-width:700px){
-  html{scroll-behavior:smooth;background:#f6efe7}
-  body{background:#f6efe7;color:#3d3028;padding-bottom:76px;overflow-x:hidden}
-  header{position:sticky;top:0;z-index:300;background:rgba(255,250,245,.97);backdrop-filter:blur(14px);border-bottom:1px solid #eadfd5;padding:9px 10px;box-shadow:0 2px 12px rgba(91,58,37,.08)}
-  .den-header{display:grid!important;grid-template-columns:1fr auto;gap:8px;max-width:none!important}
-  .logo{font-size:17px;line-height:38px;overflow:hidden;text-overflow:ellipsis}
-  .logo span{font-weight:850}
-  .header-cart{height:38px;padding:0 11px;border-radius:12px;font-size:13px;white-space:nowrap;box-shadow:0 2px 7px rgba(91,58,37,.08)}
-  .header-cart b{right:-4px;top:-5px}
-  .header-search{grid-column:1/-1;order:initial;max-width:none;width:100%;height:42px;border-radius:13px;padding:8px 12px;background:#f3ebe2;border-color:#e2d2c2}
-  .header-search span{font-size:15px}
-  .header-search input{font-size:14px}
-  .header-search input::placeholder{color:#9a8a7d}
+/* ===== PROFESSIONAL UPGRADE ===== */
+body{background:#f7f0e6;color:#3f3027}
+header{background:rgba(255,250,243,.96);border-bottom:1px solid #eadbca;box-shadow:0 2px 16px rgba(91,61,39,.08);position:sticky;top:0;z-index:50;backdrop-filter:blur(10px)}
+.header-inner{max-width:1180px;margin:auto;padding:12px 18px;display:grid;grid-template-columns:auto 1fr auto;gap:18px;align-items:center}
+.logo{font-weight:900;color:#6f472c;font-size:21px;white-space:nowrap}.logo span{margin-left:3px}
+.header-search{height:46px;background:#f3eadf;border:1px solid #e5d4c1;border-radius:24px;display:flex;align-items:center;padding:0 15px;box-shadow:inset 0 1px 0 #fff}
+.header-search input{border:0;outline:0;background:transparent;width:100%;font-size:15px;color:#49372c}
+.header-cart{border:0;background:#8b5e3c;color:#fff;border-radius:24px;padding:12px 16px;font-weight:800;cursor:pointer;box-shadow:0 5px 14px rgba(111,71,44,.2)}.header-cart b{background:#fff;color:#8b5e3c;border-radius:99px;padding:2px 7px;margin-left:5px}
+.den-hero{max-width:1180px;margin:18px auto 0;border-radius:24px;overflow:hidden;background:linear-gradient(110deg,#ead8c2,#f8eee2 58%,#dfc1a4);box-shadow:0 10px 30px rgba(99,67,42,.12);padding:30px 28px;display:flex;justify-content:space-between;align-items:center;gap:20px}
+.hero-badge{display:inline-block;background:#fff7ee;color:#8b5e3c;border-radius:20px;padding:7px 12px;font-size:12px;font-weight:900}.den-hero h1{font-size:34px;color:#4a3324;margin:10px 0 8px}.den-hero h1 span{color:#a55a28}.den-hero p{color:#6d5747}.hero-voucher{min-width:220px;background:#fffaf4;border:1px dashed #b97d4e;border-radius:18px;padding:18px;text-align:center;box-shadow:0 7px 18px rgba(92,59,36,.08)}.hero-voucher strong{display:block;color:#a34e1d;font-size:22px}.hero-voucher small{display:block;margin-top:6px;color:#705849}
+.quick-benefits{max-width:1180px;margin:14px auto 24px;padding:0 4px;display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.quick-benefits>div{background:#fffaf5;border:1px solid #eadbc9;border-radius:15px;padding:12px;display:flex;gap:10px;align-items:center;color:#654a38}.quick-benefits>div>span{display:flex;flex-direction:column}.quick-benefits small{font-size:11px;color:#927866;margin-top:2px}
+.container{max-width:1180px;margin:auto;padding:0 18px 100px}.section-head{padding-top:4px}.eyebrow{color:#a36b46;font-weight:900;font-size:11px;letter-spacing:1.2px}.section-title{font-size:25px;color:#4a3427;margin-top:4px}.popular-row{margin:14px 0 10px;background:#fffaf5;border:1px solid #eadbc9;border-radius:16px;padding:11px 14px;display:flex;justify-content:space-between;align-items:center}.popular-row>div{display:flex;gap:8px;align-items:center}.popular-row small{color:#927866;margin-left:5px}.scroll-hint{font-size:11px;color:#a48670}.category-menu{display:flex;gap:9px;overflow-x:auto;padding:3px 0 13px;scrollbar-width:none}.category-menu::-webkit-scrollbar{display:none}.category-btn{flex:0 0 auto;border:1px solid #e1d0bd;background:#fffaf5;color:#654938;border-radius:22px;padding:10px 16px;font-weight:800;cursor:pointer;transition:.2s}.category-btn.active,.category-btn:hover{background:#8b5e3c;color:#fff;border-color:#8b5e3c;box-shadow:0 5px 12px rgba(111,71,44,.15)}
+.products{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}.product.den-product{background:#fffdf9;border:1px solid #eaded1;border-radius:18px;overflow:hidden;box-shadow:0 5px 16px rgba(83,57,38,.07);transition:transform .18s,box-shadow .18s}.product.den-product:hover{transform:translateY(-3px);box-shadow:0 12px 25px rgba(83,57,38,.12)}.product-photo-wrap{position:relative;background:#efe5da;aspect-ratio:1/1}.product-image{width:100%;height:100%;object-fit:cover;display:block}.photo-badge{position:absolute;left:9px;top:9px;background:#fffaf4;color:#8b4e28;border-radius:12px;padding:5px 8px;font-size:10px;font-weight:900;box-shadow:0 3px 8px rgba(0,0,0,.08)}.product-info{padding:12px}.product-name{font-weight:800;color:#49352a;font-size:15px;line-height:1.35;min-height:40px}.product-meta{display:flex;align-items:center;gap:5px;margin:7px 0;color:#8b7564;font-size:11px}.stars{letter-spacing:1px;color:#d9902f}.product-bottom{display:flex;align-items:center;justify-content:space-between;margin-top:9px}.product-price{font-size:18px;font-weight:950;color:#9b4e22}.add-btn{width:38px;height:38px;border-radius:50%;border:0;background:#8b5e3c;color:#fff;font-size:25px;line-height:1;cursor:pointer;box-shadow:0 5px 12px rgba(111,71,44,.22);transition:.15s}.add-btn:active{transform:scale(.88)}
+.cart-bar{background:rgba(255,250,244,.96);border-top:1px solid #e4d4c2;box-shadow:0 -6px 20px rgba(76,51,34,.1);backdrop-filter:blur(10px)}.cart-inner{max-width:1180px;margin:auto;padding:10px 18px}.checkout-btn,.confirm-btn{background:#8b5e3c!important;border-radius:12px!important;box-shadow:0 6px 14px rgba(111,71,44,.18)}
+.contact-buttons{gap:8px}.contact-btn{border-radius:20px!important;box-shadow:0 4px 12px rgba(0,0,0,.1)}footer{background:#4d382b!important;color:#f8eee3!important;padding:28px 18px!important}
+.modal-box{border-radius:20px!important;background:#fffaf5!important;border:1px solid #ead9c7}.modal-header{border-bottom:1px solid #eadbc9!important}.total-box,.voucher-box{background:#f5eadf!important;border:1px solid #e7d6c3!important;border-radius:15px!important}
+@media(max-width:800px){.header-inner{grid-template-columns:1fr auto;gap:9px;padding:10px 12px}.logo{font-size:17px}.header-search{grid-column:1/-1;grid-row:2;height:42px}.header-cart{padding:10px 12px}.header-cart span{display:none}.den-hero{margin:10px 10px 0;padding:20px 17px;border-radius:20px;display:block}.den-hero h1{font-size:27px}.hero-voucher{margin-top:14px;min-width:0}.quick-benefits{margin:10px 10px 18px;grid-template-columns:repeat(2,1fr);gap:8px}.quick-benefits>div{font-size:13px;padding:10px}.container{padding:0 10px 90px}.section-title{font-size:21px}.products{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.product-info{padding:9px}.product-name{font-size:14px;min-height:38px}.product-price{font-size:16px}.add-btn{width:35px;height:35px;font-size:23px}.popular-row small{display:none}.photo-badge{font-size:9px}.contact-buttons{bottom:70px!important}}
 
-  .den-hero{margin:10px 10px 8px!important;padding:18px 16px!important;border-radius:18px!important;min-height:0!important;background:linear-gradient(145deg,#fffaf5,#efe0d1)!important;box-shadow:0 6px 20px rgba(91,58,37,.09)!important}
-  .hero-badge{font-size:9px;padding:6px 9px;margin-bottom:7px}
-  .den-hero h1{font-size:25px!important;line-height:1.15;margin-bottom:7px!important}
-  .den-hero p{font-size:12px!important;line-height:1.55}
-  .ship-chips{margin-top:10px;gap:6px;overflow-x:auto;padding-bottom:2px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
-  .ship-chips::-webkit-scrollbar{display:none}
-  .ship-chips span{font-size:10px;padding:5px 8px;flex:0 0 auto}
 
-  .quick-benefits{display:grid!important;grid-template-columns:repeat(2,1fr)!important;gap:8px!important;padding:0 10px!important;margin:8px 0 2px!important}
-  .quick-benefits>div{background:#fffaf5;border:1px solid #eadfd5;border-radius:13px;padding:9px!important;min-width:0;box-shadow:0 2px 8px rgba(91,58,37,.05)}
-  .quick-benefits>div>span{min-width:0}
-  .quick-benefits b{font-size:10px!important;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .quick-benefits small{font-size:8px!important;color:#8d7b6d;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-
-  .container{padding:3px 10px 92px!important;max-width:none!important}
-  .section-head{margin-top:13px}
-  .eyebrow{font-size:9px!important;letter-spacing:1px}
-  .section-title{font-size:20px!important;line-height:1.25;margin-top:2px}
-  .popular-row{margin-top:10px!important;margin-bottom:8px!important}
-  .popular-row b{font-size:15px!important}
-  .scroll-hint{font-size:10px!important}
-
-  .category-menu{position:sticky!important;top:105px!important;z-index:120;display:flex;gap:7px;overflow-x:auto;white-space:nowrap;padding:6px!important;margin:0 -2px 12px!important;background:rgba(255,250,245,.96)!important;border:1px solid #eadfd5;border-radius:14px!important;box-shadow:0 3px 12px rgba(91,58,37,.08);scrollbar-width:none;-webkit-overflow-scrolling:touch}
-  .category-menu::-webkit-scrollbar{display:none}
-  .category-btn{flex:0 0 auto;min-height:36px;padding:8px 12px!important;border:1px solid #e5d8cc!important;background:#fff!important;color:#654d3d!important;border-radius:999px!important;font-size:12px!important;font-weight:800}
-  .category-btn.active{background:#8b5e3c!important;color:#fff!important;border-color:#8b5e3c!important;box-shadow:0 3px 8px rgba(139,94,60,.2)}
-
-  .products{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px!important}
-  .product.den-product{border-radius:15px!important;background:#fffdfb!important;border:1px solid #eadfd5!important;box-shadow:0 3px 12px rgba(91,58,37,.065)!important;overflow:hidden}
-  .product-photo-wrap{height:156px!important}
-  .product-image{height:156px!important;width:100%;object-fit:cover}
-  .photo-badge{left:7px!important;top:7px!important;font-size:9px!important;padding:4px 7px!important}
-  .product-info{padding:9px 9px 10px!important}
-  .product-name{font-size:13px!important;line-height:1.35!important;min-height:35px!important;margin-bottom:3px!important}
-  .product-meta{font-size:9px!important;gap:3px!important;min-height:17px!important;white-space:nowrap;overflow:hidden}
-  .stars{font-size:10px!important;letter-spacing:.5px!important}
-  .product-meta .sold{overflow:hidden;text-overflow:ellipsis}
-  .product-price{font-size:15px!important;line-height:1.1}
-  .add-btn{width:37px!important;height:37px!important;min-width:37px!important;font-size:23px!important;border:3px solid #fff!important;box-shadow:0 3px 10px rgba(91,58,37,.18)!important}
-  .product-bottom{align-items:center}
-
-  .cart-bar{bottom:10px!important;left:10px!important;right:10px!important;border:1px solid #e2d2c2!important;border-radius:17px!important;padding:8px!important;background:rgba(255,250,245,.97)!important;box-shadow:0 6px 24px rgba(91,58,37,.16)!important;z-index:250!important}
-  .cart-inner{gap:7px!important}
-  .cart-summary{font-size:11px!important;line-height:1.35}
-  .cart-summary span{font-size:14px!important}
-  .checkout-btn{min-height:42px;padding:0 14px!important;border-radius:12px!important;font-size:12px!important;box-shadow:0 3px 9px rgba(139,94,60,.2)}
-
-  .contact-buttons{right:9px!important;bottom:78px!important;gap:6px!important;z-index:230}
-  .contact-btn{border-radius:999px!important;padding:7px 9px!important;font-size:10px!important;box-shadow:0 3px 10px rgba(0,0,0,.1)}
-
-  .modal{padding:0!important;align-items:flex-end!important}
-  .modal-box{max-width:none!important;width:100%!important;max-height:92vh!important;border-radius:22px 22px 0 0!important;padding:16px!important;box-shadow:0 -8px 35px rgba(0,0,0,.18)!important}
-  .modal-header{margin-bottom:12px!important}
-  .modal-header h2{font-size:19px!important}
-  .close-btn{width:36px!important;height:36px!important}
-  input,textarea,select{font-size:16px!important}
-
-  /* touch feedback */
-  button,.category-btn,.add-btn,.checkout-btn,.header-cart{touch-action:manipulation;-webkit-tap-highlight-color:transparent}
-  button:active{opacity:.88}
+/* ===== MOBILE INPUT + PERFORMANCE OPTIMIZATION ===== */
+html{
+  -webkit-text-size-adjust:100%;
+  text-size-adjust:100%;
+  scroll-behavior:smooth;
 }
-
-@media (max-width:380px){
-  .logo{font-size:15px}
-  .header-cart{padding:0 9px}
-  .den-hero h1{font-size:23px!important}
-  .quick-benefits{gap:6px!important}
-  .product-photo-wrap,.product-image{height:145px!important}
-  .product-name{font-size:12px!important}
-  .product-price{font-size:14px!important}
-  .add-btn{width:35px!important;height:35px!important;min-width:35px!important}
-}
-
-
-@media(max-width:700px){.mobile-order-hint{display:flex;align-items:center;gap:6px;margin:7px 10px 0;padding:8px 10px;background:#fff8ef;border:1px dashed #d6b99f;border-radius:11px;color:#76553d;font-size:9px;overflow:hidden}.mobile-order-hint b{font-size:10px;white-space:nowrap}.mobile-order-hint span:last-child{color:#9b8878;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}}
-@media(min-width:701px){.mobile-order-hint{display:none}}
-
-
-/* ===== MOBILE FORM + PERFORMANCE FINAL ===== */
-html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;text-size-adjust:100%}
 body{overscroll-behavior-x:none}
 img{content-visibility:auto}
 .product{content-visibility:auto;contain-intrinsic-size:320px 390px}
-button,a,input,textarea{-webkit-tap-highlight-color:transparent}
-@media(max-width:800px){
-  input,textarea,select{font-size:16px!important;line-height:1.4!important;-webkit-appearance:none;appearance:none}
-  .form-group input,.form-group textarea,.voucher-row input,.header-search input{font-size:16px!important}
-  .form-group input,.form-group textarea,.voucher-row input{min-height:48px}
+button{-webkit-tap-highlight-color:transparent}
+@media(max-width:700px){
+  input,textarea,select,
+  .form-group input,.form-group textarea,
+  .voucher-row input,.header-search input{
+    font-size:16px!important;
+    line-height:1.4!important;
+    -webkit-appearance:none;
+    appearance:none;
+  }
+  .form-group input,.form-group textarea,.voucher-row input{
+    min-height:48px;
+  }
   .form-group textarea{min-height:90px}
-  .modal{align-items:flex-end;padding:0}
-  .modal-box{max-height:88vh;border-radius:20px 20px 0 0!important;padding:16px}
-  .payment-qr{align-items:flex-end;padding:0}
-  .payment-box{max-height:92vh;overflow:auto;border-radius:20px 20px 0 0}
-  .welcome-box{max-height:90vh;overflow:auto}
+  .modal{padding:8px;align-items:flex-end}
+  .modal-box{
+    max-height:92vh;
+    border-radius:20px 20px 0 0!important;
+    padding-bottom:calc(18px + env(safe-area-inset-bottom));
+  }
 }
-@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;transition-duration:.01ms!important}}
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{
+    animation-duration:.01ms!important;
+    animation-iteration-count:1!important;
+    transition-duration:.01ms!important;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -243,10 +188,6 @@ button,a,input,textarea{-webkit-tap-highlight-color:transparent}
 </div>
 
 <!-- PRODUCTS -->
-
-<div class="mobile-order-hint">
-  <span>🛵</span><b>Đặt món dễ dàng</b><span>Chọn món → bấm + → mở giỏ hàng</span>
-</div>
 
 <main class="container">
 
@@ -442,6 +383,7 @@ button,a,input,textarea{-webkit-tap-highlight-color:transparent}
                 <input
                     id="voucherPhone"
                     type="tel"
+                    autocomplete="tel"
                     placeholder="Nhập số điện thoại"
                 >
 
@@ -513,6 +455,7 @@ button,a,input,textarea{-webkit-tap-highlight-color:transparent}
             <input
                 id="customerName"
                 type="text"
+                autocomplete="name"
                 placeholder="Nhập họ tên"
             >
 
@@ -527,6 +470,7 @@ button,a,input,textarea{-webkit-tap-highlight-color:transparent}
 <input
     id="customerPhone"
     type="tel"
+    autocomplete="tel"
     inputmode="numeric"
     maxlength="10"
     placeholder="Nhập số điện thoại"
@@ -543,6 +487,7 @@ button,a,input,textarea{-webkit-tap-highlight-color:transparent}
 
             <textarea
                 id="customerAddress"
+                autocomplete="street-address"
 placeholder="Nhập địa chỉ nhận hàng"
             ></textarea>
 
@@ -669,6 +614,14 @@ placeholder="Nhập địa chỉ nhận hàng"
 
 </div>
 
+<!-- TRUST / SERVICE -->
+<section class="trust-strip" style="max-width:1180px;margin:0 auto 90px;padding:0 18px;display:grid;grid-template-columns:repeat(3,1fr);gap:12px">
+  <div style="background:#fffaf5;border:1px solid #eadbc9;border-radius:16px;padding:15px"><b>🛵 Giao hàng tận nơi</b><br><small style="color:#927866">Phục vụ Việt Trì · Lâm Thao · các KCN</small></div>
+  <div style="background:#fffaf5;border:1px solid #eadbc9;border-radius:16px;padding:15px"><b>⭐ Món ngon mỗi ngày</b><br><small style="color:#927866">Chọn món nhanh, giá rõ ràng</small></div>
+  <div style="background:#fffaf5;border:1px solid #eadbc9;border-radius:16px;padding:15px"><b>💬 Hỗ trợ đặt hàng</b><br><small style="color:#927866">Zalo · Facebook · Hotline 0978472704</small></div>
+</section>
+<style>@media(max-width:800px){.trust-strip{grid-template-columns:1fr!important;padding:0 10px!important;margin-bottom:85px!important}}</style>
+
 <!-- FOOTER -->
 
 <footer>
@@ -738,8 +691,6 @@ const GOOGLE_SCRIPT_URL =
 ================================================== */
 
 let products = [];
-let searchTimer = null;
-let productsLoaded = false;
 
 /* ==================================================
    DATA
@@ -789,6 +740,7 @@ function productCard(product){
     const rating = product.rating || 5;
     const sold = product.sold || product.sales || '';
     const stars = '★★★★★';
+    const oldPrice = Number(product.oldPrice || product.originalPrice || 0);
     return `
       <article class="product den-product">
         <div class="product-photo-wrap">
@@ -797,10 +749,10 @@ function productCard(product){
         </div>
         <div class="product-info">
           <div class="product-name">${product.name || ''}</div>
-          <div class="product-meta"><span class="stars">${stars}</span><b>${rating}</b>${sold ? `<span class="sold">· ${sold} đã bán</span>` : ''}</div>
+          <div class="product-meta"><span class="stars">${stars}</span><b>${rating}</b>${sold ? `<span class="sold">· ${sold} đã bán</span>` : '<span>· Món ngon</span>'}</div>
           <div class="product-bottom">
-            <div class="product-price">${money(product.price)}</div>
-            <button class="add-btn" onclick="addToCart(${product.id})" aria-label="Thêm ${product.name || ''} vào giỏ">+</button>
+            <div><div class="product-price">${money(product.price)}</div>${oldPrice>Number(product.price||0)?`<del style="font-size:11px;color:#a18d7c">${money(oldPrice)}</del>`:''}</div>
+            <button class="add-btn" onclick="addToCart(${product.id}); this.animate([{transform:'scale(.88)'},{transform:'scale(1)'}],{duration:180})" aria-label="Thêm ${product.name || ''} vào giỏ">+</button>
           </div>
         </div>
       </article>`;
@@ -822,12 +774,22 @@ function filterProducts(category, button){
     box.innerHTML=filtered.map(productCard).join('');
 }
 
+let searchTimer = null;
+let productsLoaded = false;
+
 function searchProducts(keyword){
-    const q=String(keyword||'').trim().toLowerCase();
-    const box=document.getElementById('products');
-    if(!box) return;
-    const filtered=!q ? products : products.filter(p=>String(p.name||'').toLowerCase().includes(q) || String(p.category||'').toLowerCase().includes(q));
-    box.innerHTML=filtered.map(productCard).join('');
+    clearTimeout(searchTimer);
+    const value=String(keyword||'');
+    searchTimer=setTimeout(()=>{
+        const q=value.trim().toLowerCase();
+        const box=document.getElementById('products');
+        if(!box) return;
+        const filtered=!q ? products : products.filter(p=>
+            String(p.name||'').toLowerCase().includes(q) ||
+            String(p.category||'').toLowerCase().includes(q)
+        );
+        box.innerHTML=filtered.map(productCard).join('');
+    },120);
 }
 
 /* ==================================================
@@ -865,9 +827,6 @@ function addToCart(id){
 ================================================== */
 
 function updateCart(){
-    const headerCount = document.getElementById("headerCartCount");
-    if(headerCount){ headerCount.textContent = cart.reduce((sum,item)=>sum + Number(item.quantity||0),0); }
-
 
     let count = 0;
     let total = 0;
@@ -896,6 +855,9 @@ function updateCart(){
 
     document.getElementById("cartTotal")
         .textContent = money(total);
+
+    const headerCount = document.getElementById("headerCartCount");
+    if(headerCount) headerCount.textContent = count;
 
 }
 
@@ -1942,34 +1904,50 @@ function closeWelcomePopup(){
 async function loadProducts(){
 
     if(productsLoaded) return;
+
     const box=document.getElementById("products");
-    if(box && !box.children.length){
-        box.innerHTML=Array.from({length:6},()=>`<div class="product" style="min-height:290px;background:linear-gradient(90deg,#fffaf5 25%,#f3eadf 37%,#fffaf5 63%);background-size:400% 100%;animation:skeleton 1.2s infinite"></div>`).join("");
+
+    if(box && !box.innerHTML.trim()){
+        box.innerHTML=`
+          <div style="grid-column:1/-1;text-align:center;padding:28px 10px;color:#9a887a">
+            ⏳ Đang tải thực đơn...
+          </div>`;
     }
+
     try{
 
         const response = await fetch(
-
-            GOOGLE_SCRIPT_URL + "?action=products"
-
+            GOOGLE_SCRIPT_URL + "?action=products",
+            {cache:"no-store"}
         );
+
+        if(!response.ok){
+            throw new Error("HTTP " + response.status);
+        }
 
         const data = await response.json();
 
         if(data.success){
 
-            products = Array.isArray(data.products) ? data.products : [];
+            products = Array.isArray(data.products)
+                ? data.products
+                : [];
+
             productsLoaded = true;
 
             renderProducts();
-
             updateCart();
 
         }else{
 
             console.log(data);
 
-            if(box) box.innerHTML=`<div style="grid-column:1/-1;text-align:center;padding:30px;color:#8b7564">⚠️ Chưa tải được thực đơn. Vui lòng thử lại.</div>`;
+            if(box){
+                box.innerHTML=`
+                  <div style="grid-column:1/-1;text-align:center;padding:28px 10px;color:#9a887a">
+                    ⚠️ Không tải được thực đơn. Vui lòng tải lại trang.
+                  </div>`;
+            }
 
         }
 
@@ -1977,7 +1955,12 @@ async function loadProducts(){
 
         console.error(error);
 
-        if(box) box.innerHTML=`<div style="grid-column:1/-1;text-align:center;padding:30px;color:#8b7564">📡 Kết nối thực đơn đang chậm. Vui lòng tải lại trang.</div>`;
+        if(box){
+            box.innerHTML=`
+              <div style="grid-column:1/-1;text-align:center;padding:28px 10px;color:#9a887a">
+                ⚠️ Kết nối thực đơn chậm. Vui lòng tải lại trang.
+              </div>`;
+        }
 
     }
 
