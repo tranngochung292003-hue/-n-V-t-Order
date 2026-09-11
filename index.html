@@ -56,6 +56,25 @@ header{background:rgba(255,250,245,.96);border-bottom:1px solid var(--border);pa
 .den-hero{box-shadow:0 7px 24px rgba(91,58,37,.08);border-color:#e6d8ca}
 @media(max-width:700px){.quick-benefits{grid-template-columns:repeat(2,1fr);padding:0 12px;gap:8px}.quick-benefits>div{padding:9px;font-size:18px}.quick-benefits b{font-size:11px}.quick-benefits small{font-size:9px}.popular-row{margin-top:15px}.popular-row b{font-size:16px}.popular-row small{display:none}.category-menu{position:sticky;top:61px}.products{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.product-image{height:155px}.product-info{padding:9px}.product-name{font-size:13px;min-height:37px}.product-price{font-size:15px}.add-btn{width:37px;height:37px;font-size:23px}.photo-badge{font-size:9px;padding:3px 7px}}
 @media(min-width:701px){.products{grid-template-columns:repeat(4,minmax(0,1fr))}}
+
+/* ===== PROFESSIONAL UPGRADE ===== */
+body{background:#f7f0e6;color:#3f3027}
+header{background:rgba(255,250,243,.96);border-bottom:1px solid #eadbca;box-shadow:0 2px 16px rgba(91,61,39,.08);position:sticky;top:0;z-index:50;backdrop-filter:blur(10px)}
+.header-inner{max-width:1180px;margin:auto;padding:12px 18px;display:grid;grid-template-columns:auto 1fr auto;gap:18px;align-items:center}
+.logo{font-weight:900;color:#6f472c;font-size:21px;white-space:nowrap}.logo span{margin-left:3px}
+.header-search{height:46px;background:#f3eadf;border:1px solid #e5d4c1;border-radius:24px;display:flex;align-items:center;padding:0 15px;box-shadow:inset 0 1px 0 #fff}
+.header-search input{border:0;outline:0;background:transparent;width:100%;font-size:15px;color:#49372c}
+.header-cart{border:0;background:#8b5e3c;color:#fff;border-radius:24px;padding:12px 16px;font-weight:800;cursor:pointer;box-shadow:0 5px 14px rgba(111,71,44,.2)}.header-cart b{background:#fff;color:#8b5e3c;border-radius:99px;padding:2px 7px;margin-left:5px}
+.den-hero{max-width:1180px;margin:18px auto 0;border-radius:24px;overflow:hidden;background:linear-gradient(110deg,#ead8c2,#f8eee2 58%,#dfc1a4);box-shadow:0 10px 30px rgba(99,67,42,.12);padding:30px 28px;display:flex;justify-content:space-between;align-items:center;gap:20px}
+.hero-badge{display:inline-block;background:#fff7ee;color:#8b5e3c;border-radius:20px;padding:7px 12px;font-size:12px;font-weight:900}.den-hero h1{font-size:34px;color:#4a3324;margin:10px 0 8px}.den-hero h1 span{color:#a55a28}.den-hero p{color:#6d5747}.hero-voucher{min-width:220px;background:#fffaf4;border:1px dashed #b97d4e;border-radius:18px;padding:18px;text-align:center;box-shadow:0 7px 18px rgba(92,59,36,.08)}.hero-voucher strong{display:block;color:#a34e1d;font-size:22px}.hero-voucher small{display:block;margin-top:6px;color:#705849}
+.quick-benefits{max-width:1180px;margin:14px auto 24px;padding:0 4px;display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.quick-benefits>div{background:#fffaf5;border:1px solid #eadbc9;border-radius:15px;padding:12px;display:flex;gap:10px;align-items:center;color:#654a38}.quick-benefits>div>span{display:flex;flex-direction:column}.quick-benefits small{font-size:11px;color:#927866;margin-top:2px}
+.container{max-width:1180px;margin:auto;padding:0 18px 100px}.section-head{padding-top:4px}.eyebrow{color:#a36b46;font-weight:900;font-size:11px;letter-spacing:1.2px}.section-title{font-size:25px;color:#4a3427;margin-top:4px}.popular-row{margin:14px 0 10px;background:#fffaf5;border:1px solid #eadbc9;border-radius:16px;padding:11px 14px;display:flex;justify-content:space-between;align-items:center}.popular-row>div{display:flex;gap:8px;align-items:center}.popular-row small{color:#927866;margin-left:5px}.scroll-hint{font-size:11px;color:#a48670}.category-menu{display:flex;gap:9px;overflow-x:auto;padding:3px 0 13px;scrollbar-width:none}.category-menu::-webkit-scrollbar{display:none}.category-btn{flex:0 0 auto;border:1px solid #e1d0bd;background:#fffaf5;color:#654938;border-radius:22px;padding:10px 16px;font-weight:800;cursor:pointer;transition:.2s}.category-btn.active,.category-btn:hover{background:#8b5e3c;color:#fff;border-color:#8b5e3c;box-shadow:0 5px 12px rgba(111,71,44,.15)}
+.products{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}.product.den-product{background:#fffdf9;border:1px solid #eaded1;border-radius:18px;overflow:hidden;box-shadow:0 5px 16px rgba(83,57,38,.07);transition:transform .18s,box-shadow .18s}.product.den-product:hover{transform:translateY(-3px);box-shadow:0 12px 25px rgba(83,57,38,.12)}.product-photo-wrap{position:relative;background:#efe5da;aspect-ratio:1/1}.product-image{width:100%;height:100%;object-fit:cover;display:block}.photo-badge{position:absolute;left:9px;top:9px;background:#fffaf4;color:#8b4e28;border-radius:12px;padding:5px 8px;font-size:10px;font-weight:900;box-shadow:0 3px 8px rgba(0,0,0,.08)}.product-info{padding:12px}.product-name{font-weight:800;color:#49352a;font-size:15px;line-height:1.35;min-height:40px}.product-meta{display:flex;align-items:center;gap:5px;margin:7px 0;color:#8b7564;font-size:11px}.stars{letter-spacing:1px;color:#d9902f}.product-bottom{display:flex;align-items:center;justify-content:space-between;margin-top:9px}.product-price{font-size:18px;font-weight:950;color:#9b4e22}.add-btn{width:38px;height:38px;border-radius:50%;border:0;background:#8b5e3c;color:#fff;font-size:25px;line-height:1;cursor:pointer;box-shadow:0 5px 12px rgba(111,71,44,.22);transition:.15s}.add-btn:active{transform:scale(.88)}
+.cart-bar{background:rgba(255,250,244,.96);border-top:1px solid #e4d4c2;box-shadow:0 -6px 20px rgba(76,51,34,.1);backdrop-filter:blur(10px)}.cart-inner{max-width:1180px;margin:auto;padding:10px 18px}.checkout-btn,.confirm-btn{background:#8b5e3c!important;border-radius:12px!important;box-shadow:0 6px 14px rgba(111,71,44,.18)}
+.contact-buttons{gap:8px}.contact-btn{border-radius:20px!important;box-shadow:0 4px 12px rgba(0,0,0,.1)}footer{background:#4d382b!important;color:#f8eee3!important;padding:28px 18px!important}
+.modal-box{border-radius:20px!important;background:#fffaf5!important;border:1px solid #ead9c7}.modal-header{border-bottom:1px solid #eadbc9!important}.total-box,.voucher-box{background:#f5eadf!important;border:1px solid #e7d6c3!important;border-radius:15px!important}
+@media(max-width:800px){.header-inner{grid-template-columns:1fr auto;gap:9px;padding:10px 12px}.logo{font-size:17px}.header-search{grid-column:1/-1;grid-row:2;height:42px}.header-cart{padding:10px 12px}.header-cart span{display:none}.den-hero{margin:10px 10px 0;padding:20px 17px;border-radius:20px;display:block}.den-hero h1{font-size:27px}.hero-voucher{margin-top:14px;min-width:0}.quick-benefits{margin:10px 10px 18px;grid-template-columns:repeat(2,1fr);gap:8px}.quick-benefits>div{font-size:13px;padding:10px}.container{padding:0 10px 90px}.section-title{font-size:21px}.products{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.product-info{padding:9px}.product-name{font-size:14px;min-height:38px}.product-price{font-size:16px}.add-btn{width:35px;height:35px;font-size:23px}.popular-row small{display:none}.photo-badge{font-size:9px}.contact-buttons{bottom:70px!important}}
+
 </style>
 </head>
 <body>
@@ -99,7 +118,7 @@ header{background:rgba(255,250,245,.96);border-bottom:1px solid var(--border);pa
 
 <header>
   <div class="header-inner den-header">
-    <div class="logo">🍴 <span>Ăn Vặt Lâm Thao</span></div>
+    <div class="logo">🍴🎀 <span>Ăn Vặt Lâm Thao</span></div>
     <div class="header-search">
       <span>🔍</span>
       <input id="productSearch" type="search" placeholder="Tìm món ăn, đồ uống..." oninput="searchProducts(this.value)">
@@ -551,6 +570,14 @@ placeholder="Nhập địa chỉ nhận hàng"
 
 </div>
 
+<!-- TRUST / SERVICE -->
+<section class="trust-strip" style="max-width:1180px;margin:0 auto 90px;padding:0 18px;display:grid;grid-template-columns:repeat(3,1fr);gap:12px">
+  <div style="background:#fffaf5;border:1px solid #eadbc9;border-radius:16px;padding:15px"><b>🛵 Giao hàng tận nơi</b><br><small style="color:#927866">Phục vụ Việt Trì · Lâm Thao · các KCN</small></div>
+  <div style="background:#fffaf5;border:1px solid #eadbc9;border-radius:16px;padding:15px"><b>⭐ Món ngon mỗi ngày</b><br><small style="color:#927866">Chọn món nhanh, giá rõ ràng</small></div>
+  <div style="background:#fffaf5;border:1px solid #eadbc9;border-radius:16px;padding:15px"><b>💬 Hỗ trợ đặt hàng</b><br><small style="color:#927866">Zalo · Facebook · Hotline 0978472704</small></div>
+</section>
+<style>@media(max-width:800px){.trust-strip{grid-template-columns:1fr!important;padding:0 10px!important;margin-bottom:85px!important}}</style>
+
 <!-- FOOTER -->
 
 <footer>
@@ -669,6 +696,7 @@ function productCard(product){
     const rating = product.rating || 5;
     const sold = product.sold || product.sales || '';
     const stars = '★★★★★';
+    const oldPrice = Number(product.oldPrice || product.originalPrice || 0);
     return `
       <article class="product den-product">
         <div class="product-photo-wrap">
@@ -677,10 +705,10 @@ function productCard(product){
         </div>
         <div class="product-info">
           <div class="product-name">${product.name || ''}</div>
-          <div class="product-meta"><span class="stars">${stars}</span><b>${rating}</b>${sold ? `<span class="sold">· ${sold} đã bán</span>` : ''}</div>
+          <div class="product-meta"><span class="stars">${stars}</span><b>${rating}</b>${sold ? `<span class="sold">· ${sold} đã bán</span>` : '<span>· Món ngon</span>'}</div>
           <div class="product-bottom">
-            <div class="product-price">${money(product.price)}</div>
-            <button class="add-btn" onclick="addToCart(${product.id})" aria-label="Thêm ${product.name || ''} vào giỏ">+</button>
+            <div><div class="product-price">${money(product.price)}</div>${oldPrice>Number(product.price||0)?`<del style="font-size:11px;color:#a18d7c">${money(oldPrice)}</del>`:''}</div>
+            <button class="add-btn" onclick="addToCart(${product.id}); this.animate([{transform:'scale(.88)'},{transform:'scale(1)'}],{duration:180})" aria-label="Thêm ${product.name || ''} vào giỏ">+</button>
           </div>
         </div>
       </article>`;
@@ -773,6 +801,9 @@ function updateCart(){
 
     document.getElementById("cartTotal")
         .textContent = money(total);
+
+    const headerCount = document.getElementById("headerCartCount");
+    if(headerCount) headerCount.textContent = count;
 
 }
 
