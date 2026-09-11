@@ -1661,72 +1661,154 @@ border:1px solid #00d4ff;
    MENU CATEGORY NÂNG CẤP
 ========================= */
 
-.category-menu{
-    display:flex;
-    gap:12px;
-    padding:12px;
-    margin-bottom:25px;
-    
-    background:
-    linear-gradient(135deg,#07111c,#05070a);
+/* ==============================
+   MENU CATEGORY PREMIUM
+============================== */
 
-    border:1px solid #12344a;
+
+.category-menu{
+
+
+    display:flex;
+
+
+    gap:12px;
+
+
+    margin-bottom:25px;
+
+
+    padding:8px;
+
+
+    background:
+
+
+    rgba(7,17,28,.9);
+
+
+
+    border:
+
+
+    1px solid rgba(0,212,255,.25);
+
+
+
     border-radius:22px;
 
+
     overflow-x:auto;
+
+
+    scrollbar-width:none;
+
+
 }
 
 
-/* Ẩn thanh kéo ngang */
+
 .category-menu::-webkit-scrollbar{
+
     display:none;
+
 }
+
+
 
 
 .category-btn{
 
-    min-width:120px;
 
-    padding:13px 18px;
+    min-width:130px;
 
-    border-radius:30px;
 
-    border:1px solid #24465b;
+    padding:14px 20px;
+
+
+
+    border-radius:18px;
+
+
+
+    border:
+
+    1px solid #24465b;
+
+
 
     background:#0d1117;
 
+
+
     color:#b8c5d1;
 
-    font-weight:800;
 
-    transition:.3s;
+
+    font-size:15px;
+
+
+    font-weight:900;
+
+
+
+    transition:.25s;
+
+
 
 }
 
 
-/* Khi chọn */
-.category-btn.active{
 
-    background:
-    linear-gradient(135deg,#00d4ff,#0077ff);
 
-    color:#001018;
+.category-btn:hover{
+
 
     border-color:#00d4ff;
 
+
+    color:white;
+
+
+}
+
+
+
+
+.category-btn.active{
+
+
+    background:
+
+
+    linear-gradient(
+        135deg,
+        #00d4ff,
+        #0077ff
+    );
+
+
+
+    color:#001018;
+
+
+
+    border-color:#00d4ff;
+
+
+
     box-shadow:
-    0 0 20px rgba(0,212,255,.4);
+
+
+    0 0 25px rgba(0,212,255,.45);
+
+
+
+    transform:
+
+    translateY(-3px);
 
 }
-
-
-/* Hiệu ứng bấm trên điện thoại */
-.category-btn:active{
-
-    transform:scale(.92);
-
-}
-
 
 /* =========================
    MOBILE ĐẸP HƠN
