@@ -115,6 +115,32 @@ button{-webkit-tap-highlight-color:transparent}
   }
 }
 
+
+/* ===== ORDER SUCCESS ===== */
+.order-success-modal{position:fixed;inset:0;background:rgba(35,24,16,.68);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;padding:18px;z-index:10001}
+.order-success-box{width:min(430px,100%);background:#fffaf5;border:1px solid #eadbc9;border-radius:26px;padding:28px 22px 22px;box-shadow:0 24px 70px rgba(45,29,18,.28);text-align:center;animation:successIn .22s ease-out}
+.success-check{width:64px;height:64px;margin:0 auto 13px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#eaf7ed;color:#208a45;font-size:38px;font-weight:900;border:6px solid #f6fbf7}
+.success-label{font-size:11px;font-weight:800;letter-spacing:1.5px;color:#a06b45;margin-bottom:7px}
+.order-success-box h2{margin:0;color:#38271d;font-size:22px}
+.success-subtitle{margin:8px 0 18px;color:#806e60;font-size:14px;line-height:1.5}
+.order-code-card{background:#fff;border:1px dashed #cfae91;border-radius:16px;padding:15px 12px;margin-bottom:13px}
+.order-code-card span{display:block;font-size:10px;letter-spacing:1.3px;color:#9a887a;font-weight:800;margin-bottom:5px}
+.order-code-card strong{display:block;color:#2f2118;font-size:25px;letter-spacing:2px;font-family:Arial,sans-serif}
+.order-code-card small{display:block;color:#9a887a;font-size:11px;margin-top:6px}
+.success-total-row{display:flex;justify-content:space-between;align-items:center;padding:13px 2px;border-bottom:1px solid #eadbc9;color:#6f5b4c;font-size:14px}
+.success-total-row strong{color:#c45b20;font-size:20px}
+.success-note{margin:14px 0;padding:11px 12px;background:#f8f0e8;border-radius:12px;color:#765f4d;font-size:12px;line-height:1.45}
+.success-actions{display:grid;gap:9px;margin-top:14px}
+.success-actions button{border:0;border-radius:13px;padding:13px 14px;font-size:14px;font-weight:800;cursor:pointer}
+.success-primary{background:#c96b32;color:#fff;box-shadow:0 8px 18px rgba(201,107,50,.2)}
+.success-secondary{background:#f1e6dc;color:#6d5543}
+@keyframes successIn{from{opacity:0;transform:translateY(10px) scale(.98)}to{opacity:1;transform:translateY(0) scale(1)}}
+@media(max-width:520px){.order-success-box{padding:24px 17px 17px;border-radius:22px}.order-success-box h2{font-size:20px}.success-check{width:58px;height:58px;font-size:34px}.order-code-card strong{font-size:22px}}
+
+.product-quantity{display:flex;align-items:center;gap:4px;background:#f3e7dc;border:1px solid #e3cdb9;border-radius:11px;padding:3px}
+.product-quantity button{width:30px;height:30px;border:0;border-radius:8px;background:#fff;color:#7d4c2d;font-size:20px;line-height:1;font-weight:800;cursor:pointer}
+.product-quantity strong{min-width:22px;text-align:center;color:#4a3427;font-size:14px}
+@media(max-width:520px){.product-quantity button{width:29px;height:29px}.product-quantity{gap:2px}}
 </style>
 </head>
 <body>
@@ -552,6 +578,27 @@ placeholder="Nhập địa chỉ nhận hàng"
 
 </div>
 
+<!-- ORDER SUCCESS -->
+<div id="orderSuccessModal" class="order-success-modal" role="dialog" aria-modal="true" aria-labelledby="successTitle">
+  <div class="order-success-box">
+    <div class="success-check">✓</div>
+    <div class="success-label">ĐẶT HÀNG THÀNH CÔNG</div>
+    <h2 id="successTitle">Cảm ơn bạn đã đặt hàng! 🎉</h2>
+    <p class="success-subtitle">Đơn hàng của bạn đã được gửi tới Ăn Vặt Lâm Thao.</p>
+    <div class="order-code-card">
+      <span>MÃ ĐƠN HÀNG</span>
+      <strong id="successOrderCode">CC00000000</strong>
+      <small>Vui lòng lưu mã này để tiện trao đổi với quán.</small>
+    </div>
+    <div class="success-total-row"><span>Tổng tiền</span><strong id="successOrderTotal">0đ</strong></div>
+    <div class="success-note">📞 Quán sẽ liên hệ qua số điện thoại của bạn để xác nhận đơn.</div>
+    <div class="success-actions">
+      <button class="success-primary" onclick="closeOrderSuccess(); openPaymentQR()">💳 Xem mã thanh toán</button>
+      <button class="success-secondary" onclick="closeOrderSuccess()">Đóng</button>
+    </div>
+  </div>
+</div>
+
 <!-- PAYMENT QR -->
 
 <div
@@ -741,18 +788,28 @@ function productCard(product){
     const sold = product.sold || product.sales || '';
     const stars = '★★★★★';
     const oldPrice = Number(product.oldPrice || product.originalPrice || 0);
+    const cartItem = cart.find(item => item.id === product.id);
+    const qty = cartItem ? cartItem.quantity : 0;
+    const safeName = safeText(product.name || 'Sản phẩm');
+    const controls = qty > 0
+        ? `<div class="product-quantity" aria-label="Số lượng ${safeName}">
+             <button type="button" onclick="changeQuantity(${product.id},-1);event.stopPropagation()" aria-label="Giảm số lượng">−</button>
+             <strong>${qty}</strong>
+             <button type="button" onclick="changeQuantity(${product.id},1);event.stopPropagation()" aria-label="Tăng số lượng">+</button>
+           </div>`
+        : `<button class="add-btn" onclick="addToCart(${product.id}); this.animate([{transform:'scale(.88)'},{transform:'scale(1)'}],{duration:180})" aria-label="Thêm ${safeName} vào giỏ">+</button>`;
     return `
       <article class="product den-product">
         <div class="product-photo-wrap">
-          <img class="product-image" src="${product.image || ''}" alt="${product.name || ''}" loading="lazy" decoding="async" onerror="this.style.opacity='.25'">
+          <img class="product-image" src="${safeText(product.image || '')}" alt="${safeName}" loading="lazy" decoding="async" onerror="this.style.opacity='.25'">
           <span class="photo-badge">${sold ? '🔥 Bán chạy' : '✨ Mới'}</span>
         </div>
         <div class="product-info">
-          <div class="product-name">${product.name || ''}</div>
-          <div class="product-meta"><span class="stars">${stars}</span><b>${rating}</b>${sold ? `<span class="sold">· ${sold} đã bán</span>` : '<span>· Món ngon</span>'}</div>
+          <div class="product-name">${safeName}</div>
+          <div class="product-meta"><span class="stars">${stars}</span><b>${rating}</b>${sold ? `<span class="sold">· ${safeText(sold)} đã bán</span>` : '<span>· Món ngon</span>'}</div>
           <div class="product-bottom">
             <div><div class="product-price">${money(product.price)}</div>${oldPrice>Number(product.price||0)?`<del style="font-size:11px;color:#a18d7c">${money(oldPrice)}</del>`:''}</div>
-            <button class="add-btn" onclick="addToCart(${product.id}); this.animate([{transform:'scale(.88)'},{transform:'scale(1)'}],{duration:180})" aria-label="Thêm ${product.name || ''} vào giỏ">+</button>
+            ${controls}
           </div>
         </div>
       </article>`;
@@ -762,6 +819,20 @@ function renderProducts(){
     const box=document.getElementById('products');
     if(!box) return;
     box.innerHTML=products.map(productCard).join('');
+}
+
+function refreshVisibleProducts(){
+    const box=document.getElementById('products');
+    if(!box) return;
+    const active=document.querySelector('.category-btn.active');
+    const category=active ? String(active.dataset.category || active.textContent || '').trim() : 'all';
+    if(category && category.toLowerCase() !== 'all' && category.toLowerCase() !== 'tất cả'){
+        const selected=category.normalize('NFC').toLowerCase();
+        const filtered=products.filter(p=>String(p.category||'').trim().normalize('NFC').toLowerCase()===selected);
+        box.innerHTML=filtered.map(productCard).join('');
+    }else{
+        box.innerHTML=products.map(productCard).join('');
+    }
 }
 
 function filterProducts(category, button){
@@ -819,6 +890,7 @@ function addToCart(id){
     saveData();
 
     updateCart();
+    refreshVisibleProducts();
 
 }
 
@@ -1006,6 +1078,7 @@ function changeQuantity(id,change){
     saveData();
 
     updateCart();
+    refreshVisibleProducts();
 
     renderCart();
 
@@ -1427,6 +1500,11 @@ function closeOrderForm(){
    PAYMENT QR
 ================================================== */
 
+function closeOrderSuccess(){
+    const modal=document.getElementById("orderSuccessModal");
+    if(modal) modal.style.display="none";
+}
+
 function openPaymentQR(){
 
     document.getElementById("paymentQR")
@@ -1797,25 +1875,9 @@ closeOrderForm();
    THÔNG BÁO
 ============================== */
 
-alert(
-    "✅ Đặt hàng thành công!\n\n" +
-    "Mã đơn: " +
-    orderCode +
-    "\n\n" +
-    "Quán sẽ liên hệ khách hàng qua số điện thoại để xác nhận đơn.\n" +
-    "Vui lòng để ý điện thoại trong 1-3 phút nữa.\n\n" +
-    "Tổng tiền: " +
-    money(finalData.total)
-);
-
-/* ==============================
-   HIỆN QR
-============================== */
-
-openPaymentQR();
-        setTimeout(() => {
-    window.location.reload();
-}, 1500);
+document.getElementById("successOrderCode").textContent = orderCode;
+document.getElementById("successOrderTotal").textContent = money(finalData.total);
+document.getElementById("orderSuccessModal").style.display = "flex";
 
         /* ==============================
            RESET NÚT
