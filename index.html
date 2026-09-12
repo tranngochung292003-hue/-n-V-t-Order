@@ -1788,26 +1788,26 @@ const payload = {
     try{
 
         /*
-           Google Apps Script có thể đã nhận và lưu đơn thành công
-           nhưng fetch() + no-cors không đọc được response.
-           Dùng sendBeacon để gửi đơn kiểu fire-and-forget, tránh
-           trường hợp khách thấy lỗi dù Sheet/Gmail đã nhận đơn.
+           Chỉ báo lỗi khi việc gửi yêu cầu thực sự thất bại.
+           Sau khi Google Apps Script đã nhận request, mọi lỗi ở phần
+           cập nhật giao diện/giỏ hàng không được phép biến thành
+           thông báo “Không thể gửi đơn hàng”.
         */
         const orderBody = JSON.stringify(payload);
-        let sent = false;
+        let requestAccepted = false;
 
         if (navigator.sendBeacon) {
             const blob = new Blob(
                 [orderBody],
                 {type: "text/plain;charset=UTF-8"}
             );
-            sent = navigator.sendBeacon(
+            requestAccepted = navigator.sendBeacon(
                 GOOGLE_SCRIPT_URL,
                 blob
             );
         }
 
-        if (!sent) {
+        if (!requestAccepted) {
             await fetch(
                 GOOGLE_SCRIPT_URL,
                 {
@@ -1820,58 +1820,56 @@ const payload = {
                     keepalive: true
                 }
             );
+            requestAccepted = true;
         }
 
         /* ==============================
-           ĐÁNH DẤU VOUCHER ĐÃ DÙNG
+           ĐƠN ĐÃ ĐƯỢC GỬI
         ============================== */
 
-
+        if (!requestAccepted) {
+            throw new Error("Không thể gửi yêu cầu đặt hàng");
+        }
 
         /* ==============================
-           XÓA GIỎ HÀNG
+           DỌN DẸP SAU KHI GỬI
+           Các lỗi giao diện không được báo thành lỗi gửi đơn.
         ============================== */
 
-        cart = [];
+        try {
+            cart = [];
+            appliedVoucher = null;
+            discountAmount = 0;
+            saveData();
+        } catch (cleanupError) {
+            console.warn("Cleanup sau khi đặt hàng:", cleanupError);
+        }
 
-        appliedVoucher = null;
+        try {
+            updateCart();
+        } catch (cartError) {
+            console.warn("Cập nhật giỏ hàng sau khi đặt hàng:", cartError);
+        }
 
-        discountAmount = 0;
-
-        saveData();
-
-        updateCart();
+        try {
+            closeOrderForm();
+        } catch (modalError) {
+            console.warn("Đóng form đặt hàng:", modalError);
+        }
 
         /* ==============================
-           ĐÓNG FORM
+           THÔNG BÁO THÀNH CÔNG
         ============================== */
 
-closeOrderForm();
-
-/* ==============================
-   THÔNG BÁO
-============================== */
-
-showSuccessModal(orderCode, finalData.total);
-
-/* ==============================
-   HIỆN QR
-============================== */
-
-// Thanh toán được mở từ cửa sổ thành công khi khách chọn “Thanh toán”.
+        showSuccessModal(orderCode, finalData.total);
 
         /* ==============================
            RESET NÚT
         ============================== */
 
-        button.disabled =
-            false;
-
-        button.style.opacity =
-            "1";
-
-        button.innerHTML =
-            oldText;
+        button.disabled = false;
+        button.style.opacity = "1";
+        button.innerHTML = oldText;
 
     }catch(error){
 
