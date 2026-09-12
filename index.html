@@ -735,6 +735,7 @@ let appliedVoucher =
 JSON.parse(localStorage.getItem("voucherData")) || null;
 
 let discountAmount = 0;
+let orderSubmitting = false;
 
 /* ==================================================
    MONEY
@@ -762,6 +763,56 @@ function saveData(){
 JSON.stringify(appliedVoucher)
     );
 
+}
+
+/* ==================================================
+   CLEAR ORDER DATA AFTER SUCCESS
+================================================== */
+function clearOrderDataAfterSuccess(){
+
+    // Chỉ xoá dữ liệu liên quan đến đơn hàng, không xoá dữ liệu
+    // sản phẩm hay cấu hình khác của website.
+    cart = [];
+    appliedVoucher = null;
+    discountAmount = 0;
+
+    localStorage.removeItem("cart");
+    localStorage.removeItem("voucherData");
+
+    const fields = [
+        "customerName",
+        "customerPhone",
+        "customerAddress",
+        "customerNote",
+        "latitude",
+        "longitude"
+    ];
+
+    fields.forEach(id => {
+        const el = document.getElementById(id);
+        if(el) el.value = "";
+    });
+
+    selectedLocation = "";
+    document.querySelectorAll(".location-option").forEach(btn => {
+        btn.classList.remove("active");
+    });
+
+    const locationLabel = document.getElementById("locationSelected");
+    if(locationLabel){
+        locationLabel.textContent = "Chưa chọn khu vực nhận hàng";
+    }
+
+    const voucherMessage = document.getElementById("voucherMessage");
+    if(voucherMessage) voucherMessage.textContent = "";
+
+    try {
+        updateCart();
+        renderCart();
+        syncMenuQuantity();
+    } catch(e){
+        console.warn("Dọn dữ liệu sau khi đặt hàng:", e);
+    }
 }
 
 /* ==================================================
@@ -1570,7 +1621,7 @@ async function confirmOrder(){
        CHỐNG BẤM TRÙNG
     ============================== */
 
-    if(button.disabled){
+    if(button.disabled || orderSubmitting){
         return;
     }
 
@@ -1667,6 +1718,9 @@ if(!/^0\d{9}$/.test(phone)){
         return;
 
     }
+
+    // Khóa ngay luồng đặt hàng để tránh thao tác tạo 2 đơn liên tiếp.
+    orderSubmitting = true;
 
     /* ==============================
        TÍNH TIỀN
@@ -1862,18 +1916,9 @@ const payload = {
         ============================== */
 
         try {
-            cart = [];
-            appliedVoucher = null;
-            discountAmount = 0;
-            saveData();
+            clearOrderDataAfterSuccess();
         } catch (cleanupError) {
             console.warn("Cleanup sau khi đặt hàng:", cleanupError);
-        }
-
-        try {
-            updateCart();
-        } catch (cartError) {
-            console.warn("Cập nhật giỏ hàng sau khi đặt hàng:", cartError);
         }
 
         try {
@@ -1908,9 +1953,9 @@ const payload = {
             console.warn("Reset nút xác nhận:", resetError);
         }
 
-        alert(
-            "Đã xảy ra lỗi hiển thị. Vui lòng kiểm tra lại đơn hàng hoặc tải lại trang."
-        );
+        // Không cho tạo lại đơn từ cùng phiên sau khi mã đơn đã được tạo,
+        // vì request nền có thể đã tới Google Apps Script.
+        console.warn("Luồng hiển thị sau khi tạo đơn gặp lỗi:", error);
 
     }
 
