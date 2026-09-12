@@ -29,7 +29,7 @@ header{background:rgba(255,250,245,.96);border-bottom:1px solid var(--border);pa
 .confirm-btn{width:100%;border:none;margin-top:17px;padding:12px;border-radius:9px;background:var(--brand);color:#fff;font-size:15px;font-weight:800}.confirm-btn:disabled{cursor:not-allowed}.location-btn{width:100%;border:1px solid var(--brand);background:#fff;color:var(--brand);padding:11px;border-radius:8px;font-size:14px;font-weight:800}
 .payment-qr{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:300;align-items:center;justify-content:center;padding:16px}.payment-box{max-width:400px;width:100%;background:#fff;border-radius:16px;padding:20px;text-align:center;position:relative;box-shadow:0 15px 50px rgba(0,0,0,.25)}.payment-close{position:absolute;right:12px;top:9px;background:#f5f5f5;border:none;color:#444;width:34px;height:34px;border-radius:50%;font-size:23px}.payment-box h2{color:#111;margin-bottom:8px;font-size:20px}.payment-box p{color:#666;margin-bottom:12px;font-size:14px}.payment-box img{width:260px;max-width:100%;border-radius:8px;background:#fff;padding:6px}.payment-info{margin-top:12px;line-height:1.7;color:#444;font-size:14px}.payment-done{width:100%;margin-top:15px;padding:11px;border:none;border-radius:8px;background:var(--brand);color:#fff;font-weight:800}
 .contact-buttons{position:fixed;right:14px;bottom:75px;display:flex;flex-direction:column;gap:8px;z-index:80}.contact-btn{color:#fff;padding:9px 12px;border-radius:22px;font-size:13px;font-weight:700;box-shadow:0 4px 14px rgba(0,0,0,.14)}.contact-btn.facebook{background:#1877f2}.zalo{background:#008fe5}.phone{background:#16a34a}footer{text-align:center;padding:28px 18px;color:#888;border-top:1px solid #eee;background:#fff;font-size:13px}
-.welcome-popup{display:none;position:fixed;inset:0;background:rgba(55,32,15,.62);z-index:500;align-items:center;justify-content:center;padding:16px}.welcome-box{width:100%;max-width:430px;background:linear-gradient(145deg,#fff8ef,#efd5b3);border:2px solid #9a6333;border-radius:22px;padding:26px 22px;text-align:center;box-shadow:0 15px 50px rgba(90,50,20,.35);animation:welcomeShow .25s ease}.welcome-icon{font-size:48px;margin-bottom:8px}.welcome-box h2{color:#6b3f1e;font-size:22px;margin-bottom:10px}.welcome-box p{color:#795536;line-height:1.7;margin-bottom:18px;font-size:14px}.welcome-close{width:100%;border:none;padding:12px;border-radius:12px;background:#8b5a2b;color:#fff;font-size:15px;font-weight:800;box-shadow:0 6px 15px rgba(139,90,43,.25)}@keyframes welcomeShow{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:scale(1)}}
+.welcome-popup{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:500;align-items:center;justify-content:center;padding:16px}.welcome-box{width:100%;max-width:430px;background:#fff;border-radius:16px;padding:24px 20px;text-align:center;box-shadow:0 15px 50px rgba(0,0,0,.2);animation:welcomeShow .25s ease}.welcome-icon{font-size:48px;margin-bottom:8px}.welcome-box h2{color:#111;font-size:22px;margin-bottom:10px}.welcome-box p{color:#555;line-height:1.7;margin-bottom:18px;font-size:14px}.welcome-close{width:100%;border:none;padding:11px;border-radius:9px;background:var(--brand);color:#fff;font-size:15px;font-weight:800}@keyframes welcomeShow{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:scale(1)}}
 @media(max-width:900px){.products{grid-template-columns:repeat(3,minmax(0,1fr))}.product-image{height:190px}}
 @media(max-width:650px){header{padding:11px 12px}.logo{font-size:20px}.hero{margin:12px 10px 8px;padding:20px 13px;border-radius:12px}.hero h1{font-size:25px}.hero p{font-size:13px}.container{padding:5px 10px 105px}.section-title{font-size:21px;margin:18px 0 12px}.category-menu{top:59px}.products{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.product{border-radius:10px}.product-image{height:170px}.product-info{padding:10px}.product-name{font-size:14px;min-height:40px}.product-price{font-size:17px;margin-bottom:8px}.add-btn{font-size:13px;padding:8px 7px}.cart-bar{padding:9px 10px}.cart-summary{font-size:13px}.checkout-btn{padding:10px 14px;font-size:13px}.contact-buttons{right:8px;bottom:68px}.contact-btn{font-size:12px;padding:8px 10px}}
 
@@ -115,6 +115,22 @@ button{-webkit-tap-highlight-color:transparent}
   }
 }
 
+
+/* UPDATE UI */
+.cart-item{display:flex;gap:12px;align-items:center}
+.cart-item img{width:70px;height:70px;border-radius:12px;object-fit:cover}
+.cart-detail{flex:1}
+.quantity button,.quick-qty button{width:36px;height:36px;border:0;border-radius:50%;background:#8b5a2b;color:#fff;font-size:20px}
+.quick-qty{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:8px}
+.success-popup{display:none;position:fixed;inset:0;background:rgba(40,20,5,.65);z-index:999;align-items:center;justify-content:center;padding:20px}
+.success-box{max-width:420px;background:#fff5e8;border:2px solid #b8793d;border-radius:25px;padding:30px;text-align:center;box-shadow:0 20px 60px #0005}
+.success-box h2{color:#7b481f}
+.success-box p{color:#6d5038;line-height:1.7}
+.success-box button{background:#8b5a2b;color:#fff;border:0;border-radius:12px;padding:12px 25px;font-weight:700}
+.location-select{display:grid;grid-template-columns:repeat(5,1fr);gap:7px}
+.location-select button{padding:9px 4px;border-radius:12px;border:1px solid #d7b48a;background:#fff8ef;color:#7b481f}
+.location-select button.active{background:#8b5a2b;color:#fff}
+@media(max-width:600px){.location-select{grid-template-columns:repeat(2,1fr)}}
 </style>
 </head>
 <body>
@@ -485,11 +501,14 @@ button{-webkit-tap-highlight-color:transparent}
                 Địa chỉ nhận hàng *
             </label>
 
-            <textarea
-                id="customerAddress"
-                autocomplete="street-address"
-placeholder="Nhập địa chỉ nhận hàng"
-            ></textarea>
+            <input type="hidden" id="customerAddress" value="">
+<div class="location-select">
+<button type="button" onclick="selectLocation(this,'Việt Trì')">Việt Trì</button>
+<button type="button" onclick="selectLocation(this,'Thị xã PT')">Thị xã PT</button>
+<button type="button" onclick="selectLocation(this,'Lâm Thao')">Lâm Thao</button>
+<button type="button" onclick="selectLocation(this,'KCN Phú Hà')">KCN Phú Hà</button>
+<button type="button" onclick="selectLocation(this,'KCN Thuỵ Vân')">KCN Thuỵ Vân</button>
+</div>
 
 
 <div class="form-group">
@@ -622,6 +641,16 @@ placeholder="Nhập địa chỉ nhận hàng"
 </section>
 <style>@media(max-width:800px){.trust-strip{grid-template-columns:1fr!important;padding:0 10px!important;margin-bottom:85px!important}}</style>
 
+<div class="success-popup" id="successPopup">
+<div class="success-box">
+<div style="font-size:55px">🎉</div>
+<h2>Đặt hàng thành công!</h2>
+<p>Cảm ơn bạn đã ủng hộ <b>Ăn Vặt Lâm Thao</b> ❤️<br>
+Quán sẽ liên hệ xác nhận đơn sớm nhất.<br>
+Chúc bạn ngon miệng!</p>
+<button onclick="closeSuccess()">Tuyệt vời</button>
+</div>
+</div>
 <!-- FOOTER -->
 
 <footer>
@@ -753,6 +782,11 @@ function productCard(product){
           <div class="product-bottom">
             <div><div class="product-price">${money(product.price)}</div>${oldPrice>Number(product.price||0)?`<del style="font-size:11px;color:#a18d7c">${money(oldPrice)}</del>`:''}</div>
             <button class="add-btn" onclick="addToCart(${product.id}); this.animate([{transform:'scale(.88)'},{transform:'scale(1)'}],{duration:180})" aria-label="Thêm ${product.name || ''} vào giỏ">+</button>
+<div class="quick-qty">
+<button onclick="changeQuantity(${product.id},-1)">−</button>
+<span>${product.id}</span>
+<button onclick="changeQuantity(${product.id},1)">+</button>
+</div>
           </div>
         </div>
       </article>`;
@@ -926,7 +960,9 @@ function renderCart(){
 
             <div class="cart-item">
 
-                <div>
+                <img src="${product.image || ''}" alt="${product.name}">
+
+                <div class="cart-detail">
 
                     <div class="cart-item-name">
                         ${product.name}
@@ -1860,7 +1896,14 @@ openPaymentQR();
    POPUP CHÀO MỪNG
 ================================================== */
 
-function openWelcomePopup(){
+function selectLocation(btn,text){
+document.querySelectorAll('.location-select button').forEach(b=>b.classList.remove('active'));
+btn.classList.add('active');
+document.getElementById('customerAddress').value=text;
+}
+function openSuccess(){document.getElementById('successPopup').style.display='flex'}
+function closeSuccess(){document.getElementById('successPopup').style.display='none'}
+\nfunction openWelcomePopup(){
 
     const popup =
         document.getElementById(
