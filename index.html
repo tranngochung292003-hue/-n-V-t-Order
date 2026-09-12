@@ -115,7 +115,18 @@ button{-webkit-tap-highlight-color:transparent}
   }
 }
 
-.qty-control{display:flex;align-items:center;gap:6px}.qty-control button{width:34px;height:34px;border-radius:50%;border:0;background:#8b5e3c;color:#fff;font-size:20px;font-weight:700}.qty-control span{min-width:22px;text-align:center;font-weight:800}</style>
+
+/* ===== REQUESTED UPDATE ===== */
+.welcome-box{background:linear-gradient(145deg,#8b6248,#6f4b36 55%,#563927)!important;color:#fff!important;border:1px solid rgba(255,255,255,.18);box-shadow:0 20px 60px rgba(67,42,27,.35)!important}
+.welcome-box h2,.welcome-box p{color:#fff!important}.welcome-box p{opacity:.94}.welcome-close{background:#f3dfc9!important;color:#5b3a25!important}.welcome-icon{filter:drop-shadow(0 5px 8px rgba(0,0,0,.18))}
+.menu-quantity{display:flex;align-items:center;gap:4px;background:#8b5e3c;border-radius:999px;padding:3px;box-shadow:0 5px 12px rgba(111,71,44,.2)}
+.menu-quantity button{width:31px;height:31px;border:0;border-radius:50%;background:#fff;color:#6f472c;font-size:20px;font-weight:900;line-height:1}.menu-quantity strong{min-width:24px;text-align:center;color:#fff;font-size:14px}.menu-quantity button:active{transform:scale(.9)}
+.cart-item{align-items:center}.cart-product-main{display:flex;align-items:center;gap:10px;min-width:0}.cart-product-thumb{width:58px;height:58px;border-radius:12px;object-fit:cover;flex:0 0 58px;background:#efe5da;border:1px solid #ead9c7}.cart-product-copy{min-width:0}.cart-item-name{white-space:normal}.cart-item-price{font-weight:700}
+.location-toolbar{display:grid;grid-template-columns:repeat(5,1fr);gap:7px;margin-top:7px}.location-option{border:1px solid #e1d0bd;background:#fffaf5;color:#654938;border-radius:12px;padding:10px 6px;font-size:12px;font-weight:800;min-height:54px}.location-option.active{background:#8b5e3c;color:#fff;border-color:#8b5e3c;box-shadow:0 5px 12px rgba(111,71,44,.16)}.location-selected{margin-top:8px;padding:9px 11px;border-radius:10px;background:#f5eadf;color:#6f472c;font-size:13px;font-weight:700}.location-required{font-size:12px;color:#927866;margin-top:5px}
+.success-modal{display:none;position:fixed;inset:0;background:rgba(45,28,19,.62);z-index:700;align-items:center;justify-content:center;padding:16px}.success-box{width:100%;max-width:430px;background:linear-gradient(180deg,#fffaf5,#fff);border:1px solid #ead8c5;border-radius:24px;padding:28px 22px 22px;text-align:center;box-shadow:0 24px 70px rgba(55,35,23,.3);animation:successShow .28s ease}.success-check{width:64px;height:64px;margin:0 auto 12px;border-radius:50%;display:grid;place-items:center;background:#8b5e3c;color:#fff;font-size:38px;font-weight:500;box-shadow:0 10px 24px rgba(111,71,44,.25)}.success-eyebrow{font-size:11px;font-weight:900;letter-spacing:1.5px;color:#a36b46}.success-box h2{font-size:24px;color:#4a3324;margin:6px 0 8px}.success-note,.success-hint{color:#806f62;font-size:13px;line-height:1.6}.order-code-card{margin:18px 0 12px;padding:15px;border-radius:16px;background:#f3e7da;border:1px dashed #b9875f}.order-code-card span{display:block;font-size:10px;font-weight:900;letter-spacing:1.4px;color:#a36b46;margin-bottom:5px}.order-code-card strong{display:block;font-size:28px;letter-spacing:2px;color:#6f472c}.copy-code-btn{margin-top:9px;border:0;background:transparent;color:#8b5e3c;font-weight:800;font-size:12px}.success-total{display:flex;justify-content:space-between;align-items:center;padding:11px 2px;color:#654938;font-size:13px}.success-total strong{font-size:20px;color:#9b4e22}.success-actions{display:grid;grid-template-columns:1fr 1.35fr;gap:9px;margin-top:16px}.success-actions button{border:0;border-radius:12px;padding:12px;font-weight:900;font-size:14px}.success-secondary{background:#f2e8de;color:#6f472c}.success-primary{background:#8b5e3c;color:#fff;box-shadow:0 6px 14px rgba(111,71,44,.18)}@keyframes successShow{from{opacity:0;transform:translateY(10px) scale(.97)}to{opacity:1;transform:none}}
+@media(max-width:700px){.location-toolbar{gap:5px}.location-option{font-size:10px;padding:8px 3px;min-height:50px}.cart-product-thumb{width:52px;height:52px;flex-basis:52px}.success-box{padding:24px 16px 18px;border-radius:22px}}
+
+</style>
 </head>
 <body>
 
@@ -152,6 +163,27 @@ button{-webkit-tap-highlight-color:transparent}
 
     </div>
 
+</div>
+
+<!-- ORDER SUCCESS MODAL -->
+<div id="successModal" class="success-modal" aria-hidden="true">
+  <div class="success-box">
+    <div class="success-check">✓</div>
+    <div class="success-eyebrow">ĐẶT HÀNG THÀNH CÔNG</div>
+    <h2>Cảm ơn bạn đã đặt hàng!</h2>
+    <p class="success-note">Đơn hàng đã được ghi nhận. Quán sẽ liên hệ qua số điện thoại để xác nhận.</p>
+    <div class="order-code-card">
+      <span>MÃ ĐƠN HÀNG</span>
+      <strong id="successOrderCode">CC00000000</strong>
+      <button type="button" class="copy-code-btn" onclick="copyOrderCode()">📋 Sao chép mã</button>
+    </div>
+    <div class="success-total"><span>Tổng thanh toán</span><strong id="successOrderTotal">0đ</strong></div>
+    <p class="success-hint">Vui lòng để ý điện thoại trong 1–3 phút nữa.</p>
+    <div class="success-actions">
+      <button class="success-secondary" onclick="closeSuccessModal()">Đóng</button>
+      <button class="success-primary" onclick="closeSuccessModal();openPaymentQR()">💳 Thanh toán</button>
+    </div>
+  </div>
 </div>
 
 <!-- HEADER -->
@@ -480,33 +512,25 @@ button{-webkit-tap-highlight-color:transparent}
         </div>
 
         <div class="form-group">
-
-            <label>
-                Địa chỉ nhận hàng *
-            </label>
-
-            <textarea
-                id="customerAddress"
-                autocomplete="street-address"
-placeholder="Nhập địa chỉ nhận hàng"
-            ></textarea>
-
+  <label>📍 Khu vực nhận hàng *</label>
+  <div class="location-toolbar" id="locationToolbar">
+    <button type="button" class="location-option" data-location="Việt Trì" onclick="selectLocation('Việt Trì',this)">📍<br>Việt Trì</button>
+    <button type="button" class="location-option" data-location="Thị xã Phú Thọ" onclick="selectLocation('Thị xã Phú Thọ',this)">📍<br>TX Phú Thọ</button>
+    <button type="button" class="location-option" data-location="Lâm Thao" onclick="selectLocation('Lâm Thao',this)">📍<br>Lâm Thao</button>
+    <button type="button" class="location-option" data-location="KCN Phú Hà" onclick="selectLocation('KCN Phú Hà',this)">📍<br>KCN Phú Hà</button>
+    <button type="button" class="location-option" data-location="KCN Thuỵ Vân" onclick="selectLocation('KCN Thuỵ Vân',this)">📍<br>KCN Thuỵ Vân</button>
+  </div>
+  <div id="locationSelected" class="location-selected">Chưa chọn khu vực nhận hàng</div>
+  <div class="location-required">Chọn 1 trong 5 khu vực để tiếp tục đặt hàng.</div>
+  <input type="hidden" id="customerAddress" value="">
+</div>
 
 <div class="form-group">
-    <button
-        type="button"
-        class="location-btn"
-        onclick="getLocation()"
-    >
-       📍 Bắt buộc gửi vị trí để đặt hàng
-    </button>
+  <button type="button" class="location-btn" onclick="getLocation()">📍 Gửi vị trí hiện tại</button>
 </div>
 
 <input type="hidden" id="latitude">
 <input type="hidden" id="longitude">
-
-
-        </div>
 
         <div class="form-group">
 
@@ -550,20 +574,6 @@ placeholder="Nhập địa chỉ nhận hàng"
 
     </div>
 
-</div>
-
-<div id="orderSuccess" class="modal">
- <div class="modal-box" style="text-align:center">
-  <div style="font-size:50px">🎉</div>
-  <h2>Đặt hàng thành công</h2>
-  <p>Cảm ơn bạn đã đặt món tại Ăn Vặt Lâm Thao</p>
-  <div style="background:#f5eadf;padding:18px;border-radius:16px;margin:15px 0">
-   <div>Mã đơn hàng</div>
-   <strong id="successCode" style="font-size:28px;color:#8b5e3c"></strong>
-   <div style="margin-top:8px">Tổng tiền: <b id="successTotal"></b></div>
-  </div>
-  <button class="confirm-btn" onclick="document.getElementById('orderSuccess').style.display='none'">Đóng</button>
- </div>
 </div>
 
 <!-- PAYMENT QR -->
@@ -634,7 +644,7 @@ placeholder="Nhập địa chỉ nhận hàng"
   <div style="background:#fffaf5;border:1px solid #eadbc9;border-radius:16px;padding:15px"><b>⭐ Món ngon mỗi ngày</b><br><small style="color:#927866">Chọn món nhanh, giá rõ ràng</small></div>
   <div style="background:#fffaf5;border:1px solid #eadbc9;border-radius:16px;padding:15px"><b>💬 Hỗ trợ đặt hàng</b><br><small style="color:#927866">Zalo · Facebook · Hotline 0978472704</small></div>
 </section>
-<style>@media(max-width:800px){.trust-strip{grid-template-columns:1fr!important;padding:0 10px!important;margin-bottom:85px!important}}.qty-control{display:flex;align-items:center;gap:6px}.qty-control button{width:34px;height:34px;border-radius:50%;border:0;background:#8b5e3c;color:#fff;font-size:20px;font-weight:700}.qty-control span{min-width:22px;text-align:center;font-weight:800}</style>
+<style>@media(max-width:800px){.trust-strip{grid-template-columns:1fr!important;padding:0 10px!important;margin-bottom:85px!important}}</style>
 
 <!-- FOOTER -->
 
@@ -643,6 +653,16 @@ placeholder="Nhập địa chỉ nhận hàng"
 </footer>
 
 <script>
+let selectedLocation = '';
+function selectLocation(name, button){
+  selectedLocation = name;
+  document.getElementById('customerAddress').value = name;
+  document.querySelectorAll('.location-option').forEach(b=>b.classList.remove('active'));
+  if(button) button.classList.add('active');
+  const label=document.getElementById('locationSelected');
+  if(label) label.textContent='✅ Khu vực đã chọn: '+name;
+}
+
 function getLocation(){
 
     if(!navigator.geolocation){
@@ -766,13 +786,7 @@ function productCard(product){
           <div class="product-meta"><span class="stars">${stars}</span><b>${rating}</b>${sold ? `<span class="sold">· ${sold} đã bán</span>` : '<span>· Món ngon</span>'}</div>
           <div class="product-bottom">
             <div><div class="product-price">${money(product.price)}</div>${oldPrice>Number(product.price||0)?`<del style="font-size:11px;color:#a18d7c">${money(oldPrice)}</del>`:''}</div>
-            <div class="qty-control" id="qty-${product.id}">
-              ${(()=>{
-                const item=cart.find(x=>x.id===product.id);
-                return item ? `<button onclick="changeQty(${product.id},-1)">−</button><span>${item.quantity}</span><button onclick="changeQty(${product.id},1)">+</button>` :
-                `<button class="add-btn" onclick="addToCart(${product.id});renderProducts()" aria-label="Thêm ${product.name || ''} vào giỏ">+</button>`;
-              })()}
-            </div>
+            ${(()=>{const qty=(cart.find(i=>i.id===product.id)||{}).quantity||0;return qty?`<div class="menu-quantity"><button onclick="changeQuantity(${product.id},-1);event.stopPropagation()" aria-label="Giảm ${product.name||''}">−</button><strong>${qty}</strong><button onclick="changeQuantity(${product.id},1);event.stopPropagation()" aria-label="Tăng ${product.name||''}">+</button></div>`:`<button class="add-btn" onclick="addToCart(${product.id}); this.animate([{transform:'scale(.88)'},{transform:'scale(1)'}],{duration:180})" aria-label="Thêm ${product.name || ''} vào giỏ">+</button>`})()}
           </div>
         </div>
       </article>`;
@@ -839,19 +853,8 @@ function addToCart(id){
     saveData();
 
     updateCart();
-
-}
-
-function changeQty(id,amount){
-    const item=cart.find(x=>x.id===id);
-    if(!item) return;
-    item.quantity += amount;
-    if(item.quantity<=0){
-        cart = cart.filter(x=>x.id!==id);
-    }
-    saveData();
-    updateCart();
     renderProducts();
+
 }
 
 /* ==================================================
@@ -958,16 +961,12 @@ function renderCart(){
 
             <div class="cart-item">
 
-                <div>
-
-                    <div class="cart-item-name">
-                        ${product.name}
+                <div class="cart-product-main">
+                    <img class="cart-product-thumb" src="${product.image || ''}" alt="${product.name || ''}" loading="lazy" onerror="this.style.opacity='.35'">
+                    <div class="cart-product-copy">
+                      <div class="cart-item-name">${product.name}</div>
+                      <div class="cart-item-price">${money(product.price)}</div>
                     </div>
-
-                    <div class="cart-item-price">
-                        ${money(product.price)}
-                    </div>
-
                 </div>
 
                 <div class="quantity">
@@ -1038,6 +1037,7 @@ function changeQuantity(id,change){
     saveData();
 
     updateCart();
+    renderProducts();
 
     renderCart();
 
@@ -1059,6 +1059,7 @@ function removeItem(id){
     saveData();
 
     updateCart();
+    renderProducts();
 
     renderCart();
 
@@ -1829,25 +1830,13 @@ closeOrderForm();
    THÔNG BÁO
 ============================== */
 
-alert(
-    "✅ Đặt hàng thành công!\n\n" +
-    "Mã đơn: " +
-    orderCode +
-    "\n\n" +
-    "Quán sẽ liên hệ khách hàng qua số điện thoại để xác nhận đơn.\n" +
-    "Vui lòng để ý điện thoại trong 1-3 phút nữa.\n\n" +
-    "Tổng tiền: " +
-    money(finalData.total)
-);
+showSuccessModal(orderCode, finalData.total);
 
 /* ==============================
    HIỆN QR
 ============================== */
 
-openPaymentQR();
-        setTimeout(() => {
-    window.location.reload();
-}, 1500);
+// Thanh toán được mở từ cửa sổ thành công khi khách chọn “Thanh toán”.
 
         /* ==============================
            RESET NÚT
@@ -1888,15 +1877,26 @@ openPaymentQR();
 
 }
 
-function showOrderSuccess(code,total){
- document.getElementById("successCode").innerText=code;
- document.getElementById("successTotal").innerText=money(total);
- document.getElementById("orderSuccess").style.display="flex";
-}
-
 /* ==================================================
    POPUP CHÀO MỪNG
 ================================================== */
+
+function showSuccessModal(orderCode,total){
+  const modal=document.getElementById('successModal');
+  if(!modal) return;
+  document.getElementById('successOrderCode').textContent=orderCode;
+  document.getElementById('successOrderTotal').textContent=money(total);
+  modal.style.display='flex';
+  modal.setAttribute('aria-hidden','false');
+}
+function closeSuccessModal(){
+  const modal=document.getElementById('successModal');
+  if(modal){modal.style.display='none';modal.setAttribute('aria-hidden','true');}
+}
+async function copyOrderCode(){
+  const code=document.getElementById('successOrderCode').textContent;
+  try{await navigator.clipboard.writeText(code);alert('✅ Đã sao chép mã đơn: '+code);}catch(e){alert('Mã đơn: '+code);}
+}
 
 function openWelcomePopup(){
 
