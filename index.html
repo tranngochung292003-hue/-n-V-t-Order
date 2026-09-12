@@ -115,22 +115,49 @@ button{-webkit-tap-highlight-color:transparent}
   }
 }
 
+</style>
 
-/* UPDATE UI */
-.cart-item{display:flex;gap:12px;align-items:center}
-.cart-item img{width:70px;height:70px;border-radius:12px;object-fit:cover}
-.cart-detail{flex:1}
-.quantity button,.quick-qty button{width:36px;height:36px;border:0;border-radius:50%;background:#8b5a2b;color:#fff;font-size:20px}
-.quick-qty{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:8px}
-.success-popup{display:none;position:fixed;inset:0;background:rgba(40,20,5,.65);z-index:999;align-items:center;justify-content:center;padding:20px}
-.success-box{max-width:420px;background:#fff5e8;border:2px solid #b8793d;border-radius:25px;padding:30px;text-align:center;box-shadow:0 20px 60px #0005}
-.success-box h2{color:#7b481f}
-.success-box p{color:#6d5038;line-height:1.7}
-.success-box button{background:#8b5a2b;color:#fff;border:0;border-radius:12px;padding:12px 25px;font-weight:700}
-.location-select{display:grid;grid-template-columns:repeat(5,1fr);gap:7px}
-.location-select button{padding:9px 4px;border-radius:12px;border:1px solid #d7b48a;background:#fff8ef;color:#7b481f}
-.location-select button.active{background:#8b5a2b;color:#fff}
-@media(max-width:600px){.location-select{grid-template-columns:repeat(2,1fr)}}
+<style>
+/* FIX HIEN THI BAN UPDATE */
+.cart-item{
+ display:flex!important;
+ align-items:center!important;
+ gap:12px!important;
+}
+.cart-item img{
+ width:64px!important;
+ height:64px!important;
+ object-fit:cover!important;
+ border-radius:12px!important;
+}
+.qty-box{
+ display:flex;
+ align-items:center;
+ gap:8px;
+ justify-content:flex-end;
+}
+.qty-box button{
+ width:34px;
+ height:34px;
+ border-radius:50%;
+ border:1px solid #d6b08a;
+ background:#fffaf5;
+ color:#8b5e3c;
+ font-size:20px;
+ font-weight:800;
+}
+.qty-number{
+ min-width:28px;
+ text-align:center;
+ font-weight:800;
+}
+.success-order{
+ background:linear-gradient(145deg,#fffaf5,#f3e7d8)!important;
+ border:2px solid #8b5e3c!important;
+ border-radius:22px!important;
+ text-align:center!important;
+ padding:28px!important;
+}
 </style>
 </head>
 <body>
@@ -501,14 +528,11 @@ button{-webkit-tap-highlight-color:transparent}
                 Địa chỉ nhận hàng *
             </label>
 
-            <input type="hidden" id="customerAddress" value="">
-<div class="location-select">
-<button type="button" onclick="selectLocation(this,'Việt Trì')">Việt Trì</button>
-<button type="button" onclick="selectLocation(this,'Thị xã PT')">Thị xã PT</button>
-<button type="button" onclick="selectLocation(this,'Lâm Thao')">Lâm Thao</button>
-<button type="button" onclick="selectLocation(this,'KCN Phú Hà')">KCN Phú Hà</button>
-<button type="button" onclick="selectLocation(this,'KCN Thuỵ Vân')">KCN Thuỵ Vân</button>
-</div>
+            <textarea
+                id="customerAddress"
+                autocomplete="street-address"
+placeholder="Nhập địa chỉ nhận hàng"
+            ></textarea>
 
 
 <div class="form-group">
@@ -641,16 +665,6 @@ button{-webkit-tap-highlight-color:transparent}
 </section>
 <style>@media(max-width:800px){.trust-strip{grid-template-columns:1fr!important;padding:0 10px!important;margin-bottom:85px!important}}</style>
 
-<div class="success-popup" id="successPopup">
-<div class="success-box">
-<div style="font-size:55px">🎉</div>
-<h2>Đặt hàng thành công!</h2>
-<p>Cảm ơn bạn đã ủng hộ <b>Ăn Vặt Lâm Thao</b> ❤️<br>
-Quán sẽ liên hệ xác nhận đơn sớm nhất.<br>
-Chúc bạn ngon miệng!</p>
-<button onclick="closeSuccess()">Tuyệt vời</button>
-</div>
-</div>
 <!-- FOOTER -->
 
 <footer>
@@ -782,11 +796,6 @@ function productCard(product){
           <div class="product-bottom">
             <div><div class="product-price">${money(product.price)}</div>${oldPrice>Number(product.price||0)?`<del style="font-size:11px;color:#a18d7c">${money(oldPrice)}</del>`:''}</div>
             <button class="add-btn" onclick="addToCart(${product.id}); this.animate([{transform:'scale(.88)'},{transform:'scale(1)'}],{duration:180})" aria-label="Thêm ${product.name || ''} vào giỏ">+</button>
-<div class="quick-qty">
-<button onclick="changeQuantity(${product.id},-1)">−</button>
-<span>${product.id}</span>
-<button onclick="changeQuantity(${product.id},1)">+</button>
-</div>
           </div>
         </div>
       </article>`;
@@ -960,9 +969,7 @@ function renderCart(){
 
             <div class="cart-item">
 
-                <img src="${product.image || ''}" alt="${product.name}">
-
-                <div class="cart-detail">
+                <div>
 
                     <div class="cart-item-name">
                         ${product.name}
@@ -1896,14 +1903,7 @@ openPaymentQR();
    POPUP CHÀO MỪNG
 ================================================== */
 
-function selectLocation(btn,text){
-document.querySelectorAll('.location-select button').forEach(b=>b.classList.remove('active'));
-btn.classList.add('active');
-document.getElementById('customerAddress').value=text;
-}
-function openSuccess(){document.getElementById('successPopup').style.display='flex'}
-function closeSuccess(){document.getElementById('successPopup').style.display='none'}
-\nfunction openWelcomePopup(){
+function openWelcomePopup(){
 
     const popup =
         document.getElementById(
@@ -2015,5 +2015,17 @@ openWelcomePopup();
 
 </script>
 
+
+<script>
+/* Fix an toan hien thi sau update */
+document.addEventListener("click",function(e){
+ const btn=e.target.closest(".add-btn");
+ if(btn){
+   setTimeout(function(){
+     if(typeof updateCart==="function") updateCart();
+   },100);
+ }
+});
+</script>
 </body>
 </html>
