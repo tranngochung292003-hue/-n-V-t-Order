@@ -1918,8 +1918,15 @@ const payload = {
 function showSuccessModal(orderCode,total){
   const modal=document.getElementById('successModal');
   if(!modal) return;
-  document.getElementById('successOrderCode').textContent=orderCode;
-  document.getElementById('successOrderTotal').textContent=money(total);
+
+  const codeEl=document.getElementById('successOrderCode');
+  if(codeEl) codeEl.textContent=orderCode || '';
+
+  // Mẫu giao diện hiện tại không dùng ô tổng tiền, nên không được phép
+  // coi phần tử này là bắt buộc. Nếu có thì mới cập nhật.
+  const totalEl=document.getElementById('successOrderTotal');
+  if(totalEl) totalEl.textContent=money(total || 0);
+
   modal.style.display='flex';
   modal.setAttribute('aria-hidden','false');
 }
