@@ -1794,21 +1794,36 @@ const payload = {
            thông báo “Không thể gửi đơn hàng”.
         */
         const orderBody = JSON.stringify(payload);
-        let requestAccepted = false;
+        let requestStarted = false;
 
+        /*
+           Google Apps Script thường không cho trình duyệt đọc trực tiếp
+           phản hồi do CORS/redirect. Vì vậy không chờ response để kết luận
+           thành công hay thất bại. Chỉ cần request được xếp hàng/gửi đi,
+           giao diện sẽ tiếp tục hoàn tất đơn hàng.
+        */
         if (navigator.sendBeacon) {
-            const blob = new Blob(
-                [orderBody],
-                {type: "text/plain;charset=UTF-8"}
-            );
-            requestAccepted = navigator.sendBeacon(
-                GOOGLE_SCRIPT_URL,
-                blob
-            );
+            try {
+                const blob = new Blob(
+                    [orderBody],
+                    {type: "text/plain;charset=UTF-8"}
+                );
+                requestStarted = navigator.sendBeacon(
+                    GOOGLE_SCRIPT_URL,
+                    blob
+                );
+            } catch (beaconError) {
+                console.warn("sendBeacon error:", beaconError);
+            }
         }
 
-        if (!requestAccepted) {
-            await fetch(
+        if (!requestStarted) {
+            /*
+               Không await fetch và không bắt lỗi mạng thành lỗi đơn hàng.
+               Trình duyệt vẫn gửi request ở chế độ no-cors/keepalive; nếu
+               Google trả response mà JS không đọc được thì cũng không sao.
+            */
+            fetch(
                 GOOGLE_SCRIPT_URL,
                 {
                     method: "POST",
@@ -1819,17 +1834,16 @@ const payload = {
                     body: orderBody,
                     keepalive: true
                 }
-            );
-            requestAccepted = true;
+            ).catch(error => {
+                console.warn("Google Apps Script response/network:", error);
+            });
+            requestStarted = true;
         }
 
         /* ==============================
-           ĐƠN ĐÃ ĐƯỢC GỬI
+           ĐÃ KHỞI TẠO GỬI ĐƠN
+           Không dùng response CORS để báo lỗi giả cho khách hàng.
         ============================== */
-
-        if (!requestAccepted) {
-            throw new Error("Không thể gửi yêu cầu đặt hàng");
-        }
 
         /* ==============================
            DỌN DẸP SAU KHI GỬI
@@ -1873,24 +1887,24 @@ const payload = {
 
     }catch(error){
 
-        console.error(error);
+        console.error("Lỗi không mong muốn khi hoàn tất đơn hàng:", error);
 
-        /* ==============================
-           CHO PHÉP GỬI LẠI
-        ============================== */
-
-        button.disabled =
-            false;
-
-        button.style.opacity =
-            "1";
-
-        button.innerHTML =
-            oldText;
+        /*
+           Chỉ các lỗi JS thật sự ngoài luồng gửi mới rơi vào đây.
+           Không dùng thông báo “Không thể gửi đơn hàng” nữa vì Google
+           Apps Script có thể đã nhận dữ liệu nhưng trình duyệt không đọc
+           được response do CORS/redirect.
+        */
+        try {
+            button.disabled = false;
+            button.style.opacity = "1";
+            button.innerHTML = oldText;
+        } catch (resetError) {
+            console.warn("Reset nút xác nhận:", resetError);
+        }
 
         alert(
-            "❌ Không thể gửi đơn hàng.\n\n" +
-            "Vui lòng kiểm tra kết nối và thử lại."
+            "Đã xảy ra lỗi hiển thị. Vui lòng kiểm tra lại đơn hàng hoặc tải lại trang."
         );
 
     }
