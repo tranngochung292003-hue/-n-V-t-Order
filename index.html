@@ -78,41 +78,41 @@ header{background:rgba(255,250,243,.96);border-bottom:1px solid #eadbca;box-shad
 
 /* ===== MOBILE INPUT + PERFORMANCE OPTIMIZATION ===== */
 html{
-  -webkit-text-size-adjust:100%;
-  text-size-adjust:100%;
-  scroll-behavior:smooth;
+-webkit-text-size-adjust:100%;
+text-size-adjust:100%;
+scroll-behavior:smooth;
 }
 body{overscroll-behavior-x:none}
 img{content-visibility:auto}
 .product{content-visibility:auto;contain-intrinsic-size:320px 390px}
 button{-webkit-tap-highlight-color:transparent}
 @media(max-width:700px){
-  input,textarea,select,
-  .form-group input,.form-group textarea,
-  .voucher-row input,.header-search input{
-    font-size:16px!important;
-    line-height:1.4!important;
-    -webkit-appearance:none;
-    appearance:none;
-  }
-  .form-group input,.form-group textarea,.voucher-row input{
-    min-height:48px;
-  }
-  .form-group textarea{min-height:90px}
-  .modal{padding:8px;align-items:flex-end}
-  .modal-box{
-    max-height:92vh;
-    border-radius:20px 20px 0 0!important;
-    padding-bottom:calc(18px + env(safe-area-inset-bottom));
-  }
+input,textarea,select,
+.form-group input,.form-group textarea,
+.voucher-row input,.header-search input{
+font-size:16px!important;
+line-height:1.4!important;
+-webkit-appearance:none;
+appearance:none;
+}
+.form-group input,.form-group textarea,.voucher-row input{
+min-height:48px;
+}
+.form-group textarea{min-height:90px}
+.modal{padding:8px;align-items:flex-end}
+.modal-box{
+max-height:92vh;
+border-radius:20px 20px 0 0!important;
+padding-bottom:calc(18px + env(safe-area-inset-bottom));
+}
 }
 @media(prefers-reduced-motion:reduce){
-  html{scroll-behavior:auto}
-  *,*::before,*::after{
-    animation-duration:.01ms!important;
-    animation-iteration-count:1!important;
-    transition-duration:.01ms!important;
-  }
+html{scroll-behavior:auto}
+*,*::before,*::after{
+animation-duration:.01ms!important;
+animation-iteration-count:1!important;
+transition-duration:.01ms!important;
+}
 }
 
 </style>
@@ -127,147 +127,147 @@ button{-webkit-tap-highlight-color:transparent}
 <body>
 
 <!-- ==============================
-     POPUP CHÀO MỪNG
-============================== -->
+POPUP CHÀO MỪNG
+#ERROR!
 
 <div id="welcomePopup" class="welcome-popup">
 
-    <div class="welcome-box">
+<div class="welcome-box">
 
-        <div class="welcome-icon">
-            🛍️
-        </div>
+<div class="welcome-icon">
+🛍️
+</div>
 
-        <h2>
-            Chào mừng đến Ăn Vặt Lâm Thao!
-        </h2>
+<h2>
+Chào mừng đến Ăn Vặt Lâm Thao!
+</h2>
 
-        <p>
-            🎉 Cảm ơn bạn đã ghé thăm shop.<br>
-            🎁 Voucher tặng bạn giảm 20% : KHACHMOI
-            🛒 Chúc bạn mua hàng vui vẻ!<br>
-            🚀 Ship hàng hoả tốc 24/7
-            💟 Mua càng nhiều giá càng hời .
-        </p>
+<p>
+🎉 Cảm ơn bạn đã ghé thăm shop.<br>
+🎁 Voucher tặng bạn giảm 20% : KHACHMOI
+🛒 Chúc bạn mua hàng vui vẻ!<br>
+🚀 Ship hàng hoả tốc 24/7
+💟 Mua càng nhiều giá càng hời .
+</p>
 
-        <button
-            class="welcome-close"
-            onclick="closeWelcomePopup()"
-        >
-            ✅ Đã hiểu
-        </button>
+<button
+class="welcome-close"
+onclick="closeWelcomePopup()"
+>
+✅ Đã hiểu
+</button>
 
-    </div>
+</div>
 
 </div>
 
 <!-- HEADER -->
 
 <header>
-  <div class="header-inner den-header">
-    <div class="logo">🍴🎀 <span>Ăn Vặt Lâm Thao</span></div>
-    <div class="header-search">
-      <span>🔍</span>
-      <input id="productSearch" type="search" placeholder="Tìm món ăn, đồ uống..." oninput="searchProducts(this.value)">
-    </div>
-    <button class="header-cart" onclick="openCart()">🛒 <span>Giỏ hàng</span><b id="headerCartCount">0</b></button>
-  </div>
+<div class="header-inner den-header">
+<div class="logo">🍴🎀 <span>Ăn Vặt Lâm Thao</span></div>
+<div class="header-search">
+<span>🔍</span>
+<input id="productSearch" type="search" placeholder="Tìm món ăn, đồ uống..." oninput="searchProducts(this.value)">
+</div>
+<button class="header-cart" onclick="openCart()">🛒 <span>Giỏ hàng</span><b id="headerCartCount">0</b></button>
+</div>
 </header>
 
 <!-- HERO -->
 <section class="hero den-hero">
-  <div class="hero-content">
-    <div class="hero-badge">🔥 ĂN VẶT NGON MỖI NGÀY</div>
-    <h1>Đặt món online <span>nhanh chóng</span></h1>
-    <p>🥘 Món ngon, giá hợp lý · 🛵 Giao hàng tận nơi · 🎁 Khách mới giảm 20%</p>
-    <div class="ship-chips">
-      <span>📍 Việt Trì</span><span>📍 Thị xã PT</span><span>📍 Lâm Thao</span><span>📍 KCN Phú Hà</span><span>📍 KCN Thuỵ Vân</span>
-    </div>
-  </div>
-  <div class="hero-voucher"><strong>🎁 KHACHMOI</strong><small>Giảm 20% cho đơn đầu tiên</small></div>
+<div class="hero-content">
+<div class="hero-badge">🔥 ĂN VẶT NGON MỖI NGÀY</div>
+<h1>Đặt món online <span>nhanh chóng</span></h1>
+<p>🥘 Món ngon, giá hợp lý · 🛵 Giao hàng tận nơi · 🎁 Khách mới giảm 20%</p>
+<div class="ship-chips">
+<span>📍 Việt Trì</span><span>📍 Thị xã PT</span><span>📍 Lâm Thao</span><span>📍 KCN Phú Hà</span><span>📍 KCN Thuỵ Vân</span>
+</div>
+</div>
+<div class="hero-voucher"><strong>🎁 KHACHMOI</strong><small>Giảm 20% cho đơn đầu tiên</small></div>
 </section>
 
 <div class="quick-benefits">
-  <div>🚚<span><b>Giao tận nơi</b><small>Trong khu vực</small></span></div>
-  <div>⚡<span><b>Đặt món nhanh</b><small>Chọn món · bấm +</small></span></div>
-  <div>🎁<span><b>Ưu đãi khách mới</b><small>Voucher KHACHMOI</small></span></div>
-  <div>💬<span><b>Hỗ trợ đặt hàng</b><small>Zalo / Hotline</small></span></div>
+<div>🚚<span><b>Giao tận nơi</b><small>Trong khu vực</small></span></div>
+<div>⚡<span><b>Đặt món nhanh</b><small>Chọn món · bấm +</small></span></div>
+<div>🎁<span><b>Ưu đãi khách mới</b><small>Voucher KHACHMOI</small></span></div>
+<div>💬<span><b>Hỗ trợ đặt hàng</b><small>Zalo / Hotline</small></span></div>
 </div>
 
 <!-- CUSTOMER / ORDER TOOLS -->
 <div class="shop-tools">
-  <button class="shop-tool-btn" onclick="openCustomerCenter('profile')">👤 Hồ sơ khách</button>
-  <button class="shop-tool-btn" onclick="openCustomerCenter('orders')">📦 Đơn của tôi <b id="orderHistoryCount">0</b></button>
-  <button class="shop-tool-btn" onclick="openCustomerCenter('points')">⭐ Điểm thưởng <b id="headerPoints">0</b></button>
-  <button class="shop-tool-btn" onclick="scrollToMenu()">🍢 Đặt món ngay</button>
+<button class="shop-tool-btn" onclick="openCustomerCenter('profile')">👤 Hồ sơ khách</button>
+<button class="shop-tool-btn" onclick="openCustomerCenter('orders')">📦 Đơn của tôi <b id="orderHistoryCount">0</b></button>
+<button class="shop-tool-btn" onclick="openCustomerCenter('points')">⭐ Điểm thưởng <b id="headerPoints">0</b></button>
+<button class="shop-tool-btn" onclick="scrollToMenu()">🍢 Đặt món ngay</button>
 </div>
 
 <section class="promo-zone">
-  <div class="promo-card">
-    <div><small>ƯU ĐÃI KHÁCH MỚI</small><h3>🎁 Giảm 20% đơn đầu tiên</h3><p>Nhập mã khi xem giỏ hàng để áp dụng ưu đãi.</p></div>
-    <div class="promo-code">KHACHMOI</div>
-  </div>
+<div class="promo-card">
+<div><small>ƯU ĐÃI KHÁCH MỚI</small><h3>🎁 Giảm 20% đơn đầu tiên</h3><p>Nhập mã khi xem giỏ hàng để áp dụng ưu đãi.</p></div>
+<div class="promo-code">KHACHMOI</div>
+</div>
 </section>
 
 <section class="best-zone">
-  <div class="zone-head"><div><small>GỢI Ý NHANH</small><h2>🔥 Món bán chạy</h2></div><small>Thêm món chỉ với 1 chạm</small></div>
-  <div id="bestSellerProducts" class="mini-products"><div class="empty-state" style="grid-column:1/-1">⏳ Đang tải món...</div></div>
+<div class="zone-head"><div><small>GỢI Ý NHANH</small><h2>🔥 Món bán chạy</h2></div><small>Thêm món chỉ với 1 chạm</small></div>
+<div id="bestSellerProducts" class="mini-products"><div class="empty-state" style="grid-column:1/-1">⏳ Đang tải món...</div></div>
 </section>
 
 <section class="combo-zone">
-  <div class="zone-head"><div><small>MUA NHANH</small><h2>🥡 Combo gợi ý</h2></div><small>Tạo từ thực đơn hiện có</small></div>
-  <div id="smartCombo" class="combo-card"><div class="combo-info"><b>⏳ Đang chuẩn bị combo...</b><small>Chọn món tự động sau khi thực đơn tải xong</small></div></div>
+<div class="zone-head"><div><small>MUA NHANH</small><h2>🥡 Combo gợi ý</h2></div><small>Tạo từ thực đơn hiện có</small></div>
+<div id="smartCombo" class="combo-card"><div class="combo-info"><b>⏳ Đang chuẩn bị combo...</b><small>Chọn món tự động sau khi thực đơn tải xong</small></div></div>
 </section>
 
 <!-- PRODUCTS -->
 
 <main class="container" id="menuSection">
 
-    <div class="section-head">
-      <div>
-        <div class="eyebrow">THỰC ĐƠN HÔM NAY</div>
-        <h2 class="section-title">🔥 Món ngon được yêu thích</h2>
-      </div>
-    </div>
-    <div class="popular-row">
-      <div><span class="hot-dot">🔥</span><b>Danh mục món</b><small>Chọn nhanh món bạn thích</small></div>
-      <span class="scroll-hint">Vuốt ngang →</span>
-    </div>
-    <div class="category-menu">
+<div class="section-head">
+<div>
+<div class="eyebrow">THỰC ĐƠN HÔM NAY</div>
+<h2 class="section-title">🔥 Món ngon được yêu thích</h2>
+</div>
+</div>
+<div class="popular-row">
+<div><span class="hot-dot">🔥</span><b>Danh mục món</b><small>Chọn nhanh món bạn thích</small></div>
+<span class="scroll-hint">Vuốt ngang →</span>
+</div>
+<div class="category-menu">
 
-    <button
-        class="category-btn active"
-        onclick="filterProducts('all', this)"
-    >
-        🍢 Tất cả
-    </button>
+<button
+class="category-btn active"
+onclick="filterProducts('all', this)"
+>
+🍢 Tất cả
+</button>
 
-    <button
-        class="category-btn"
-        onclick="filterProducts('Đồ ăn', this)"
-    >
-        🍔 Đồ Xiên
-    </button>
+<button
+class="category-btn"
+onclick="filterProducts('Đồ ăn', this)"
+>
+🍔 Đồ Xiên
+</button>
 
-    <button
-        class="category-btn"
-        onclick="filterProducts('Đồ ăn nhanh', this)"
-    >
-        🍟 Đồ ăn nhanh
-    </button>
+<button
+class="category-btn"
+onclick="filterProducts('Đồ ăn nhanh', this)"
+>
+🍟 Đồ ăn nhanh
+</button>
 
-    <button
-        class="category-btn"
-        onclick="filterProducts('Đồ uống', this)"
-    >
-        🥤 Đồ uống
-    </button>
+<button
+class="category-btn"
+onclick="filterProducts('Đồ uống', this)"
+>
+🥤 Đồ uống
+</button>
 
 </div>
-    <div
-        id="products"
-        class="products"
-    ></div>
+<div
+id="products"
+class="products"
+></div>
 
 </main>
 
@@ -275,32 +275,32 @@ button{-webkit-tap-highlight-color:transparent}
 
 <div class="cart-bar">
 
-    <div class="cart-inner">
+<div class="cart-inner">
 
-        <div class="cart-summary">
+<div class="cart-summary">
 
-            🛒
-            <span id="cartCount">
-                0
-            </span>
-            sản phẩm
+🛒
+<span id="cartCount">
+0
+</span>
+sản phẩm
 
-            ·
+·
 
-            <span id="cartTotal">
-                0đ
-            </span>
+<span id="cartTotal">
+0đ
+</span>
 
-        </div>
+</div>
 
-        <button
-            class="checkout-btn"
-            onclick="openCart()"
-        >
-            Xem giỏ hàng
-        </button>
+<button
+class="checkout-btn"
+onclick="openCart()"
+>
+Xem giỏ hàng
+</button>
 
-    </div>
+</div>
 
 </div>
 
@@ -308,475 +308,475 @@ button{-webkit-tap-highlight-color:transparent}
 
 <div class="contact-buttons">
 
-    <a
-        href="https://zalo.me/0978472704"
-        target="_blank"
-        class="contact-btn zalo"
-    >
-        💬 Zalo
-    </a>
+<a
+href="https://zalo.me/0978472704"
+target="_blank"
+class="contact-btn zalo"
+>
+💬 Zalo
+</a>
 
-    <a
-        href="https://www.facebook.com/hunghauuu"
-        target="_blank"
-        class="contact-btn facebook"
-    >
-        📘 Facebook
-    </a>
+<a
+href="https://www.facebook.com/hunghauuu"
+target="_blank"
+class="contact-btn facebook"
+>
+📘 Facebook
+</a>
 
-    <a
-        href="tel:0978472704"
-        class="contact-btn phone"
-    >
-        📞 Gọi
-    </a>
+<a
+href="tel:0978472704"
+class="contact-btn phone"
+>
+📞 Gọi
+</a>
 
 </div>
 
 <!-- CART MODAL -->
 
 <div
-    id="cartModal"
-    class="modal"
+id="cartModal"
+class="modal"
 >
 
-    <div class="modal-box">
+<div class="modal-box">
 
-        <div class="modal-header">
+<div class="modal-header">
 
-            <h2>
-                🛒 Giỏ hàng
-            </h2>
+<h2>
+🛒 Giỏ hàng
+</h2>
 
-            <button
-                class="close-btn"
-                onclick="closeCart()"
-            >
-                ×
-            </button>
+<button
+class="close-btn"
+onclick="closeCart()"
+>
+×
+</button>
 
-        </div>
-
-        <div id="cartItems"></div>
-
-        <div class="total-box">
-
-            <div class="total-row">
-
-                <span>
-                    Tạm tính
-                </span>
-
-                <strong id="subtotal">
-                    0đ
-                </strong>
-
-            </div>
-
-            <div class="total-row">
-
-                <span>
-                    Giảm voucher
-                </span>
-
-                <strong id="discount">
-                    0đ
-                </strong>
 </div>
 
-            <div class="total-row fee-row">
-                <span>Phí giao hàng</span>
-                <strong id="shippingDisplay">Quán xác nhận</strong>
-            </div>
+<div id="cartItems"></div>
 
-            <div class="total-row total-final">
+<div class="total-box">
 
-                <span>
-                    Tổng
-                </span>
+<div class="total-row">
 
-                <span id="finalTotal">
-                    0đ
-                </span>
+<span>
+Tạm tính
+</span>
 
-            </div>
+<strong id="subtotal">
+0đ
+</strong>
 
-        </div>
+</div>
 
-        <!-- VOUCHER -->
+<div class="total-row">
 
-        <div class="voucher-box">
+<span>
+Giảm voucher
+</span>
 
-            <strong>
-                🎟️ Voucher của khách
-            </strong>
+<strong id="discount">
+0đ
+</strong>
+</div>
 
-            <div class="form-group">
+<div class="total-row fee-row">
+<span>Phí giao hàng</span>
+<strong id="shippingDisplay">Quán xác nhận</strong>
+</div>
 
-                <label>
-                    Số điện thoại được cấp voucher
-                </label>
+<div class="total-row total-final">
 
-                <input
-                    id="voucherPhone"
-                    type="tel"
-                    autocomplete="tel"
-                    placeholder="Nhập số điện thoại"
-                >
+<span>
+Tổng
+</span>
 
-            </div>
+<span id="finalTotal">
+0đ
+</span>
 
-            <div class="voucher-row">
+</div>
 
-                <input
-                    id="voucherInput"
-                    type="text"
-                    placeholder="Ví dụ: GIAM10"
-                >
+</div>
 
-                <button
-                    onclick="applyVoucher()"
-                >
-                    Áp dụng
-                </button>
+<!-- VOUCHER -->
 
-            </div>
+<div class="voucher-box">
 
-            <div
-                id="voucherMessage"
-                class="voucher-message"
-            ></div>
+<strong>
+🎟️ Voucher của khách
+</strong>
 
-        </div>
+<div class="form-group">
 
-        <button class="confirm-btn"
-            onclick="openOrderForm()"
-        >
-            Tiếp tục đặt hàng
-        </button>
+<label>
+Số điện thoại được cấp voucher
+</label>
 
-    </div>
+<input
+id="voucherPhone"
+type="tel"
+autocomplete="tel"
+placeholder="Nhập số điện thoại"
+>
+
+</div>
+
+<div class="voucher-row">
+
+<input
+id="voucherInput"
+type="text"
+placeholder="Ví dụ: GIAM10"
+>
+
+<button
+onclick="applyVoucher()"
+>
+Áp dụng
+</button>
+
+</div>
+
+<div
+id="voucherMessage"
+class="voucher-message"
+></div>
+
+</div>
+
+<button class="confirm-btn"
+onclick="openOrderForm()"
+>
+Tiếp tục đặt hàng
+</button>
+
+</div>
 
 </div>
 
 <!-- ORDER MODAL -->
 
 <div
-    id="orderModal"
-    class="modal"
+id="orderModal"
+class="modal"
 >
 
-    <div class="modal-box">
+<div class="modal-box">
 
-        <div class="modal-header">
+<div class="modal-header">
 
-            <h2>
-                📝 Thông tin đặt hàng
-            </h2>
+<h2>
+📝 Thông tin đặt hàng
+</h2>
 
-            <button
-                class="close-btn"
-                onclick="closeOrderForm()"
-            >
-                ×
-            </button>
+<button
+class="close-btn"
+onclick="closeOrderForm()"
+>
+×
+</button>
 
-        </div>
+</div>
 
-        <div class="form-group">
+<div class="form-group">
 
-            <label>
-                Họ và tên *
-            </label>
-
-            <input
-                id="customerName"
-                type="text"
-                autocomplete="name"
-                placeholder="Nhập họ tên"
-            >
-
-        </div>
-
-        <div class="form-group">
-
-            <label>
-                Số điện thoại *
-            </label>
+<label>
+Họ và tên *
+</label>
 
 <input
-    id="customerPhone"
-    type="tel"
-    autocomplete="tel"
-    inputmode="numeric"
-    maxlength="10"
-    placeholder="Nhập số điện thoại"
-    oninput="this.value=this.value.replace(/[^0-9]/g,'')"
+id="customerName"
+type="text"
+autocomplete="name"
+placeholder="Nhập họ tên"
 >
 
-        </div>
+</div>
 
-        <div class="form-group">
-            <label>Khu vực giao hàng *</label>
-            <select id="deliveryArea" class="area-select" onchange="calculateTotal()">
-                <option value="">-- Chọn khu vực --</option>
-                <option value="Lâm Thao">Lâm Thao</option>
-                <option value="Việt Trì">Việt Trì</option>
-                <option value="Thị xã Phú Thọ">Thị xã Phú Thọ</option>
-                <option value="KCN Phú Hà">KCN Phú Hà</option>
-                <option value="KCN Thụy Vân">KCN Thụy Vân</option>
-                <option value="Khác">Khu vực khác</option>
-            </select>
-            <div class="shipping-note">🚚 Phí ship sẽ được quán xác nhận theo địa chỉ thực tế, không cộng sai phí vào đơn.</div>
-        </div>
+<div class="form-group">
 
-        <div class="form-group">
+<label>
+Số điện thoại *
+</label>
 
-            <label>
-                Địa chỉ nhận hàng *
-            </label>
+<input
+id="customerPhone"
+type="tel"
+autocomplete="tel"
+inputmode="numeric"
+maxlength="10"
+placeholder="Nhập số điện thoại"
+oninput="this.value=this.value.replace(/[^0-9]/g,'')"
+>
 
-            <textarea
-                id="customerAddress"
-                autocomplete="street-address"
+</div>
+
+<div class="form-group">
+<label>Khu vực giao hàng *</label>
+<select id="deliveryArea" class="area-select" onchange="calculateTotal()">
+<option value="">-- Chọn khu vực --</option>
+<option value="Lâm Thao">Lâm Thao</option>
+<option value="Việt Trì">Việt Trì</option>
+<option value="Thị xã Phú Thọ">Thị xã Phú Thọ</option>
+<option value="KCN Phú Hà">KCN Phú Hà</option>
+<option value="KCN Thụy Vân">KCN Thụy Vân</option>
+<option value="Khác">Khu vực khác</option>
+</select>
+<div class="shipping-note">🚚 Phí ship sẽ được quán xác nhận theo địa chỉ thực tế, không cộng sai phí vào đơn.</div>
+</div>
+
+<div class="form-group">
+
+<label>
+Địa chỉ nhận hàng *
+</label>
+
+<textarea
+id="customerAddress"
+autocomplete="street-address"
 placeholder="Nhập địa chỉ nhận hàng"
-            ></textarea>
+></textarea>
 
 
 <div class="form-group">
-    <button
-        type="button"
-        class="location-btn"
-        onclick="getLocation()"
-    >
-       📍 Bắt buộc gửi vị trí để đặt hàng
-    </button>
+<button
+type="button"
+class="location-btn"
+onclick="getLocation()"
+>
+📍 Bắt buộc gửi vị trí để đặt hàng
+</button>
 </div>
 
 <input type="hidden" id="latitude">
 <input type="hidden" id="longitude">
 
 
-        </div>
+</div>
 
-        <div class="form-group">
+<div class="form-group">
 
-            <label>
-                Ghi chú
-            </label>
+<label>
+Ghi chú
+</label>
 
-            <textarea
-                id="customerNote"
-                placeholder="Ví dụ: giao buổi tối , yêu cầu thêm từ quán..."
-            ></textarea>
+<textarea
+id="customerNote"
+placeholder="Ví dụ: giao buổi tối , yêu cầu thêm từ quán..."
+></textarea>
 
-        </div>
+</div>
 
-        <div class="total-box">
+<div class="total-box">
 
-            <div class="total-row">
+<div class="total-row">
 
-                <span>
-                    Tổng thanh toán
-                </span>
+<span>
+Tổng thanh toán
+</span>
 
-                <strong
-                    id="orderFinalTotal"
-                    class="total-final"
-                >
-                    0đ
-                </strong>
+<strong
+id="orderFinalTotal"
+class="total-final"
+>
+0đ
+</strong>
 
-            </div>
+</div>
 
-        </div>
+</div>
 
-        <div class="points-hint" id="pointsEarnHint">⭐ Đơn này sẽ được cộng điểm thưởng sau khi đặt thành công.</div>
+<div class="points-hint" id="pointsEarnHint">⭐ Đơn này sẽ được cộng điểm thưởng sau khi đặt thành công.</div>
 
-        <button
-            id="confirmOrderButton"
-            class="confirm-btn"
-            onclick="confirmOrder()"
-        >
-            ✅ Xác nhận đặt hàng
-        </button>
+<button
+id="confirmOrderButton"
+class="confirm-btn"
+onclick="confirmOrder()"
+>
+✅ Xác nhận đặt hàng
+</button>
 
-    </div>
+</div>
 
 </div>
 
 <!-- CUSTOMER CENTER -->
 <div id="customerCenter" class="modal">
-  <div class="modal-box">
-    <div class="modal-header"><h2>👤 Khách hàng</h2><button class="close-btn" onclick="closeCustomerCenter()">×</button></div>
-    <div class="customer-nav">
-      <button id="tabProfileBtn" onclick="showCustomerTab('profile')">Hồ sơ</button>
-      <button id="tabOrdersBtn" onclick="showCustomerTab('orders')">Đơn hàng</button>
-      <button id="tabPointsBtn" onclick="showCustomerTab('points')">Điểm</button>
-    </div>
-    <div id="customerCenterContent"></div>
-  </div>
+<div class="modal-box">
+<div class="modal-header"><h2>👤 Khách hàng</h2><button class="close-btn" onclick="closeCustomerCenter()">×</button></div>
+<div class="customer-nav">
+<button id="tabProfileBtn" onclick="showCustomerTab('profile')">Hồ sơ</button>
+<button id="tabOrdersBtn" onclick="showCustomerTab('orders')">Đơn hàng</button>
+<button id="tabPointsBtn" onclick="showCustomerTab('points')">Điểm</button>
+</div>
+<div id="customerCenterContent"></div>
+</div>
 </div>
 
 <!-- ORDER SUCCESS / TRACKING -->
 <div id="orderSuccess" class="order-success">
-  <div class="order-success-box">
-    <div class="order-success-icon">✅</div>
-    <h2>Đặt hàng thành công</h2>
-    <div id="successOrderCode" class="order-code-pill">Mã đơn</div>
-    <p id="successOrderText">Quán sẽ liên hệ xác nhận đơn.</p>
-    <div class="status-steps">
-      <div class="status-step active">1. Đã gửi đơn</div><div class="status-step">2. Quán xác nhận</div><div class="status-step">3. Đang giao</div><div class="status-step">4. Hoàn thành</div>
-    </div>
-    <button class="confirm-btn" onclick="closeOrderSuccess();openPaymentQR()">💳 Xem QR thanh toán</button>
-    <button class="shop-tool-btn" style="width:100%;margin-top:8px" onclick="closeOrderSuccess();openCustomerCenter('orders')">📦 Xem đơn của tôi</button>
-  </div>
+<div class="order-success-box">
+<div class="order-success-icon">✅</div>
+<h2>Đặt hàng thành công</h2>
+<div id="successOrderCode" class="order-code-pill">Mã đơn</div>
+<p id="successOrderText">Quán sẽ liên hệ xác nhận đơn.</p>
+<div class="status-steps">
+<div class="status-step active">1. Đã gửi đơn</div><div class="status-step">2. Quán xác nhận</div><div class="status-step">3. Đang giao</div><div class="status-step">4. Hoàn thành</div>
+</div>
+<button class="confirm-btn" onclick="closeOrderSuccess();openPaymentQR()">💳 Xem QR thanh toán</button>
+<button class="shop-tool-btn" style="width:100%;margin-top:8px" onclick="closeOrderSuccess();openCustomerCenter('orders')">📦 Xem đơn của tôi</button>
+</div>
 </div>
 
 <!-- PAYMENT QR -->
 
 <div
-    id="paymentQR"
-    class="payment-qr"
+id="paymentQR"
+class="payment-qr"
 >
 
-    <div class="payment-box">
+<div class="payment-box">
 
-        <button
-            class="payment-close"
-            onclick="closePaymentQR()"
-        >
-            ×
-        </button>
+<button
+class="payment-close"
+onclick="closePaymentQR()"
+>
+×
+</button>
 
-        <h2>
-            💳 Thanh toán
-        </h2>
+<h2>
+💳 Thanh toán
+</h2>
 
-        <p>
-            Quét mã QR bên dưới để thanh toán
-        </p>
+<p>
+Quét mã QR bên dưới để thanh toán
+</p>
 
-        <img
-            src="QR NH.jpg"
-            alt="QR thanh toán"
-        >
+<img
+src="QR NH.jpg"
+alt="QR thanh toán"
+>
 
-        <div class="payment-info">
+<div class="payment-info">
 
-            <strong>
-                MB Bank
-            </strong>
+<strong>
+MB Bank
+</strong>
 
-            <br>
+<br>
 
-            Số tài khoản:
-            <strong>
-                0978472704
-            </strong>
+Số tài khoản:
+<strong>
+978472704
+</strong>
 
-            <br>
+<br>
 
-            Chủ tài khoản:
-            <strong>
-                TRAN NGOC HUNG
-            </strong>
+Chủ tài khoản:
+<strong>
+TRAN NGOC HUNG
+</strong>
 
-        </div>
+</div>
 
-        <button
-            class="payment-done"
-            onclick="closePaymentQR()"
-        >
-            ✅ Tôi đã thanh toán
-        </button>
+<button
+class="payment-done"
+onclick="closePaymentQR()"
+>
+✅ Tôi đã thanh toán
+</button>
 
-    </div>
+</div>
 
 </div>
 
 <!-- TRUST / SERVICE -->
 <section class="trust-strip" style="max-width:1180px;margin:0 auto 90px;padding:0 18px;display:grid;grid-template-columns:repeat(3,1fr);gap:12px">
-  <div style="background:#fffaf5;border:1px solid #eadbc9;border-radius:16px;padding:15px"><b>🛵 Giao hàng tận nơi</b><br><small style="color:#927866">Phục vụ Việt Trì · Lâm Thao · các KCN</small></div>
-  <div style="background:#fffaf5;border:1px solid #eadbc9;border-radius:16px;padding:15px"><b>⭐ Món ngon mỗi ngày</b><br><small style="color:#927866">Chọn món nhanh, giá rõ ràng</small></div>
-  <div style="background:#fffaf5;border:1px solid #eadbc9;border-radius:16px;padding:15px"><b>💬 Hỗ trợ đặt hàng</b><br><small style="color:#927866">Zalo · Facebook · Hotline 0978472704</small></div>
+<div style="background:#fffaf5;border:1px solid #eadbc9;border-radius:16px;padding:15px"><b>🛵 Giao hàng tận nơi</b><br><small style="color:#927866">Phục vụ Việt Trì · Lâm Thao · các KCN</small></div>
+<div style="background:#fffaf5;border:1px solid #eadbc9;border-radius:16px;padding:15px"><b>⭐ Món ngon mỗi ngày</b><br><small style="color:#927866">Chọn món nhanh, giá rõ ràng</small></div>
+<div style="background:#fffaf5;border:1px solid #eadbc9;border-radius:16px;padding:15px"><b>💬 Hỗ trợ đặt hàng</b><br><small style="color:#927866">Zalo · Facebook · Hotline 0978472704</small></div>
 </section>
 <style>@media(max-width:800px){.trust-strip{grid-template-columns:1fr!important;padding:0 10px!important;margin-bottom:85px!important}}</style>
 
 <!-- FOOTER -->
 
 <footer>
-    © 2026 Ăn Vặt Lâm Thao · Đặt hàng online
+© 2026 Ăn Vặt Lâm Thao · Đặt hàng online
 <br><button class="footer-dashboard" onclick="openLocalDashboard()">📊 Thống kê bán hàng trên thiết bị này</button>
 </footer>
 
 <script>
 function getLocation(){
 
-    if(!navigator.geolocation){
+if(!navigator.geolocation){
 
-        alert("❌ Thiết bị không hỗ trợ định vị.");
+alert("❌ Thiết bị không hỗ trợ định vị.");
 
-        return;
-    }
+return;
+}
 
-    navigator.geolocation.getCurrentPosition(
+navigator.geolocation.getCurrentPosition(
 
-        function(position){
+function(position){
 
-            const latitude =
-                position.coords.latitude;
+const latitude =
+position.coords.latitude;
 
-            const longitude =
-                position.coords.longitude;
+const longitude =
+position.coords.longitude;
 
-            document.getElementById("latitude").value =
-                latitude.toFixed(7);
+document.getElementById("latitude").value =
+latitude.toFixed(7);
 
-            document.getElementById("longitude").value =
-                longitude.toFixed(7);
+document.getElementById("longitude").value =
+longitude.toFixed(7);
 
-            alert(
-                "✅ Đã lấy vị trí thành công!\n\n" +
-                "Bạn có thể tiếp tục đặt hàng."
-            );
+alert(
+✅ Đã lấy vị trí thành công!\n\n +
+Bạn có thể tiếp tục đặt hàng.
+);
 
-        },
+},
 
-        function(error){
+function(error){
 
-            alert(
-                "❌ Bạn chưa cho phép truy cập vị trí.\n\n" +
-                "Vui lòng cho phép định vị để có thể đặt hàng."
-            );
+alert(
+❌ Bạn chưa cho phép truy cập vị trí.\n\n +
+Vui lòng cho phép định vị để có thể đặt hàng.
+);
 
-        },
+},
 
-        {
-            enableHighAccuracy: true,
-            timeout: 15000,
-            maximumAge: 0
-        }
+{
+enableHighAccuracy: true,
+timeout: 15000,
+maximumAge: 0
+}
 
-    );
+);
 }
 
 /* ==================================================
-   GOOGLE APPS SCRIPT
-================================================== */
+GOOGLE APPS SCRIPT
+#ERROR!
 
 const GOOGLE_SCRIPT_URL =
-"https://script.google.com/macros/s/AKfycbxva6g2yr098N7spmEGl_LbvNZKlDo_C2tPQUkI3IsAIpMyJtiGvPJhYNNXaGEXeUPm/exec";
+https://script.google.com/macros/s/AKfycbxva6g2yr098N7spmEGl_LbvNZKlDo_C2tPQUkI3IsAIpMyJtiGvPJhYNNXaGEXeUPm/exec;
 
 /* ==================================================
-   PRODUCTS
-================================================== */
+PRODUCTS
+#ERROR!
 
 let products = [];
 
 /* ==================================================
-   DATA
-================================================== */
+DATA
+#ERROR!
 
 let cart =
 JSON.parse(localStorage.getItem("cart")) || [];
@@ -787,201 +787,201 @@ JSON.parse(localStorage.getItem("voucherData")) || null;
 let discountAmount = 0;
 
 /* ==================================================
-   MONEY
-================================================== */
+MONEY
+#ERROR!
 
 function money(number){
 
-    return Number(number).toLocaleString("vi-VN") + "đ";
+return Number(number).toLocaleString("vi-VN") + "đ";
 
 }
 
 /* ==================================================
-   SAVE
-================================================== */
+SAVE
+#ERROR!
 
 function saveData(){
 
-    localStorage.setItem(
-        "cart",
-        JSON.stringify(cart)
-    );
+localStorage.setItem(
+cart,
+JSON.stringify(cart)
+);
 
-    localStorage.setItem(
-        "voucherData",
+localStorage.setItem(
+voucherData,
 JSON.stringify(appliedVoucher)
-    );
+);
 
 }
 
 /* ==================================================
-   RENDER PRODUCTS
-================================================== */
+RENDER PRODUCTS
+#ERROR!
 
 function productCard(product){
-    const rating = product.rating || 5;
-    const sold = product.sold || product.sales || '';
-    const stars = '★★★★★';
-    const oldPrice = Number(product.oldPrice || product.originalPrice || 0);
-    return `
-      <article class="product den-product">
-        <div class="product-photo-wrap">
-          <img class="product-image" src="${product.image || ''}" alt="${product.name || ''}" loading="lazy" decoding="async" onerror="this.style.opacity='.25'">
-          <span class="photo-badge">${sold ? '🔥 Bán chạy' : '✨ Mới'}</span>
-        </div>
-        <div class="product-info">
-          <div class="product-name">${product.name || ''}</div>
-          <div class="product-meta"><span class="stars">${stars}</span><b>${rating}</b>${sold ? `<span class="sold">· ${sold} đã bán</span>` : '<span>· Món ngon</span>'}</div>
-          <div class="product-bottom">
-            <div><div class="product-price">${money(product.price)}</div>${oldPrice>Number(product.price||0)?`<del style="font-size:11px;color:#a18d7c">${money(oldPrice)}</del>`:''}</div>
-            <button class="add-btn" onclick="addToCart(${product.id}); this.animate([{transform:'scale(.88)'},{transform:'scale(1)'}],{duration:180})" aria-label="Thêm ${product.name || ''} vào giỏ">+</button>
-          </div>
-        </div>
-      </article>`;
+const rating = product.rating || 5;
+const sold = product.sold || product.sales || '';
+const stars = '★★★★★';
+const oldPrice = Number(product.oldPrice || product.originalPrice || 0);
+return `
+<article class="product den-product">
+<div class="product-photo-wrap">
+<img class="product-image" src="${product.image || ''}" alt="${product.name || ''}" loading="lazy" decoding="async" onerror="this.style.opacity='.25'">
+<span class="photo-badge">${sold ? '🔥 Bán chạy' : '✨ Mới'}</span>
+</div>
+<div class="product-info">
+<div class="product-name">${product.name || ''}</div>
+<div class="product-meta"><span class="stars">${stars}</span><b>${rating}</b>${sold ? `<span class="sold">· ${sold} đã bán</span>` : '<span>· Món ngon</span>'}</div>
+<div class="product-bottom">
+<div><div class="product-price">${money(product.price)}</div>${oldPrice>Number(product.price||0)?`<del style="font-size:11px;color:#a18d7c">${money(oldPrice)}</del>`:''}</div>
+<button class="add-btn" onclick="addToCart(${product.id}); this.animate([{transform:'scale(.88)'},{transform:'scale(1)'}],{duration:180})" aria-label="Thêm ${product.name || ''} vào giỏ">+</button>
+</div>
+</div>
+</article>`;
 }
 
 function renderProducts(){
-    const box=document.getElementById('products');
-    if(!box) return;
-    box.innerHTML=products.map(productCard).join('');
+const box=document.getElementById('products');
+if(!box) return;
+box.innerHTML=products.map(productCard).join('');
 }
 
 function filterProducts(category, button){
-    document.querySelectorAll('.category-btn').forEach(btn=>btn.classList.remove('active'));
-    if(button) button.classList.add('active');
-    const box=document.getElementById('products');
-    if(!box) return;
-    const selected=String(category||'all').trim().normalize('NFC').toLowerCase();
-    const filtered=selected==='all' ? products : products.filter(p=>String(p.category||'').trim().normalize('NFC').toLowerCase()===selected);
-    box.innerHTML=filtered.map(productCard).join('');
+document.querySelectorAll('.category-btn').forEach(btn=>btn.classList.remove('active'));
+if(button) button.classList.add('active');
+const box=document.getElementById('products');
+if(!box) return;
+const selected=String(category||'all').trim().normalize('NFC').toLowerCase();
+const filtered=selected==='all' ? products : products.filter(p=>String(p.category||'').trim().normalize('NFC').toLowerCase()===selected);
+box.innerHTML=filtered.map(productCard).join('');
 }
 
 let searchTimer = null;
 let productsLoaded = false;
 
 function searchProducts(keyword){
-    clearTimeout(searchTimer);
-    const value=String(keyword||'');
-    searchTimer=setTimeout(()=>{
-        const q=value.trim().toLowerCase();
-        const box=document.getElementById('products');
-        if(!box) return;
-        const filtered=!q ? products : products.filter(p=>
-            String(p.name||'').toLowerCase().includes(q) ||
-            String(p.category||'').toLowerCase().includes(q)
-        );
-        box.innerHTML=filtered.map(productCard).join('');
-    },120);
+clearTimeout(searchTimer);
+const value=String(keyword||'');
+searchTimer=setTimeout(()=>{
+const q=value.trim().toLowerCase();
+const box=document.getElementById('products');
+if(!box) return;
+const filtered=!q ? products : products.filter(p=>
+String(p.name||'').toLowerCase().includes(q) ||
+String(p.category||'').toLowerCase().includes(q)
+);
+box.innerHTML=filtered.map(productCard).join('');
+},120);
 }
 
 /* ==================================================
-   ADD CART
-================================================== */
+ADD CART
+#ERROR!
 
 function addToCart(id){
 
-    const existing =
-        cart.find(item => item.id === id);
+const existing =
+cart.find(item => item.id === id);
 
-    if(existing){
+if(existing){
 
-        existing.quantity++;
+existing.quantity++;
 
-    }else{
+}else{
 
-        cart.push({
-            id:id,
-            quantity:1
-        });
+cart.push({
+id:id,
+quantity:1
+});
 
-    }
+}
 
-    appliedVoucher = null;
+appliedVoucher = null;
 
-    saveData();
+saveData();
 
-    updateCart();
+updateCart();
 
 }
 
 /* ==================================================
-   UPDATE CART
-================================================== */
+UPDATE CART
+#ERROR!
 
 function updateCart(){
 
-    let count = 0;
-    let total = 0;
+let count = 0;
+let total = 0;
 
-    cart.forEach(item => {
+cart.forEach(item => {
 
-        const product =
-            products.find(
-                p => p.id === item.id
-            );
+const product =
+products.find(
+p => p.id === item.id
+);
 
-        if(product){
+if(product){
 
-            count += item.quantity;
+count += item.quantity;
 
-            total +=
-                product.price *
-                item.quantity;
+total +=
+product.price *
+item.quantity;
 
-        }
+}
 
-    });
+});
 
-    document.getElementById("cartCount")
-        .textContent = count;
+document.getElementById("cartCount")
+.textContent = count;
 
-    document.getElementById("cartTotal")
-        .textContent = money(total);
+document.getElementById("cartTotal")
+.textContent = money(total);
 
-    const headerCount = document.getElementById("headerCartCount");
-    if(headerCount) headerCount.textContent = count;
+const headerCount = document.getElementById("headerCartCount");
+if(headerCount) headerCount.textContent = count;
 
 }
 
 /* ==================================================
-   OPEN / CLOSE CART
-================================================== */
+OPEN / CLOSE CART
+#ERROR!
 
 function openCart(){
 
-    renderCart();
+renderCart();
 
-    document.getElementById("cartModal")
-        .style.display = "flex";
+document.getElementById("cartModal")
+.style.display = "flex";
 
 }
 
 function closeCart(){
 
-    document.getElementById("cartModal")
-        .style.display = "none";
+document.getElementById("cartModal")
+.style.display = "none";
 
 }
 /* ==================================================
-   RENDER CART
-================================================== */
+RENDER CART
+#ERROR!
 
 function renderCart(){
 
-    const box =
-        document.getElementById("cartItems");
+const box =
+document.getElementById("cartItems");
 
-    box.innerHTML = "";
+box.innerHTML = "";
 
-    if(cart.length === 0){
+if(cart.length === 0){
 
-        box.innerHTML = `
+box.innerHTML = `
 
-            <p style="
-                text-align:center;
-                color:#8795a3;
-                padding:25px 0;
-            ">
+<p style="
+text-align:center;
+color:#8795a3;
+padding:25px 0;
+">
                 🛒 Giỏ hàng đang trống
             </p>
 
@@ -1006,1045 +1006,1045 @@ function renderCart(){
 
         box.innerHTML += `
 
-            <div class="cart-item">
+            <div class=cart-item"">"
 
-                <div>
+<div>
 
-                    <div class="cart-item-name">
-                        ${product.name}
-                    </div>
+<div class="cart-item-name">
+${product.name}
+</div>
 
-                    <div class="cart-item-price">
-                        ${money(product.price)}
-                    </div>
+<div class="cart-item-price">
+${money(product.price)}
+</div>
 
-                </div>
+</div>
 
-                <div class="quantity">
+<div class="quantity">
 
-                    <button
-                        onclick="changeQuantity(${product.id},-1)"
-                    >
-                        −
-                    </button>
+<button
+onclick="changeQuantity(${product.id},-1)"
+>
+−
+</button>
 
-                    <strong>
-                        ${item.quantity}
-                    </strong>
+<strong>
+${item.quantity}
+</strong>
 
-                    <button
-                        onclick="changeQuantity(${product.id},1)"
-                    >
-                        +
-                    </button>
+<button
+onclick="changeQuantity(${product.id},1)"
+>
+#ERROR!
+</button>
 
-                    <button
-                        class="remove-btn"
-                        onclick="removeItem(${product.id})"
-                    >
-                        ✕
-                    </button>
+<button
+class="remove-btn"
+onclick="removeItem(${product.id})"
+>
+✕
+</button>
 
-                </div>
+</div>
 
-            </div>
+</div>
 
-        `;
+`;
 
-    });
+});
 
-    calculateTotal();
+calculateTotal();
 
 }
 
 /* ==================================================
-   QUANTITY
-================================================== */
+QUANTITY
+#ERROR!
 
 function changeQuantity(id,change){
 
-    const item =
-        cart.find(
-            item => item.id === id
-        );
+const item =
+cart.find(
+item => item.id === id
+);
 
-    if(!item){
-        return;
-    }
+if(!item){
+return;
+}
 
-    item.quantity += change;
+item.quantity += change;
 
-    if(item.quantity <= 0){
+if(item.quantity <= 0){
 
-        cart =
-            cart.filter(
-                item => item.id !== id
-            );
+cart =
+cart.filter(
+item => item.id !== id
+);
 
-    }
+}
 
-    appliedVoucher = null;
+appliedVoucher = null;
 
-    saveData();
+saveData();
 
-    updateCart();
+updateCart();
 
-    renderCart();
+renderCart();
 
 }
 
 /* ==================================================
-   REMOVE
-================================================== */
+REMOVE
+#ERROR!
 
 function removeItem(id){
 
-    cart =
-        cart.filter(
-            item => item.id !== id
-        );
+cart =
+cart.filter(
+item => item.id !== id
+);
 
-    appliedVoucher = null;
+appliedVoucher = null;
 
-    saveData();
+saveData();
 
-    updateCart();
+updateCart();
 
-    renderCart();
+renderCart();
 
 }
 
 /* ==================================================
-   SUBTOTAL
-================================================== */
+SUBTOTAL
+#ERROR!
 
 function getSubtotal(){
 
-    let subtotal = 0;
+let subtotal = 0;
 
-    cart.forEach(item => {
+cart.forEach(item => {
 
-        const product =
+const product =
 products.find(
-                p => p.id === item.id
-            );
+p => p.id === item.id
+);
 
-        if(product){
+if(product){
 
-            subtotal +=
-                product.price *
-                item.quantity;
+subtotal +=
+product.price *
+item.quantity;
 
-        }
+}
 
-    });
+});
 
-    return subtotal;
+return subtotal;
 
 }
 
 /* ==================================================
-   JSONP CHECK VOUCHER
-================================================== */
+JSONP CHECK VOUCHER
+#ERROR!
 
 function checkVoucherServer(
-    phone,
-    code,
-    subtotal
+phone,
+code,
+subtotal
 ){
 
-    return new Promise(
-        (resolve,reject) => {
+return new Promise(
+(resolve,reject) => {
 
-            const callbackName =
-                "voucherCallback_" +
-                Date.now() +
-                "_" +
-                Math.floor(
-                    Math.random() * 10000
-                );
+const callbackName =
+voucherCallback_ +
+Date.now() +
+_ +
+Math.floor(
+Math.random() * 10000
+);
 
-            const script =
-                document.createElement("script");
+const script =
+document.createElement("script");
 
-            const timeout =
-                setTimeout(() => {
+const timeout =
+setTimeout(() => {
 
-                    cleanup();
+cleanup();
 
-                    reject(
-                        new Error(
-                            "Hết thời gian kiểm tra voucher"
-                        )
-                    );
+reject(
+new Error(
+Hết thời gian kiểm tra voucher
+)
+);
 
-                },15000);
+},15000);
 
-            function cleanup(){
+function cleanup(){
 
-                clearTimeout(timeout);
+clearTimeout(timeout);
 
-                if(script.parentNode){
+if(script.parentNode){
 
-                    script.parentNode
-                        .removeChild(script);
+script.parentNode
+.removeChild(script);
 
-                }
+}
 
-                try{
+try{
 
-                    delete window[callbackName];
+delete window[callbackName];
 
-                }catch(e){
+}catch(e){
 
-                    window[callbackName] =
-                        undefined;
+window[callbackName] =
+undefined;
 
-                }
+}
 
-            }
+}
 
-            window[callbackName] =
-                function(data){
+window[callbackName] =
+function(data){
 
-                    cleanup();
+cleanup();
 
-                    resolve(data);
+resolve(data);
 
-                };
+};
 
-            script.src =
-                GOOGLE_SCRIPT_URL
-                + "?action=checkVoucher"
-                + "&phone="
-                + encodeURIComponent(phone)
-                + "&code="
-                + encodeURIComponent(code)
-                + "&subtotal="
-                + encodeURIComponent(subtotal)
-                + "&callback="
-                + encodeURIComponent(callbackName);
+script.src =
+GOOGLE_SCRIPT_URL
+?action=checkVoucher
+&phone=
+#NAME?
+&code=
+#NAME?
+&subtotal=
+#NAME?
+&callback=
+#ERROR!
 
-            script.onerror =
-                function(){
+script.onerror =
+function(){
 
-                    cleanup();
+cleanup();
 
-                    reject(
-                        new Error(
-                            "Không kết nối được Google Sheets"
-                        )
-                    );
+reject(
+new Error(
+Không kết nối được Google Sheets
+)
+);
 
-                };
+};
 
-            document.body.appendChild(script);
+document.body.appendChild(script);
 
-        }
-    );
+}
+);
 
 }
 
 /* ==================================================
-   APPLY VOUCHER
-================================================== */
+APPLY VOUCHER
+#ERROR!
 
 async function applyVoucher(){
 
-    const codeInput =
-        document.getElementById("voucherInput");
+const codeInput =
+document.getElementById("voucherInput");
 
-    const phoneInput =
-        document.getElementById("voucherPhone");
+const phoneInput =
+document.getElementById("voucherPhone");
 
-    const message =
-        document.getElementById("voucherMessage");
+const message =
+document.getElementById("voucherMessage");
 
-    const code =
-        codeInput.value
-            .trim()
-            .toUpperCase();
+const code =
+codeInput.value
+.trim()
+.toUpperCase();
 
-    const phone =
-        phoneInput.value.trim();
+const phone =
+phoneInput.value.trim();
 const subtotal =
-        getSubtotal();
+getSubtotal();
 
-    if(!phone){
+if(!phone){
 
-        message.style.color =
-            "#ff5577";
+message.style.color =
+#ff5577;
 
-        message.textContent =
-            "❌ Vui lòng nhập số điện thoại được cấp voucher.";
+message.textContent =
+❌ Vui lòng nhập số điện thoại được cấp voucher.;
 
-        return;
+return;
 
-    }
+}
 
-    if(!code){
+if(!code){
 
-        message.style.color =
-            "#ff5577";
+message.style.color =
+#ff5577;
 
-        message.textContent =
-            "❌ Vui lòng nhập mã voucher.";
+message.textContent =
+❌ Vui lòng nhập mã voucher.;
 
-        return;
+return;
 
-    }
+}
 
-    if(subtotal <= 0){
+if(subtotal <= 0){
 
-        message.style.color =
-            "#ff5577";
+message.style.color =
+#ff5577;
 
-        message.textContent =
-            "❌ Vui lòng thêm sản phẩm vào giỏ hàng.";
+message.textContent =
+❌ Vui lòng thêm sản phẩm vào giỏ hàng.;
 
-        return;
+return;
 
-    }
+}
 
-    message.style.color =
-        "#00d4ff";
+message.style.color =
+#00d4ff;
 
-    message.textContent =
-        "⏳ Đang kiểm tra voucher...";
+message.textContent =
+⏳ Đang kiểm tra voucher...;
 
-    try{
+try{
 
-        const result =
-            await checkVoucherServer(
-                phone,
-                code,
-                subtotal
-            );
+const result =
+await checkVoucherServer(
+phone,
+code,
+subtotal
+);
 
-        if(!result){
+if(!result){
 
-            throw new Error(
-                "Không nhận được kết quả"
-            );
+throw new Error(
+Không nhận được kết quả
+);
 
-        }
+}
 
-        if(result.success){
+if(result.success){
 
-            appliedVoucher = {
+appliedVoucher = {
 
-                code:
-                    code,
+code:
+code,
 
-                phone:
-                    phone,
+phone:
+phone,
 
-                type:
-                    result.type,
+type:
+result.type,
 
-                value:
-                    Number(result.value),
+value:
+Number(result.value),
 
-                discount:
-                    Number(result.discount),
+discount:
+Number(result.discount),
 
-                finalTotal:
-                    Number(result.finalTotal)
+finalTotal:
+Number(result.finalTotal)
 
-            };
+};
 
-            message.style.color =
-                "#22c55e";
+message.style.color =
+#22c55e;
 
-            message.textContent =
-                "✅ " +
-                (
-                    result.message ||
-                    "Voucher đã được áp dụng."
-                ) +
-                " Giảm " +
-                money(result.discount) +
-                ".";
+message.textContent =
+✅  +
+(
+result.message ||
+Voucher đã được áp dụng.
+) +
+ Giảm  +
+money(result.discount) +
+.;
 
-            saveData();
+saveData();
 
-            calculateTotal();
+calculateTotal();
 
-            updateCart();
+updateCart();
 
-        }else{
+}else{
 
-            appliedVoucher = null;
+appliedVoucher = null;
 
-            saveData();
+saveData();
 
-            calculateTotal();
+calculateTotal();
 
-            updateCart();
+updateCart();
 
-            message.style.color =
-                "#ff5577";
+message.style.color =
+#ff5577;
 
-            message.textContent =
-                "❌ " +
-                (
-                    result.message ||
-                    "Voucher không hợp lệ."
-                );
+message.textContent =
+❌  +
+(
+result.message ||
+Voucher không hợp lệ.
+);
 
-        }
+}
 
-    }catch(error){
+}catch(error){
 
-        console.error(error);
+console.error(error);
 
-        message.style.color =
-            "#ff5577";
+message.style.color =
+#ff5577;
 
-        message.textContent =
-            "❌ Không thể kiểm tra voucher. Hãy thử lại.";
+message.textContent =
+❌ Không thể kiểm tra voucher. Hãy thử lại.;
 
-    }
+}
 
 }
 
 /* ==================================================
-   CALCULATE TOTAL
-================================================== */
+CALCULATE TOTAL
+#ERROR!
 
 function calculateTotal(){
 
-    const subtotal =
-        getSubtotal();
+const subtotal =
+getSubtotal();
 
-    discountAmount = 0;
+discountAmount = 0;
 
-    if(appliedVoucher){
+if(appliedVoucher){
 
-        discountAmount =
-            Number(
-                appliedVoucher.discount
-            ) || 0;
+discountAmount =
+Number(
+appliedVoucher.discount
+) || 0;
 
-        if(discountAmount > subtotal){
+if(discountAmount > subtotal){
 
-            discountAmount =
-                subtotal;
+discountAmount =
+subtotal;
 
-        }
+}
 
-    }
+}
 
-    const finalTotal =
+const finalTotal =
 Math.max(
-            0,
-            subtotal -
-            discountAmount
-        );
+0
+subtotal -
+discountAmount
+);
 
-    document.getElementById("subtotal")
-        .textContent =
-        money(subtotal);
+document.getElementById("subtotal")
+.textContent =
+money(subtotal);
 
-    document.getElementById("discount")
-        .textContent =
-        "-" + money(discountAmount);
+document.getElementById("discount")
+.textContent =
+- + money(discountAmount);
 
-    document.getElementById("finalTotal")
-        .textContent =
-        money(finalTotal);
+document.getElementById("finalTotal")
+.textContent =
+money(finalTotal);
 
-    document.getElementById("orderFinalTotal")
-        .textContent =
-        money(finalTotal);
+document.getElementById("orderFinalTotal")
+.textContent =
+money(finalTotal);
 
-    return {
+return {
 
-        subtotal:
-            subtotal,
+subtotal:
+subtotal,
 
-        discount:
-            discountAmount,
+discount:
+discountAmount,
 
-        total:
-            finalTotal
+total:
+finalTotal
 
-    };
+};
 
 }
 
 /* ==================================================
-   ORDER FORM
-================================================== */
+ORDER FORM
+#ERROR!
 
 function openOrderForm(){
 
-    if(cart.length === 0){
+if(cart.length === 0){
 
-        alert(
-            "🛒 Vui lòng thêm sản phẩm vào giỏ hàng."
-        );
+alert(
+🛒 Vui lòng thêm sản phẩm vào giỏ hàng.
+);
 
-        return;
+return;
 
-    }
+}
 
-    calculateTotal();
+calculateTotal();
 
-    closeCart();
+closeCart();
 
-    document.getElementById("orderModal")
-        .style.display = "flex";
+document.getElementById("orderModal")
+.style.display = "flex";
 
 }
 
 function closeOrderForm(){
 
-    document.getElementById("orderModal")
-        .style.display = "none";
+document.getElementById("orderModal")
+.style.display = "none";
 
 }
 
 /* ==================================================
-   PAYMENT QR
-================================================== */
+PAYMENT QR
+#ERROR!
 
 function openPaymentQR(){
 
-    document.getElementById("paymentQR")
-        .style.display = "flex";
+document.getElementById("paymentQR")
+.style.display = "flex";
 
 }
 
 function closePaymentQR(){
 
-    document.getElementById("paymentQR")
-        .style.display = "none";
+document.getElementById("paymentQR")
+.style.display = "none";
 
 }
 
 /* ==================================================
-   USE VOUCHER
-================================================== */
+USE VOUCHER
+#ERROR!
 
 async function useVoucherServer(
-    phone,
-    code,
-    orderCode,
-    discount,
-    finalTotal
+phone,
+code,
+orderCode,
+discount,
+finalTotal
 ){
 
-    try{
+try{
 
-        await fetch(
-            GOOGLE_SCRIPT_URL,
-            {
+await fetch(
+GOOGLE_SCRIPT_URL,
+{
 
-                method:"POST",
+method:"POST",
 
-                mode:"no-cors",
+mode:"no-cors",
 
-                headers:{
-                    "Content-Type":
-                        "text/plain;charset=utf-8"
-                },
+headers:{
+Content-Type:
+text/plain;charset=utf-8
+},
 
-                body:JSON.stringify({
+body:JSON.stringify({
 
-                    action:
-                        "useVoucher",
+action:
+useVoucher,
 
-                    phone:
-                        phone,
+phone:
+phone,
 
-                    code:
-                        code,
+code:
+code,
 
-                    orderCode:
-                        orderCode,
+orderCode:
+orderCode,
 
-                    discount:
-                        discount,
+discount:
+discount,
 
-                    finalTotal:
-                        finalTotal
+finalTotal:
+finalTotal
 
-                })
+})
 
-            }
-        );
+}
+);
 
-    }catch(error){
+}catch(error){
 
-        console.log(
-            "useVoucher error:",
-            error
-        );
+console.log(
+useVoucher error:,
+error
+);
 
-    }
+}
 
 }
 /* ==================================================
-   CONFIRM ORDER
-================================================== */
+CONFIRM ORDER
+#ERROR!
 
 async function confirmOrder(){
 
-    /* ==============================
-       LẤY NÚT
-    ============================== */
+/* ==============================
+LẤY NÚT
+#ERROR!
 
-    const button =
-        document.getElementById(
-            "confirmOrderButton"
-        );
+const button =
+document.getElementById(
+confirmOrderButton
+);
 
-    if(!button){
-        return;
-    }
+if(!button){
+return;
+}
 
-    /* ==============================
-       CHỐNG BẤM TRÙNG
-    ============================== */
+/* ==============================
+CHỐNG BẤM TRÙNG
+#ERROR!
 
-    if(button.disabled){
-        return;
-    }
+if(button.disabled){
+return;
+}
 
-    /* ==============================
-       LẤY THÔNG TIN
-    ============================== */
+/* ==============================
+LẤY THÔNG TIN
+#ERROR!
 
-    const name =
-        document.getElementById(
-            "customerName"
-        ).value.trim();
+const name =
+document.getElementById(
+customerName
+).value.trim();
 
-    const phone =
-        document.getElementById(
-            "customerPhone"
-        ).value.trim();
+const phone =
+document.getElementById(
+customerPhone
+).value.trim();
 
-    const address =
-        document.getElementById(
-            "customerAddress"
-        ).value.trim();
+const address =
+document.getElementById(
+customerAddress
+).value.trim();
 
-    const note =
-        document.getElementById(
-            "customerNote"
-        ).value.trim();
+const note =
+document.getElementById(
+customerNote
+).value.trim();
 const latitude =
-    document.getElementById("latitude").value.trim();
+document.getElementById("latitude").value.trim();
 
 const longitude =
-    document.getElementById("longitude").value.trim();
+document.getElementById("longitude").value.trim();
 
 if(!latitude || !longitude){
 
-    alert(
-        "📍 Vui lòng cho phép truy cập vị trí " +
-        "trước khi đặt hàng."
-    );
+alert(
+📍 Vui lòng cho phép truy cập vị trí  +
+trước khi đặt hàng.
+);
 
-    return;
+return;
 }
 
 
 
-    /* ==============================
-       KIỂM TRA
-    ============================== */
+/* ==============================
+KIỂM TRA
+#ERROR!
 
-    if(!name){
+if(!name){
 
-        alert(
-            "Vui lòng nhập họ tên."
-        );
+alert(
+Vui lòng nhập họ tên.
+);
 
-        return;
+return;
 
-    }
+}
 
 if(!phone){
 
-    alert(
-        "📱 Vui lòng nhập số điện thoại."
-    );
+alert(
+📱 Vui lòng nhập số điện thoại.
+);
 
-    return;
+return;
 }
 
 if(!/^0\d{9}$/.test(phone)){
 
-    alert(
-        "❌ Số điện thoại không hợp lệ.\n\n" +
-        "Vui lòng nhập đúng 10 chữ số và bắt đầu bằng số 0."
-    );
+alert(
+❌ Số điện thoại không hợp lệ.\n\n +
+Vui lòng nhập đúng 10 chữ số và bắt đầu bằng số 0.
+);
 
-    return;
+return;
 }
 
-    if(!address){
+if(!address){
 
-        alert(
-            "Vui lòng nhập địa chỉ."
-        );
+alert(
+Vui lòng nhập địa chỉ.
+);
 
-        return;
+return;
 
-    }
+}
 
-    if(cart.length === 0){
+if(cart.length === 0){
 
-        alert(
-            "🛒 Giỏ hàng đang trống."
-        );
+alert(
+🛒 Giỏ hàng đang trống.
+);
 
-        return;
+return;
 
-    }
+}
 
-    /* ==============================
-       TÍNH TIỀN
-    ============================== */
+/* ==============================
+TÍNH TIỀN
+#ERROR!
 
-    const finalData =
-        calculateTotal();
+const finalData =
+calculateTotal();
 
-    /* ==============================
-       KHÓA NÚT NGAY LẬP TỨC
-    ============================== */
+/* ==============================
+KHÓA NÚT NGAY LẬP TỨC
+#ERROR!
 
-    const oldText =
-        button.innerHTML;
+const oldText =
+button.innerHTML;
 
-    button.disabled =
-        true;
+button.disabled =
+true;
 
-    button.style.opacity =
-        "0.6";
+button.style.opacity =
+0.6;
 
-    button.innerHTML =
-        "⏳ Đang gửi đơn...";
+button.innerHTML =
+⏳ Đang gửi đơn...;
 
-    /* ==============================
-       TẠO MÃ ĐƠN
-    ============================== */
+/* ==============================
+TẠO MÃ ĐƠN
+#ERROR!
 
-    const orderCode =
-        "CC" +
-        Date.now()
-            .toString()
-            .slice(-8);
+const orderCode =
+CC +
+Date.now()
+.toString()
+.slice(-8);
 
-    /* ==============================
-       SẢN PHẨM
-    ============================== */
+/* ==============================
+SẢN PHẨM
+#ERROR!
 const itemNames =
-        cart
-            .map(item => {
+cart
+.map(item => {
 
-                const product =
-                    products.find(
-                        p => p.id === item.id
-                    );
+const product =
+products.find(
+p => p.id === item.id
+);
 
-                return product
-                    ? product.name + " x" + item.quantity
-                    : "";
+return product
+? product.name + " x" + item.quantity
+: "";
 
-            })
-            .filter(Boolean)
-            .join(", ");
+})
+.filter(Boolean)
+.join(", ");
 
-    const quantities =
-        cart
-            .map(item =>
-                item.quantity
-            )
-            .join(", ");
+const quantities =
+cart
+.map(item =>
+item.quantity
+)
+.join(", ");
 
-    /* ==============================
-       DỮ LIỆU ĐƠN
-    ============================== */
+/* ==============================
+DỮ LIỆU ĐƠN
+#ERROR!
 
 const payload = {
 
-    action:
-        "order",
+action:
+order,
 
-    code:
-        orderCode,
+code:
+orderCode,
 
-    name:
-        name,
+name:
+name,
 
-    phone:
-        phone,
+phone:
+phone,
 
-    address:
-        address,
+address:
+address,
 
-    latitude:
-        document.getElementById("latitude").value.trim(),
+latitude:
+document.getElementById("latitude").value.trim(),
 
-    longitude:
-        document.getElementById("longitude").value.trim(),
+longitude:
+document.getElementById("longitude").value.trim(),
 
-    note:
-        note,
+note:
+note,
 
-    items:
-        itemNames,
+items:
+itemNames,
 
-    quantity:
-        quantities,
+quantity:
+quantities,
 
-    subtotal:
-        finalData.subtotal,
+subtotal:
+finalData.subtotal,
 
-    discount:
-        finalData.discount,
+discount:
+finalData.discount,
 
-    total:
-        finalData.total,
+total:
+finalData.total,
 
-    voucher:
-        appliedVoucher
-            ? appliedVoucher.code
-            : "",
+voucher:
+appliedVoucher
+? appliedVoucher.code
+: "",
 
-    createdAt:
-        new Date()
-            .toLocaleString("vi-VN")
+createdAt:
+new Date()
+.toLocaleString("vi-VN")
 
 };
 
-    /* ==============================
-       GỬI ĐƠN
-    ============================== */
+/* ==============================
+GỬI ĐƠN
+#ERROR!
 
-    try{
+try{
 
-        await fetch(
-            GOOGLE_SCRIPT_URL,
-            {
+await fetch(
+GOOGLE_SCRIPT_URL,
+{
 
-                method:
-                    "POST",
+method:
+POST,
 
-                mode:
-                    "no-cors",
+mode:
+no-cors,
 
-                headers:{
-                    "Content-Type":
-                        "text/plain;charset=utf-8"
-                },
+headers:{
+Content-Type:
+text/plain;charset=utf-8
+},
 
-                body:
-                    JSON.stringify(payload)
+body:
+JSON.stringify(payload)
 
-            }
-        );
+}
+);
 
-        /* ==============================
-           ĐÁNH DẤU VOUCHER ĐÃ DÙNG
-        ============================== */
+/* ==============================
+ĐÁNH DẤU VOUCHER ĐÃ DÙNG
+#ERROR!
 
 
 
-        /* ==============================
-           XÓA GIỎ HÀNG
-        ============================== */
+/* ==============================
+XÓA GIỎ HÀNG
+#ERROR!
 
-        cart = [];
+cart = [];
 
-        appliedVoucher = null;
+appliedVoucher = null;
 
-        discountAmount = 0;
+discountAmount = 0;
 
-        saveData();
+saveData();
 
-        updateCart();
+updateCart();
 
-        /* ==============================
-           ĐÓNG FORM
-        ============================== */
+/* ==============================
+ĐÓNG FORM
+#ERROR!
 
 closeOrderForm();
 
 /* ==============================
-   THÔNG BÁO
-============================== */
+THÔNG BÁO
+#ERROR!
 
 alert(
-    "✅ Đặt hàng thành công!\n\n" +
-    "Mã đơn: " +
-    orderCode +
-    "\n\n" +
-    "Quán sẽ liên hệ khách hàng qua số điện thoại để xác nhận đơn.\n" +
-    "Vui lòng để ý điện thoại trong 1-3 phút nữa.\n\n" +
-    "Tổng tiền: " +
-    money(finalData.total)
+✅ Đặt hàng thành công!\n\n +
+Mã đơn:  +
+orderCode +
+\n\n +
+Quán sẽ liên hệ khách hàng qua số điện thoại để xác nhận đơn.\n +
+Vui lòng để ý điện thoại trong 1-3 phút nữa.\n\n +
+Tổng tiền:  +
+money(finalData.total)
 );
 
 /* ==============================
-   HIỆN QR
-============================== */
+HIỆN QR
+#ERROR!
 
 openPaymentQR();
-        setTimeout(() => {
-    window.location.reload();
+setTimeout(() => {
+window.location.reload();
 }, 1500);
 
-        /* ==============================
-           RESET NÚT
-        ============================== */
+/* ==============================
+RESET NÚT
+#ERROR!
 
-        button.disabled =
-            false;
+button.disabled =
+false;
 
-        button.style.opacity =
-            "1";
+button.style.opacity =
+1;
 
-        button.innerHTML =
-            oldText;
+button.innerHTML =
+oldText;
 
-    }catch(error){
+}catch(error){
 
-        console.error(error);
+console.error(error);
 
-        /* ==============================
-           CHO PHÉP GỬI LẠI
-        ============================== */
+/* ==============================
+CHO PHÉP GỬI LẠI
+#ERROR!
 
-        button.disabled =
-            false;
+button.disabled =
+false;
 
-        button.style.opacity =
-            "1";
+button.style.opacity =
+1;
 
-        button.innerHTML =
-            oldText;
+button.innerHTML =
+oldText;
 
-        alert(
-            "❌ Không thể gửi đơn hàng.\n\n" +
-            "Vui lòng kiểm tra kết nối và thử lại."
-        );
+alert(
+❌ Không thể gửi đơn hàng.\n\n +
+Vui lòng kiểm tra kết nối và thử lại.
+);
 
-    }
+}
 
 }
 
 /* ==================================================
-   POPUP CHÀO MỪNG
-================================================== */
+POPUP CHÀO MỪNG
+#ERROR!
 
 function openWelcomePopup(){
 
-    const popup =
-        document.getElementById(
-            "welcomePopup"
-        );
+const popup =
+document.getElementById(
+welcomePopup
+);
 
-    if(popup){
+if(popup){
 
-        popup.style.display =
-            "flex";
+popup.style.display =
+flex;
 
-    }
+}
 
 }
 
 function closeWelcomePopup(){
 
-    const popup =
-        document.getElementById(
-            "welcomePopup"
-        );
+const popup =
+document.getElementById(
+welcomePopup
+);
 
-    if(popup){
+if(popup){
 
-        popup.style.display =
-            "none";
+popup.style.display =
+none;
 
-    }
+}
 
 }
 
 /* ==================================================
-   LOAD WEBSITE
-==================================================
+LOAD WEBSITE
+#ERROR!
 */
 
 /* ==============================
-   LOAD PRODUCTS
-============================== */
+LOAD PRODUCTS
+#ERROR!
 
 async function loadProducts(){
 
-    if(productsLoaded) return;
+if(productsLoaded) return;
 
-    const box=document.getElementById("products");
+const box=document.getElementById("products");
 
-    if(box && !box.innerHTML.trim()){
-        box.innerHTML=`
-          <div style="grid-column:1/-1;text-align:center;padding:28px 10px;color:#9a887a">
-            ⏳ Đang tải thực đơn...
-          </div>`;
-    }
+if(box && !box.innerHTML.trim()){
+box.innerHTML=`
+<div style="grid-column:1/-1;text-align:center;padding:28px 10px;color:#9a887a">
+⏳ Đang tải thực đơn...
+</div>`;
+}
 
-    try{
+try{
 
-        const response = await fetch(
-            GOOGLE_SCRIPT_URL + "?action=products",
-            {cache:"no-store"}
-        );
+const response = await fetch(
+GOOGLE_SCRIPT_URL + "?action=products",
+{cache:"no-store"}
+);
 
-        if(!response.ok){
-            throw new Error("HTTP " + response.status);
-        }
+if(!response.ok){
+throw new Error("HTTP " + response.status);
+}
 
-        const data = await response.json();
+const data = await response.json();
 
-        if(data.success){
+if(data.success){
 
-            products = Array.isArray(data.products)
-                ? data.products
-                : [];
+products = Array.isArray(data.products)
+? data.products
+: [];
 
-            productsLoaded = true;
+productsLoaded = true;
 
-            renderProducts();
-            updateCart();
+renderProducts();
+updateCart();
 
-        }else{
+}else{
 
-            console.log(data);
+console.log(data);
 
-            if(box){
-                box.innerHTML=`
-                  <div style="grid-column:1/-1;text-align:center;padding:28px 10px;color:#9a887a">
-                    ⚠️ Không tải được thực đơn. Vui lòng tải lại trang.
-                  </div>`;
-            }
+if(box){
+box.innerHTML=`
+<div style="grid-column:1/-1;text-align:center;padding:28px 10px;color:#9a887a">
+⚠️ Không tải được thực đơn. Vui lòng tải lại trang.
+</div>`;
+}
 
-        }
+}
 
-    }catch(error){
+}catch(error){
 
-        console.error(error);
+console.error(error);
 
-        if(box){
-            box.innerHTML=`
-              <div style="grid-column:1/-1;text-align:center;padding:28px 10px;color:#9a887a">
-                ⚠️ Kết nối thực đơn chậm. Vui lòng tải lại trang.
-              </div>`;
-        }
+if(box){
+box.innerHTML=`
+<div style="grid-column:1/-1;text-align:center;padding:28px 10px;color:#9a887a">
+⚠️ Kết nối thực đơn chậm. Vui lòng tải lại trang.
+</div>`;
+}
 
-    }
+}
 
 }
 
@@ -2076,14 +2076,14 @@ function updateCustomerBadges(){const orders=getOrders();const pts=getPoints();c
 
 const baseProductCard=productCard;
 productCard=function(product){
-  const rating=product.rating||5,sold=product.sold||product.sales||"",stars="★★★★★",oldPrice=Number(product.oldPrice||product.originalPrice||0);
-  const line=cart.find(i=>i.id===product.id); const qty=line?line.quantity:0;
-  const name=safeText(product.name||""); const image=safeText(product.image||"");
-  return `<article class="product den-product" data-product-id="${product.id}">
-    <div class="product-photo-wrap"><img class="product-image" src="${image}" alt="${name}" loading="lazy" decoding="async" onerror="this.style.opacity='.25'"><span class="photo-badge">${sold?'🔥 Bán chạy':'✨ Mới'}</span></div>
-    <div class="product-info"><div class="product-name">${name}</div><div class="product-meta"><span class="stars">${stars}</span><b>${safeText(rating)}</b>${sold?`<span class="sold">· ${safeText(sold)} đã bán</span>`:'<span>· Món ngon</span>'}</div>
-    <div class="product-bottom"><div><div class="product-price">${money(product.price)}</div>${oldPrice>Number(product.price||0)?`<del style="font-size:11px;color:#a18d7c">${money(oldPrice)}</del>`:''}</div>
-    <div id="cardControl-${product.id}">${qty>0?cardQtyHtml(product.id,qty):`<button class="add-btn" onclick="addToCart(${product.id})" aria-label="Thêm ${name} vào giỏ">+</button>`}</div></div></div></article>`;
+const rating=product.rating||5,sold=product.sold||product.sales||"",stars="★★★★★",oldPrice=Number(product.oldPrice||product.originalPrice||0);
+const line=cart.find(i=>i.id===product.id); const qty=line?line.quantity:0;
+const name=safeText(product.name||""); const image=safeText(product.image||"");
+return `<article class="product den-product" data-product-id="${product.id}">
+<div class="product-photo-wrap"><img class="product-image" src="${image}" alt="${name}" loading="lazy" decoding="async" onerror="this.style.opacity='.25'"><span class="photo-badge">${sold?'🔥 Bán chạy':'✨ Mới'}</span></div>
+<div class="product-info"><div class="product-name">${name}</div><div class="product-meta"><span class="stars">${stars}</span><b>${safeText(rating)}</b>${sold?`<span class="sold">· ${safeText(sold)} đã bán</span>`:'<span>· Món ngon</span>'}</div>
+<div class="product-bottom"><div><div class="product-price">${money(product.price)}</div>${oldPrice>Number(product.price||0)?`<del style="font-size:11px;color:#a18d7c">${money(oldPrice)}</del>`:''}</div>
+<div id="cardControl-${product.id}">${qty>0?cardQtyHtml(product.id,qty):`<button class="add-btn" onclick="addToCart(${product.id})" aria-label="Thêm ${name} vào giỏ">+</button>`}</div></div></div></article>`;
 }
 function cardQtyHtml(id,qty){return `<div class="card-qty"><button onclick="changeQuantity(${id},-1)" aria-label="Giảm">−</button><b>${qty}</b><button onclick="changeQuantity(${id},1)" aria-label="Tăng">+</button></div>`}
 function refreshProductControls(){products.forEach(p=>{const el=document.getElementById(`cardControl-${p.id}`);if(!el)return;const item=cart.find(i=>i.id===p.id);const qty=item?item.quantity:0;el.innerHTML=qty>0?cardQtyHtml(p.id,qty):`<button class="add-btn" onclick="addToCart(${p.id})" aria-label="Thêm vào giỏ">+</button>`;});}
@@ -2093,16 +2093,16 @@ updateCart=function(){baseUpdateCart();refreshProductControls();renderRelatedPro
 
 const baseRenderProducts=renderProducts;
 renderProducts=function(){
-  currentCatalogView={type:"all",value:"all"};
-  const box=document.getElementById("products"); if(box)box.innerHTML=products.map(productCard).join("");
-  renderBestSellers();renderSmartCombo();refreshProductControls();
+currentCatalogView={type:"all",value:"all"};
+const box=document.getElementById("products"); if(box)box.innerHTML=products.map(productCard).join("");
+renderBestSellers();renderSmartCombo();refreshProductControls();
 }
 const baseFilterProducts=filterProducts;
 filterProducts=function(category,button){
-  document.querySelectorAll(".category-btn").forEach(btn=>btn.classList.remove("active"));if(button)button.classList.add("active");
-  const selected=String(category||"all").trim().normalize("NFC").toLowerCase();currentCatalogView={type:"category",value:selected};
-  const filtered=selected==="all"?products:products.filter(p=>String(p.category||"").trim().normalize("NFC").toLowerCase()===selected);
-  const box=document.getElementById("products");if(box)box.innerHTML=filtered.length?filtered.map(productCard).join(""):'<div class="empty-state" style="grid-column:1/-1">Chưa có món trong danh mục này.</div>';
+document.querySelectorAll(".category-btn").forEach(btn=>btn.classList.remove("active"));if(button)button.classList.add("active");
+const selected=String(category||"all").trim().normalize("NFC").toLowerCase();currentCatalogView={type:"category",value:selected};
+const filtered=selected==="all"?products:products.filter(p=>String(p.category||"").trim().normalize("NFC").toLowerCase()===selected);
+const box=document.getElementById("products");if(box)box.innerHTML=filtered.length?filtered.map(productCard).join(""):'<div class="empty-state" style="grid-column:1/-1">Chưa có món trong danh mục này.</div>';
 }
 searchProducts=function(keyword){clearTimeout(searchTimer);const value=String(keyword||"");searchTimer=setTimeout(()=>{const q=value.trim().toLowerCase();currentCatalogView={type:"search",value:q};const filtered=!q?products:products.filter(p=>`${p.name||""} ${p.category||""}`.toLowerCase().includes(q));const box=document.getElementById("products");if(box)box.innerHTML=filtered.length?filtered.map(productCard).join(""):'<div class="empty-state" style="grid-column:1/-1">🔎 Không tìm thấy món phù hợp.</div>';},120)}
 
@@ -2112,31 +2112,31 @@ function addSmartCombo(){products.slice(0,Math.min(3,products.length)).forEach(p
 
 const baseRenderCart=renderCart;
 renderCart=function(){
- const box=document.getElementById("cartItems");if(!box)return;if(cart.length===0){box.innerHTML='<div class="empty-state">🛒 Giỏ hàng đang trống.<br><small>Chọn món và bấm dấu + để thêm.</small></div>';calculateTotal();return;}
- box.innerHTML=cart.map(item=>{const p=products.find(x=>x.id===item.id);if(!p)return'';return `<div class="cart-item"><div class="cart-item-main"><img class="cart-thumb" src="${safeText(p.image||'')}" alt=""><div class="cart-item-copy"><div class="cart-item-name">${safeText(p.name||'')}</div><div class="cart-item-price">${money(p.price)} × ${item.quantity}</div></div></div><div><div class="quantity"><button onclick="changeQuantity(${item.id},-1)">−</button><b>${item.quantity}</b><button onclick="changeQuantity(${item.id},1)">+</button></div><button class="remove-btn" onclick="removeItem(${item.id})">Xóa</button></div></div>`}).join("");
- calculateTotal();renderRelatedProducts();
+const box=document.getElementById("cartItems");if(!box)return;if(cart.length===0){box.innerHTML='<div class="empty-state">🛒 Giỏ hàng đang trống.<br><small>Chọn món và bấm dấu + để thêm.</small></div>';calculateTotal();return;}
+box.innerHTML=cart.map(item=>{const p=products.find(x=>x.id===item.id);if(!p)return'';return `<div class="cart-item"><div class="cart-item-main"><img class="cart-thumb" src="${safeText(p.image||'')}" alt=""><div class="cart-item-copy"><div class="cart-item-name">${safeText(p.name||'')}</div><div class="cart-item-price">${money(p.price)} × ${item.quantity}</div></div></div><div><div class="quantity"><button onclick="changeQuantity(${item.id},-1)">−</button><b>${item.quantity}</b><button onclick="changeQuantity(${item.id},1)">+</button></div><button class="remove-btn" onclick="removeItem(${item.id})">Xóa</button></div></div>`}).join("");
+calculateTotal();renderRelatedProducts();
 }
 function renderRelatedProducts(){const cartBox=document.getElementById("cartItems");if(!cartBox||!cart.length||!products.length)return;let rel=document.getElementById("relatedProductsBox");if(!rel){rel=document.createElement("div");rel.id="relatedProductsBox";rel.className="related-box";cartBox.after(rel);}const ids=new Set(cart.map(x=>x.id));const list=products.filter(p=>!ids.has(p.id)).slice(0,4);rel.innerHTML=list.length?`<b>🍟 Có thể bạn muốn thêm</b><div class="related-row">${list.map(p=>`<div class="related-item"><b>${safeText(p.name||'')}</b><span>${money(p.price)}</span><button onclick="addToCart(${p.id});renderCart()">+ Thêm</button></div>`).join('')}</div>`:'';}
 
 const baseCalculateTotal=calculateTotal;
 calculateTotal=function(){
- const subtotal=getSubtotal();discountAmount=0;if(appliedVoucher&&appliedVoucher.valid){if(appliedVoucher.type==="percent")discountAmount=Math.round(subtotal*Number(appliedVoucher.value||0)/100);else discountAmount=Number(appliedVoucher.value||0);if(appliedVoucher.maxDiscount)discountAmount=Math.min(discountAmount,Number(appliedVoucher.maxDiscount));discountAmount=Math.min(discountAmount,subtotal);}
- const finalTotal=Math.max(0,subtotal-discountAmount);const set=(id,v)=>{const e=document.getElementById(id);if(e)e.textContent=v};set("subtotal",money(subtotal));set("discount",discountAmount?"-"+money(discountAmount):"0đ");set("finalTotal",money(finalTotal));set("orderFinalTotal",money(finalTotal));set("shippingDisplay","Quán xác nhận");const hint=document.getElementById("pointsEarnHint");if(hint)hint.textContent=`⭐ Dự kiến nhận ${pointsForTotal(finalTotal)} điểm sau khi đặt đơn (1 điểm / 10.000đ).`;return{subtotal,discount:discountAmount,total:finalTotal,shipping:0};
+const subtotal=getSubtotal();discountAmount=0;if(appliedVoucher&&appliedVoucher.valid){if(appliedVoucher.type==="percent")discountAmount=Math.round(subtotal*Number(appliedVoucher.value||0)/100);else discountAmount=Number(appliedVoucher.value||0);if(appliedVoucher.maxDiscount)discountAmount=Math.min(discountAmount,Number(appliedVoucher.maxDiscount));discountAmount=Math.min(discountAmount,subtotal);}
+const finalTotal=Math.max(0,subtotal-discountAmount);const set=(id,v)=>{const e=document.getElementById(id);if(e)e.textContent=v};set("subtotal",money(subtotal));set("discount",discountAmount?"-"+money(discountAmount):"0đ");set("finalTotal",money(finalTotal));set("orderFinalTotal",money(finalTotal));set("shippingDisplay","Quán xác nhận");const hint=document.getElementById("pointsEarnHint");if(hint)hint.textContent=`⭐ Dự kiến nhận ${pointsForTotal(finalTotal)} điểm sau khi đặt đơn (1 điểm / 10.000đ).`;return{subtotal,discount:discountAmount,total:finalTotal,shipping:0};
 }
 
 const baseOpenOrderForm=openOrderForm;
 openOrderForm=function(){if(cart.length===0){alert("🛒 Vui lòng thêm sản phẩm vào giỏ hàng.");return;}calculateTotal();closeCart();const p=getProfile();if(p.name&&!document.getElementById("customerName").value)document.getElementById("customerName").value=p.name;if(p.phone&&!document.getElementById("customerPhone").value)document.getElementById("customerPhone").value=p.phone;if(p.address&&!document.getElementById("customerAddress").value)document.getElementById("customerAddress").value=p.address;if(p.area&&!document.getElementById("deliveryArea").value)document.getElementById("deliveryArea").value=p.area;document.getElementById("orderModal").style.display="flex";}
 
 confirmOrder=async function(){
- const button=document.getElementById("confirmOrderButton");if(!button||button.disabled)return;
- const name=document.getElementById("customerName").value.trim(),phone=document.getElementById("customerPhone").value.trim(),address=document.getElementById("customerAddress").value.trim(),note=document.getElementById("customerNote").value.trim(),area=document.getElementById("deliveryArea")?.value||"",latitude=document.getElementById("latitude").value.trim(),longitude=document.getElementById("longitude").value.trim();
- if(!name){alert("Vui lòng nhập họ tên.");return}if(!/^0\d{9}$/.test(phone)){alert("❌ Số điện thoại phải có 10 chữ số và bắt đầu bằng 0.");return}if(!area){alert("📍 Vui lòng chọn khu vực giao hàng.");return}if(!address){alert("Vui lòng nhập địa chỉ nhận hàng.");return}if(!latitude||!longitude){alert("📍 Vui lòng cho phép truy cập vị trí trước khi đặt hàng.");return}if(!cart.length){alert("🛒 Giỏ hàng đang trống.");return}
- const finalData=calculateTotal();const oldText=button.innerHTML;button.disabled=true;button.style.opacity=".6";button.innerHTML="⏳ Đang gửi đơn...";const orderCode="CC"+Date.now().toString().slice(-8);const cartSnapshot=cart.map(item=>{const p=products.find(x=>x.id===item.id);return p?{id:item.id,name:p.name,price:Number(p.price||0),quantity:item.quantity,image:p.image||""}:null}).filter(Boolean);const itemNames=cartSnapshot.map(x=>`${x.name} x${x.quantity}`).join(", ");const quantities=cartSnapshot.map(x=>x.quantity).join(", ");
- const payload={action:"order",code:orderCode,name,phone,address:`${area} - ${address}`,latitude,longitude,note,items:itemNames,quantity:quantities,subtotal:finalData.subtotal,discount:finalData.discount,total:finalData.total,voucher:appliedVoucher?appliedVoucher.code:"",createdAt:new Date().toLocaleString("vi-VN")};
- try{await fetch(GOOGLE_SCRIPT_URL,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(payload)});
-  saveProfile({name,phone,address,area}); const earned=pointsForTotal(finalData.total);setPoints(getPoints()+earned);const orders=getOrders();orders.unshift({code:orderCode,createdAt:payload.createdAt,status:"Đang xác nhận",items:cartSnapshot,total:finalData.total,discount:finalData.discount,area,address,phone,note});saveOrders(orders.slice(0,50));recordLocalSale(finalData.total,cartSnapshot);
-  cart=[];appliedVoucher=null;discountAmount=0;saveData();updateCart();closeOrderForm();showOrderSuccess(orderCode,finalData.total,earned);button.disabled=false;button.style.opacity="1";button.innerHTML=oldText;
- }catch(error){console.error(error);button.disabled=false;button.style.opacity="1";button.innerHTML=oldText;alert("❌ Không thể gửi đơn hàng. Vui lòng kiểm tra kết nối và thử lại.");}
+const button=document.getElementById("confirmOrderButton");if(!button||button.disabled)return;
+const name=document.getElementById("customerName").value.trim(),phone=document.getElementById("customerPhone").value.trim(),address=document.getElementById("customerAddress").value.trim(),note=document.getElementById("customerNote").value.trim(),area=document.getElementById("deliveryArea")?.value||"",latitude=document.getElementById("latitude").value.trim(),longitude=document.getElementById("longitude").value.trim();
+if(!name){alert("Vui lòng nhập họ tên.");return}if(!/^0\d{9}$/.test(phone)){alert("❌ Số điện thoại phải có 10 chữ số và bắt đầu bằng 0.");return}if(!area){alert("📍 Vui lòng chọn khu vực giao hàng.");return}if(!address){alert("Vui lòng nhập địa chỉ nhận hàng.");return}if(!latitude||!longitude){alert("📍 Vui lòng cho phép truy cập vị trí trước khi đặt hàng.");return}if(!cart.length){alert("🛒 Giỏ hàng đang trống.");return}
+const finalData=calculateTotal();const oldText=button.innerHTML;button.disabled=true;button.style.opacity=".6";button.innerHTML="⏳ Đang gửi đơn...";const orderCode="CC"+Date.now().toString().slice(-8);const cartSnapshot=cart.map(item=>{const p=products.find(x=>x.id===item.id);return p?{id:item.id,name:p.name,price:Number(p.price||0),quantity:item.quantity,image:p.image||""}:null}).filter(Boolean);const itemNames=cartSnapshot.map(x=>`${x.name} x${x.quantity}`).join(", ");const quantities=cartSnapshot.map(x=>x.quantity).join(", ");
+const payload={action:"order",code:orderCode,name,phone,address:`${area} - ${address}`,latitude,longitude,note,items:itemNames,quantity:quantities,subtotal:finalData.subtotal,discount:finalData.discount,total:finalData.total,voucher:appliedVoucher?appliedVoucher.code:"",createdAt:new Date().toLocaleString("vi-VN")};
+try{await fetch(GOOGLE_SCRIPT_URL,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(payload)});
+saveProfile({name,phone,address,area}); const earned=pointsForTotal(finalData.total);setPoints(getPoints()+earned);const orders=getOrders();orders.unshift({code:orderCode,createdAt:payload.createdAt,status:"Đang xác nhận",items:cartSnapshot,total:finalData.total,discount:finalData.discount,area,address,phone,note});saveOrders(orders.slice(0,50));recordLocalSale(finalData.total,cartSnapshot);
+cart=[];appliedVoucher=null;discountAmount=0;saveData();updateCart();closeOrderForm();showOrderSuccess(orderCode,finalData.total,earned);button.disabled=false;button.style.opacity="1";button.innerHTML=oldText;
+}catch(error){console.error(error);button.disabled=false;button.style.opacity="1";button.innerHTML=oldText;alert("❌ Không thể gửi đơn hàng. Vui lòng kiểm tra kết nối và thử lại.");}
 }
 
 function showOrderSuccess(code,total,earned){const m=document.getElementById("orderSuccess");document.getElementById("successOrderCode").textContent=`Mã đơn: ${code}`;document.getElementById("successOrderText").textContent=`Tổng ${money(total)} · +${earned} điểm. Quán sẽ liên hệ xác nhận và báo phí ship.`;m.style.display="flex";}
