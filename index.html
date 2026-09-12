@@ -809,7 +809,7 @@ function clearOrderDataAfterSuccess(){
     try {
         updateCart();
         renderCart();
-        syncMenuQuantity();
+        resetAllMenuQuantities();
     } catch(e){
         console.warn("Dọn dữ liệu sau khi đặt hàng:", e);
     }
@@ -852,6 +852,12 @@ function syncMenuQuantity(id){
     const action=document.getElementById('menu-action-'+id);
     const product=products.find(p=>p.id===id);
     if(action && product) action.innerHTML=menuActionMarkup(product);
+}
+
+function resetAllMenuQuantities(){
+    // Đồng bộ toàn bộ nút số lượng về 0 mà không render lại cả danh sách,
+    // tránh ảnh sản phẩm bị nhấp nháy/tải lại.
+    products.forEach(product => syncMenuQuantity(product.id));
 }
 
 function renderProducts(){
