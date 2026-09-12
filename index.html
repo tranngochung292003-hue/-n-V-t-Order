@@ -114,115 +114,7 @@ button{-webkit-tap-highlight-color:transparent}
     transition-duration:.01ms!important;
   }
 }
-/* ===== CART QUANTITY FIX ===== */
 
-.quantity{
-    display:flex;
-    align-items:center;
-    gap:6px;
-    margin-left:auto;
-}
-
-.quantity button{
-    width:28px!important;
-    height:28px!important;
-    border-radius:50%!important;
-    border:1px solid #d8c4b2!important;
-    background:#fff!important;
-    color:#8b5e3c!important;
-    font-size:18px!important;
-    font-weight:800;
-    line-height:1;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-}
-
-.quantity strong{
-    min-width:24px;
-    text-align:center;
-    font-size:15px;
-    color:#4d392d;
-}
-
-
-.cart-item{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-}
-
-
-.cart-item>div:first-child{
-    flex:1;
-}
-
-
-
-/* ===== SUCCESS POPUP ===== */
-
-.success-popup{
-    display:none;
-    position:fixed;
-    inset:0;
-    background:rgba(0,0,0,.55);
-    z-index:999;
-    align-items:center;
-    justify-content:center;
-    padding:20px;
-}
-
-.success-box{
-    width:100%;
-    max-width:380px;
-    background:#fffaf5;
-    border-radius:24px;
-    padding:28px 22px;
-    text-align:center;
-    animation:showSuccess .3s ease;
-    box-shadow:0 20px 50px rgba(0,0,0,.25);
-}
-
-.success-icon{
-    font-size:55px;
-}
-
-.success-box h2{
-    color:#8b5e3c;
-    margin:10px 0;
-}
-
-.order-code{
-    background:#f1e3d3;
-    padding:12px;
-    border-radius:12px;
-    margin:15px 0;
-    font-size:20px;
-    font-weight:900;
-    color:#6f472c;
-}
-
-.success-close{
-    width:100%;
-    padding:12px;
-    border:none;
-    border-radius:12px;
-    background:#8b5e3c;
-    color:white;
-    font-weight:800;
-}
-
-
-@keyframes showSuccess{
-from{
-opacity:0;
-transform:scale(.8);
-}
-to{
-opacity:1;
-transform:scale(1);
-}
-}
 </style>
 </head>
 <body>
@@ -730,56 +622,6 @@ placeholder="Nhập địa chỉ nhận hàng"
 </section>
 <style>@media(max-width:800px){.trust-strip{grid-template-columns:1fr!important;padding:0 10px!important;margin-bottom:85px!important}}</style>
 
-  <div id="successPopup" class="success-popup">
-
-<div class="success-box">
-
-<div class="success-icon">
-🎉
-</div>
-
-<h2>
-Đặt hàng thành công!
-</h2>
-
-
-<p>
-Cảm ơn bạn đã ủng hộ Ăn Vặt Lâm Thao
-</p>
-
-
-<div class="order-code">
-
-Mã đơn:
-<span id="successOrderCode">
-</span>
-
-</div>
-
-
-<p>
-💰 Tổng thanh toán:
-<br>
-<b id="successTotal"></b>
-</p>
-
-
-<p style="margin-top:10px;color:#777">
-📞 Quán sẽ liên hệ xác nhận đơn hàng sớm nhất
-</p>
-
-
-<button class="success-close"
-onclick="closeSuccessPopup()">
-
-Đã hiểu
-
-</button>
-
-
-</div>
-
-</div>
 <!-- FOOTER -->
 
 <footer>
@@ -1098,19 +940,21 @@ function renderCart(){
 
                 <div class="quantity">
 
-<div class="quantity">
+                    <button
+                        onclick="changeQuantity(${product.id},-1)"
+                    >
+                        −
+                    </button>
 
-<button onclick="changeQuantity(${product.id},-1)">
-−
-</button>
+                    <strong>
+                        ${item.quantity}
+                    </strong>
 
-<strong>${item.quantity}</strong>
-
-<button onclick="changeQuantity(${product.id},1)">
-+
-</button>
-
-</div>
+                    <button
+                        onclick="changeQuantity(${product.id},1)"
+                    >
+                        +
+                    </button>
 
                     <button
                         class="remove-btn"
@@ -1953,9 +1797,15 @@ closeOrderForm();
    THÔNG BÁO
 ============================== */
 
-openSuccessPopup(
-    orderCode,
-    finalData.total
+alert(
+    "✅ Đặt hàng thành công!\n\n" +
+    "Mã đơn: " +
+    orderCode +
+    "\n\n" +
+    "Quán sẽ liên hệ khách hàng qua số điện thoại để xác nhận đơn.\n" +
+    "Vui lòng để ý điện thoại trong 1-3 phút nữa.\n\n" +
+    "Tổng tiền: " +
+    money(finalData.total)
 );
 
 /* ==============================
@@ -2006,33 +1856,7 @@ openPaymentQR();
 
 }
 
-function openSuccessPopup(code,total){
-
-    document.getElementById(
-        "successOrderCode"
-    ).textContent = code;
-
-
-    document.getElementById(
-        "successTotal"
-    ).textContent = money(total);
-
-
-    document.getElementById(
-        "successPopup"
-    ).style.display="flex";
-
-}
-
-
-function closeSuccessPopup(){
-
-    document.getElementById(
-        "successPopup"
-    ).style.display="none";
-
-}
-  /* ==================================================
+/* ==================================================
    POPUP CHÀO MỪNG
 ================================================== */
 
