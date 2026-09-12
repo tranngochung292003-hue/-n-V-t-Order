@@ -119,12 +119,12 @@ button{-webkit-tap-highlight-color:transparent}
 /* ===== REQUESTED UPDATE ===== */
 .welcome-box{background:linear-gradient(145deg,#8b6248,#6f4b36 55%,#563927)!important;color:#fff!important;border:1px solid rgba(255,255,255,.18);box-shadow:0 20px 60px rgba(67,42,27,.35)!important}
 .welcome-box h2,.welcome-box p{color:#fff!important}.welcome-box p{opacity:.94}.welcome-close{background:#f3dfc9!important;color:#5b3a25!important}.welcome-icon{filter:drop-shadow(0 5px 8px rgba(0,0,0,.18))}
-.menu-quantity{display:flex;align-items:center;gap:4px;background:#8b5e3c;border-radius:999px;padding:3px;box-shadow:0 5px 12px rgba(111,71,44,.2)}
-.menu-quantity button{width:31px;height:31px;border:0;border-radius:50%;background:#fff;color:#6f472c;font-size:20px;font-weight:900;line-height:1}.menu-quantity strong{min-width:24px;text-align:center;color:#fff;font-size:14px}.menu-quantity button:active{transform:scale(.9)}
+.menu-quantity{display:flex;align-items:center;gap:2px;background:#8b5e3c;border-radius:999px;padding:2px;box-shadow:0 4px 9px rgba(111,71,44,.18)}
+.menu-quantity button{width:25px;height:25px;border:0;border-radius:50%;background:#fff;color:#6f472c;font-size:16px;font-weight:900;line-height:1;padding:0}.menu-quantity strong{min-width:19px;text-align:center;color:#fff;font-size:12px;line-height:1}.menu-quantity button:active{transform:scale(.92)}
 .cart-item{align-items:center}.cart-product-main{display:flex;align-items:center;gap:10px;min-width:0}.cart-product-thumb{width:58px;height:58px;border-radius:12px;object-fit:cover;flex:0 0 58px;background:#efe5da;border:1px solid #ead9c7}.cart-product-copy{min-width:0}.cart-item-name{white-space:normal}.cart-item-price{font-weight:700}
 .location-toolbar{display:grid;grid-template-columns:repeat(5,1fr);gap:7px;margin-top:7px}.location-option{border:1px solid #e1d0bd;background:#fffaf5;color:#654938;border-radius:12px;padding:10px 6px;font-size:12px;font-weight:800;min-height:54px}.location-option.active{background:#8b5e3c;color:#fff;border-color:#8b5e3c;box-shadow:0 5px 12px rgba(111,71,44,.16)}.location-selected{margin-top:8px;padding:9px 11px;border-radius:10px;background:#f5eadf;color:#6f472c;font-size:13px;font-weight:700}.location-required{font-size:12px;color:#927866;margin-top:5px}
 .success-modal{display:none;position:fixed;inset:0;background:rgba(45,28,19,.60);z-index:700;align-items:center;justify-content:center;padding:16px}.success-box{position:relative;width:100%;max-width:390px;background:linear-gradient(180deg,#fffaf5,#fff);border:1px solid #ead8c5;border-radius:24px;padding:30px 24px 22px;text-align:center;box-shadow:0 24px 70px rgba(55,35,23,.28);animation:successShow .24s ease}.success-box-compact{max-width:380px}.success-x{position:absolute;top:10px;right:12px;width:34px;height:34px;border:0;border-radius:50%;background:#f3e7da;color:#6f472c;font-size:23px;line-height:1;cursor:pointer}.success-check{width:62px;height:62px;margin:0 auto 13px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(145deg,#9a6a4c,#765039);color:#fff;font-size:34px;font-weight:600;box-shadow:0 10px 24px rgba(111,71,44,.24)}.success-box h2{font-size:25px;color:#493326;margin:0 0 7px;letter-spacing:-.3px}.success-subtitle{margin:0;color:#88776a;font-size:13px;line-height:1.5}.order-code-card{margin:18px 0 14px;padding:15px 14px 13px;border-radius:16px;background:#f5eadf;border:1px dashed #bf916d}.order-code-card span{display:block;font-size:10px;font-weight:900;letter-spacing:1.5px;color:#a36b46;margin-bottom:6px}.order-code-card strong{display:block;font-size:28px;letter-spacing:2.2px;color:#65412d}.copy-code-btn{margin-top:9px;border:0;background:transparent;color:#8b5e3c;font-weight:800;font-size:12px;cursor:pointer}.success-primary{width:100%;border:0;border-radius:12px;padding:12px;background:#8b5e3c;color:#fff;box-shadow:0 7px 16px rgba(111,71,44,.18);font-weight:900;font-size:14px;cursor:pointer}@keyframes successShow{from{opacity:0;transform:translateY(8px) scale(.98)}to{opacity:1;transform:none}}
-@media(max-width:700px){.location-toolbar{gap:5px}.location-option{font-size:10px;padding:8px 3px;min-height:50px}.cart-product-thumb{width:52px;height:52px;flex-basis:52px}.success-box{padding:24px 16px 18px;border-radius:22px}}
+@media(max-width:700px){.location-toolbar{gap:5px}.location-option{font-size:10px;padding:8px 3px;min-height:50px}.cart-product-thumb{width:52px;height:52px;flex-basis:52px}.menu-quantity{gap:1px;padding:2px}.menu-quantity button{width:23px;height:23px;font-size:15px}.menu-quantity strong{min-width:18px;font-size:11px}.success-box{padding:24px 16px 18px;border-radius:22px}}
 
 </style>
 </head>
@@ -1787,26 +1787,40 @@ const payload = {
 
     try{
 
-        await fetch(
-            GOOGLE_SCRIPT_URL,
-            {
+        /*
+           Google Apps Script có thể đã nhận và lưu đơn thành công
+           nhưng fetch() + no-cors không đọc được response.
+           Dùng sendBeacon để gửi đơn kiểu fire-and-forget, tránh
+           trường hợp khách thấy lỗi dù Sheet/Gmail đã nhận đơn.
+        */
+        const orderBody = JSON.stringify(payload);
+        let sent = false;
 
-                method:
-                    "POST",
+        if (navigator.sendBeacon) {
+            const blob = new Blob(
+                [orderBody],
+                {type: "text/plain;charset=UTF-8"}
+            );
+            sent = navigator.sendBeacon(
+                GOOGLE_SCRIPT_URL,
+                blob
+            );
+        }
 
-                mode:
-                    "no-cors",
-
-                headers:{
-                    "Content-Type":
-                        "text/plain;charset=utf-8"
-                },
-
-                body:
-                    JSON.stringify(payload)
-
-            }
-        );
+        if (!sent) {
+            await fetch(
+                GOOGLE_SCRIPT_URL,
+                {
+                    method: "POST",
+                    mode: "no-cors",
+                    headers: {
+                        "Content-Type": "text/plain;charset=utf-8"
+                    },
+                    body: orderBody,
+                    keepalive: true
+                }
+            );
+        }
 
         /* ==============================
            ĐÁNH DẤU VOUCHER ĐÃ DÙNG
