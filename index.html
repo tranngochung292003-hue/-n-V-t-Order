@@ -3,6 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<link rel="preconnect" href="https://script.google.com" crossorigin>
+<link rel="dns-prefetch" href="//script.google.com">
 <title>Ăn Vặt Lâm Thao</title>
 
 <style>
@@ -91,6 +93,10 @@ header{background:rgba(255,250,243,.96);border-bottom:1px solid #eadbca;box-shad
 .cart-bar{background:rgba(255,250,244,.96);border-top:1px solid #e4d4c2;box-shadow:0 -6px 20px rgba(76,51,34,.1);backdrop-filter:blur(10px)}.cart-inner{max-width:1180px;margin:auto;padding:10px 18px}.checkout-btn,.confirm-btn{background:#8b5e3c!important;border-radius:12px!important;box-shadow:0 6px 14px rgba(111,71,44,.18)}
 .contact-buttons{gap:8px}.contact-btn{border-radius:20px!important;box-shadow:0 4px 12px rgba(0,0,0,.1)}footer{background:#4d382b!important;color:#f8eee3!important;padding:28px 18px!important}
 .modal-box{border-radius:20px!important;background:#fffaf5!important;border:1px solid #ead9c7}.modal-header{border-bottom:1px solid #eadbc9!important}.total-box,.voucher-box{background:#f5eadf!important;border:1px solid #e7d6c3!important;border-radius:15px!important}
+/* ===== PHÍ GIAO HÀNG 10.000đ ===== */
+.shipping-row{color:#6f5b4e}
+.shipping-row strong{color:#8b5e3c}
+.total-final{margin-top:8px!important;padding-top:8px;border-top:1px dashed #d9c5b2}
 @media(max-width:800px){.header-inner{grid-template-columns:1fr auto;gap:9px;padding:10px 12px}.logo{width:170px;min-width:170px;height:42px}.logo-image{max-width:170px;height:42px}.header-search{grid-column:1/-1;grid-row:2;height:42px}.header-cart{padding:10px 12px}.header-cart span{display:none}.den-hero{margin:10px 10px 0;padding:20px 17px;border-radius:20px;display:block}.den-hero h1{font-size:27px}.hero-voucher{margin-top:14px;min-width:0}.quick-benefits{margin:10px 10px 18px;grid-template-columns:repeat(2,1fr);gap:8px}.quick-benefits>div{font-size:13px;padding:10px}.container{padding:0 10px 90px}.section-title{font-size:21px}.products{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.product-info{padding:9px}.product-name{font-size:14px;min-height:38px}.product-price{font-size:16px}.add-btn{width:35px;height:35px;font-size:23px}.popular-row small{display:none}.photo-badge{font-size:9px}.contact-buttons{bottom:70px!important}}
 
 
@@ -508,6 +514,11 @@ button{-webkit-tap-highlight-color:transparent}
                 </strong>
 </div>
 
+            <div class="total-row shipping-row">
+                <span>🚚 Phí giao hàng</span>
+                <strong id="shippingFee">10.000đ</strong>
+            </div>
+
             <div class="total-row total-final">
 
                 <span>
@@ -672,18 +683,23 @@ button{-webkit-tap-highlight-color:transparent}
         <div class="total-box">
 
             <div class="total-row">
+                <span>Tạm tính</span>
+                <strong id="orderSubtotal">0đ</strong>
+            </div>
 
-                <span>
-                    Tổng thanh toán
-                </span>
+            <div class="total-row">
+                <span>Giảm voucher</span>
+                <strong id="orderDiscount">0đ</strong>
+            </div>
 
-                <strong
-                    id="orderFinalTotal"
-                    class="total-final"
-                >
-                    0đ
-                </strong>
+            <div class="total-row shipping-row">
+                <span>🚚 Phí giao hàng</span>
+                <strong id="orderShippingFee">10.000đ</strong>
+            </div>
 
+            <div class="total-row total-final">
+                <span>Tổng thanh toán</span>
+                <strong id="orderFinalTotal">0đ</strong>
             </div>
 
         </div>
@@ -861,7 +877,6 @@ let appliedVoucher =
 JSON.parse(localStorage.getItem("voucherData")) || null;
 
 let discountAmount = 0;
-const SHIPPING_FEE = 15000;
 let orderSubmitting = false;
 let successResetTimer = null;
 
@@ -874,6 +889,11 @@ function money(number){
     return Number(number).toLocaleString("vi-VN") + "đ";
 
 }
+
+/* ==================================================
+   PHÍ GIAO HÀNG
+================================================== */
+const SHIPPING_FEE = 10000;
 
 /* ==================================================
    SAVE
@@ -1574,56 +1594,72 @@ function calculateTotal(){
             ) || 0;
 
         if(discountAmount > subtotal){
-
-            discountAmount =
-                subtotal;
-
+            discountAmount = subtotal;
         }
-
     }
 
+    // Phí giao hàng cố định 10.000đ cho các khu vực.
+    const shippingFee =
+        subtotal > 0
+            ? SHIPPING_FEE
+            : 0;
+
     const finalTotal =
-Math.max(
+        Math.max(
             0,
             subtotal -
             discountAmount +
-            SHIPPING_FEE
+            shippingFee
         );
 
-    document.getElementById("subtotal")
-        .textContent =
-        money(subtotal);
+    const subtotalEl =
+        document.getElementById("subtotal");
+    const discountEl =
+        document.getElementById("discount");
+    const shippingEl =
+        document.getElementById("shippingFee");
+    const finalEl =
+        document.getElementById("finalTotal");
 
-    document.getElementById("discount")
-        .textContent =
-        "-" + money(discountAmount);
+    const orderSubtotalEl =
+        document.getElementById("orderSubtotal");
+    const orderDiscountEl =
+        document.getElementById("orderDiscount");
+    const orderShippingEl =
+        document.getElementById("orderShippingFee");
+    const orderFinalEl =
+        document.getElementById("orderFinalTotal");
 
-    const shipping = document.getElementById("shippingFee");
-    if(shipping){
-        shipping.textContent = money(SHIPPING_FEE);
-    }
+    if(subtotalEl)
+        subtotalEl.textContent = money(subtotal);
 
-    document.getElementById("finalTotal")
-        .textContent =
-        money(finalTotal);
+    if(discountEl)
+        discountEl.textContent = "-" + money(discountAmount);
 
-    document.getElementById("orderFinalTotal")
-        .textContent =
-        money(finalTotal);
+    if(shippingEl)
+        shippingEl.textContent = money(shippingFee);
+
+    if(finalEl)
+        finalEl.textContent = money(finalTotal);
+
+    if(orderSubtotalEl)
+        orderSubtotalEl.textContent = money(subtotal);
+
+    if(orderDiscountEl)
+        orderDiscountEl.textContent = "-" + money(discountAmount);
+
+    if(orderShippingEl)
+        orderShippingEl.textContent = money(shippingFee);
+
+    if(orderFinalEl)
+        orderFinalEl.textContent = money(finalTotal);
 
     return {
-
-        subtotal:
-            subtotal,
-
-        discount:
-            discountAmount,
-
-        total:
-            finalTotal
-
+        subtotal: subtotal,
+        discount: discountAmount,
+        shipping: shippingFee,
+        total: finalTotal
     };
-
 }
 
 /* ==================================================
@@ -1964,6 +2000,9 @@ const payload = {
     discount:
         finalData.discount,
 
+    shipping:
+        finalData.shipping,
+
     total:
         finalData.total,
 
@@ -2180,81 +2219,186 @@ function closeWelcomePopup(){
    LOAD PRODUCTS
 ============================== */
 
+const PRODUCT_CACHE_KEY = "anvat_lamthao_products_cache_v1";
+
+function renderCachedProducts(){
+    try{
+        const raw =
+            localStorage.getItem(
+                PRODUCT_CACHE_KEY
+            );
+
+        if(!raw) return false;
+
+        const cached =
+            JSON.parse(raw);
+
+        if(
+            !cached ||
+            !Array.isArray(cached.products) ||
+            !cached.products.length
+        ){
+            return false;
+        }
+
+        products =
+            cached.products;
+
+        productsLoaded =
+            true;
+
+        renderProducts();
+        updateCart();
+
+        return true;
+
+    }catch(error){
+
+        console.warn(
+            "Không đọc được cache thực đơn:",
+            error
+        );
+
+        return false;
+    }
+}
+
+function saveProductsCache(list){
+
+    try{
+
+        localStorage.setItem(
+            PRODUCT_CACHE_KEY,
+            JSON.stringify({
+                savedAt: Date.now(),
+                products: list
+            })
+        );
+
+    }catch(error){
+
+        console.warn(
+            "Không lưu được cache thực đơn:",
+            error
+        );
+    }
+}
+
 async function loadProducts(){
 
     if(productsLoaded) return;
 
-    const box=document.getElementById("products");
+    const box =
+        document.getElementById("products");
 
-    if(box && !box.innerHTML.trim()){
+    /*
+       Nếu khách đã từng vào website:
+       dựng danh sách món từ cache ngay lập tức.
+       Sau đó tải dữ liệu mới ở nền.
+    */
+    const hasCache =
+        renderCachedProducts();
+
+    if(
+        box &&
+        !hasCache &&
+        !box.innerHTML.trim()
+    ){
+
         box.innerHTML=`
-          <div style="grid-column:1/-1;text-align:center;padding:28px 10px;color:#9a887a">
+          <div class="products-loading" style="grid-column:1/-1;text-align:center;padding:28px 10px;color:#9a887a">
             ⏳ Đang tải thực đơn...
           </div>`;
+
     }
 
     try{
 
-        const response = await fetch(
-            GOOGLE_SCRIPT_URL + "?action=products",
-            {cache:"no-store"}
-        );
+        const response =
+            await fetch(
+                GOOGLE_SCRIPT_URL +
+                "?action=products",
+                {
+                    cache:"default"
+                }
+            );
 
         if(!response.ok){
-            throw new Error("HTTP " + response.status);
+            throw new Error(
+                "HTTP " +
+                response.status
+            );
         }
 
-        const data = await response.json();
+        const data =
+            await response.json();
 
         if(data.success){
 
-            products = Array.isArray(data.products)
-                ? data.products
-                : [];
+            const freshProducts =
+                Array.isArray(data.products)
+                    ? data.products
+                    : [];
 
-            productsLoaded = true;
+            if(freshProducts.length){
 
-            renderProducts();
-            updateCart();
+                products =
+                    freshProducts;
+
+                productsLoaded =
+                    true;
+
+                saveProductsCache(
+                    products
+                );
+
+                renderProducts();
+                updateCart();
+            }
 
         }else{
 
             console.log(data);
 
-            if(box){
+            if(box && !hasCache){
+
                 box.innerHTML=`
                   <div style="grid-column:1/-1;text-align:center;padding:28px 10px;color:#9a887a">
                     ⚠️ Không tải được thực đơn. Vui lòng tải lại trang.
                   </div>`;
-            }
 
+            }
         }
 
     }catch(error){
 
         console.error(error);
 
-        if(box){
+        /*
+           Nếu cache đã hiển thị thì giữ nguyên,
+           không để sản phẩm biến mất khi mạng chậm.
+        */
+        if(box && !hasCache){
+
             box.innerHTML=`
               <div style="grid-column:1/-1;text-align:center;padding:28px 10px;color:#9a887a">
                 ⚠️ Kết nối thực đơn chậm. Vui lòng tải lại trang.
               </div>`;
+
         }
-
     }
-
 }
 
+/*
+   Tải thực đơn ngay khi trang chạy.
+   Popup chào mừng mở trễ một nhịp để giao diện sản phẩm
+   có cơ hội dựng trước, giảm cảm giác website bị đứng.
+*/
 loadProducts();
 
-openWelcomePopup();
+setTimeout(openWelcomePopup, 350);
 
 </script>
 
 </body>
 </html>
-
-<style>
-.product{will-change:transform}
-img{content-visibility:auto}
-</style>
