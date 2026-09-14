@@ -861,6 +861,7 @@ let appliedVoucher =
 JSON.parse(localStorage.getItem("voucherData")) || null;
 
 let discountAmount = 0;
+const SHIPPING_FEE = 15000;
 let orderSubmitting = false;
 let successResetTimer = null;
 
@@ -1585,7 +1586,8 @@ function calculateTotal(){
 Math.max(
             0,
             subtotal -
-            discountAmount
+            discountAmount +
+            SHIPPING_FEE
         );
 
     document.getElementById("subtotal")
@@ -1595,6 +1597,11 @@ Math.max(
     document.getElementById("discount")
         .textContent =
         "-" + money(discountAmount);
+
+    const shipping = document.getElementById("shippingFee");
+    if(shipping){
+        shipping.textContent = money(SHIPPING_FEE);
+    }
 
     document.getElementById("finalTotal")
         .textContent =
@@ -2246,3 +2253,8 @@ openWelcomePopup();
 
 </body>
 </html>
+
+<style>
+.product{will-change:transform}
+img{content-visibility:auto}
+</style>
