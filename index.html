@@ -864,7 +864,7 @@ const GOOGLE_SCRIPT_URL =
    PRODUCTS
 ================================================== */
 
-const products = [
+let products = [
     {
         "id": 1,
         "name": "Vịt lộn xào me",
@@ -2580,98 +2580,73 @@ function closeWelcomePopup(){
    LOAD PRODUCTS
 ============================== */
 
-const PRODUCT_CACHE_KEY = "anvat_lamthao_products_cache_v1";
+const PRODUCT_CACHE_KEY = "anvat_lamthao_products_cache_v2";
+const PRODUCT_CACHE_MAX_AGE = 1000 * 60 * 60 * 24 * 7;
+
+function saveProductsCache(list){
+    try{
+        localStorage.setItem(PRODUCT_CACHE_KEY, JSON.stringify({
+            savedAt: Date.now(),
+            products: list
+        }));
+    }catch(error){
+        console.warn("Không lưu được cache thực đơn:", error);
+    }
+}
 
 function renderCachedProducts(){
     try{
-        const raw =
-            localStorage.getItem(
-                PRODUCT_CACHE_KEY
-            );
-
+        const raw = localStorage.getItem(PRODUCT_CACHE_KEY);
         if(!raw) return false;
 
-        const cached =
-            JSON.parse(raw);
+        const cached = JSON.parse(raw);
+        if(!cached || !Array.isArray(cached.products) || !cached.products.length) return false;
+        if(cached.savedAt && Date.now() - cached.savedAt > PRODUCT_CACHE_MAX_AGE) return false;
 
-        if(
-            !cached ||
-            !Array.isArray(cached.products) ||
-            !cached.products.length
-        ){
-            return false;
-        }
-
-        products =
-            cached.products;
-
-        productsLoaded =
-            true;
-
+        products = cached.products;
         renderProducts();
         updateCart();
-
         return true;
-
     }catch(error){
-
-        console.warn(
-            "Không đọc được cache thực đơn:",
-            error
-        );
-
+        console.warn("Không đọc được cache thực đơn:", error);
         return false;
     }
 }
 
-function saveProductsCache(list){
-
+async function refreshProductsInBackground(){
     try{
+        const response = await fetch(GOOGLE_SCRIPT_URL + "?action=products", {
+            cache: "no-store"
+        });
 
-        localStorage.setItem(
-            PRODUCT_CACHE_KEY,
-            JSON.stringify({
-                savedAt: Date.now(),
-                products: list
-            })
-        );
+        if(!response.ok) throw new Error("HTTP " + response.status);
 
+        const data = await response.json();
+        if(data && data.success && Array.isArray(data.products) && data.products.length){
+            products = data.products;
+            saveProductsCache(products);
+            renderProducts();
+            updateCart();
+        }
     }catch(error){
-
-        console.warn(
-            "Không lưu được cache thực đơn:",
-            error
-        );
+        // Không làm mất thực đơn đang hiển thị nếu mạng/Apps Script chậm.
+        console.warn("Không cập nhật được thực đơn mới:", error);
     }
 }
 
 function loadProducts(){
-
-    /*
-       THỰC ĐƠN NẰM TRỰC TIẾP TRONG HTML.
-       Không gọi Google Apps Script để lấy sản phẩm nữa.
-       Google Apps Script chỉ xử lý đơn hàng/voucher/các chức năng backend.
-    */
+    // 1) Hiển thị ngay dữ liệu đã có trong HTML/cache -> không chờ Google Sheet.
+    renderCachedProducts();
     productsLoaded = true;
-
     renderProducts();
     updateCart();
+
+    // 2) Sau khi giao diện đã hiện, cập nhật dữ liệu từ Google Sheet ở nền.
+    setTimeout(refreshProductsInBackground, 700);
 }
 
-/*
-   Tải thực đơn ngay khi trang chạy.
-   Popup chào mừng mở trễ một nhịp để giao diện sản phẩm
-   có cơ hội dựng trước, giảm cảm giác website bị đứng.
-*/
 loadProducts();
-
-/*
-   Tải thực đơn ngay khi trang chạy.
-   Popup chào mừng mở trễ một nhịp để giao diện sản phẩm
-   có cơ hội dựng trước, giảm cảm giác website bị đứng.
-*/
 setTimeout(openWelcomePopup, 350);
-
 </script>
 
 </body>
