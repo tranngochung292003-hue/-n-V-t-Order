@@ -864,7 +864,57 @@ const GOOGLE_SCRIPT_URL =
    PRODUCTS
 ================================================== */
 
-let products = [];
+let products = [
+    {id:1,name:'Vịt lộn xào me',price:12000,image:'IMG_0327.jpeg',category:'Đồ ăn nhanh'},
+    {id:2,name:'Cút lộn xào me',price:30000,image:'IMG_0326.webp',category:'Đồ ăn nhanh'},
+    {id:3,name:'Thịt xiên',price:8000,image:'IMG_0328.jpeg',category:'Đồ ăn nhanh'},
+    {id:4,name:'Bánh mì kẹp thịt',price:15000,image:'IMG_0329.jpeg',category:'Đồ ăn nhanh'},
+    {id:5,name:'Bánh mì mật ong',price:5000,image:'IMG_0330.jpeg',category:'Đồ ăn nhanh'},
+    {id:6,name:'Bánh tráng trộn',price:20000,image:'IMG_0331.jpeg',category:'Đồ ăn nhanh'},
+    {id:7,name:'Bánh tráng cuộn',price:25000,image:'IMG_0332.jpeg',category:'Đồ ăn nhanh'},
+    {id:8,name:'Lòng nướng',price:6000,image:'IMG_0333.jpeg',category:'Đồ ăn nhanh'},
+    {id:9,name:'Mì Trộn Indomie',price:20000,image:'IMG_0341.webp',category:'Đồ ăn nhanh'},
+    {id:10,name:'Mỳ Cay Viên Xiên',price:30000,image:'mỳ cay.jpg',category:'Đồ ăn nhanh'},
+    {id:11,name:'Chả mực',price:10000,image:'IMG_0334.jpeg',category:'Đồ ăn'},
+    {id:12,name:'Bò viên',price:10000,image:'IMG_0336.jpeg',category:'Đồ ăn'},
+    {id:13,name:'Cá viên',price:10000,image:'IMG_0337.jpeg',category:'Đồ ăn'},
+    {id:14,name:'Tôm viên',price:10000,image:'IMG_0338.jpeg',category:'Đồ ăn'},
+    {id:15,name:'Viên rau củ',price:10000,image:'IMG_0339.webp',category:'Đồ ăn'},
+    {id:16,name:'Viên Chiên Xốt Mắm Tỏi',price:10000,image:'IMG_0339.webp',category:'Đồ ăn'},
+    {id:17,name:'Cá Viên Trứng Cá TOBIKO',price:10000,image:'IMG_0339.webp',category:'Đồ ăn'},
+    {id:18,name:'Phomai Viên',price:10000,image:'Phomai Viên NÉT VIỆT.jpg',category:'Đồ ăn'},
+    {id:19,name:'Phomai Que',price:10000,image:'Phomai Que MINH THU.jpg',category:'Đồ ăn'},
+    {id:20,name:'Tôm Surimi',price:10000,image:'Tôm Surimi ONGON.jpeg',category:'Đồ ăn'},
+    {id:21,name:'Surimi Chân Mèo',price:10000,image:'Surimi Chân Mèo PHÚ MARK.webp',category:'Đồ ăn'},
+    {id:22,name:'Surimi Con Cá',price:10000,image:'Surimi Con Cá PHÚ MARK - 450g - 20 gói (Gói).jpeg',category:'Đồ ăn'},
+    {id:23,name:'Viên Xốt Mayo Trứng Muối',price:10000,image:'Viên Xốt Mayo Trứng Muối S2 ALACA.jpg',category:'Đồ ăn'},
+    {id:24,name:'Viên Xốt Mayo Bắp',price:10000,image:'Viên Xốt Mayo Bắp S2 ALACA.jpg',category:'Đồ ăn'},
+    {id:25,name:'Viên Tan Chảy',price:10000,image:'Viên Tan Chảy PHÚ MARK 500Gr.jpg',category:'Đồ ăn'},
+    {id:26,name:'Viên Surimi Lệ Chi Nhân Sốt Phomai',price:10000,image:'Viên Surimi Lệ Chi Nhân Sốt Phomai TVS.jpg',category:'Đồ ăn'},
+    {id:27,name:'Viên Lẩu LC Trứng Tôm',price:10000,image:'Viên Lẩu LC Trứng Tôm.jpg',category:'Đồ ăn'},
+    {id:28,name:'Viên Lẩu LC Trứng Muối',price:10000,image:'Viên Lẩu LC Trứng Muối.jpg',category:'Đồ ăn'},
+    {id:29,name:'Viên Lẩu LC Trứng Cá',price:10000,image:'Viên Lẩu LC Trứng Cá.jpg',category:'Đồ ăn'},
+    {id:30,name:'Viên Lẩu LC Tomyum',price:10000,image:'Viên Lẩu LC Tomyum.png',category:'Đồ ăn'},
+    {id:31,name:'Viên Chiên Xốt Mắm Tỏi',price:10000,image:'Viên Chiên Xốt Mắm Tỏi LC.jpg',category:'Đồ ăn'},
+    {id:32,name:'Tôm Viên',price:10000,image:'Tôm Viên BD.jpg',category:'Đồ ăn'},
+    {id:33,name:'Mặt Cười Tròn',price:10000,image:'Mặt Cười Tròn ĐẠT PHƯƠNG.webp',category:'Đồ ăn'},
+    {id:34,name:'Lạp Xưởng Tươi Trứng Cá',price:10000,image:'Lạp Xưởng Tươi Trứng Cá.jpg',category:'Đồ ăn'},
+    {id:35,name:'Xốt Tẩm Cốm',price:10000,image:'HS Xốt Tẩm Cốm Mayo ONGON.jpg',category:'Đồ ăn'},
+    {id:36,name:'Viên Rau Củ',price:10000,image:'HS Viên Rau Củ BD.jpg',category:'Đồ ăn'},
+    {id:37,name:'Đậu hũ Phomai',price:10000,image:'Đậu hũ PM GREENSKY.png',category:'Đồ ăn'},
+    {id:38,name:'Chả Cá Thì Là',price:10000,image:'Chả Cá Thì Là LC.jpg',category:'Đồ ăn'},
+    {id:39,name:'Cá Viên Trứng Cá',price:10000,image:'Cá Viên Trứng Cá TOBIKO TVS.jpg',category:'Đồ ăn'},
+    {id:40,name:'Cá Viên',price:10000,image:'Cá Viên LC.jpg',category:'Đồ ăn'},
+    {id:41,name:'XX Lốc Xoáy',price:10000,image:'XX Lốc Xoáy THẢO LINH.jpeg',category:'Đồ ăn'},
+    {id:42,name:"Hotdog SEOUL'S Khoai Tây",price:10000,image:"Hotdog SEOUL'S Khoai Tây.jpg",category:'Đồ ăn'},
+    {id:43,name:'Nem Chua Rán',price:10000,image:'Nem Chua Rán Tẩm Bột.jpg',category:'Đồ ăn'},
+    {id:54,name:'Trà chanh',price:10000,image:'tt.jpg',category:'Đồ uống'},
+    {id:55,name:'Trà tắc',price:10000,image:'tra-tac.webp',category:'Đồ uống'}
+];
+
+// Dữ liệu thực đơn được cập nhật theo bảng sản phẩm mới.
+// Khi Google Apps Script trả về dữ liệu mới, website vẫn có thể đồng bộ lại như trước.
+const LOCAL_PRODUCT_DATA = products.map(p => ({...p}));
 
 /* ==================================================
    DATA
@@ -2292,16 +2342,22 @@ async function loadProducts(){
         document.getElementById("products");
 
     /*
-       Nếu khách đã từng vào website:
-       dựng danh sách món từ cache ngay lập tức.
-       Sau đó tải dữ liệu mới ở nền.
+       Dựng ngay thực đơn đã cập nhật trong HTML để khách thấy menu
+       ngay cả khi Google Apps Script phản hồi chậm.
     */
-    const hasCache =
-        renderCachedProducts();
+    products = LOCAL_PRODUCT_DATA.map(p => ({...p}));
+    productsLoaded = true;
+    renderProducts();
+    updateCart();
+
+    /*
+       Sau đó vẫn tải dữ liệu từ Google Apps Script ở nền.
+       Nếu server có dữ liệu thì đồng bộ như cơ chế cũ.
+    */
+    const hasCache = true;
 
     if(
         box &&
-        !hasCache &&
         !box.innerHTML.trim()
     ){
 
