@@ -62,7 +62,7 @@ header{background:rgba(255,250,245,.96);border-bottom:1px solid var(--border);pa
 /* ===== PROFESSIONAL UPGRADE ===== */
 body{background:#f7f0e6;color:#3f3027}
 header{background:rgba(255,250,243,.96);border-bottom:1px solid #eadbca;box-shadow:0 2px 16px rgba(91,61,39,.08);position:sticky;top:0;z-index:50;backdrop-filter:blur(10px)}
-.header-inner{max-width:1180px;margin:auto;padding:12px 18px;display:grid;grid-template-columns:auto 1fr auto;gap:18px;align-items:center}
+.header-inner{max-width:1180px;margin:auto;padding:12px 18px;display:grid;grid-template-columns:auto minmax(0,1fr) auto auto;gap:12px;align-items:center}
 .logo{
   display:flex;
   align-items:center;
@@ -200,7 +200,7 @@ button{-webkit-tap-highlight-color:transparent}
 
 @media(max-width:800px){
   .header-inner{
-    grid-template-columns:minmax(0,1fr) auto!important;
+    grid-template-columns:minmax(0,1fr) auto auto!important;
     gap:7px!important;
     padding:7px 9px!important;
   }
@@ -258,6 +258,18 @@ button{-webkit-tap-highlight-color:transparent}
   .menu-quantity button{width:30px!important;height:30px!important;font-size:18px!important;line-height:30px!important}
 }
 
+
+/* ===== KHACH HANG V1 ===== */
+.customer-btn{border:0;background:#fffaf5;color:#6f472c;border:1px solid #dfccb9;border-radius:999px;padding:10px 13px;font-weight:850;white-space:nowrap;box-shadow:0 3px 9px rgba(91,58,37,.08)}
+.customer-btn:hover{background:#f4eadf}
+.customer-modal{display:none;position:fixed;inset:0;background:rgba(45,28,19,.58);z-index:650;align-items:center;justify-content:center;padding:14px}
+.customer-box{width:100%;max-width:520px;max-height:90vh;overflow:auto;background:#fffaf5;border:1px solid #ead9c7;border-radius:22px;padding:20px;box-shadow:0 22px 70px rgba(55,35,23,.25)}
+.customer-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}.customer-head h2{font-size:21px;color:#4d3325}.customer-close{width:34px;height:34px;border:0;border-radius:50%;background:#f3e7da;color:#6f472c;font-size:23px}
+.customer-note{background:#f5eadf;border:1px solid #e7d6c3;border-radius:13px;padding:11px 12px;font-size:12px;color:#735b49;line-height:1.55;margin-bottom:12px}
+.customer-actions{display:flex;gap:8px;margin-top:10px}.customer-actions button{flex:1;border:0;border-radius:10px;padding:11px;font-weight:850}.customer-primary{background:#8b5e3c;color:#fff}.customer-secondary{background:#eee3d8;color:#6f472c}
+.customer-profile{display:none;background:#fff;border:1px solid #eadbc9;border-radius:15px;padding:13px;margin-top:12px}.customer-profile b{color:#4d392d}.customer-history{margin-top:14px}.history-title{font-size:16px;font-weight:900;color:#4d392d;margin-bottom:8px}.history-item{background:#fff;border:1px solid #eadbc9;border-radius:14px;padding:12px;margin-top:8px}.history-top{display:flex;justify-content:space-between;gap:8px}.history-code{font-weight:900;color:#7b3f20}.history-status{font-size:11px;font-weight:850;background:#f0e2d4;color:#7b5234;padding:4px 8px;border-radius:999px}.history-date{font-size:11px;color:#927866;margin-top:4px}.history-items{font-size:12px;color:#5f4b3c;margin-top:7px;line-height:1.5}.history-total{display:flex;justify-content:space-between;align-items:center;margin-top:9px;padding-top:8px;border-top:1px dashed #dfccb9}.history-total strong{color:#9b4e22;font-size:16px}.history-reorder{border:0;background:#8b5e3c;color:#fff;border-radius:9px;padding:8px 10px;font-size:12px;font-weight:850}
+.history-empty{text-align:center;color:#927866;padding:20px 8px}.customer-loading{text-align:center;color:#927866;padding:16px}
+@media(max-width:700px){.customer-btn{padding:8px 10px;font-size:12px}.customer-box{padding:16px;border-radius:20px}.history-top{align-items:flex-start}.history-reorder{padding:8px 9px}}
 </style>
 </head>
 <body>
@@ -325,6 +337,7 @@ button{-webkit-tap-highlight-color:transparent}
       <span>🔍</span>
       <input id="productSearch" type="search" placeholder="Tìm món ăn, đồ uống..." oninput="searchProducts(this.value)">
     </div>
+    <button class="customer-btn" onclick="openCustomer()">👤 <span>Khách hàng</span></button>
     <button class="header-cart" onclick="openCart()">🛒 <span>Giỏ hàng</span><b id="headerCartCount">0</b></button>
   </div>
 </header>
@@ -461,6 +474,27 @@ button{-webkit-tap-highlight-color:transparent}
         📞 Gọi
     </a>
 
+</div>
+
+<!-- CUSTOMER MODAL -->
+<div id="customerModal" class="customer-modal" aria-hidden="true">
+  <div class="customer-box">
+    <div class="customer-head">
+      <h2>👤 Khách hàng</h2>
+      <button class="customer-close" onclick="closeCustomer()">×</button>
+    </div>
+    <div class="customer-note">Nhập số điện thoại bạn đã dùng khi đặt hàng để xem thông tin khách và lịch sử đơn. Đây là phiên bản tra cứu bằng số điện thoại; nếu cần bảo mật cao hơn, có thể bổ sung OTP sau.</div>
+    <div class="form-group">
+      <label>Số điện thoại *</label>
+      <input id="customerLookupPhone" type="tel" maxlength="10" inputmode="numeric" autocomplete="tel" placeholder="Nhập số điện thoại" oninput="this.value=this.value.replace(/[^0-9]/g,'')">
+    </div>
+    <div class="customer-actions">
+      <button class="customer-primary" onclick="loadCustomerHistory()">🔎 Xem tài khoản</button>
+      <button class="customer-secondary" onclick="closeCustomer()">Đóng</button>
+    </div>
+    <div id="customerProfile" class="customer-profile"></div>
+    <div id="customerHistory" class="customer-history"></div>
+  </div>
 </div>
 
 <!-- CART MODAL -->
@@ -2569,6 +2603,106 @@ function closeWelcomePopup(){
 
     }
 
+}
+
+/* ==================================================
+   KHÁCH HÀNG / LỊCH SỬ ĐƠN HÀNG V1
+================================================== */
+const CUSTOMER_PROFILE_KEY = 'anvat_lamthao_customer_v1';
+
+function openCustomer(){
+  const modal=document.getElementById('customerModal');
+  if(!modal) return;
+  const saved=localStorage.getItem(CUSTOMER_PROFILE_KEY);
+  if(saved){
+    try{
+      const profile=JSON.parse(saved);
+      if(profile.phone) document.getElementById('customerLookupPhone').value=profile.phone;
+    }catch(e){}
+  }
+  modal.style.display='flex';
+  modal.setAttribute('aria-hidden','false');
+  const phone=document.getElementById('customerLookupPhone').value.trim();
+  if(phone) loadCustomerHistory();
+}
+
+function closeCustomer(){
+  const modal=document.getElementById('customerModal');
+  if(modal){modal.style.display='none';modal.setAttribute('aria-hidden','true');}
+}
+
+function escapeHtml(value){
+  return String(value==null?'':value).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+}
+
+function formatHistoryDate(value){
+  if(!value) return '';
+  try{
+    const d=new Date(value);
+    if(!Number.isNaN(d.getTime())) return d.toLocaleString('vi-VN');
+  }catch(e){}
+  return String(value);
+}
+
+async function loadCustomerHistory(){
+  const input=document.getElementById('customerLookupPhone');
+  const phone=(input?.value||'').trim();
+  const profileBox=document.getElementById('customerProfile');
+  const historyBox=document.getElementById('customerHistory');
+  if(!/^0\d{9}$/.test(phone)){
+    alert('📱 Vui lòng nhập đúng số điện thoại 10 chữ số.');
+    return;
+  }
+  historyBox.innerHTML='<div class="customer-loading">⏳ Đang tải lịch sử đơn hàng...</div>';
+  try{
+    const response=await fetch(GOOGLE_SCRIPT_URL+'?action=customerHistory&phone='+encodeURIComponent(phone),{cache:'no-store'});
+    if(!response.ok) throw new Error('HTTP '+response.status);
+    const data=await response.json();
+    if(!data || !data.success) throw new Error(data?.message||'Không lấy được dữ liệu');
+    localStorage.setItem(CUSTOMER_PROFILE_KEY,JSON.stringify({phone:phone,name:data.customer?.name||'',address:data.customer?.address||''}));
+    if(data.customer && (data.customer.name||data.customer.address)){
+      profileBox.style.display='block';
+      profileBox.innerHTML='<b>👋 '+escapeHtml(data.customer.name||'Khách hàng')+'</b>'+(data.customer.address?'<div style="margin-top:4px;font-size:12px;color:#7b6656">📍 '+escapeHtml(data.customer.address)+'</div>':'');
+    }else profileBox.style.display='none';
+    const orders=Array.isArray(data.orders)?data.orders:[];
+    if(!orders.length){
+      historyBox.innerHTML='<div class="history-title">📦 Đơn hàng của tôi</div><div class="history-empty">Chưa tìm thấy đơn hàng nào với số điện thoại này.</div>';
+      return;
+    }
+    historyBox.innerHTML='<div class="history-title">📦 Đơn hàng của tôi ('+orders.length+')</div>'+orders.map((o,index)=>{
+      const status=o.status||'Đã nhận đơn';
+      const total=Number(o.total||0);
+      return '<div class="history-item"><div class="history-top"><div><div class="history-code">'+escapeHtml(o.code)+'</div><div class="history-date">'+escapeHtml(formatHistoryDate(o.createdAt))+'</div></div><span class="history-status">'+escapeHtml(status)+'</span></div><div class="history-items">'+escapeHtml(o.items||'')+'</div><div class="history-total"><strong>'+money(total)+'</strong><button class="history-reorder" onclick="reorderHistoryItems('+index+')">🔄 Đặt lại</button></div></div>';
+    }).join('');
+    window.__customerOrders=orders;
+  }catch(error){
+    console.error(error);
+    historyBox.innerHTML='<div class="history-empty">❌ Không thể tải lịch sử đơn hàng. Hãy thử lại.</div>';
+  }
+}
+
+function reorderHistoryItems(index){
+  const order=window.__customerOrders?.[index];
+  if(!order) return;
+  reorderHistoryItemsData(order.items,order.quantities);
+}
+
+function reorderHistoryItemsData(items,quantities){
+  const names=String(items||'').split(',').map(x=>x.trim()).filter(Boolean);
+  const qtys=String(quantities||'').split(',').map(x=>Number(x.trim())||1);
+  let added=0;
+  names.forEach((raw,i)=>{
+    const name=raw.replace(/\s*x\d+$/i,'').trim();
+    const product=products.find(p=>String(p.name).trim()===name);
+    if(!product) return;
+    const qty=Math.max(1,qtys[i]||1);
+    const existing=cart.find(x=>x.id===product.id);
+    if(existing) existing.quantity+=qty; else cart.push({id:product.id,quantity:qty});
+    syncMenuQuantity(product.id); added++;
+  });
+  saveData(); updateCart();
+  if(added){alert('✅ Đã thêm lại đơn cũ vào giỏ hàng.');closeCustomer();openCart();}
+  else alert('⚠️ Không tìm thấy sản phẩm trong đơn cũ.');
 }
 
 /* ==================================================
