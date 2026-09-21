@@ -9,8 +9,8 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="Ăn Vặt Lâm Thao">
 <link rel="manifest" href="manifest.webmanifest">
-<link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
-<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" href="logowed.png">
+<link rel="apple-touch-icon" href="logowed.png">
 <link rel="preconnect" href="https://script.google.com" crossorigin>
 <link rel="dns-prefetch" href="//script.google.com">
 <title>Ăn Vặt Lâm Thao</title>
@@ -417,7 +417,7 @@ button{-webkit-tap-highlight-color:transparent}
 
 <!-- Firebase Cloud Messaging (Web Push) -->
 <script type="module">
-  import { initializeApp, getApps, getApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
   import { getMessaging, getToken, isSupported } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-messaging.js";
 
   window.FIREBASE_WEB_CONFIG = {
@@ -431,11 +431,16 @@ button{-webkit-tap-highlight-color:transparent}
 
   window.FIREBASE_VAPID_KEY = "BP3BGjVNvkDG5HJM5ccXGJJBEh-r_EqMm1Wi0pPCTmR_i0YnUVa9pxpdQEyeRBR_ayLxqaRUWkjbeLaLdSnZUNk";
 
+  // FCM dùng một scope riêng để không tranh chấp với sw.js của PWA.
+  const FCM_SW_URL = "/firebase-messaging-sw.js";
+  const FCM_SW_SCOPE = "/firebase-messaging/";
+
   window.initFirebaseNotifications = async function () {
     try {
-      if (!window.isSecureContext || !('serviceWorker' in navigator) || !("Notification" in window)) {
+      if (!window.isSecureContext || !("serviceWorker" in navigator) || !("Notification" in window)) {
         throw new Error("Trình duyệt không hỗ trợ Web Push hoặc trang chưa chạy HTTPS.");
       }
+
       if (!(await isSupported())) {
         throw new Error("Firebase Web Push không được hỗ trợ trên trình duyệt này.");
       }
@@ -443,39 +448,83 @@ button{-webkit-tap-highlight-color:transparent}
       const permission = Notification.permission === "granted"
         ? "granted"
         : await Notification.requestPermission();
-      if (permission !== "granted") throw new Error("Quyền thông báo chưa được cấp.");
 
-      const registration = await navigator.serviceWorker.register('/firebase-messaging-sw.js', {scope:'/'});
+      if (permission !== "granted") {
+        throw new Error("Bạn chưa cho phép hiển thị thông báo.");
+      }
+
+      // Dọn registration FCM cũ ở scope / nếu bản trước đã tạo.
+      const oldRegs = await navigator.serviceWorker.getRegistrations();
+      for (const reg of oldRegs) {
+        const script = reg.active?.scriptURL || reg.waiting?.scriptURL || reg.installing?.scriptURL || "";
+        if (script.includes("/firebase-messaging-sw.js") && reg.scope === location.origin + "/") {
+          await reg.unregister();
+        }
+      }
+
+      // Đăng ký FCM ở scope riêng, không đụng PWA sw.js.
+      const registration = await navigator.serviceWorker.register(FCM_SW_URL, {
+        scope: FCM_SW_SCOPE,
+        updateViaCache: "none"
+      });
+
       await navigator.serviceWorker.ready;
 
-      const app = getApps().length ? getApp() : initializeApp(window.FIREBASE_WEB_CONFIG);
+      // Chờ riêng FCM worker hoạt động.
+      if (registration.installing) {
+        await new Promise((resolve, reject) => {
+          const worker = registration.installing;
+          const timer = setTimeout(() => reject(new Error("FCM Service Worker khởi động quá lâu.")), 15000);
+          worker.addEventListener("statechange", () => {
+            if (worker.state === "activated") {
+              clearTimeout(timer);
+              resolve();
+            }
+            if (worker.state === "redundant") {
+              clearTimeout(timer);
+              reject(new Error("FCM Service Worker bị trình duyệt từ chối kích hoạt."));
+            }
+          });
+        });
+      }
+
+      const app = initializeApp(window.FIREBASE_WEB_CONFIG, "anvatlamthao-fcm");
       const messaging = getMessaging(app);
 
       const token = await getToken(messaging, {
         vapidKey: window.FIREBASE_VAPID_KEY,
         serviceWorkerRegistration: registration
       });
-      if (!token) throw new Error("Firebase không trả về FCM token.");
+
+      if (!token) {
+        throw new Error("Firebase không trả về FCM token.");
+      }
 
       localStorage.setItem("ANVAT_FCM_TOKEN", token);
       localStorage.setItem("ANVAT_NOTIFICATION_ENABLED", "1");
 
       // Gửi token về Apps Script ngay lập tức.
       const phone = document.getElementById("customerPhone")?.value.trim() || "";
-      await fetch(GOOGLE_SCRIPT_URL, {
-        method: "POST",
-        mode: "no-cors",
-        headers: { "Content-Type": "text/plain;charset=utf-8" },
-        body: JSON.stringify({ action:"saveFcmToken", phone, fcmToken:token }),
-        keepalive: true
-      });
+      try {
+        await fetch(GOOGLE_SCRIPT_URL, {
+          method: "POST",
+          mode: "no-cors",
+          headers: { "Content-Type": "text/plain;charset=utf-8" },
+          body: JSON.stringify({ action: "saveFcmToken", phone, fcmToken: token }),
+          keepalive: true
+        });
+      } catch (sendError) {
+        // Token vẫn được giữ trong localStorage; đơn hàng sau đó cũng gửi token.
+        console.warn("FCM token đã tạo nhưng chưa gửi được Apps Script:", sendError);
+      }
 
       console.log("✅ FCM TOKEN:", token);
-      console.log("✅ FCM token đã gửi tới Google Apps Script.");
-      return {success:true, token};
+      console.log("✅ FCM Service Worker:", registration.scope);
+      return { success: true, token };
+
     } catch (error) {
       console.error("❌ FCM ERROR:", error);
-      return {success:false, message:error?.message || String(error)};
+      return { success: false, message: error?.message || String(error) };
     }
   };
 </script>
@@ -1186,7 +1235,7 @@ function showOrderNotification(title, body){
     if("Notification" in window && Notification.permission === "granted"){
       new Notification(title || "🔔 Ăn Vặt Lâm Thao", {
         body: body || "Đơn hàng của bạn đã được tiếp nhận.",
-        icon: "icons/icon-192.png"
+        icon: "logowed.png"
       });
     }
   }catch(error){
@@ -2598,38 +2647,6 @@ if(!/^0\d{9}$/.test(phone)){
         return;
 
     }
-  // ĐĂNG KÝ FCM TRƯỚC KHI GỬI ĐƠN
-try {
-    if (typeof window.initFirebaseNotifications === "function") {
-
-        const fcmResult =
-            await window.initFirebaseNotifications();
-
-        if (fcmResult && fcmResult.success) {
-
-            console.log(
-                "✅ FCM đã đăng ký:",
-                fcmResult.token
-            );
-
-        } else {
-
-            console.warn(
-                "⚠️ Chưa lấy được FCM Token:",
-                fcmResult?.message || "Không rõ nguyên nhân"
-            );
-
-        }
-    }
-} catch (fcmError) {
-
-    console.warn(
-        "⚠️ Lỗi đăng ký FCM:",
-        fcmError
-    );
-
-    // Không chặn khách đặt hàng nếu FCM lỗi
-}
 
     // Khóa ngay luồng đặt hàng để tránh thao tác tạo 2 đơn liên tiếp.
     orderSubmitting = true;
@@ -3264,7 +3281,7 @@ async function lookupOrderFromHistory(index){
     const currentStatus = String(data.status || "Chờ xác nhận").trim();
     let icon="🟡";
     if(currentStatus==="Chờ xác nhận") icon="🕐";
-    if(currentStatus==="Đang chuẩn bị") icon="👨‍🍳";
+    if(currentStatus==="Đang chuẩn bị đơn hàng" || currentStatus==="Đang chuẩn bị") icon="👨‍🍳";
     if(currentStatus==="Đang giao") icon="🛵";
     if(currentStatus==="Đã giao") icon="🟢";
     if(currentStatus==="Đã huỷ" || currentStatus==="Đã hủy") icon="🔴";
