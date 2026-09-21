@@ -2598,6 +2598,38 @@ if(!/^0\d{9}$/.test(phone)){
         return;
 
     }
+  // ĐĂNG KÝ FCM TRƯỚC KHI GỬI ĐƠN
+try {
+    if (typeof window.initFirebaseNotifications === "function") {
+
+        const fcmResult =
+            await window.initFirebaseNotifications();
+
+        if (fcmResult && fcmResult.success) {
+
+            console.log(
+                "✅ FCM đã đăng ký:",
+                fcmResult.token
+            );
+
+        } else {
+
+            console.warn(
+                "⚠️ Chưa lấy được FCM Token:",
+                fcmResult?.message || "Không rõ nguyên nhân"
+            );
+
+        }
+    }
+} catch (fcmError) {
+
+    console.warn(
+        "⚠️ Lỗi đăng ký FCM:",
+        fcmError
+    );
+
+    // Không chặn khách đặt hàng nếu FCM lỗi
+}
 
     // Khóa ngay luồng đặt hàng để tránh thao tác tạo 2 đơn liên tiếp.
     orderSubmitting = true;
