@@ -810,6 +810,33 @@ header::after{
 }
 </style>
 
+
+<style>
+/* ===== THANH HEADER + DANH MỤC LUÔN ĐI THEO KHI CUỘN ===== */
+header{
+  position:sticky!important;
+  top:0!important;
+  z-index:1000!important;
+}
+.category-menu{
+  position:sticky!important;
+  top:74px!important;
+  z-index:900!important;
+  background:#fff!important;
+  box-shadow:0 5px 14px rgba(91,58,37,.10)!important;
+}
+@media(max-width:800px){
+  header{position:sticky!important;top:0!important;z-index:1000!important;}
+  .category-menu{
+    position:sticky!important;
+    top:68px!important;
+    z-index:900!important;
+  }
+}
+@media(max-width:520px){
+  .category-menu{top:66px!important;}
+}
+</style>
 </head>
 <body>
 
