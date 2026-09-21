@@ -129,6 +129,10 @@ header{background:rgba(255,250,243,.96);border-bottom:1px solid #eadbca;box-shad
 .order-history-detail-row b{color:#49352a}
 .order-history-items{white-space:pre-line;color:#5f5148}
 .order-history-error{margin-top:12px;padding:10px;border-radius:10px;background:#fff0ed;color:#b42318;font-size:13px;line-height:1.5}
+.order-history-live-note{margin-top:12px;padding:9px 10px;border-radius:10px;background:#f8f1e8;color:#7b6658;font-size:11px;line-height:1.45}
+.order-history-refresh{width:100%;margin-top:10px;border:1px solid #d8bda4;background:#fffaf5;color:#7e472a;border-radius:10px;padding:9px 12px;font-weight:800;cursor:pointer}
+.order-history-refresh:hover{background:#f8eadc}
+
 @media(max-width:640px){
   .order-history-card-top{align-items:flex-start}
   .order-history-lookup{padding:8px 10px}
@@ -3029,16 +3033,18 @@ async function lookupOrderFromHistory(index){
       return;
     }
 
+    const currentStatus = String(data.status || "Chờ xác nhận").trim();
     let icon="🟡";
-    if(data.status==="Đang chuẩn bị") icon="🔵";
-    if(data.status==="Đang giao") icon="🛵";
-    if(data.status==="Đã giao") icon="🟢";
-    if(data.status==="Đã huỷ" || data.status==="Đã hủy") icon="🔴";
+    if(currentStatus==="Chờ xác nhận") icon="🕐";
+    if(currentStatus==="Đang chuẩn bị") icon="👨‍🍳";
+    if(currentStatus==="Đang giao") icon="🛵";
+    if(currentStatus==="Đã giao") icon="🟢";
+    if(currentStatus==="Đã huỷ" || currentStatus==="Đã hủy") icon="🔴";
 
     detail.innerHTML=`
       <div class="order-history-detail-title">
         <b>📦 ${escapeOrderHistoryHtml(data.code || order.code)}</b>
-        <span class="order-history-status">${icon} ${escapeOrderHistoryHtml(data.status || "Đang xử lý")}</span>
+        <span class="order-history-status">${icon} ${escapeOrderHistoryHtml(currentStatus)}</span>
       </div>
 
       <div class="order-history-detail-row">
@@ -3054,7 +3060,17 @@ async function lookupOrderFromHistory(index){
       <div class="order-history-detail-row">
         <b>💰 Tổng tiền:</b>
         ${Number(data.total || order.total || 0).toLocaleString("vi-VN")}đ
-      </div>`;
+      </div>
+
+      <div class="order-history-live-note">
+        🔄 Trạng thái được lấy trực tiếp từ Google Sheet. Bạn có thể bấm tra cứu lại để xem cập nhật mới nhất.
+      </div>
+
+      <button type="button"
+              class="order-history-refresh"
+              onclick="lookupOrderFromHistory(${index})">
+        🔄 Cập nhật trạng thái
+      </button>`;
   }catch(e){
     detail.innerHTML=`
       <div class="order-history-detail-title">
