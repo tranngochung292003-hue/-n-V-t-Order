@@ -1,14 +1,15 @@
 importScripts('https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js');
 importScripts('https://www.gstatic.com/firebasejs/10.14.1/firebase-messaging-compat.js');
 
-firebase.initializeApp({
-  apiKey: "ĐIỀN_API_KEY",
-  authDomain: "ĐIỀN_AUTH_DOMAIN",
-  projectId: "ĐIỀN_PROJECT_ID",
-  storageBucket: "ĐIỀN_STORAGE_BUCKET",
-  messagingSenderId: "ĐIỀN_MESSAGING_SENDER_ID",
-  appId: "ĐIỀN_APP_ID"
-});
+const firebaseConfig = {
+  apiKey: "AIzaSyALoTwRXs-ddu6756M8Dj6RGeb1aNloWnc",
+  authDomain: "anvatlamthao.firebaseapp.com",
+  projectId: "anvatlamthao",
+  storageBucket: "anvatlamthao.firebasestorage.app",
+  messagingSenderId: "1018828516701",
+  appId: "1:1018828516701:web:59c3c36e414a14d9858cb4",
+  measurementId: "G-J3D5VC2CJZ"
+};
 
 const messaging = firebase.messaging();
 
