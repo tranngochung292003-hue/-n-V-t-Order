@@ -25,8 +25,8 @@ messaging.onBackgroundMessage(function(payload) {
     body:
       payload.notification?.body ||
       'Bạn có thông báo mới.',
-    icon: '/icon-192.png',
-    badge: '/icon-192.png',
+    icon: '/icons/icon-192.png',
+    badge: '/icons/icon-192.png',
     data: payload.data || {}
   };
 
@@ -44,6 +44,7 @@ self.addEventListener('notificationclick', function(event) {
       type: 'window',
       includeUncontrolled: true
     }).then(function(clientList) {
+
       for (const client of clientList) {
         if ('focus' in client) {
           return client.focus();
@@ -53,6 +54,7 @@ self.addEventListener('notificationclick', function(event) {
       if (clients.openWindow) {
         return clients.openWindow('/');
       }
+
     })
   );
 });
