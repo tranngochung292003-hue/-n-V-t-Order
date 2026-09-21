@@ -1,83 +1,58 @@
-// firebase-messaging-sw.js
-// Service Worker riêng cho Firebase Cloud Messaging
+importScripts('https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js');
+importScripts('https://www.gstatic.com/firebasejs/10.14.1/firebase-messaging-compat.js');
 
-importScripts(
-  "https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"
-);
-importScripts(
-  "https://www.gstatic.com/firebasejs/10.12.2/firebase-messaging-compat.js"
-);
-
-const firebaseConfig = {
-  apiKey: "AIzaSyALoTwRX-s-ddu6756M8Dj6RGeb1aN1oWnc",
+firebase.initializeApp({
+  apiKey: "AIzaSyALoTwRXs-ddu6756M8Dj6RGeb1aNloWnc",
   authDomain: "anvatlamthao.firebaseapp.com",
   projectId: "anvatlamthao",
   storageBucket: "anvatlamthao.firebasestorage.app",
   messagingSenderId: "1018828516701",
   appId: "1:1018828516701:web:59c3c36e414a14d9858cb4"
-};
-
-firebase.initializeApp(firebaseConfig);
+});
 
 const messaging = firebase.messaging();
 
-/**
- * Nhận thông báo khi website đang đóng hoặc chạy nền
- */
-messaging.onBackgroundMessage(function (payload) {
+messaging.onBackgroundMessage(function(payload) {
   console.log(
-    "[firebase-messaging-sw.js] Nhận thông báo:",
+    '[firebase-messaging-sw.js] Nhận thông báo:',
     payload
   );
 
   const notificationTitle =
-    (payload.notification && payload.notification.title) ||
-    "Ăn Vặt Lâm Thao";
-
-  const notificationBody =
-    (payload.notification && payload.notification.body) ||
-    "Bạn có thông báo mới.";
+    payload.notification?.title || 'Ăn Vặt Lâm Thao';
 
   const notificationOptions = {
-    body: notificationBody,
-
-    icon: "/logowed.png",
-    badge: "/logowed.png",
-
-    data: payload.data || {},
-
-    // Mỗi lần cập nhật trạng thái tạo một thông báo mới
-    renotify: true
+    body:
+      payload.notification?.body ||
+      'Bạn có thông báo mới.',
+    icon: '/icons/icon-192.png',
+    badge: '/icons/icon-192.png',
+    data: payload.data || {}
   };
 
-  return self.registration.showNotification(
+  self.registration.showNotification(
     notificationTitle,
     notificationOptions
   );
 });
 
-/**
- * Khi khách bấm vào thông báo
- */
-self.addEventListener("notificationclick", function (event) {
+self.addEventListener('notificationclick', function(event) {
   event.notification.close();
 
   event.waitUntil(
     clients.matchAll({
-      type: "window",
+      type: 'window',
       includeUncontrolled: true
-    }).then(function (clientList) {
+    }).then(function(clientList) {
 
-      // Nếu website đang mở thì đưa khách về website
       for (const client of clientList) {
-        if ("focus" in client) {
+        if ('focus' in client) {
           return client.focus();
         }
       }
 
-      // Nếu website chưa mở thì mở website
       if (clients.openWindow) {
-        return clients.openWindow("/");
+        return clients.openWindow('/');
       }
 
     })
