@@ -2803,9 +2803,7 @@ const payload = {
         new Date()
             .toLocaleString("vi-VN"),
 
-    // Token FCM (nếu người dùng đã cho phép thông báo).
-    // Apps Script dùng token này cho thông báo đơn mới.
-    // Email đơn hàng được gửi phía Apps Script, không gửi trực tiếp từ HTML.
+    // Token FCM (nếu người dùng đã cho phép thông báo)
     fcmToken:
         localStorage.getItem("ANVAT_FCM_TOKEN") || ""
 
