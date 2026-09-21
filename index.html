@@ -2960,7 +2960,15 @@ function renderOrderHistory(){
   const empty=document.getElementById("orderHistoryEmpty");
   if(!list || !empty) return;
 
-  const history=getOrderHistory();
+  // Loại bỏ mã đơn trùng nhau khi hiển thị lịch sử cũ.
+  const rawHistory=getOrderHistory();
+  const seenCodes=new Set();
+  const history=rawHistory.filter(order=>{
+    const code=String(order && order.code || '').trim().toUpperCase();
+    if(!code || seenCodes.has(code)) return false;
+    seenCodes.add(code);
+    return true;
+  });
 
   if(!history.length){
     list.innerHTML="";
@@ -3013,10 +3021,11 @@ async function lookupOrderFromHistory(index){
   detail.scrollIntoView({behavior:"smooth",block:"nearest"});
 
   try{
+    // Lịch sử đơn hàng tra cứu trực tiếp bằng Mã Đơn.
+    // Không bắt buộc số điện thoại để tránh lỗi định dạng số 0 / số điện thoại cũ.
     const url=GOOGLE_SCRIPT_URL+
       "?action=getOrderStatus"+
-      "&code="+encodeURIComponent(order.code)+
-      "&phone="+encodeURIComponent(order.phone || "");
+      "&code="+encodeURIComponent(order.code);
 
     const res=await fetch(url);
     const data=await res.json();
@@ -3088,15 +3097,14 @@ async function checkOrderStatus(code,phone){
   const orderCode=(code || document.getElementById("trackOrderCode")?.value || "").trim();
   const orderPhone=(phone || document.getElementById("trackOrderPhone")?.value || "").trim();
 
-  if(!orderCode || !orderPhone){
+  if(!orderCode){
     return;
   }
 
   try{
     const url=GOOGLE_SCRIPT_URL+
       "?action=getOrderStatus"+
-      "&code="+encodeURIComponent(orderCode)+
-      "&phone="+encodeURIComponent(orderPhone);
+      "&code="+encodeURIComponent(orderCode);
 
     const res=await fetch(url);
     const data=await res.json();
