@@ -1266,7 +1266,19 @@ function showOrderNotification(title, body){
   }
 }
 
-document.addEventListener("DOMContentLoaded", updateNotificationPermissionUI);
+document.addEventListener("DOMContentLoaded", function(){
+  updateNotificationPermissionUI();
+
+  // Nút cho phép thông báo luôn hiển thị khi website được load,
+  // không phụ thuộc việc khách đã mở form đặt hàng hay chưa.
+  const bar = document.getElementById("notificationPermissionBar");
+  const header = document.querySelector("header");
+  if(bar && header && bar.parentElement?.id === "orderModal"){
+    header.insertAdjacentElement("afterend", bar);
+    bar.style.maxWidth = "1180px";
+    bar.style.margin = "10px auto";
+  }
+});
 
 /* ==================================================
    GOOGLE APPS SCRIPT
