@@ -21,7 +21,7 @@ html,body{touch-action:manipulation}
 :root{--brand:#8b5e3c;--brand-dark:#6f472c;--brand-soft:#f3e7d8;--text:#3d3028;--border:#eadfd5;--bg:#f6efe7;--white:#fff;--cream:#fffaf5}
 body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;font-size:15px;line-height:1.5}
 button,input,textarea{font-family:inherit}button{cursor:pointer}a{text-decoration:none}
-header{background:rgba(255,250,245,.96);border-bottom:1px solid var(--border);padding:12px 18px;position:relative;top:auto;z-index:100;backdrop-filter:blur(10px)}
+header{background:rgba(255,250,245,.96);border-bottom:1px solid var(--border);padding:12px 18px;position:sticky;top:0;z-index:100;backdrop-filter:blur(10px)}
 .header-inner{max-width:1180px;margin:auto;display:flex;align-items:center;justify-content:center;gap:16px}.logo{font-size:22px;font-weight:800;color:#5b3a25;white-space:nowrap}
 .hero{max-width:1180px;margin:16px auto 10px;padding:25px 20px;background:linear-gradient(135deg,#fffaf5,#f1e2d2);border:1px solid var(--border);border-radius:18px;text-align:center;box-shadow:0 5px 22px rgba(91,58,37,.08)}
 .hero h1{font-size:30px;line-height:1.2;color:#5b3a25;margin-bottom:8px;font-weight:850}.hero p{color:#666;font-size:14px;line-height:1.7}.hotline-white{color:var(--brand);font-weight:800}
@@ -57,32 +57,6 @@ header{background:rgba(255,250,245,.96);border-bottom:1px solid var(--border);pa
  .notification-permission{align-items:flex-start}
  .notification-permission-btn{padding:8px 10px}
  .notification-permission-text small{font-size:10px}
-}
-
-/* ===== THANH QUYỀN VỊ TRÍ + THÔNG BÁO ===== */
-.permission-action-panel{
-  margin-top:12px;padding:13px;border:2px solid #f0b429;border-radius:16px;
-  background:linear-gradient(135deg,#fff8dc 0%,#fff3e0 48%,#fff7f0 100%);
-  box-shadow:0 7px 20px rgba(194,125,20,.16);
-}
-.permission-action-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:10px}
-.permission-action-title{font-weight:900;color:#7a3e00;font-size:14px}
-.permission-action-note{font-size:11px;color:#8a6b52;font-weight:700}
-.permission-action-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}
-.permission-action-btn{width:100%!important;min-height:46px!important;border-radius:12px!important;font-weight:900!important}
-.location-required-btn{background:linear-gradient(135deg,#ff8f00,#ff5b00)!important;color:#fff!important;border:0!important;box-shadow:0 5px 14px rgba(255,105,0,.24)}
-.location-required-btn.location-ok{background:linear-gradient(135deg,#16a34a,#15803d)!important}
-.notification-permission-btn{background:linear-gradient(135deg,#7c3aed,#ec4899)!important;color:#fff!important;border:0!important;box-shadow:0 5px 14px rgba(124,58,237,.22)}
-.notification-permission-btn.enabled{background:linear-gradient(135deg,#16a34a,#15803d)!important}
-.permission-status-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:9px}
-.permission-status{display:block;padding:7px 9px;border-radius:9px;font-size:11px;font-weight:800;text-align:center;background:#fff;border:1px solid #ead9c7}
-.location-status{color:#a15c00}.location-status.ok{color:#15803d;background:#effcf3;border-color:#b8e2c2}
-.notification-status{color:#8a5a00}.notification-status.ok{color:#15803d;background:#effcf3;border-color:#b8e2c2}
-@media(max-width:640px){
- .permission-action-head{align-items:flex-start;flex-direction:column;gap:3px}
- .permission-action-grid{grid-template-columns:1fr}
- .permission-status-row{grid-template-columns:1fr}
- .permission-action-btn{min-height:48px!important;font-size:13px!important}
 }
 
 .location-btn{width:100%;border:1px solid var(--brand);background:#fff;color:var(--brand);padding:11px;border-radius:8px;font-size:14px;font-weight:800}
@@ -648,39 +622,59 @@ button{-webkit-tap-highlight-color:transparent}
         throw new Error("Bạn chưa cho phép hiển thị thông báo.");
       }
 
-      // Ưu tiên dùng registration FCM đã có sẵn để không phải cài lại mỗi lần.
-      // Đây là phần giúp nút “Cho phép thông báo” phản hồi nhanh hơn rõ rệt ở các lần sau.
-      let registration = await navigator.serviceWorker.getRegistration(FCM_SW_SCOPE);
+      // Dọn registration FCM cũ ở scope / nếu bản trước đã tạo.
+      const oldRegs = await navigator.serviceWorker.getRegistrations();
+      for (const reg of oldRegs) {
+        const script = reg.active?.scriptURL || reg.waiting?.scriptURL || reg.installing?.scriptURL || "";
+        if (script.includes("/firebase-messaging-sw.js") && reg.scope === location.origin + "/") {
+          await reg.unregister();
+        }
+      }
 
-      if (!registration) {
-        registration = await navigator.serviceWorker.register(FCM_SW_URL, {
-          scope: FCM_SW_SCOPE,
-          updateViaCache: "none"
+      // Đăng ký FCM ở scope riêng, không đụng PWA sw.js.
+      const registration = await navigator.serviceWorker.register(FCM_SW_URL, {
+        scope: FCM_SW_SCOPE,
+        updateViaCache: "none"
+      });
+
+      // Chờ riêng FCM worker hoạt động.
+      if (registration.installing) {
+        await new Promise((resolve, reject) => {
+          const worker = registration.installing;
+          const timer = setTimeout(() => reject(new Error("FCM Service Worker khởi động quá lâu.")), 15000);
+          worker.addEventListener("statechange", () => {
+            if (worker.state === "activated") {
+              clearTimeout(timer);
+              resolve();
+            }
+            if (worker.state === "redundant") {
+              clearTimeout(timer);
+              reject(new Error("FCM Service Worker bị trình duyệt từ chối kích hoạt."));
+            }
+          });
         });
       }
 
-      // Chỉ chờ khi worker thật sự chưa active. Nếu đã active thì đi thẳng tới getToken().
+      // Chỉ chờ đúng FCM Service Worker, không chờ service worker PWA chung.
       if (!registration.active) {
-        const worker = registration.installing || registration.waiting;
-        if (!worker) {
-          throw new Error("Không tìm thấy FCM Service Worker.");
-        }
-
         await new Promise((resolve, reject) => {
+          const worker = registration.installing || registration.waiting;
+          if (!worker) {
+            reject(new Error("Không tìm thấy FCM Service Worker."));
+            return;
+          }
           const timer = setTimeout(() => {
-            reject(new Error("FCM Service Worker khởi động quá lâu. Hãy thử lại."));
-          }, 8000);
-
+            reject(new Error("FCM Service Worker khởi động quá lâu."));
+          }, 15000);
           const check = () => {
-            if (worker.state === "activated" || registration.active) {
+            if (worker.state === "activated") {
               clearTimeout(timer);
               resolve();
             } else if (worker.state === "redundant") {
               clearTimeout(timer);
-              reject(new Error("FCM Service Worker không thể kích hoạt."));
+              reject(new Error("FCM Service Worker bị trình duyệt từ chối kích hoạt."));
             }
           };
-
           worker.addEventListener("statechange", check);
           check();
         });
@@ -698,21 +692,23 @@ button{-webkit-tap-highlight-color:transparent}
         throw new Error("Firebase không trả về FCM token.");
       }
 
-      // Lưu token trước để website có thể dùng NGAY cho đơn hàng tiếp theo.
       localStorage.setItem("ANVAT_FCM_TOKEN", token);
       localStorage.setItem("ANVAT_NOTIFICATION_ENABLED", "1");
 
-      // Không chờ Apps Script phản hồi: gửi token nền để nút “Cho phép” kết thúc nhanh hơn.
+      // Gửi token về Apps Script ngay lập tức.
       const phone = document.getElementById("customerPhone")?.value.trim() || "";
-      fetch(GOOGLE_SCRIPT_URL, {
-        method: "POST",
-        mode: "no-cors",
-        headers: { "Content-Type": "text/plain;charset=utf-8" },
-        body: JSON.stringify({ action: "saveFcmToken", phone, fcmToken: token }),
-        keepalive: true
-      }).catch(sendError => {
+      try {
+        await fetch(GOOGLE_SCRIPT_URL, {
+          method: "POST",
+          mode: "no-cors",
+          headers: { "Content-Type": "text/plain;charset=utf-8" },
+          body: JSON.stringify({ action: "saveFcmToken", phone, fcmToken: token }),
+          keepalive: true
+        });
+      } catch (sendError) {
+        // Token vẫn được giữ trong localStorage; đơn hàng sau đó cũng gửi token.
         console.warn("FCM token đã tạo nhưng chưa gửi được Apps Script:", sendError);
-      });
+      }
 
       console.log("✅ FCM TOKEN:", token);
       console.log("✅ FCM Service Worker:", registration.scope);
@@ -750,91 +746,6 @@ button{-webkit-tap-highlight-color:transparent}
 @media(max-width:520px){
   .order-history-detail-inline{padding:12px;margin-top:10px}
   .order-history-card .order-history-detail-title{align-items:flex-start;flex-direction:column;gap:5px}
-}
-</style>
-
-<style>
-/* ===== HEADER BANNER NỔI BẬT ===== */
-header{
-  position:relative!important;
-  overflow:hidden!important;
-  padding:10px 12px!important;
-  background:linear-gradient(135deg,#7f1d1d 0%,#c2410c 42%,#f59e0b 100%)!important;
-  box-shadow:0 5px 20px rgba(126,45,12,.22)!important;
-}
-header::before{
-  content:"";position:absolute;inset:-70px auto auto -40px;width:230px;height:150px;
-  background:radial-gradient(circle,rgba(255,255,255,.25),transparent 68%);
-  pointer-events:none;
-}
-header::after{
-  content:"";position:absolute;right:-70px;top:-95px;width:260px;height:190px;
-  background:radial-gradient(circle,rgba(255,224,138,.30),transparent 68%);
-  pointer-events:none;
-}
-.header-inner{
-  position:relative!important;z-index:1!important;
-  padding:7px 9px!important;
-  border:1px solid rgba(255,255,255,.28)!important;
-  border-radius:18px!important;
-  background:rgba(255,255,255,.13)!important;
-  backdrop-filter:blur(10px)!important;
-  -webkit-backdrop-filter:blur(10px)!important;
-  box-shadow:0 7px 24px rgba(74,20,0,.18)!important;
-}
-.header-search{
-  background:#fffdf9!important;
-  border:2px solid rgba(255,205,130,.9)!important;
-  box-shadow:0 4px 14px rgba(79,31,0,.14),inset 0 1px 0 #fff!important;
-}
-.header-search span{filter:saturate(1.35)!important}
-.header-search input::placeholder{color:#98715b!important}
-.order-tracker-btn{
-  background:linear-gradient(135deg,#fff7ed,#ffe1b3)!important;
-  border:2px solid rgba(255,255,255,.85)!important;
-  color:#7c2d12!important;
-  box-shadow:0 4px 13px rgba(80,25,0,.18)!important;
-  transition:transform .18s ease,box-shadow .18s ease!important;
-}
-.order-tracker-btn:hover{
-  background:linear-gradient(135deg,#fff,#ffd48a)!important;
-  transform:translateY(-1px)!important;
-  box-shadow:0 7px 17px rgba(80,25,0,.24)!important;
-}
-.logo{filter:drop-shadow(0 3px 6px rgba(60,20,0,.22))!important}
-@media(max-width:800px){
-  header{padding:6px 7px!important}
-  .header-inner{border-radius:16px!important;padding:5px 6px!important}
-  .header-search{border-width:2px!important}
-  .order-tracker-btn{border-width:2px!important}
-}
-</style>
-
-
-<style>
-/* ===== THANH HEADER + DANH MỤC LUÔN ĐI THEO KHI CUỘN ===== */
-header{
-  position:sticky!important;
-  top:0!important;
-  z-index:1000!important;
-}
-.category-menu{
-  position:sticky!important;
-  top:74px!important;
-  z-index:900!important;
-  background:#fff!important;
-  box-shadow:0 5px 14px rgba(91,58,37,.10)!important;
-}
-@media(max-width:800px){
-  header{position:sticky!important;top:0!important;z-index:1000!important;}
-  .category-menu{
-    position:sticky!important;
-    top:68px!important;
-    z-index:900!important;
-  }
-}
-@media(max-width:520px){
-  .category-menu{top:66px!important;}
 }
 </style>
 </head>
@@ -1257,23 +1168,19 @@ header{
   <input type="hidden" id="customerAddress" value="">
 </div>
 
-<div class="permission-action-panel">
-  <div class="permission-action-head">
-    <span class="permission-action-title">📍 Thông tin giao hàng</span>
-    <span class="permission-action-note">Vị trí là bắt buộc · Thông báo là tùy chọn</span>
+<div class="form-group">
+  <button type="button" class="location-btn" onclick="getLocation()">📍 Gửi vị trí hiện tại</button>
+</div>
+
+<div class="notification-permission" id="notificationPermissionBar">
+  <div class="notification-permission-text">
+    <span class="notification-permission-icon">🔔</span>
+    <div>
+      <b>Cho phép hiển thị thông báo</b>
+      <small>Nhận thông báo khi quán cập nhật đơn hàng.</small>
+    </div>
   </div>
-  <div class="permission-action-grid">
-    <button type="button" id="locationPermissionBtn" class="location-btn permission-action-btn location-required-btn" onclick="getLocation()">
-      📍 Gửi vị trí hiện tại
-    </button>
-    <button type="button" id="notificationPermissionBtn" class="notification-permission-btn permission-action-btn" onclick="enableNotifications()">
-      🔔 Cho phép hiển thị thông báo
-    </button>
-  </div>
-  <div class="permission-status-row">
-    <span id="locationPermissionStatus" class="permission-status location-status">📍 Chưa cấp vị trí</span>
-    <span id="notificationPermissionStatus" class="permission-status notification-status">🔔 Thông báo chưa bật</span>
-  </div>
+  <button type="button" id="notificationPermissionBtn" class="notification-permission-btn" onclick="enableNotifications()">🔔 Cho phép thông báo</button>
 </div>
 
 <input type="hidden" id="latitude">
@@ -1471,7 +1378,6 @@ function getLocation(){
             document.getElementById("longitude").value =
                 longitude.toFixed(7);
 
-            updatePermissionUI();
             alert(
                 "✅ Đã lấy vị trí thành công!\n\n" +
                 "Bạn có thể tiếp tục đặt hàng."
@@ -1481,7 +1387,6 @@ function getLocation(){
 
         function(error){
 
-            updatePermissionUI();
             alert(
                 "❌ Bạn chưa cho phép truy cập vị trí.\n\n" +
                 "Vui lòng cho phép định vị để có thể đặt hàng."
@@ -1502,34 +1407,40 @@ function getLocation(){
 /* ==================================================
    THÔNG BÁO ĐƠN HÀNG
 ================================================== */
-function updatePermissionUI(){
-  const locBtn=document.getElementById("locationPermissionBtn");
-  const locStatus=document.getElementById("locationPermissionStatus");
-  const notiBtn=document.getElementById("notificationPermissionBtn");
-  const notiStatus=document.getElementById("notificationPermissionStatus");
-  const hasLocation=!!(document.getElementById("latitude")?.value && document.getElementById("longitude")?.value);
+function updateNotificationPermissionUI(message){
+  const btn = document.getElementById("notificationPermissionBtn");
+  const bar = document.getElementById("notificationPermissionBar");
+  if(!btn || !bar) return;
 
-  if(locBtn){
-    locBtn.classList.toggle("location-ok",hasLocation);
-    locBtn.textContent=hasLocation ? "✅ Đã gửi vị trí · Gửi lại" : "📍 Gửi vị trí hiện tại";
-  }
-  if(locStatus){
-    locStatus.textContent=hasLocation ? "📍 Đã cấp vị trí" : "📍 Chưa cấp vị trí";
-    locStatus.classList.toggle("ok",hasLocation);
+  if(!("Notification" in window)){
+    btn.textContent = "Không hỗ trợ";
+    btn.disabled = true;
+    return;
   }
 
-  if(notiBtn && notiStatus){
-    if(!("Notification" in window)){
-      notiBtn.textContent="🔔 Không hỗ trợ"; notiBtn.disabled=true; notiStatus.textContent="🔔 Trình duyệt không hỗ trợ"; return;
-    }
-    const hasToken=!!localStorage.getItem("ANVAT_FCM_TOKEN");
-    const enabled=Notification.permission==="granted" && hasToken;
-    notiBtn.disabled=false;
-    notiBtn.classList.toggle("enabled",enabled);
-    notiBtn.textContent=enabled ? "✅ Thông báo đã bật" : "🔔 Cho phép hiển thị thông báo";
-    notiStatus.textContent=enabled ? "🔔 Đã bật thông báo" : (Notification.permission==="denied" ? "🔕 Thông báo bị chặn · vẫn đặt hàng bình thường" : "🔔 Thông báo chưa bật · tùy chọn");
-    notiStatus.classList.toggle("ok",enabled);
+  const hasToken = !!localStorage.getItem("ANVAT_FCM_TOKEN");
+  if(Notification.permission === "granted" && hasToken){
+    btn.textContent = "✅ Đã đăng ký";
+    btn.classList.add("enabled");
+    btn.disabled = false;
+    return;
   }
+  if(Notification.permission === "granted" && !hasToken){
+    btn.textContent = "🔔 Cho phép thông báo";
+    btn.classList.remove("enabled");
+    btn.disabled = false;
+    return;
+  }
+
+  if(Notification.permission === "denied"){
+    btn.textContent = "Bị chặn";
+    btn.disabled = false;
+    return;
+  }
+
+  btn.textContent = "Cho phép";
+  btn.classList.remove("enabled");
+  btn.disabled = false;
 }
 
 async function enableNotifications(){
@@ -1538,15 +1449,15 @@ async function enableNotifications(){
   try{
     const result = await window.initFirebaseNotifications();
     if(result.success){
-      updatePermissionUI();
+      updateNotificationPermissionUI();
       alert("✅ Đã bật thông báo thành công. Bạn sẽ nhận được cập nhật đơn hàng từ quán.");
     }else{
-      updatePermissionUI();
+      updateNotificationPermissionUI();
       alert("❌ Chưa bật được thông báo.\n\n" + result.message);
     }
   }catch(error){
     console.error("FCM enable error:", error);
-    updatePermissionUI();
+    updateNotificationPermissionUI();
     alert("❌ Lỗi khi bật thông báo: " + (error?.message || error));
   }finally{
     if(btn) btn.disabled=false;
@@ -1566,7 +1477,7 @@ function showOrderNotification(title, body){
   }
 }
 
-document.addEventListener("DOMContentLoaded", updatePermissionUI);
+document.addEventListener("DOMContentLoaded", updateNotificationPermissionUI);
 
 /* ==================================================
    GOOGLE APPS SCRIPT
@@ -2939,13 +2850,10 @@ const longitude =
 if(!latitude || !longitude){
 
     alert(
-        "📍 Vui lòng cho phép truy cập vị trí trước khi đặt hàng.\n\n" +
-        "Bạn phải bấm \"📍 Gửi vị trí hiện tại\" và cho phép định vị.\n" +
-        "🔔 Thông báo là tùy chọn, không bắt buộc."
+        "📍 Vui lòng cho phép truy cập vị trí " +
+        "trước khi đặt hàng."
     );
 
-    unlockOrderButton();
-    updatePermissionUI();
     return;
 }
 
@@ -3405,7 +3313,7 @@ loadProducts();
 setTimeout(openWelcomePopup, 350);
 
 
-updatePermissionUI();
+updateNotificationPermissionUI();
 
 /* ==================================================
    PWA
