@@ -9,8 +9,8 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="Ăn Vặt Lâm Thao">
 <link rel="manifest" href="manifest.webmanifest">
-<link rel="icon" type="image/png" href="logowed.png">
-<link rel="apple-touch-icon" href="logowed.png">
+<link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
 <link rel="preconnect" href="https://script.google.com" crossorigin>
 <link rel="dns-prefetch" href="//script.google.com">
 <title>Ăn Vặt Lâm Thao</title>
@@ -332,108 +332,6 @@ button{-webkit-tap-highlight-color:transparent}
 .pwa-install-hint button{margin-top:7px;border:0;background:#8b5e3c;color:#fff;border-radius:9px;padding:7px 10px;font-weight:800}
 @media(max-width:800px){.pwa-install-btn{font-size:11px;padding:8px 10px}.pwa-install-hint{bottom:74px;left:10px;right:10px;max-width:none}}
 
-
-
-/* ===== ORDER SUCCESS: NỔI BẬT + HƯỚNG DẪN THEO DÕI ===== */
-.success-modal{
-  background:rgba(35,22,15,.72)!important;
-  backdrop-filter:blur(3px);
-}
-.success-box{
-  max-width:430px!important;
-  border:2px solid #d8ad83!important;
-  border-radius:26px!important;
-  padding:28px 22px 20px!important;
-  box-shadow:0 25px 80px rgba(55,35,23,.38)!important;
-  animation:successPop .32s ease!important;
-}
-.success-check{
-  width:72px!important;
-  height:72px!important;
-  font-size:39px!important;
-  background:linear-gradient(145deg,#a96f46,#765039)!important;
-  box-shadow:0 12px 28px rgba(111,71,44,.30)!important;
-}
-.success-box h2{
-  font-size:27px!important;
-  color:#4b2f20!important;
-}
-.success-thanks{
-  background:#fff7ee!important;
-  border:1px solid #ecd2b8!important;
-  font-size:13.5px!important;
-}
-.order-code-card{
-  background:linear-gradient(135deg,#f8eadb,#fff8f0)!important;
-  border:2px dashed #c7956d!important;
-  box-shadow:0 5px 15px rgba(139,94,60,.08);
-}
-.order-code-card strong{
-  font-size:30px!important;
-}
-.success-track-guide{
-  margin:14px 0 12px;
-  padding:14px;
-  text-align:left;
-  background:linear-gradient(135deg,#fffaf4,#f8eee3);
-  border:1px solid #e5cdb7;
-  border-radius:16px;
-}
-.success-track-title{
-  color:#6f472c;
-  font-size:15px;
-  font-weight:900;
-  margin-bottom:5px;
-}
-.success-track-text{
-  color:#735f50;
-  font-size:12px;
-  line-height:1.6;
-}
-.success-track-actions{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:8px;
-  margin-top:11px;
-}
-.success-track-btn{
-  border:0;
-  border-radius:10px;
-  padding:10px 7px;
-  font-size:12px;
-  font-weight:850;
-  cursor:pointer;
-}
-.success-track-btn.primary{
-  background:#8b5e3c;
-  color:#fff;
-  box-shadow:0 4px 10px rgba(111,71,44,.16);
-}
-.success-track-btn.secondary{
-  background:#fff;
-  color:#6f472c;
-  border:1px solid #d9c0aa;
-}
-.success-close-btn{
-  background:linear-gradient(135deg,#8b5e3c,#6f472c)!important;
-  font-size:15px!important;
-  padding:13px!important;
-}
-@keyframes successPop{
-  from{opacity:0;transform:translateY(18px) scale(.94)}
-  to{opacity:1;transform:none}
-}
-@media(max-width:420px){
-  .success-modal{padding:10px!important}
-  .success-box{padding:24px 14px 16px!important;border-radius:22px!important}
-  .success-box h2{font-size:23px!important}
-  .success-check{width:64px!important;height:64px!important;font-size:34px!important}
-  .order-code-card{margin:14px 0 11px!important}
-  .order-code-card strong{font-size:26px!important}
-  .success-track-guide{padding:12px!important}
-  .success-track-actions{grid-template-columns:1fr!important}
-}
-
 </style>
 <style>
 /* ===== VỊ TRÍ LỊCH SỬ ĐƠN HÀNG: GIỮA TÌM KIẾM VÀ GIỎ HÀNG ===== */
@@ -448,145 +346,78 @@ button{-webkit-tap-highlight-color:transparent}
 .order-tracker-btn span{display:inline!important;}
 
 @media(max-width:800px){
-  /* Mobile: LOGO + TÌM KIẾM + LỊCH SỬ trên cùng một hàng */
+  /* Mobile: logo ở trên, bên dưới là Tìm kiếm → Lịch sử → Giỏ hàng */
   .header-inner{
     display:grid!important;
-    grid-template-columns:78px minmax(100px,1fr) 122px!important;
-    grid-template-rows:42px!important;
+    grid-template-columns:minmax(0,1fr) auto auto!important;
     align-items:center!important;
-    gap:5px!important;
-    padding:4px 6px!important;
+    gap:8px!important;
+    padding:7px 9px!important;
   }
   .header-inner .logo{
-    grid-column:1!important;
+    grid-column:1/-1!important;
     grid-row:1!important;
-    width:78px!important;
-    min-width:78px!important;
-    max-width:78px!important;
-    height:42px!important;
-    min-height:42px!important;
-    overflow:hidden!important;
+    width:100%!important;
+    min-width:0!important;
+    max-width:none!important;
+    height:54px!important;
+    min-height:54px!important;
   }
   .header-inner .logo-image{
-    width:78px!important;
-    max-width:78px!important;
-    height:42px!important;
+    width:100%!important;
+    max-width:none!important;
+    height:54px!important;
     object-fit:contain!important;
     object-position:left center!important;
   }
   .header-inner .header-search{
-    grid-column:2!important;
-    grid-row:1!important;
+    grid-column:1!important;
+    grid-row:2!important;
     width:100%!important;
     min-width:0!important;
-    height:38px!important;
+    height:41px!important;
     margin:0!important;
-    padding:0 8px!important;
-    border-radius:999px!important;
-  }
-  .header-inner .header-search span{
-    flex:0 0 auto!important;
-    font-size:15px!important;
-  }
-  .header-inner .header-search input{
-    min-width:0!important;
-    width:100%!important;
-    font-size:12px!important;
   }
   .header-inner .order-tracker-btn{
-    grid-column:3!important;
-    grid-row:1!important;
-    width:122px!important;
-    min-width:122px!important;
-    max-width:122px!important;
-    height:38px!important;
-    padding:5px 6px!important;
-    margin:0!important;
+    grid-column:2!important;
+    grid-row:2!important;
+    min-width:0!important;
+    height:41px!important;
+    padding:8px 10px!important;
     border-radius:999px!important;
+    font-size:12px!important;
+    font-weight:850!important;
     display:flex!important;
     align-items:center!important;
     justify-content:center!important;
-    gap:3px!important;
-    white-space:nowrap!important;
-    font-size:10px!important;
-    line-height:1.1!important;
-    font-weight:850!important;
-  }
-  .header-inner .order-tracker-btn span{
-    display:inline!important;
-    overflow:visible!important;
-  }
-  .header-inner #installAppBtn{display:none!important;}
-}
-
-@media(max-width:390px){
-  .header-inner{
-    grid-template-columns:70px minmax(88px,1fr) 116px!important;
     gap:4px!important;
-    padding:4px 5px!important;
   }
-  .header-inner .logo{
-    width:70px!important;
-    min-width:70px!important;
-    max-width:70px!important;
-    height:40px!important;
-    min-height:40px!important;
-  }
-  .header-inner .logo-image{
-    width:70px!important;
-    max-width:70px!important;
-    height:40px!important;
-  }
-  .header-inner .header-search{
-    height:36px!important;
-    padding:0 7px!important;
-  }
-  .header-inner .header-search input{
-    font-size:11px!important;
-  }
-  .header-inner .order-tracker-btn{
-    width:116px!important;
-    min-width:116px!important;
-    max-width:116px!important;
-    height:36px!important;
-    font-size:9.5px!important;
-    padding:4px 5px!important;
+  .header-inner .order-tracker-btn span{display:inline!important;}
+  .header-inner > .header-cart:not(.order-tracker-btn){
+    grid-column:3!important;
+    grid-row:2!important;
+    min-width:48px!important;
+    height:41px!important;
+    padding:8px 10px!important;
+    display:flex!important;
+    align-items:center!important;
+    justify-content:center!important;
   }
 }
 
-@media(max-width:340px){
-  .header-inner{
-    grid-template-columns:62px minmax(78px,1fr) 110px!important;
-    gap:3px!important;
-    padding:3px 4px!important;
-  }
-  .header-inner .logo,
-  .header-inner .logo-image{
-    width:62px!important;
-    max-width:62px!important;
-    height:38px!important;
-    min-height:38px!important;
-  }
-  .header-inner .header-search{
-    height:34px!important;
-    padding:0 6px!important;
-  }
-  .header-inner .header-search input{
-    font-size:10px!important;
-  }
-  .header-inner .order-tracker-btn{
-    width:110px!important;
-    min-width:110px!important;
-    max-width:110px!important;
-    height:34px!important;
-    font-size:9px!important;
-  }
+@media(max-width:520px){
+  .header-inner{gap:6px!important;padding:6px 8px!important;}
+  .header-inner .logo{height:57px!important;min-height:57px!important;}
+  .header-inner .logo-image{height:57px!important;}
+  .header-inner .header-search{height:40px!important;}
+  .header-inner .order-tracker-btn{height:40px!important;padding:7px 8px!important;font-size:11px!important;}
+  .header-inner > .header-cart:not(.order-tracker-btn){height:40px!important;min-width:46px!important;padding:7px 8px!important;}
 }
 </style>
 
 <!-- Firebase Cloud Messaging (Web Push) -->
 <script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
+  import { initializeApp, getApps, getApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
   import { getMessaging, getToken, isSupported } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-messaging.js";
 
   window.FIREBASE_WEB_CONFIG = {
@@ -600,16 +431,11 @@ button{-webkit-tap-highlight-color:transparent}
 
   window.FIREBASE_VAPID_KEY = "BP3BGjVNvkDG5HJM5ccXGJJBEh-r_EqMm1Wi0pPCTmR_i0YnUVa9pxpdQEyeRBR_ayLxqaRUWkjbeLaLdSnZUNk";
 
-  // FCM dùng một scope riêng để không tranh chấp với sw.js của PWA.
-  const FCM_SW_URL = "/firebase-messaging-sw.js";
-  const FCM_SW_SCOPE = "/firebase-messaging/";
-
   window.initFirebaseNotifications = async function () {
     try {
-      if (!window.isSecureContext || !("serviceWorker" in navigator) || !("Notification" in window)) {
+      if (!window.isSecureContext || !('serviceWorker' in navigator) || !("Notification" in window)) {
         throw new Error("Trình duyệt không hỗ trợ Web Push hoặc trang chưa chạy HTTPS.");
       }
-
       if (!(await isSupported())) {
         throw new Error("Firebase Web Push không được hỗ trợ trên trình duyệt này.");
       }
@@ -617,137 +443,43 @@ button{-webkit-tap-highlight-color:transparent}
       const permission = Notification.permission === "granted"
         ? "granted"
         : await Notification.requestPermission();
+      if (permission !== "granted") throw new Error("Quyền thông báo chưa được cấp.");
 
-      if (permission !== "granted") {
-        throw new Error("Bạn chưa cho phép hiển thị thông báo.");
-      }
+      const registration = await navigator.serviceWorker.register('/firebase-messaging-sw.js', {scope:'/'});
+      await navigator.serviceWorker.ready;
 
-      // Dọn registration FCM cũ ở scope / nếu bản trước đã tạo.
-      const oldRegs = await navigator.serviceWorker.getRegistrations();
-      for (const reg of oldRegs) {
-        const script = reg.active?.scriptURL || reg.waiting?.scriptURL || reg.installing?.scriptURL || "";
-        if (script.includes("/firebase-messaging-sw.js") && reg.scope === location.origin + "/") {
-          await reg.unregister();
-        }
-      }
-
-      // Đăng ký FCM ở scope riêng, không đụng PWA sw.js.
-      const registration = await navigator.serviceWorker.register(FCM_SW_URL, {
-        scope: FCM_SW_SCOPE,
-        updateViaCache: "none"
-      });
-
-      // Chờ riêng FCM worker hoạt động.
-      if (registration.installing) {
-        await new Promise((resolve, reject) => {
-          const worker = registration.installing;
-          const timer = setTimeout(() => reject(new Error("FCM Service Worker khởi động quá lâu.")), 15000);
-          worker.addEventListener("statechange", () => {
-            if (worker.state === "activated") {
-              clearTimeout(timer);
-              resolve();
-            }
-            if (worker.state === "redundant") {
-              clearTimeout(timer);
-              reject(new Error("FCM Service Worker bị trình duyệt từ chối kích hoạt."));
-            }
-          });
-        });
-      }
-
-      // Chỉ chờ đúng FCM Service Worker, không chờ service worker PWA chung.
-      if (!registration.active) {
-        await new Promise((resolve, reject) => {
-          const worker = registration.installing || registration.waiting;
-          if (!worker) {
-            reject(new Error("Không tìm thấy FCM Service Worker."));
-            return;
-          }
-          const timer = setTimeout(() => {
-            reject(new Error("FCM Service Worker khởi động quá lâu."));
-          }, 15000);
-          const check = () => {
-            if (worker.state === "activated") {
-              clearTimeout(timer);
-              resolve();
-            } else if (worker.state === "redundant") {
-              clearTimeout(timer);
-              reject(new Error("FCM Service Worker bị trình duyệt từ chối kích hoạt."));
-            }
-          };
-          worker.addEventListener("statechange", check);
-          check();
-        });
-      }
-
-      const app = initializeApp(window.FIREBASE_WEB_CONFIG, "anvatlamthao-fcm");
+      const app = getApps().length ? getApp() : initializeApp(window.FIREBASE_WEB_CONFIG);
       const messaging = getMessaging(app);
 
       const token = await getToken(messaging, {
         vapidKey: window.FIREBASE_VAPID_KEY,
         serviceWorkerRegistration: registration
       });
-
-      if (!token) {
-        throw new Error("Firebase không trả về FCM token.");
-      }
+      if (!token) throw new Error("Firebase không trả về FCM token.");
 
       localStorage.setItem("ANVAT_FCM_TOKEN", token);
       localStorage.setItem("ANVAT_NOTIFICATION_ENABLED", "1");
 
       // Gửi token về Apps Script ngay lập tức.
       const phone = document.getElementById("customerPhone")?.value.trim() || "";
-      try {
-        await fetch(GOOGLE_SCRIPT_URL, {
-          method: "POST",
-          mode: "no-cors",
-          headers: { "Content-Type": "text/plain;charset=utf-8" },
-          body: JSON.stringify({ action: "saveFcmToken", phone, fcmToken: token }),
-          keepalive: true
-        });
-      } catch (sendError) {
-        // Token vẫn được giữ trong localStorage; đơn hàng sau đó cũng gửi token.
-        console.warn("FCM token đã tạo nhưng chưa gửi được Apps Script:", sendError);
-      }
+      await fetch(GOOGLE_SCRIPT_URL, {
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify({ action:"saveFcmToken", phone, fcmToken:token }),
+        keepalive: true
+      });
 
       console.log("✅ FCM TOKEN:", token);
-      console.log("✅ FCM Service Worker:", registration.scope);
-      return { success: true, token };
-
+      console.log("✅ FCM token đã gửi tới Google Apps Script.");
+      return {success:true, token};
     } catch (error) {
       console.error("❌ FCM ERROR:", error);
-      return { success: false, message: error?.message || String(error) };
+      return {success:false, message:error?.message || String(error)};
     }
   };
 </script>
 
-
-<style>
-/* ===== TRA CỨU ĐƠN: HIỂN THỊ NGAY BÊN DƯỚI ĐÚNG MÃ ĐƠN ===== */
-.order-history-detail-inline{
-  margin-top:12px;
-  padding:14px;
-  border:1px solid #eadbc9;
-  border-radius:14px;
-  background:#fffaf5;
-  animation:orderDetailOpen .22s ease;
-}
-@keyframes orderDetailOpen{
-  from{opacity:0;transform:translateY(-5px)}
-  to{opacity:1;transform:translateY(0)}
-}
-.order-history-card .order-history-detail-title{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:10px;
-  margin-bottom:9px;
-}
-@media(max-width:520px){
-  .order-history-detail-inline{padding:12px;margin-top:10px}
-  .order-history-card .order-history-detail-title{align-items:flex-start;flex-direction:column;gap:5px}
-}
-</style>
 </head>
 <body>
 
@@ -800,23 +532,6 @@ button{-webkit-tap-highlight-color:transparent}
       <strong id="successOrderCode">CC00000000</strong>
       <button type="button" class="copy-code-btn" onclick="copyOrderCode()">📋 Sao chép mã đơn</button>
     </div>
-
-    <div class="success-track-guide">
-      <div class="success-track-title">📋 Theo dõi đơn hàng</div>
-      <div class="success-track-text">
-        Bạn có thể mở <b>Lịch Sử Đơn Hàng</b> để xem trạng thái mới nhất của đơn.
-        Khi quán cập nhật đơn, bạn cũng có thể nhận thông báo trên điện thoại nếu đã bật thông báo.
-      </div>
-      <div class="success-track-actions">
-        <button type="button" class="success-track-btn primary" onclick="closeSuccessModal();openOrderTracker();">
-          📋 Theo dõi đơn
-        </button>
-        <button type="button" class="success-track-btn secondary" onclick="closeSuccessModal();openOrderTracker();">
-          🔎 Tra cứu mã
-        </button>
-      </div>
-    </div>
-
     <div class="success-wish">💛 Chúc bạn ngon miệng và có một ngày thật vui!</div>
     <button class="success-primary success-close-btn" onclick="closeSuccessModal()">Hoàn tất</button>
   </div>
@@ -832,6 +547,7 @@ button{-webkit-tap-highlight-color:transparent}
       <input id="productSearch" type="search" placeholder="Tìm món ăn, đồ uống..." oninput="searchProducts(this.value)">
     </div>
     <button class="header-cart order-tracker-btn" onclick="openOrderTracker()">📋 <span>Lịch Sử Đơn Hàng</span></button>
+    <button class="header-cart" onclick="openCart()">🛒 <span>Giỏ hàng</span><b id="headerCartCount">0</b></button>
     <button id="installAppBtn" class="pwa-install-btn" type="button" onclick="installPWA()" aria-label="Cài ứng dụng Ăn Vặt Lâm Thao">📲 Cài app</button>
   </div>
 </header>
@@ -1177,10 +893,10 @@ button{-webkit-tap-highlight-color:transparent}
     <span class="notification-permission-icon">🔔</span>
     <div>
       <b>Cho phép hiển thị thông báo</b>
-      <small>Nhận thông báo khi quán cập nhật đơn hàng.</small>
+      <small>Nhận thông báo khi đơn hàng được tiếp nhận/cập nhật.</small>
     </div>
   </div>
-  <button type="button" id="notificationPermissionBtn" class="notification-permission-btn" onclick="enableNotifications()">🔔 Cho phép thông báo</button>
+  <button type="button" id="notificationPermissionBtn" class="notification-permission-btn" onclick="enableNotifications()">Cho phép</button>
 </div>
 
 <input type="hidden" id="latitude">
@@ -1333,6 +1049,7 @@ button{-webkit-tap-highlight-color:transparent}
       <span>Sau khi bạn đặt đơn thành công, mã đơn sẽ tự động xuất hiện tại đây.</span>
     </div>
 
+    <div id="orderHistoryDetail" class="order-history-detail" style="display:none"></div>
   </div>
 </div>
 
@@ -1426,7 +1143,7 @@ function updateNotificationPermissionUI(message){
     return;
   }
   if(Notification.permission === "granted" && !hasToken){
-    btn.textContent = "🔔 Cho phép thông báo";
+    btn.textContent = "🔔 Đăng ký FCM";
     btn.classList.remove("enabled");
     btn.disabled = false;
     return;
@@ -1445,20 +1162,20 @@ function updateNotificationPermissionUI(message){
 
 async function enableNotifications(){
   const btn = document.getElementById("notificationPermissionBtn");
-  if(btn){ btn.disabled=true; btn.textContent="⏳ Đang bật thông báo..."; }
+  if(btn){ btn.disabled=true; btn.textContent="⏳ Đang đăng ký FCM..."; }
   try{
     const result = await window.initFirebaseNotifications();
     if(result.success){
       updateNotificationPermissionUI();
-      alert("✅ Đã bật thông báo thành công. Bạn sẽ nhận được cập nhật đơn hàng từ quán.");
+      alert("✅ Đã đăng ký FCM thành công. Token đã được gửi về Google Sheet.");
     }else{
       updateNotificationPermissionUI();
-      alert("❌ Chưa bật được thông báo.\n\n" + result.message);
+      alert("❌ Chưa đăng ký được FCM.\n\n" + result.message);
     }
   }catch(error){
     console.error("FCM enable error:", error);
     updateNotificationPermissionUI();
-    alert("❌ Lỗi khi bật thông báo: " + (error?.message || error));
+    alert("❌ Lỗi FCM: " + (error?.message || error));
   }finally{
     if(btn) btn.disabled=false;
   }
@@ -1469,7 +1186,7 @@ function showOrderNotification(title, body){
     if("Notification" in window && Notification.permission === "granted"){
       new Notification(title || "🔔 Ăn Vặt Lâm Thao", {
         body: body || "Đơn hàng của bạn đã được tiếp nhận.",
-        icon: "logowed.png"
+        icon: "icons/icon-192.png"
       });
     }
   }catch(error){
@@ -2665,18 +2382,6 @@ function openOrderForm(){
 
     }
 
-    // Mỗi lần mở một đơn mới, cho phép nút xác nhận hoạt động lại.
-    orderSubmitting = false;
-
-    const confirmButton =
-        document.getElementById("confirmOrderButton");
-
-    if(confirmButton){
-        confirmButton.disabled = false;
-        confirmButton.style.opacity = "1";
-        confirmButton.innerHTML = "✅ Xác nhận đặt hàng";
-    }
-
     calculateTotal();
 
     closeCart();
@@ -2793,30 +2498,12 @@ async function confirmOrder(){
     }
 
     /* ==============================
-       CHỐNG BẤM TRÙNG + KHÓA NGAY LẬP TỨC
-       Khóa nút trước khi đọc/kiểm tra dữ liệu để không thể
-       phát sinh 2-3 đơn khi khách bấm nhanh hoặc máy bị lag.
+       CHỐNG BẤM TRÙNG
     ============================== */
 
     if(button.disabled || orderSubmitting){
         return;
     }
-
-    orderSubmitting = true;
-    button.disabled = true;
-    button.setAttribute("aria-disabled", "true");
-    button.style.pointerEvents = "none";
-    button.style.opacity = "0.65";
-    button.innerHTML = "⏳ Đang kiểm tra...";
-
-    const unlockOrderButton = () => {
-        orderSubmitting = false;
-        button.disabled = false;
-        button.removeAttribute("aria-disabled");
-        button.style.pointerEvents = "";
-        button.style.opacity = "";
-        button.innerHTML = "✅ Xác nhận đặt hàng";
-    };
 
     /* ==============================
        LẤY THÔNG TIN
@@ -2854,7 +2541,6 @@ if(!latitude || !longitude){
         "trước khi đặt hàng."
     );
 
-    unlockOrderButton();
     return;
 }
 
@@ -2870,7 +2556,6 @@ if(!latitude || !longitude){
             "Vui lòng nhập họ tên."
         );
 
-        unlockOrderButton();
         return;
 
     }
@@ -2881,7 +2566,6 @@ if(!phone){
         "📱 Vui lòng nhập số điện thoại."
     );
 
-    unlockOrderButton();
     return;
 }
 
@@ -2892,7 +2576,6 @@ if(!/^0\d{9}$/.test(phone)){
         "Vui lòng nhập đúng 10 chữ số và bắt đầu bằng số 0."
     );
 
-    unlockOrderButton();
     return;
 }
 
@@ -2902,7 +2585,6 @@ if(!/^0\d{9}$/.test(phone)){
             "Vui lòng nhập địa chỉ."
         );
 
-        unlockOrderButton();
         return;
 
     }
@@ -2913,10 +2595,12 @@ if(!/^0\d{9}$/.test(phone)){
             "🛒 Giỏ hàng đang trống."
         );
 
-        unlockOrderButton();
         return;
 
     }
+
+    // Khóa ngay luồng đặt hàng để tránh thao tác tạo 2 đơn liên tiếp.
+    orderSubmitting = true;
 
     /* ==============================
        TÍNH TIỀN
@@ -2926,9 +2610,17 @@ if(!/^0\d{9}$/.test(phone)){
         calculateTotal();
 
     /* ==============================
-       CHUYỂN SANG TRẠNG THÁI ĐANG GỬI
-       Nút đã bị khóa từ đầu hàm và tiếp tục bị khóa.
+       KHÓA NÚT NGAY LẬP TỨC
     ============================== */
+
+    const oldText =
+        button.innerHTML;
+
+    button.disabled =
+        true;
+
+    button.style.opacity =
+        "0.6";
 
     button.innerHTML =
         "⏳ Đang gửi đơn...";
@@ -3052,20 +2744,56 @@ const payload = {
        Dữ liệu đơn vẫn được gửi nền ngay sau đó.
     ============================== */
 
-    /* ==============================
-       GỬI ĐƠN + CHỜ LOAD
-       Nút đã khóa từ đầu. Ở đây thực sự chờ request hoàn tất trước
-       khi đóng form để khách không thể bấm lại trong lúc máy đang lag.
-    ============================== */
+    showSuccessModal(orderCode, finalData.total);
 
-    let requestStarted = false;
+    showOrderNotification(
+        "🛒 Đặt hàng thành công",
+        "Mã đơn " + orderCode + " đã được tiếp nhận. Vui lòng chờ quán xác nhận."
+    );
+
+    /* ==============================
+       GỬI ĐƠN
+    ============================== */
 
     try{
 
+        /*
+           Chỉ báo lỗi khi việc gửi yêu cầu thực sự thất bại.
+           Sau khi Google Apps Script đã nhận request, mọi lỗi ở phần
+           cập nhật giao diện/giỏ hàng không được phép biến thành
+           thông báo “Không thể gửi đơn hàng”.
+        */
         const orderBody = JSON.stringify(payload);
+        let requestStarted = false;
 
-        try {
-            await fetch(
+        /*
+           Google Apps Script thường không cho trình duyệt đọc trực tiếp
+           phản hồi do CORS/redirect. Vì vậy không chờ response để kết luận
+           thành công hay thất bại. Chỉ cần request được xếp hàng/gửi đi,
+           giao diện sẽ tiếp tục hoàn tất đơn hàng.
+        */
+        if (navigator.sendBeacon) {
+            try {
+                const blob = new Blob(
+                    [orderBody],
+                    {type: "text/plain;charset=UTF-8"}
+                );
+                requestStarted = navigator.sendBeacon(
+                    GOOGLE_SCRIPT_URL,
+                    blob
+                );
+            } catch (beaconError) {
+                console.warn("sendBeacon error:", beaconError);
+            }
+        }
+
+        if (!requestStarted) {
+            /*
+               Không await fetch và không bắt lỗi mạng thành lỗi đơn hàng.
+               Trình duyệt vẫn gửi request ở chế độ no-cors/keepalive; nếu
+               Google trả response mà JS không đọc được thì cũng không sao.
+            */
+            fetch(
                 GOOGLE_SCRIPT_URL,
                 {
                     method: "POST",
@@ -3076,37 +2804,20 @@ const payload = {
                     body: orderBody,
                     keepalive: true
                 }
-            );
+            ).catch(error => {
+                console.warn("Google Apps Script response/network:", error);
+            });
             requestStarted = true;
-        } catch (fetchError) {
-            console.warn("Fetch đơn hàng lỗi, chuyển sang sendBeacon:", fetchError);
-
-            if (navigator.sendBeacon) {
-                try {
-                    const blob = new Blob(
-                        [orderBody],
-                        {type: "text/plain;charset=UTF-8"}
-                    );
-                    requestStarted = navigator.sendBeacon(
-                        GOOGLE_SCRIPT_URL,
-                        blob
-                    );
-                } catch (beaconError) {
-                    console.warn("sendBeacon error:", beaconError);
-                }
-            }
-        }
-
-        if (!requestStarted) {
-            throw new Error("Không thể gửi yêu cầu đặt hàng.");
         }
 
         /* ==============================
-           ĐÃ GỬI ĐƯỢC REQUEST
+           ĐÃ KHỞI TẠO GỬI ĐƠN
+           Không dùng response CORS để báo lỗi giả cho khách hàng.
         ============================== */
 
         /* ==============================
            DỌN DẸP SAU KHI GỬI
+           Các lỗi giao diện không được báo thành lỗi gửi đơn.
         ============================== */
 
         try {
@@ -3121,22 +2832,13 @@ const payload = {
             console.warn("Đóng form đặt hàng:", modalError);
         }
 
-        showSuccessModal(orderCode, finalData.total);
-
-        showOrderNotification(
-            "🛒 Đặt hàng thành công",
-            "Mã đơn " + orderCode + " đã được tiếp nhận. Vui lòng chờ quán xác nhận."
-        );
-
         /* ==============================
-           GIỮ NÚT ĐÃ KHÓA SAU KHI GỬI
-           Modal đã đóng; khi khách tạo đơn mới,
-           openOrderForm() sẽ mở khóa nút lại.
+           RESET NÚT
         ============================== */
 
-        button.disabled = true;
-        button.style.opacity = "0.65";
-        button.innerHTML = "✅ Đã gửi đơn";
+        button.disabled = false;
+        button.style.opacity = "1";
+        button.innerHTML = oldText;
 
     }catch(error){
 
@@ -3149,20 +2851,15 @@ const payload = {
            được response do CORS/redirect.
         */
         try {
-            // Nếu request đã được gửi nền thì giữ khóa để tránh tạo đơn trùng.
-            // Nếu lỗi xảy ra trước khi tạo request, cho phép khách thử lại.
-            if (typeof requestStarted !== "undefined" && requestStarted) {
-                button.disabled = true;
-                button.style.pointerEvents = "none";
-                button.style.opacity = "0.65";
-                button.innerHTML = "✅ Đã gửi đơn";
-            } else {
-                unlockOrderButton();
-            }
+            button.disabled = false;
+            button.style.opacity = "1";
+            button.innerHTML = oldText;
         } catch (resetError) {
-            console.warn("Giữ trạng thái khóa nút xác nhận:", resetError);
+            console.warn("Reset nút xác nhận:", resetError);
         }
 
+        // Không cho tạo lại đơn từ cùng phiên sau khi mã đơn đã được tạo,
+        // vì request nền có thể đã tới Google Apps Script.
         console.warn("Luồng hiển thị sau khi tạo đơn gặp lỗi:", error);
 
     }
@@ -3188,13 +2885,13 @@ function showSuccessModal(orderCode,total){
   modal.style.display='flex';
   modal.setAttribute('aria-hidden','false');
 
-  // Tự reset trang sau 15 giây kể từ khi đơn được xác nhận thành công.
+  // Tự reset trang sau 10 giây kể từ khi đơn được xác nhận thành công.
   if(successResetTimer){
     clearTimeout(successResetTimer);
   }
   successResetTimer = setTimeout(() => {
     window.location.reload();
-  }, 15000);
+  }, 10000);
 }
 function closeSuccessModal(){
   const modal=document.getElementById('successModal');
@@ -3473,7 +3170,7 @@ function renderOrderHistory(){
     const shortItems=items.length>105 ? items.slice(0,105)+"…" : items;
 
     return `
-      <div class="order-history-card" id="order-history-card-${index}">
+      <div class="order-history-card">
         <div class="order-history-card-top">
           <div>
             <div class="order-history-code">📦 ${escapeOrderHistoryHtml(order.code)}</div>
@@ -3487,7 +3184,6 @@ function renderOrderHistory(){
         <div class="order-history-summary">
           ${escapeOrderHistoryHtml(shortItems)}
         </div>
-        <div id="orderHistoryDetail-${index}" class="order-history-detail-inline" style="display:none"></div>
       </div>`;
   }).join("");
 }
@@ -3495,7 +3191,7 @@ function renderOrderHistory(){
 async function lookupOrderFromHistory(index){
   const history=getOrderHistory();
   const order=history[index];
-  const detail=document.getElementById("orderHistoryDetail-"+index);
+  const detail=document.getElementById("orderHistoryDetail");
 
   if(!order || !detail) return;
 
@@ -3509,7 +3205,11 @@ async function lookupOrderFromHistory(index){
       <b>🕒 Thời gian đặt:</b> ${escapeOrderHistoryHtml(order.time || order.createdAt || "—")}
     </div>`;
 
+  detail.scrollIntoView({behavior:"smooth",block:"nearest"});
+
   try{
+    // Lịch sử đơn hàng tra cứu trực tiếp bằng Mã Đơn.
+    // Không bắt buộc số điện thoại để tránh lỗi định dạng số 0 / số điện thoại cũ.
     const url=GOOGLE_SCRIPT_URL+
       "?action=getOrderStatus"+
       "&code="+encodeURIComponent(order.code);
@@ -3532,7 +3232,7 @@ async function lookupOrderFromHistory(index){
     const currentStatus = String(data.status || "Chờ xác nhận").trim();
     let icon="🟡";
     if(currentStatus==="Chờ xác nhận") icon="🕐";
-    if(currentStatus==="Đang chuẩn bị đơn hàng" || currentStatus==="Đang chuẩn bị") icon="👨‍🍳";
+    if(currentStatus==="Đang chuẩn bị") icon="👨‍🍳";
     if(currentStatus==="Đang giao") icon="🛵";
     if(currentStatus==="Đã giao") icon="🟢";
     if(currentStatus==="Đã huỷ" || currentStatus==="Đã hủy") icon="🔴";
