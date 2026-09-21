@@ -332,6 +332,108 @@ button{-webkit-tap-highlight-color:transparent}
 .pwa-install-hint button{margin-top:7px;border:0;background:#8b5e3c;color:#fff;border-radius:9px;padding:7px 10px;font-weight:800}
 @media(max-width:800px){.pwa-install-btn{font-size:11px;padding:8px 10px}.pwa-install-hint{bottom:74px;left:10px;right:10px;max-width:none}}
 
+
+
+/* ===== ORDER SUCCESS: NỔI BẬT + HƯỚNG DẪN THEO DÕI ===== */
+.success-modal{
+  background:rgba(35,22,15,.72)!important;
+  backdrop-filter:blur(3px);
+}
+.success-box{
+  max-width:430px!important;
+  border:2px solid #d8ad83!important;
+  border-radius:26px!important;
+  padding:28px 22px 20px!important;
+  box-shadow:0 25px 80px rgba(55,35,23,.38)!important;
+  animation:successPop .32s ease!important;
+}
+.success-check{
+  width:72px!important;
+  height:72px!important;
+  font-size:39px!important;
+  background:linear-gradient(145deg,#a96f46,#765039)!important;
+  box-shadow:0 12px 28px rgba(111,71,44,.30)!important;
+}
+.success-box h2{
+  font-size:27px!important;
+  color:#4b2f20!important;
+}
+.success-thanks{
+  background:#fff7ee!important;
+  border:1px solid #ecd2b8!important;
+  font-size:13.5px!important;
+}
+.order-code-card{
+  background:linear-gradient(135deg,#f8eadb,#fff8f0)!important;
+  border:2px dashed #c7956d!important;
+  box-shadow:0 5px 15px rgba(139,94,60,.08);
+}
+.order-code-card strong{
+  font-size:30px!important;
+}
+.success-track-guide{
+  margin:14px 0 12px;
+  padding:14px;
+  text-align:left;
+  background:linear-gradient(135deg,#fffaf4,#f8eee3);
+  border:1px solid #e5cdb7;
+  border-radius:16px;
+}
+.success-track-title{
+  color:#6f472c;
+  font-size:15px;
+  font-weight:900;
+  margin-bottom:5px;
+}
+.success-track-text{
+  color:#735f50;
+  font-size:12px;
+  line-height:1.6;
+}
+.success-track-actions{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+  margin-top:11px;
+}
+.success-track-btn{
+  border:0;
+  border-radius:10px;
+  padding:10px 7px;
+  font-size:12px;
+  font-weight:850;
+  cursor:pointer;
+}
+.success-track-btn.primary{
+  background:#8b5e3c;
+  color:#fff;
+  box-shadow:0 4px 10px rgba(111,71,44,.16);
+}
+.success-track-btn.secondary{
+  background:#fff;
+  color:#6f472c;
+  border:1px solid #d9c0aa;
+}
+.success-close-btn{
+  background:linear-gradient(135deg,#8b5e3c,#6f472c)!important;
+  font-size:15px!important;
+  padding:13px!important;
+}
+@keyframes successPop{
+  from{opacity:0;transform:translateY(18px) scale(.94)}
+  to{opacity:1;transform:none}
+}
+@media(max-width:420px){
+  .success-modal{padding:10px!important}
+  .success-box{padding:24px 14px 16px!important;border-radius:22px!important}
+  .success-box h2{font-size:23px!important}
+  .success-check{width:64px!important;height:64px!important;font-size:34px!important}
+  .order-code-card{margin:14px 0 11px!important}
+  .order-code-card strong{font-size:26px!important}
+  .success-track-guide{padding:12px!important}
+  .success-track-actions{grid-template-columns:1fr!important}
+}
+
 </style>
 <style>
 /* ===== VỊ TRÍ LỊCH SỬ ĐƠN HÀNG: GIỮA TÌM KIẾM VÀ GIỎ HÀNG ===== */
@@ -346,72 +448,139 @@ button{-webkit-tap-highlight-color:transparent}
 .order-tracker-btn span{display:inline!important;}
 
 @media(max-width:800px){
-  /* Mobile: logo ở trên, bên dưới là Tìm kiếm → Lịch sử → Giỏ hàng */
+  /* Mobile: LOGO + TÌM KIẾM + LỊCH SỬ trên cùng một hàng */
   .header-inner{
     display:grid!important;
-    grid-template-columns:minmax(0,1fr) auto auto!important;
+    grid-template-columns:78px minmax(100px,1fr) 122px!important;
+    grid-template-rows:42px!important;
     align-items:center!important;
-    gap:8px!important;
-    padding:7px 9px!important;
+    gap:5px!important;
+    padding:4px 6px!important;
   }
   .header-inner .logo{
-    grid-column:1/-1!important;
+    grid-column:1!important;
     grid-row:1!important;
-    width:100%!important;
-    min-width:0!important;
-    max-width:none!important;
-    height:54px!important;
-    min-height:54px!important;
+    width:78px!important;
+    min-width:78px!important;
+    max-width:78px!important;
+    height:42px!important;
+    min-height:42px!important;
+    overflow:hidden!important;
   }
   .header-inner .logo-image{
-    width:100%!important;
-    max-width:none!important;
-    height:54px!important;
+    width:78px!important;
+    max-width:78px!important;
+    height:42px!important;
     object-fit:contain!important;
     object-position:left center!important;
   }
   .header-inner .header-search{
-    grid-column:1!important;
-    grid-row:2!important;
+    grid-column:2!important;
+    grid-row:1!important;
     width:100%!important;
     min-width:0!important;
-    height:41px!important;
+    height:38px!important;
     margin:0!important;
+    padding:0 8px!important;
+    border-radius:999px!important;
+  }
+  .header-inner .header-search span{
+    flex:0 0 auto!important;
+    font-size:15px!important;
+  }
+  .header-inner .header-search input{
+    min-width:0!important;
+    width:100%!important;
+    font-size:12px!important;
   }
   .header-inner .order-tracker-btn{
-    grid-column:2!important;
-    grid-row:2!important;
-    min-width:0!important;
-    height:41px!important;
-    padding:8px 10px!important;
-    border-radius:999px!important;
-    font-size:12px!important;
-    font-weight:850!important;
-    display:flex!important;
-    align-items:center!important;
-    justify-content:center!important;
-    gap:4px!important;
-  }
-  .header-inner .order-tracker-btn span{display:inline!important;}
-  .header-inner > .header-cart:not(.order-tracker-btn){
     grid-column:3!important;
-    grid-row:2!important;
-    min-width:48px!important;
-    height:41px!important;
-    padding:8px 10px!important;
+    grid-row:1!important;
+    width:122px!important;
+    min-width:122px!important;
+    max-width:122px!important;
+    height:38px!important;
+    padding:5px 6px!important;
+    margin:0!important;
+    border-radius:999px!important;
     display:flex!important;
     align-items:center!important;
     justify-content:center!important;
+    gap:3px!important;
+    white-space:nowrap!important;
+    font-size:10px!important;
+    line-height:1.1!important;
+    font-weight:850!important;
+  }
+  .header-inner .order-tracker-btn span{
+    display:inline!important;
+    overflow:visible!important;
+  }
+  .header-inner #installAppBtn{display:none!important;}
+}
+
+@media(max-width:390px){
+  .header-inner{
+    grid-template-columns:70px minmax(88px,1fr) 116px!important;
+    gap:4px!important;
+    padding:4px 5px!important;
+  }
+  .header-inner .logo{
+    width:70px!important;
+    min-width:70px!important;
+    max-width:70px!important;
+    height:40px!important;
+    min-height:40px!important;
+  }
+  .header-inner .logo-image{
+    width:70px!important;
+    max-width:70px!important;
+    height:40px!important;
+  }
+  .header-inner .header-search{
+    height:36px!important;
+    padding:0 7px!important;
+  }
+  .header-inner .header-search input{
+    font-size:11px!important;
+  }
+  .header-inner .order-tracker-btn{
+    width:116px!important;
+    min-width:116px!important;
+    max-width:116px!important;
+    height:36px!important;
+    font-size:9.5px!important;
+    padding:4px 5px!important;
   }
 }
 
-@media(max-width:520px){
-  .header-inner{gap:6px!important;padding:6px 8px!important;}
-  .header-inner .logo{height:57px!important;min-height:57px!important;}
-  .header-inner .logo-image{height:57px!important;}
-  .header-inner .header-search{height:40px!important;}
-  .header-inner .order-tracker-btn{height:40px!important;padding:7px 8px!important;font-size:11px!important;}
-  .header-inner > .header-cart:not(.order-tracker-btn){height:40px!important;min-width:46px!important;padding:7px 8px!important;}
+@media(max-width:340px){
+  .header-inner{
+    grid-template-columns:62px minmax(78px,1fr) 110px!important;
+    gap:3px!important;
+    padding:3px 4px!important;
+  }
+  .header-inner .logo,
+  .header-inner .logo-image{
+    width:62px!important;
+    max-width:62px!important;
+    height:38px!important;
+    min-height:38px!important;
+  }
+  .header-inner .header-search{
+    height:34px!important;
+    padding:0 6px!important;
+  }
+  .header-inner .header-search input{
+    font-size:10px!important;
+  }
+  .header-inner .order-tracker-btn{
+    width:110px!important;
+    min-width:110px!important;
+    max-width:110px!important;
+    height:34px!important;
+    font-size:9px!important;
+  }
 }
 </style>
 
@@ -604,6 +773,23 @@ button{-webkit-tap-highlight-color:transparent}
       <strong id="successOrderCode">CC00000000</strong>
       <button type="button" class="copy-code-btn" onclick="copyOrderCode()">📋 Sao chép mã đơn</button>
     </div>
+
+    <div class="success-track-guide">
+      <div class="success-track-title">📋 Theo dõi đơn hàng</div>
+      <div class="success-track-text">
+        Bạn có thể mở <b>Lịch Sử Đơn Hàng</b> để xem trạng thái mới nhất của đơn.
+        Khi quán cập nhật đơn, bạn cũng có thể nhận thông báo trên điện thoại nếu đã bật thông báo.
+      </div>
+      <div class="success-track-actions">
+        <button type="button" class="success-track-btn primary" onclick="closeSuccessModal();openOrderTracker();">
+          📋 Theo dõi đơn
+        </button>
+        <button type="button" class="success-track-btn secondary" onclick="closeSuccessModal();openOrderTracker();">
+          🔎 Tra cứu mã
+        </button>
+      </div>
+    </div>
+
     <div class="success-wish">💛 Chúc bạn ngon miệng và có một ngày thật vui!</div>
     <button class="success-primary success-close-btn" onclick="closeSuccessModal()">Hoàn tất</button>
   </div>
@@ -619,7 +805,6 @@ button{-webkit-tap-highlight-color:transparent}
       <input id="productSearch" type="search" placeholder="Tìm món ăn, đồ uống..." oninput="searchProducts(this.value)">
     </div>
     <button class="header-cart order-tracker-btn" onclick="openOrderTracker()">📋 <span>Lịch Sử Đơn Hàng</span></button>
-    <button class="header-cart" onclick="openCart()">🛒 <span>Giỏ hàng</span><b id="headerCartCount">0</b></button>
     <button id="installAppBtn" class="pwa-install-btn" type="button" onclick="installPWA()" aria-label="Cài ứng dụng Ăn Vặt Lâm Thao">📲 Cài app</button>
   </div>
 </header>
@@ -2582,12 +2767,30 @@ async function confirmOrder(){
     }
 
     /* ==============================
-       CHỐNG BẤM TRÙNG
+       CHỐNG BẤM TRÙNG + KHÓA NGAY LẬP TỨC
+       Khóa nút trước khi đọc/kiểm tra dữ liệu để không thể
+       phát sinh 2-3 đơn khi khách bấm nhanh hoặc máy bị lag.
     ============================== */
 
     if(button.disabled || orderSubmitting){
         return;
     }
+
+    orderSubmitting = true;
+    button.disabled = true;
+    button.setAttribute("aria-disabled", "true");
+    button.style.pointerEvents = "none";
+    button.style.opacity = "0.65";
+    button.innerHTML = "⏳ Đang kiểm tra...";
+
+    const unlockOrderButton = () => {
+        orderSubmitting = false;
+        button.disabled = false;
+        button.removeAttribute("aria-disabled");
+        button.style.pointerEvents = "";
+        button.style.opacity = "";
+        button.innerHTML = "✅ Xác nhận đặt hàng";
+    };
 
     /* ==============================
        LẤY THÔNG TIN
@@ -2650,6 +2853,7 @@ if(!phone){
         "📱 Vui lòng nhập số điện thoại."
     );
 
+    unlockOrderButton();
     return;
 }
 
@@ -2660,6 +2864,7 @@ if(!/^0\d{9}$/.test(phone)){
         "Vui lòng nhập đúng 10 chữ số và bắt đầu bằng số 0."
     );
 
+    unlockOrderButton();
     return;
 }
 
@@ -2683,9 +2888,6 @@ if(!/^0\d{9}$/.test(phone)){
 
     }
 
-    // Khóa ngay luồng đặt hàng để tránh thao tác tạo 2 đơn liên tiếp.
-    orderSubmitting = true;
-
     /* ==============================
        TÍNH TIỀN
     ============================== */
@@ -2694,17 +2896,9 @@ if(!/^0\d{9}$/.test(phone)){
         calculateTotal();
 
     /* ==============================
-       KHÓA NÚT NGAY LẬP TỨC
+       CHUYỂN SANG TRẠNG THÁI ĐANG GỬI
+       Nút đã bị khóa từ đầu hàm và tiếp tục bị khóa.
     ============================== */
-
-    const oldText =
-        button.innerHTML;
-
-    button.disabled =
-        true;
-
-    button.style.opacity =
-        "0.6";
 
     button.innerHTML =
         "⏳ Đang gửi đơn...";
@@ -2828,56 +3022,20 @@ const payload = {
        Dữ liệu đơn vẫn được gửi nền ngay sau đó.
     ============================== */
 
-    showSuccessModal(orderCode, finalData.total);
-
-    showOrderNotification(
-        "🛒 Đặt hàng thành công",
-        "Mã đơn " + orderCode + " đã được tiếp nhận. Vui lòng chờ quán xác nhận."
-    );
-
     /* ==============================
-       GỬI ĐƠN
+       GỬI ĐƠN + CHỜ LOAD
+       Nút đã khóa từ đầu. Ở đây thực sự chờ request hoàn tất trước
+       khi đóng form để khách không thể bấm lại trong lúc máy đang lag.
     ============================== */
+
+    let requestStarted = false;
 
     try{
 
-        /*
-           Chỉ báo lỗi khi việc gửi yêu cầu thực sự thất bại.
-           Sau khi Google Apps Script đã nhận request, mọi lỗi ở phần
-           cập nhật giao diện/giỏ hàng không được phép biến thành
-           thông báo “Không thể gửi đơn hàng”.
-        */
         const orderBody = JSON.stringify(payload);
-        let requestStarted = false;
 
-        /*
-           Google Apps Script thường không cho trình duyệt đọc trực tiếp
-           phản hồi do CORS/redirect. Vì vậy không chờ response để kết luận
-           thành công hay thất bại. Chỉ cần request được xếp hàng/gửi đi,
-           giao diện sẽ tiếp tục hoàn tất đơn hàng.
-        */
-        if (navigator.sendBeacon) {
-            try {
-                const blob = new Blob(
-                    [orderBody],
-                    {type: "text/plain;charset=UTF-8"}
-                );
-                requestStarted = navigator.sendBeacon(
-                    GOOGLE_SCRIPT_URL,
-                    blob
-                );
-            } catch (beaconError) {
-                console.warn("sendBeacon error:", beaconError);
-            }
-        }
-
-        if (!requestStarted) {
-            /*
-               Không await fetch và không bắt lỗi mạng thành lỗi đơn hàng.
-               Trình duyệt vẫn gửi request ở chế độ no-cors/keepalive; nếu
-               Google trả response mà JS không đọc được thì cũng không sao.
-            */
-            fetch(
+        try {
+            await fetch(
                 GOOGLE_SCRIPT_URL,
                 {
                     method: "POST",
@@ -2888,20 +3046,37 @@ const payload = {
                     body: orderBody,
                     keepalive: true
                 }
-            ).catch(error => {
-                console.warn("Google Apps Script response/network:", error);
-            });
+            );
             requestStarted = true;
+        } catch (fetchError) {
+            console.warn("Fetch đơn hàng lỗi, chuyển sang sendBeacon:", fetchError);
+
+            if (navigator.sendBeacon) {
+                try {
+                    const blob = new Blob(
+                        [orderBody],
+                        {type: "text/plain;charset=UTF-8"}
+                    );
+                    requestStarted = navigator.sendBeacon(
+                        GOOGLE_SCRIPT_URL,
+                        blob
+                    );
+                } catch (beaconError) {
+                    console.warn("sendBeacon error:", beaconError);
+                }
+            }
+        }
+
+        if (!requestStarted) {
+            throw new Error("Không thể gửi yêu cầu đặt hàng.");
         }
 
         /* ==============================
-           ĐÃ KHỞI TẠO GỬI ĐƠN
-           Không dùng response CORS để báo lỗi giả cho khách hàng.
+           ĐÃ GỬI ĐƯỢC REQUEST
         ============================== */
 
         /* ==============================
            DỌN DẸP SAU KHI GỬI
-           Các lỗi giao diện không được báo thành lỗi gửi đơn.
         ============================== */
 
         try {
@@ -2915,6 +3090,13 @@ const payload = {
         } catch (modalError) {
             console.warn("Đóng form đặt hàng:", modalError);
         }
+
+        showSuccessModal(orderCode, finalData.total);
+
+        showOrderNotification(
+            "🛒 Đặt hàng thành công",
+            "Mã đơn " + orderCode + " đã được tiếp nhận. Vui lòng chờ quán xác nhận."
+        );
 
         /* ==============================
            GIỮ NÚT ĐÃ KHÓA SAU KHI GỬI
@@ -2937,11 +3119,16 @@ const payload = {
            được response do CORS/redirect.
         */
         try {
-            // Chỉ mở khóa khi có lỗi trước khi khởi tạo request.
             // Nếu request đã được gửi nền thì giữ khóa để tránh tạo đơn trùng.
-            button.disabled = true;
-            button.style.opacity = "0.65";
-            button.innerHTML = "✅ Đã gửi đơn";
+            // Nếu lỗi xảy ra trước khi tạo request, cho phép khách thử lại.
+            if (typeof requestStarted !== "undefined" && requestStarted) {
+                button.disabled = true;
+                button.style.pointerEvents = "none";
+                button.style.opacity = "0.65";
+                button.innerHTML = "✅ Đã gửi đơn";
+            } else {
+                unlockOrderButton();
+            }
         } catch (resetError) {
             console.warn("Giữ trạng thái khóa nút xác nhận:", resetError);
         }
