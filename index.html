@@ -622,59 +622,39 @@ button{-webkit-tap-highlight-color:transparent}
         throw new Error("Bạn chưa cho phép hiển thị thông báo.");
       }
 
-      // Dọn registration FCM cũ ở scope / nếu bản trước đã tạo.
-      const oldRegs = await navigator.serviceWorker.getRegistrations();
-      for (const reg of oldRegs) {
-        const script = reg.active?.scriptURL || reg.waiting?.scriptURL || reg.installing?.scriptURL || "";
-        if (script.includes("/firebase-messaging-sw.js") && reg.scope === location.origin + "/") {
-          await reg.unregister();
-        }
-      }
+      // Ưu tiên dùng registration FCM đã có sẵn để không phải cài lại mỗi lần.
+      // Đây là phần giúp nút “Cho phép thông báo” phản hồi nhanh hơn rõ rệt ở các lần sau.
+      let registration = await navigator.serviceWorker.getRegistration(FCM_SW_SCOPE);
 
-      // Đăng ký FCM ở scope riêng, không đụng PWA sw.js.
-      const registration = await navigator.serviceWorker.register(FCM_SW_URL, {
-        scope: FCM_SW_SCOPE,
-        updateViaCache: "none"
-      });
-
-      // Chờ riêng FCM worker hoạt động.
-      if (registration.installing) {
-        await new Promise((resolve, reject) => {
-          const worker = registration.installing;
-          const timer = setTimeout(() => reject(new Error("FCM Service Worker khởi động quá lâu.")), 15000);
-          worker.addEventListener("statechange", () => {
-            if (worker.state === "activated") {
-              clearTimeout(timer);
-              resolve();
-            }
-            if (worker.state === "redundant") {
-              clearTimeout(timer);
-              reject(new Error("FCM Service Worker bị trình duyệt từ chối kích hoạt."));
-            }
-          });
+      if (!registration) {
+        registration = await navigator.serviceWorker.register(FCM_SW_URL, {
+          scope: FCM_SW_SCOPE,
+          updateViaCache: "none"
         });
       }
 
-      // Chỉ chờ đúng FCM Service Worker, không chờ service worker PWA chung.
+      // Chỉ chờ khi worker thật sự chưa active. Nếu đã active thì đi thẳng tới getToken().
       if (!registration.active) {
+        const worker = registration.installing || registration.waiting;
+        if (!worker) {
+          throw new Error("Không tìm thấy FCM Service Worker.");
+        }
+
         await new Promise((resolve, reject) => {
-          const worker = registration.installing || registration.waiting;
-          if (!worker) {
-            reject(new Error("Không tìm thấy FCM Service Worker."));
-            return;
-          }
           const timer = setTimeout(() => {
-            reject(new Error("FCM Service Worker khởi động quá lâu."));
-          }, 15000);
+            reject(new Error("FCM Service Worker khởi động quá lâu. Hãy thử lại."));
+          }, 8000);
+
           const check = () => {
-            if (worker.state === "activated") {
+            if (worker.state === "activated" || registration.active) {
               clearTimeout(timer);
               resolve();
             } else if (worker.state === "redundant") {
               clearTimeout(timer);
-              reject(new Error("FCM Service Worker bị trình duyệt từ chối kích hoạt."));
+              reject(new Error("FCM Service Worker không thể kích hoạt."));
             }
           };
+
           worker.addEventListener("statechange", check);
           check();
         });
@@ -692,23 +672,21 @@ button{-webkit-tap-highlight-color:transparent}
         throw new Error("Firebase không trả về FCM token.");
       }
 
+      // Lưu token trước để website có thể dùng NGAY cho đơn hàng tiếp theo.
       localStorage.setItem("ANVAT_FCM_TOKEN", token);
       localStorage.setItem("ANVAT_NOTIFICATION_ENABLED", "1");
 
-      // Gửi token về Apps Script ngay lập tức.
+      // Không chờ Apps Script phản hồi: gửi token nền để nút “Cho phép” kết thúc nhanh hơn.
       const phone = document.getElementById("customerPhone")?.value.trim() || "";
-      try {
-        await fetch(GOOGLE_SCRIPT_URL, {
-          method: "POST",
-          mode: "no-cors",
-          headers: { "Content-Type": "text/plain;charset=utf-8" },
-          body: JSON.stringify({ action: "saveFcmToken", phone, fcmToken: token }),
-          keepalive: true
-        });
-      } catch (sendError) {
-        // Token vẫn được giữ trong localStorage; đơn hàng sau đó cũng gửi token.
+      fetch(GOOGLE_SCRIPT_URL, {
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify({ action: "saveFcmToken", phone, fcmToken: token }),
+        keepalive: true
+      }).catch(sendError => {
         console.warn("FCM token đã tạo nhưng chưa gửi được Apps Script:", sendError);
-      }
+      });
 
       console.log("✅ FCM TOKEN:", token);
       console.log("✅ FCM Service Worker:", registration.scope);
@@ -748,6 +726,64 @@ button{-webkit-tap-highlight-color:transparent}
   .order-history-card .order-history-detail-title{align-items:flex-start;flex-direction:column;gap:5px}
 }
 </style>
+
+<style>
+/* ===== HEADER BANNER NỔI BẬT ===== */
+header{
+  position:relative!important;
+  overflow:hidden!important;
+  padding:10px 12px!important;
+  background:linear-gradient(135deg,#7f1d1d 0%,#c2410c 42%,#f59e0b 100%)!important;
+  box-shadow:0 5px 20px rgba(126,45,12,.22)!important;
+}
+header::before{
+  content:"";position:absolute;inset:-70px auto auto -40px;width:230px;height:150px;
+  background:radial-gradient(circle,rgba(255,255,255,.25),transparent 68%);
+  pointer-events:none;
+}
+header::after{
+  content:"";position:absolute;right:-70px;top:-95px;width:260px;height:190px;
+  background:radial-gradient(circle,rgba(255,224,138,.30),transparent 68%);
+  pointer-events:none;
+}
+.header-inner{
+  position:relative!important;z-index:1!important;
+  padding:7px 9px!important;
+  border:1px solid rgba(255,255,255,.28)!important;
+  border-radius:18px!important;
+  background:rgba(255,255,255,.13)!important;
+  backdrop-filter:blur(10px)!important;
+  -webkit-backdrop-filter:blur(10px)!important;
+  box-shadow:0 7px 24px rgba(74,20,0,.18)!important;
+}
+.header-search{
+  background:#fffdf9!important;
+  border:2px solid rgba(255,205,130,.9)!important;
+  box-shadow:0 4px 14px rgba(79,31,0,.14),inset 0 1px 0 #fff!important;
+}
+.header-search span{filter:saturate(1.35)!important}
+.header-search input::placeholder{color:#98715b!important}
+.order-tracker-btn{
+  background:linear-gradient(135deg,#fff7ed,#ffe1b3)!important;
+  border:2px solid rgba(255,255,255,.85)!important;
+  color:#7c2d12!important;
+  box-shadow:0 4px 13px rgba(80,25,0,.18)!important;
+  transition:transform .18s ease,box-shadow .18s ease!important;
+}
+.order-tracker-btn:hover{
+  background:linear-gradient(135deg,#fff,#ffd48a)!important;
+  transform:translateY(-1px)!important;
+  box-shadow:0 7px 17px rgba(80,25,0,.24)!important;
+}
+.logo{filter:drop-shadow(0 3px 6px rgba(60,20,0,.22))!important}
+@media(max-width:800px){
+  header{padding:6px 7px!important}
+  .header-inner{border-radius:16px!important;padding:5px 6px!important}
+  .header-search{border-width:2px!important}
+  .order-tracker-btn{border-width:2px!important}
+}
+</style>
+
 </head>
 <body>
 
