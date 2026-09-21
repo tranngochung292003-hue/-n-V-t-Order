@@ -346,10 +346,10 @@ button{-webkit-tap-highlight-color:transparent}
 .order-tracker-btn span{display:inline!important;}
 
 @media(max-width:800px){
-  /* Mobile: logo ở trên, bên dưới là Tìm kiếm → Lịch sử → Giỏ hàng */
+  /* Mobile: logo ở trên, bên dưới là Tìm kiếm → Lịch sử đơn hàng */
   .header-inner{
     display:grid!important;
-    grid-template-columns:minmax(0,1fr) auto auto!important;
+    grid-template-columns:minmax(0,1fr) auto!important;
     align-items:center!important;
     gap:8px!important;
     padding:7px 9px!important;
@@ -393,16 +393,7 @@ button{-webkit-tap-highlight-color:transparent}
     gap:4px!important;
   }
   .header-inner .order-tracker-btn span{display:inline!important;}
-  .header-inner > .header-cart:not(.order-tracker-btn){
-    grid-column:3!important;
-    grid-row:2!important;
-    min-width:48px!important;
-    height:41px!important;
-    padding:8px 10px!important;
-    display:flex!important;
-    align-items:center!important;
-    justify-content:center!important;
-  }
+  .header-inner #installAppBtn{display:none!important;}
 }
 
 @media(max-width:520px){
@@ -411,7 +402,6 @@ button{-webkit-tap-highlight-color:transparent}
   .header-inner .logo-image{height:57px!important;}
   .header-inner .header-search{height:40px!important;}
   .header-inner .order-tracker-btn{height:40px!important;padding:7px 8px!important;font-size:11px!important;}
-  .header-inner > .header-cart:not(.order-tracker-btn){height:40px!important;min-width:46px!important;padding:7px 8px!important;}
 }
 </style>
 
@@ -619,7 +609,6 @@ button{-webkit-tap-highlight-color:transparent}
       <input id="productSearch" type="search" placeholder="Tìm món ăn, đồ uống..." oninput="searchProducts(this.value)">
     </div>
     <button class="header-cart order-tracker-btn" onclick="openOrderTracker()">📋 <span>Lịch Sử Đơn Hàng</span></button>
-    <button class="header-cart" onclick="openCart()">🛒 <span>Giỏ hàng</span><b id="headerCartCount">0</b></button>
     <button id="installAppBtn" class="pwa-install-btn" type="button" onclick="installPWA()" aria-label="Cài ứng dụng Ăn Vặt Lâm Thao">📲 Cài app</button>
   </div>
 </header>
@@ -2582,12 +2571,30 @@ async function confirmOrder(){
     }
 
     /* ==============================
-       CHỐNG BẤM TRÙNG
+       CHỐNG BẤM TRÙNG + KHÓA NGAY LẬP TỨC
+       Khóa nút trước khi đọc/kiểm tra dữ liệu để không thể
+       phát sinh 2-3 đơn khi khách bấm nhanh hoặc máy bị lag.
     ============================== */
 
     if(button.disabled || orderSubmitting){
         return;
     }
+
+    orderSubmitting = true;
+    button.disabled = true;
+    button.setAttribute("aria-disabled", "true");
+    button.style.pointerEvents = "none";
+    button.style.opacity = "0.65";
+    button.innerHTML = "⏳ Đang kiểm tra...";
+
+    const unlockOrderButton = () => {
+        orderSubmitting = false;
+        button.disabled = false;
+        button.removeAttribute("aria-disabled");
+        button.style.pointerEvents = "";
+        button.style.opacity = "";
+        button.innerHTML = "✅ Xác nhận đặt hàng";
+    };
 
     /* ==============================
        LẤY THÔNG TIN
@@ -2650,6 +2657,7 @@ if(!phone){
         "📱 Vui lòng nhập số điện thoại."
     );
 
+    unlockOrderButton();
     return;
 }
 
@@ -2660,6 +2668,7 @@ if(!/^0\d{9}$/.test(phone)){
         "Vui lòng nhập đúng 10 chữ số và bắt đầu bằng số 0."
     );
 
+    unlockOrderButton();
     return;
 }
 
@@ -2683,9 +2692,6 @@ if(!/^0\d{9}$/.test(phone)){
 
     }
 
-    // Khóa ngay luồng đặt hàng để tránh thao tác tạo 2 đơn liên tiếp.
-    orderSubmitting = true;
-
     /* ==============================
        TÍNH TIỀN
     ============================== */
@@ -2694,17 +2700,9 @@ if(!/^0\d{9}$/.test(phone)){
         calculateTotal();
 
     /* ==============================
-       KHÓA NÚT NGAY LẬP TỨC
+       CHUYỂN SANG TRẠNG THÁI ĐANG GỬI
+       Nút đã bị khóa từ đầu hàm và tiếp tục bị khóa.
     ============================== */
-
-    const oldText =
-        button.innerHTML;
-
-    button.disabled =
-        true;
-
-    button.style.opacity =
-        "0.6";
 
     button.innerHTML =
         "⏳ Đang gửi đơn...";
@@ -2828,56 +2826,20 @@ const payload = {
        Dữ liệu đơn vẫn được gửi nền ngay sau đó.
     ============================== */
 
-    showSuccessModal(orderCode, finalData.total);
-
-    showOrderNotification(
-        "🛒 Đặt hàng thành công",
-        "Mã đơn " + orderCode + " đã được tiếp nhận. Vui lòng chờ quán xác nhận."
-    );
-
     /* ==============================
-       GỬI ĐƠN
+       GỬI ĐƠN + CHỜ LOAD
+       Nút đã khóa từ đầu. Ở đây thực sự chờ request hoàn tất trước
+       khi đóng form để khách không thể bấm lại trong lúc máy đang lag.
     ============================== */
+
+    let requestStarted = false;
 
     try{
 
-        /*
-           Chỉ báo lỗi khi việc gửi yêu cầu thực sự thất bại.
-           Sau khi Google Apps Script đã nhận request, mọi lỗi ở phần
-           cập nhật giao diện/giỏ hàng không được phép biến thành
-           thông báo “Không thể gửi đơn hàng”.
-        */
         const orderBody = JSON.stringify(payload);
-        let requestStarted = false;
 
-        /*
-           Google Apps Script thường không cho trình duyệt đọc trực tiếp
-           phản hồi do CORS/redirect. Vì vậy không chờ response để kết luận
-           thành công hay thất bại. Chỉ cần request được xếp hàng/gửi đi,
-           giao diện sẽ tiếp tục hoàn tất đơn hàng.
-        */
-        if (navigator.sendBeacon) {
-            try {
-                const blob = new Blob(
-                    [orderBody],
-                    {type: "text/plain;charset=UTF-8"}
-                );
-                requestStarted = navigator.sendBeacon(
-                    GOOGLE_SCRIPT_URL,
-                    blob
-                );
-            } catch (beaconError) {
-                console.warn("sendBeacon error:", beaconError);
-            }
-        }
-
-        if (!requestStarted) {
-            /*
-               Không await fetch và không bắt lỗi mạng thành lỗi đơn hàng.
-               Trình duyệt vẫn gửi request ở chế độ no-cors/keepalive; nếu
-               Google trả response mà JS không đọc được thì cũng không sao.
-            */
-            fetch(
+        try {
+            await fetch(
                 GOOGLE_SCRIPT_URL,
                 {
                     method: "POST",
@@ -2888,20 +2850,37 @@ const payload = {
                     body: orderBody,
                     keepalive: true
                 }
-            ).catch(error => {
-                console.warn("Google Apps Script response/network:", error);
-            });
+            );
             requestStarted = true;
+        } catch (fetchError) {
+            console.warn("Fetch đơn hàng lỗi, chuyển sang sendBeacon:", fetchError);
+
+            if (navigator.sendBeacon) {
+                try {
+                    const blob = new Blob(
+                        [orderBody],
+                        {type: "text/plain;charset=UTF-8"}
+                    );
+                    requestStarted = navigator.sendBeacon(
+                        GOOGLE_SCRIPT_URL,
+                        blob
+                    );
+                } catch (beaconError) {
+                    console.warn("sendBeacon error:", beaconError);
+                }
+            }
+        }
+
+        if (!requestStarted) {
+            throw new Error("Không thể gửi yêu cầu đặt hàng.");
         }
 
         /* ==============================
-           ĐÃ KHỞI TẠO GỬI ĐƠN
-           Không dùng response CORS để báo lỗi giả cho khách hàng.
+           ĐÃ GỬI ĐƯỢC REQUEST
         ============================== */
 
         /* ==============================
            DỌN DẸP SAU KHI GỬI
-           Các lỗi giao diện không được báo thành lỗi gửi đơn.
         ============================== */
 
         try {
@@ -2915,6 +2894,13 @@ const payload = {
         } catch (modalError) {
             console.warn("Đóng form đặt hàng:", modalError);
         }
+
+        showSuccessModal(orderCode, finalData.total);
+
+        showOrderNotification(
+            "🛒 Đặt hàng thành công",
+            "Mã đơn " + orderCode + " đã được tiếp nhận. Vui lòng chờ quán xác nhận."
+        );
 
         /* ==============================
            GIỮ NÚT ĐÃ KHÓA SAU KHI GỬI
@@ -2937,11 +2923,16 @@ const payload = {
            được response do CORS/redirect.
         */
         try {
-            // Chỉ mở khóa khi có lỗi trước khi khởi tạo request.
             // Nếu request đã được gửi nền thì giữ khóa để tránh tạo đơn trùng.
-            button.disabled = true;
-            button.style.opacity = "0.65";
-            button.innerHTML = "✅ Đã gửi đơn";
+            // Nếu lỗi xảy ra trước khi tạo request, cho phép khách thử lại.
+            if (typeof requestStarted !== "undefined" && requestStarted) {
+                button.disabled = true;
+                button.style.pointerEvents = "none";
+                button.style.opacity = "0.65";
+                button.innerHTML = "✅ Đã gửi đơn";
+            } else {
+                unlockOrderButton();
+            }
         } catch (resetError) {
             console.warn("Giữ trạng thái khóa nút xác nhận:", resetError);
         }
@@ -3391,72 +3382,3 @@ async function checkOrderStatus(code,phone){
 
 </body>
 </html>
-
-<style>
-/* ===== MOBILE HEADER: LOGO FULL ROW ===== */
-@media (max-width: 800px){
-  .header-inner.den-header{
-    display:grid!important;
-    grid-template-columns:minmax(0,1fr) auto auto!important;
-    grid-template-rows:58px 44px!important;
-    gap:8px!important;
-    width:100%!important;
-    padding:8px 10px!important;
-    align-items:center!important;
-  }
-
-  /* Dòng 1: logo kéo dài toàn bộ chiều ngang */
-  .header-inner.den-header .logo{
-    grid-column:1 / -1!important;
-    grid-row:1!important;
-    width:100%!important;
-    min-width:0!important;
-    height:58px!important;
-    display:flex!important;
-    align-items:center!important;
-    justify-content:flex-start!important;
-    overflow:hidden!important;
-    padding:0 2px!important;
-  }
-
-  .header-inner.den-header .logo-image{
-    width:auto!important;
-    max-width:100%!important;
-    height:54px!important;
-    object-fit:contain!important;
-    object-position:left center!important;
-  }
-
-  /* Dòng 2: Tìm kiếm - Lịch sử - Giỏ hàng */
-  .header-inner.den-header .header-search{
-    grid-column:1!important;
-    grid-row:2!important;
-    width:100%!important;
-    min-width:0!important;
-    height:42px!important;
-    order:initial!important;
-  }
-
-  .header-inner.den-header .order-tracker-btn{
-    grid-column:2!important;
-    grid-row:2!important;
-    height:42px!important;
-    min-width:44px!important;
-    padding:9px 10px!important;
-    white-space:nowrap!important;
-  }
-
-  .header-inner.den-header .header-cart:not(.order-tracker-btn){
-    grid-column:3!important;
-    grid-row:2!important;
-    height:42px!important;
-    min-width:44px!important;
-    padding:9px 10px!important;
-    white-space:nowrap!important;
-  }
-
-  .header-inner.den-header #installAppBtn{
-    display:none!important;
-  }
-}
-</style>
