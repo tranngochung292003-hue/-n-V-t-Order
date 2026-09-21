@@ -965,10 +965,10 @@ button{-webkit-tap-highlight-color:transparent}
     <span class="notification-permission-icon">🔔</span>
     <div>
       <b>Cho phép hiển thị thông báo</b>
-      <small>Nhận thông báo khi đơn hàng được tiếp nhận/cập nhật.</small>
+      <small>Nhận thông báo khi quán cập nhật đơn hàng.</small>
     </div>
   </div>
-  <button type="button" id="notificationPermissionBtn" class="notification-permission-btn" onclick="enableNotifications()">Cho phép</button>
+  <button type="button" id="notificationPermissionBtn" class="notification-permission-btn" onclick="enableNotifications()">🔔 Cho phép thông báo</button>
 </div>
 
 <input type="hidden" id="latitude">
@@ -1215,7 +1215,7 @@ function updateNotificationPermissionUI(message){
     return;
   }
   if(Notification.permission === "granted" && !hasToken){
-    btn.textContent = "🔔 Đăng ký FCM";
+    btn.textContent = "🔔 Cho phép thông báo";
     btn.classList.remove("enabled");
     btn.disabled = false;
     return;
@@ -1234,20 +1234,20 @@ function updateNotificationPermissionUI(message){
 
 async function enableNotifications(){
   const btn = document.getElementById("notificationPermissionBtn");
-  if(btn){ btn.disabled=true; btn.textContent="⏳ Đang đăng ký FCM..."; }
+  if(btn){ btn.disabled=true; btn.textContent="⏳ Đang bật thông báo..."; }
   try{
     const result = await window.initFirebaseNotifications();
     if(result.success){
       updateNotificationPermissionUI();
-      alert("✅ Đã đăng ký FCM thành công. Token đã được gửi về Google Sheet.");
+      alert("✅ Đã bật thông báo thành công. Bạn sẽ nhận được cập nhật đơn hàng từ quán.");
     }else{
       updateNotificationPermissionUI();
-      alert("❌ Chưa đăng ký được FCM.\n\n" + result.message);
+      alert("❌ Chưa bật được thông báo.\n\n" + result.message);
     }
   }catch(error){
     console.error("FCM enable error:", error);
     updateNotificationPermissionUI();
-    alert("❌ Lỗi FCM: " + (error?.message || error));
+    alert("❌ Lỗi khi bật thông báo: " + (error?.message || error));
   }finally{
     if(btn) btn.disabled=false;
   }
@@ -2454,6 +2454,18 @@ function openOrderForm(){
 
     }
 
+    // Mỗi lần mở một đơn mới, cho phép nút xác nhận hoạt động lại.
+    orderSubmitting = false;
+
+    const confirmButton =
+        document.getElementById("confirmOrderButton");
+
+    if(confirmButton){
+        confirmButton.disabled = false;
+        confirmButton.style.opacity = "1";
+        confirmButton.innerHTML = "✅ Xác nhận đặt hàng";
+    }
+
     calculateTotal();
 
     closeCart();
@@ -2905,12 +2917,14 @@ const payload = {
         }
 
         /* ==============================
-           RESET NÚT
+           GIỮ NÚT ĐÃ KHÓA SAU KHI GỬI
+           Modal đã đóng; khi khách tạo đơn mới,
+           openOrderForm() sẽ mở khóa nút lại.
         ============================== */
 
-        button.disabled = false;
-        button.style.opacity = "1";
-        button.innerHTML = oldText;
+        button.disabled = true;
+        button.style.opacity = "0.65";
+        button.innerHTML = "✅ Đã gửi đơn";
 
     }catch(error){
 
@@ -2923,15 +2937,15 @@ const payload = {
            được response do CORS/redirect.
         */
         try {
-            button.disabled = false;
-            button.style.opacity = "1";
-            button.innerHTML = oldText;
+            // Chỉ mở khóa khi có lỗi trước khi khởi tạo request.
+            // Nếu request đã được gửi nền thì giữ khóa để tránh tạo đơn trùng.
+            button.disabled = true;
+            button.style.opacity = "0.65";
+            button.innerHTML = "✅ Đã gửi đơn";
         } catch (resetError) {
-            console.warn("Reset nút xác nhận:", resetError);
+            console.warn("Giữ trạng thái khóa nút xác nhận:", resetError);
         }
 
-        // Không cho tạo lại đơn từ cùng phiên sau khi mã đơn đã được tạo,
-        // vì request nền có thể đã tới Google Apps Script.
         console.warn("Luồng hiển thị sau khi tạo đơn gặp lỗi:", error);
 
     }
