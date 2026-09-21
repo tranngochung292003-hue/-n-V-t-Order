@@ -307,9 +307,85 @@ button{-webkit-tap-highlight-color:transparent}
 
 </style>
 <style>
-.order-tracker-btn{background:#fffaf5!important;color:#8b5e3c!important;border:1px solid #d9c2aa!important;}
+/* ===== VỊ TRÍ LỊCH SỬ ĐƠN HÀNG: GIỮA TÌM KIẾM VÀ GIỎ HÀNG ===== */
+.order-tracker-btn{
+  background:#fffaf5!important;
+  color:#8b5e3c!important;
+  border:1px solid #d9c2aa!important;
+  white-space:nowrap!important;
+  flex:0 0 auto!important;
+}
 .order-tracker-btn:hover{background:#f3e7d8!important;}
-@media(max-width:700px){.order-tracker-btn span{display:none!important;}.order-tracker-btn{font-size:18px!important;padding:10px!important;}}
+.order-tracker-btn span{display:inline!important;}
+
+@media(max-width:800px){
+  /* Mobile: logo ở trên, bên dưới là Tìm kiếm → Lịch sử → Giỏ hàng */
+  .header-inner{
+    display:grid!important;
+    grid-template-columns:minmax(0,1fr) auto auto!important;
+    align-items:center!important;
+    gap:8px!important;
+    padding:7px 9px!important;
+  }
+  .header-inner .logo{
+    grid-column:1/-1!important;
+    grid-row:1!important;
+    width:100%!important;
+    min-width:0!important;
+    max-width:none!important;
+    height:54px!important;
+    min-height:54px!important;
+  }
+  .header-inner .logo-image{
+    width:100%!important;
+    max-width:none!important;
+    height:54px!important;
+    object-fit:contain!important;
+    object-position:left center!important;
+  }
+  .header-inner .header-search{
+    grid-column:1!important;
+    grid-row:2!important;
+    width:100%!important;
+    min-width:0!important;
+    height:41px!important;
+    margin:0!important;
+  }
+  .header-inner .order-tracker-btn{
+    grid-column:2!important;
+    grid-row:2!important;
+    min-width:0!important;
+    height:41px!important;
+    padding:8px 10px!important;
+    border-radius:999px!important;
+    font-size:12px!important;
+    font-weight:850!important;
+    display:flex!important;
+    align-items:center!important;
+    justify-content:center!important;
+    gap:4px!important;
+  }
+  .header-inner .order-tracker-btn span{display:inline!important;}
+  .header-inner > .header-cart:not(.order-tracker-btn){
+    grid-column:3!important;
+    grid-row:2!important;
+    min-width:48px!important;
+    height:41px!important;
+    padding:8px 10px!important;
+    display:flex!important;
+    align-items:center!important;
+    justify-content:center!important;
+  }
+}
+
+@media(max-width:520px){
+  .header-inner{gap:6px!important;padding:6px 8px!important;}
+  .header-inner .logo{height:57px!important;min-height:57px!important;}
+  .header-inner .logo-image{height:57px!important;}
+  .header-inner .header-search{height:40px!important;}
+  .header-inner .order-tracker-btn{height:40px!important;padding:7px 8px!important;font-size:11px!important;}
+  .header-inner > .header-cart:not(.order-tracker-btn){height:40px!important;min-width:46px!important;padding:7px 8px!important;}
+}
 </style>
 </head>
 <body>
@@ -377,8 +453,8 @@ button{-webkit-tap-highlight-color:transparent}
       <span>🔍</span>
       <input id="productSearch" type="search" placeholder="Tìm món ăn, đồ uống..." oninput="searchProducts(this.value)">
     </div>
-    <button class="header-cart" onclick="openCart()">🛒 <span>Giỏ hàng</span><b id="headerCartCount">0</b></button>
     <button class="header-cart order-tracker-btn" onclick="openOrderTracker()">📋 <span>Lịch Sử Đơn Hàng</span></button>
+    <button class="header-cart" onclick="openCart()">🛒 <span>Giỏ hàng</span><b id="headerCartCount">0</b></button>
     <button id="installAppBtn" class="pwa-install-btn" type="button" onclick="installPWA()" aria-label="Cài ứng dụng Ăn Vặt Lâm Thao">📲 Cài app</button>
   </div>
 </header>
