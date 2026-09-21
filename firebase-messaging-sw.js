@@ -9,7 +9,7 @@ importScripts(
 );
 
 const firebaseConfig = {
-  apiKey: "AIzaSyALoTwRXs-ddu6756M8Dj6RGeb1aN1oWnc",
+  apiKey: "AIzaSyALoTwRX-s-ddu6756M8Dj6RGeb1aN1oWnc",
   authDomain: "anvatlamthao.firebaseapp.com",
   projectId: "anvatlamthao",
   storageBucket: "anvatlamthao.firebasestorage.app",
@@ -41,16 +41,12 @@ messaging.onBackgroundMessage(function (payload) {
   const notificationOptions = {
     body: notificationBody,
 
-    // Logo website
     icon: "/logowed.png",
     badge: "/logowed.png",
 
     data: payload.data || {},
 
-    // Gom các thông báo đơn hàng vào cùng nhóm
-    tag: "anvatlamthao-order",
-
-    // Cho phép thông báo mới hiện lại
+    // Mỗi lần cập nhật trạng thái tạo một thông báo mới
     renotify: true
   };
 
