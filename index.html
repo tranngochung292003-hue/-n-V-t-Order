@@ -468,8 +468,6 @@ button{-webkit-tap-highlight-color:transparent}
         updateViaCache: "none"
       });
 
-      await navigator.serviceWorker.ready;
-
       // Chờ riêng FCM worker hoạt động.
       if (registration.installing) {
         await new Promise((resolve, reject) => {
@@ -485,6 +483,31 @@ button{-webkit-tap-highlight-color:transparent}
               reject(new Error("FCM Service Worker bị trình duyệt từ chối kích hoạt."));
             }
           });
+        });
+      }
+
+      // Chỉ chờ đúng FCM Service Worker, không chờ service worker PWA chung.
+      if (!registration.active) {
+        await new Promise((resolve, reject) => {
+          const worker = registration.installing || registration.waiting;
+          if (!worker) {
+            reject(new Error("Không tìm thấy FCM Service Worker."));
+            return;
+          }
+          const timer = setTimeout(() => {
+            reject(new Error("FCM Service Worker khởi động quá lâu."));
+          }, 15000);
+          const check = () => {
+            if (worker.state === "activated") {
+              clearTimeout(timer);
+              resolve();
+            } else if (worker.state === "redundant") {
+              clearTimeout(timer);
+              reject(new Error("FCM Service Worker bị trình duyệt từ chối kích hoạt."));
+            }
+          };
+          worker.addEventListener("statechange", check);
+          check();
         });
       }
 
