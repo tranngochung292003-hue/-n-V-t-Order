@@ -344,6 +344,7 @@ button{-webkit-tap-highlight-color:transparent}
       <input id="productSearch" type="search" placeholder="Tìm món ăn, đồ uống..." oninput="searchProducts(this.value)">
     </div>
     <button class="header-cart" onclick="openCart()">🛒 <span>Giỏ hàng</span><b id="headerCartCount">0</b></button>
+    <button class="header-cart" onclick="openOrderTracker()">📦 <span>Đơn hàng</span></button>
     <button id="installAppBtn" class="pwa-install-btn" type="button" onclick="installPWA()" aria-label="Cài ứng dụng Ăn Vặt Lâm Thao">📲 Cài app</button>
   </div>
 </header>
@@ -810,6 +811,20 @@ button{-webkit-tap-highlight-color:transparent}
   <b>📲 Cài Ăn Vặt Lâm Thao</b><br>
   Mở nhanh như một ứng dụng, có biểu tượng riêng trên điện thoại.
   <button type="button" onclick="closePWAHint()">Đã hiểu</button>
+</div>
+
+
+<!-- ORDER TRACKER -->
+<div id="orderTrackerModal" class="modal" style="display:none">
+  <div class="modal-content" style="max-width:430px">
+    <button onclick="closeOrderTracker()" style="float:right;border:0;background:none;font-size:22px">✕</button>
+    <h3>📦 Theo dõi đơn hàng</h3>
+    <p style="color:#7b6658">Nhập mã đơn và số điện thoại để xem tình trạng đơn.</p>
+    <input id="trackOrderCode" placeholder="Mã đơn hàng (VD: CC12345678)">
+    <input id="trackOrderPhone" placeholder="Số điện thoại">
+    <button onclick="checkOrderStatus()" style="width:100%;margin-top:10px">🔎 Tra cứu đơn hàng</button>
+    <div id="orderStatusResult" style="margin-top:15px"></div>
+  </div>
 </div>
 
 <!-- FOOTER -->
@@ -2317,12 +2332,6 @@ if(!/^0\d{9}$/.test(phone)){
         Date.now()
             .toString()
             .slice(-8);
-  // Xin quyền nhận thông báo trạng thái đơn
-if(window.getFCMToken){
-
-    await window.getFCMToken();
-
-}
 
     /* ==============================
        SẢN PHẨM
@@ -2406,9 +2415,7 @@ const payload = {
 
     createdAt:
         new Date()
-            .toLocaleString("vi-VN") ,
-  fcmToken:
-    localStorage.getItem("fcmToken") || ""
+            .toLocaleString("vi-VN")
 
 };
 
@@ -2756,187 +2763,62 @@ window.addEventListener('appinstalled',function(){
     }
 })();
 </script>
-<script type="module">
-
-import { initializeApp }
-from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-
-import { getMessaging, getToken }
-from "https://www.gstatic.com/firebasejs/10.12.2/firebase-messaging.js";
 
 
-const firebaseConfig = {
-
-apiKey: "AIzaSyALoTwRXs-ddu6756M8Dj6RGeb1aNloWnc",
-
-authDomain: "anvatlamthao.firebaseapp.com",
-
-projectId: "anvatlamthao",
-
-storageBucket: "anvatlamthao.firebasestorage.app",
-
-messagingSenderId: "1018828516701",
-
-appId: "1:1018828516701:web:59c3c36e414a14d9858cb4"
-
-};
-
-
-const app = initializeApp(firebaseConfig);
-
-const messaging = getMessaging(app);
-
-
-window.getFCMToken = async function(){
-
-try{
-
-
-const permission =
-await Notification.requestPermission();
-
-
-if(permission !== "granted"){
-
-console.log(
-"Khách không cho phép thông báo"
-);
-
-return "";
-
+<script>
+function openOrderTracker(){
+ const m=document.getElementById("orderTrackerModal");
+ if(m) m.style.display="flex";
+}
+function closeOrderTracker(){
+ const m=document.getElementById("orderTrackerModal");
+ if(m) m.style.display="none";
 }
 
+async function checkOrderStatus(){
+ const code=document.getElementById("trackOrderCode").value.trim();
+ const phone=document.getElementById("trackOrderPhone").value.trim();
+ const box=document.getElementById("orderStatusResult");
 
-const token = await getToken(
-messaging,
-{
-vapidKey:
-"BP3BGjVNvkDG5HJM5ccXGJJBEh-r_EqMm1Wi0pPCTmR_i0YnUVa9pxpdQEyeRBR_ayLxqaRUWkjbeLaLdSnZUNk"
+ if(!code || !phone){
+   box.innerHTML="❌ Vui lòng nhập đủ mã đơn và số điện thoại.";
+   return;
+ }
+
+ box.innerHTML="⏳ Đang kiểm tra...";
+
+ try{
+   const url=GOOGLE_SCRIPT_URL+
+   "?action=getOrderStatus"+
+   "&code="+encodeURIComponent(code)+
+   "&phone="+encodeURIComponent(phone);
+
+   const res=await fetch(url);
+   const data=await res.json();
+
+   if(!data.success){
+     box.innerHTML="❌ "+(data.message||"Không tìm thấy đơn hàng");
+     return;
+   }
+
+   let icon="🟡";
+   if(data.status==="Đang chuẩn bị") icon="🔵";
+   if(data.status==="Đang giao") icon="🛵";
+   if(data.status==="Đã giao") icon="🟢";
+
+   box.innerHTML=`
+   <div style="background:#fffaf5;border-radius:15px;padding:15px;border:1px solid #eadbc9">
+   <b>📦 ${data.code}</b><br>
+   ${icon} <strong>${data.status}</strong><br><br>
+   🍢 ${data.items}<br>
+   💰 ${Number(data.total).toLocaleString("vi-VN")}đ<br>
+   🕒 ${data.time}
+   </div>`;
+ }catch(e){
+   box.innerHTML="❌ Không thể kiểm tra đơn hàng.";
+ }
 }
-);
-
-
-console.log(
-"FCM TOKEN:",
-token
-);
-
-
-localStorage.setItem(
-"fcmToken",
-token
-);
-
-
-return token;
-
-
-}catch(error){
-
-console.log(
-"FCM lỗi:",
-error
-);
-
-return "";
-
-}
-
-
-};
-
-
-</script><script type="module">
-
-import { initializeApp }
-from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-
-import { getMessaging, getToken }
-from "https://www.gstatic.com/firebasejs/10.12.2/firebase-messaging.js";
-
-
-const firebaseConfig = {
-
-apiKey: "AIzaSyALoTwRXs-ddu6756M8Dj6RGeb1aNloWnc",
-
-authDomain: "anvatlamthao.firebaseapp.com",
-
-projectId: "anvatlamthao",
-
-storageBucket: "anvatlamthao.firebasestorage.app",
-
-messagingSenderId: "1018828516701",
-
-appId: "1:1018828516701:web:59c3c36e414a14d9858cb4"
-
-};
-
-
-const app = initializeApp(firebaseConfig);
-
-const messaging = getMessaging(app);
-
-
-window.getFCMToken = async function(){
-
-try{
-
-
-const permission =
-await Notification.requestPermission();
-
-
-if(permission !== "granted"){
-
-console.log(
-"Khách không cho phép thông báo"
-);
-
-return "";
-
-}
-
-
-const token = await getToken(
-messaging,
-{
-vapidKey:
-"BP3BGjVNvkDG5HJM5ccXGJJBEh-r_EqMm1Wi0pPCTmR_i0YnUVa9pxpdQEyeRBR_ayLxqaRUWkjbeLaLdSnZUNk"
-}
-);
-
-
-console.log(
-"FCM TOKEN:",
-token
-);
-
-
-localStorage.setItem(
-"fcmToken",
-token
-);
-
-
-return token;
-
-
-}catch(error){
-
-console.log(
-"FCM lỗi:",
-error
-);
-
-return "";
-
-}
-
-
-};
-
-
 </script>
-  
+
 </body>
 </html>
