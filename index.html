@@ -36,30 +36,7 @@ header{background:rgba(255,250,245,.96);border-bottom:1px solid var(--border);pa
 .total-box{margin-top:15px;padding:13px;background:#fafafa;border:1px solid #eee;border-radius:10px}.total-row{display:flex;justify-content:space-between;margin:6px 0;font-size:14px}.total-final{font-size:20px;color:var(--brand);font-weight:800}
 .form-group{margin-top:13px}.form-group label{display:block;margin-bottom:6px;color:#444;font-size:14px;font-weight:600}.form-group input,.form-group textarea,.voucher-row input{width:100%;border:1px solid #ddd;background:#fff;color:#222;padding:11px 12px;border-radius:8px;outline:none;font-size:15px}.form-group input:focus,.form-group textarea:focus,.voucher-row input:focus{border-color:var(--brand);box-shadow:0 0 0 2px rgba(229,57,53,.08)}.form-group textarea{min-height:78px;resize:vertical}
 .voucher-box{margin-top:15px;padding:13px;background:var(--brand-soft);border:1px solid #ffd4d2;border-radius:10px}.voucher-box strong{font-size:14px;color:#333}.voucher-row{display:flex;gap:8px;margin-top:9px}.voucher-row button{border:none;background:var(--brand);color:#fff;padding:10px 14px;border-radius:8px;font-weight:800;white-space:nowrap}.voucher-message{margin-top:7px;font-size:13px;line-height:1.5}
-.confirm-btn{width:100%;border:none;margin-top:17px;padding:12px;border-radius:9px;background:var(--brand);color:#fff;font-size:15px;font-weight:800}.confirm-btn:disabled{cursor:not-allowed}
-.notification-permission{
-  margin-top:10px;padding:11px 12px;border:1px solid #ead7c4;
-  background:#fffaf4;border-radius:12px;display:flex;align-items:center;
-  justify-content:space-between;gap:10px;box-shadow:0 2px 8px rgba(91,58,37,.05)
-}
-.notification-permission-text{display:flex;align-items:center;gap:9px;min-width:0}
-.notification-permission-icon{font-size:22px;flex:0 0 auto}
-.notification-permission-text div{min-width:0}
-.notification-permission-text b{display:block;color:#4d392d;font-size:13px}
-.notification-permission-text small{display:block;color:#8c7868;font-size:11px;margin-top:2px}
-.notification-permission-btn{
-  flex:0 0 auto;border:0;background:#8b5e3c;color:#fff;border-radius:9px;
-  padding:9px 12px;font-size:12px;font-weight:800
-}
-.notification-permission-btn.enabled{background:#2e7d32}
-.notification-permission-btn:disabled{opacity:.7;cursor:wait}
-@media(max-width:640px){
- .notification-permission{align-items:flex-start}
- .notification-permission-btn{padding:8px 10px}
- .notification-permission-text small{font-size:10px}
-}
-
-.location-btn{width:100%;border:1px solid var(--brand);background:#fff;color:var(--brand);padding:11px;border-radius:8px;font-size:14px;font-weight:800}
+.confirm-btn{width:100%;border:none;margin-top:17px;padding:12px;border-radius:9px;background:var(--brand);color:#fff;font-size:15px;font-weight:800}.confirm-btn:disabled{cursor:not-allowed}.location-btn{width:100%;border:1px solid var(--brand);background:#fff;color:var(--brand);padding:11px;border-radius:8px;font-size:14px;font-weight:800}
 .payment-qr{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:300;align-items:center;justify-content:center;padding:16px}.payment-box{max-width:400px;width:100%;background:#fff;border-radius:16px;padding:20px;text-align:center;position:relative;box-shadow:0 15px 50px rgba(0,0,0,.25)}.payment-close{position:absolute;right:12px;top:9px;background:#f5f5f5;border:none;color:#444;width:34px;height:34px;border-radius:50%;font-size:23px}.payment-box h2{color:#111;margin-bottom:8px;font-size:20px}.payment-box p{color:#666;margin-bottom:12px;font-size:14px}.payment-box img{width:260px;max-width:100%;border-radius:8px;background:#fff;padding:6px}.payment-info{margin-top:12px;line-height:1.7;color:#444;font-size:14px}.payment-done{width:100%;margin-top:15px;padding:11px;border:none;border-radius:8px;background:var(--brand);color:#fff;font-weight:800}
 .contact-buttons{position:fixed;right:14px;bottom:75px;display:flex;flex-direction:column;gap:8px;z-index:80}.contact-btn{color:#fff;padding:9px 12px;border-radius:22px;font-size:13px;font-weight:700;box-shadow:0 4px 14px rgba(0,0,0,.14)}.contact-btn.facebook{background:#1877f2}.zalo{background:#008fe5}.phone{background:#16a34a}footer{text-align:center;padding:28px 18px;color:#888;border-top:1px solid #eee;background:#fff;font-size:13px}
 .welcome-popup{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:500;align-items:center;justify-content:center;padding:16px}.welcome-box{width:100%;max-width:430px;background:#fff;border-radius:16px;padding:24px 20px;text-align:center;box-shadow:0 15px 50px rgba(0,0,0,.2);animation:welcomeShow .25s ease}.welcome-icon{font-size:48px;margin-bottom:8px}.welcome-box h2{color:#111;font-size:22px;margin-bottom:10px}.welcome-box p{color:#555;line-height:1.7;margin-bottom:18px;font-size:14px}.welcome-close{width:100%;border:none;padding:11px;border-radius:9px;background:var(--brand);color:#fff;font-size:15px;font-weight:800}@keyframes welcomeShow{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:scale(1)}}
@@ -128,39 +105,6 @@ header{background:rgba(255,250,243,.96);border-bottom:1px solid #eadbca;box-shad
 .shipping-row{color:#6f5b4e}
 .shipping-row strong{color:#8b5e3c}
 .total-final{margin-top:8px!important;padding-top:8px;border-top:1px dashed #d9c5b2}
-/* ===== LỊCH SỬ ĐƠN HÀNG ===== */
-.order-history-modal{max-width:520px!important}
-.order-history-intro{color:#7b6658;font-size:13px;line-height:1.6;margin-bottom:14px}
-.order-history-list{display:flex;flex-direction:column;gap:10px}
-.order-history-card{background:#fff;border:1px solid #eadbc9;border-radius:14px;padding:12px;box-shadow:0 3px 10px rgba(91,58,37,.05)}
-.order-history-card-top{display:flex;justify-content:space-between;align-items:center;gap:10px}
-.order-history-code{font-weight:900;color:#7e472a;font-size:15px}
-.order-history-time{font-size:11px;color:#95867a;margin-top:3px}
-.order-history-summary{font-size:12px;color:#6f6259;margin:8px 0;line-height:1.5}
-.order-history-lookup{border:0;background:#8b5e3c;color:#fff;border-radius:9px;padding:8px 12px;font-size:12px;font-weight:800;white-space:nowrap}
-.order-history-lookup:active{transform:scale(.97)}
-.order-history-empty{padding:22px 14px;text-align:center;background:#fff;border:1px dashed #dfcdbb;border-radius:14px;color:#76665a}
-.order-history-empty-icon{font-size:34px;margin-bottom:5px}
-.order-history-empty strong{display:block;color:#4d382b;font-size:15px}
-.order-history-empty span{display:block;font-size:12px;margin-top:4px;line-height:1.5}
-.order-history-detail{margin-top:14px;background:#fffdf9;border:1px solid #e5d4c1;border-radius:15px;padding:14px}
-.order-history-detail-title{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:10px}
-.order-history-detail-title b{color:#7e472a;font-size:15px}
-.order-history-status{display:inline-flex;align-items:center;gap:5px;background:#f5eadf;border-radius:999px;padding:5px 9px;color:#6f4a32;font-size:11px;font-weight:800}
-.order-history-detail-row{padding:8px 0;border-top:1px solid #eee4da;font-size:13px;line-height:1.55}
-.order-history-detail-row:first-of-type{border-top:0}
-.order-history-detail-row b{color:#49352a}
-.order-history-items{white-space:pre-line;color:#5f5148}
-.order-history-error{margin-top:12px;padding:10px;border-radius:10px;background:#fff0ed;color:#b42318;font-size:13px;line-height:1.5}
-.order-history-live-note{margin-top:12px;padding:9px 10px;border-radius:10px;background:#f8f1e8;color:#7b6658;font-size:11px;line-height:1.45}
-.order-history-refresh{width:100%;margin-top:10px;border:1px solid #d8bda4;background:#fffaf5;color:#7e472a;border-radius:10px;padding:9px 12px;font-weight:800;cursor:pointer}
-.order-history-refresh:hover{background:#f8eadc}
-
-@media(max-width:640px){
-  .order-history-card-top{align-items:flex-start}
-  .order-history-lookup{padding:8px 10px}
-  .order-history-modal{padding:14px!important}
-}
 @media(max-width:800px){.header-inner{grid-template-columns:1fr auto;gap:9px;padding:10px 12px}.logo{width:170px;min-width:170px;height:42px}.logo-image{max-width:170px;height:42px}.header-search{grid-column:1/-1;grid-row:2;height:42px}.header-cart{padding:10px 12px}.header-cart span{display:none}.den-hero{margin:10px 10px 0;padding:20px 17px;border-radius:20px;display:block}.den-hero h1{font-size:27px}.hero-voucher{margin-top:14px;min-width:0}.quick-benefits{margin:10px 10px 18px;grid-template-columns:repeat(2,1fr);gap:8px}.quick-benefits>div{font-size:13px;padding:10px}.container{padding:0 10px 90px}.section-title{font-size:21px}.products{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.product-info{padding:9px}.product-name{font-size:14px;min-height:38px}.product-price{font-size:16px}.add-btn{width:35px;height:35px;font-size:23px}.popular-row small{display:none}.photo-badge{font-size:9px}.contact-buttons{bottom:70px!important}}
 
 
@@ -333,153 +277,6 @@ button{-webkit-tap-highlight-color:transparent}
 @media(max-width:800px){.pwa-install-btn{font-size:11px;padding:8px 10px}.pwa-install-hint{bottom:74px;left:10px;right:10px;max-width:none}}
 
 </style>
-<style>
-/* ===== VỊ TRÍ LỊCH SỬ ĐƠN HÀNG: GIỮA TÌM KIẾM VÀ GIỎ HÀNG ===== */
-.order-tracker-btn{
-  background:#fffaf5!important;
-  color:#8b5e3c!important;
-  border:1px solid #d9c2aa!important;
-  white-space:nowrap!important;
-  flex:0 0 auto!important;
-}
-.order-tracker-btn:hover{background:#f3e7d8!important;}
-.order-tracker-btn span{display:inline!important;}
-
-@media(max-width:800px){
-  /* Mobile: logo ở trên, bên dưới là Tìm kiếm → Lịch sử → Giỏ hàng */
-  .header-inner{
-    display:grid!important;
-    grid-template-columns:minmax(0,1fr) auto auto!important;
-    align-items:center!important;
-    gap:8px!important;
-    padding:7px 9px!important;
-  }
-  .header-inner .logo{
-    grid-column:1/-1!important;
-    grid-row:1!important;
-    width:100%!important;
-    min-width:0!important;
-    max-width:none!important;
-    height:54px!important;
-    min-height:54px!important;
-  }
-  .header-inner .logo-image{
-    width:100%!important;
-    max-width:none!important;
-    height:54px!important;
-    object-fit:contain!important;
-    object-position:left center!important;
-  }
-  .header-inner .header-search{
-    grid-column:1!important;
-    grid-row:2!important;
-    width:100%!important;
-    min-width:0!important;
-    height:41px!important;
-    margin:0!important;
-  }
-  .header-inner .order-tracker-btn{
-    grid-column:2!important;
-    grid-row:2!important;
-    min-width:0!important;
-    height:41px!important;
-    padding:8px 10px!important;
-    border-radius:999px!important;
-    font-size:12px!important;
-    font-weight:850!important;
-    display:flex!important;
-    align-items:center!important;
-    justify-content:center!important;
-    gap:4px!important;
-  }
-  .header-inner .order-tracker-btn span{display:inline!important;}
-  .header-inner > .header-cart:not(.order-tracker-btn){
-    grid-column:3!important;
-    grid-row:2!important;
-    min-width:48px!important;
-    height:41px!important;
-    padding:8px 10px!important;
-    display:flex!important;
-    align-items:center!important;
-    justify-content:center!important;
-  }
-}
-
-@media(max-width:520px){
-  .header-inner{gap:6px!important;padding:6px 8px!important;}
-  .header-inner .logo{height:57px!important;min-height:57px!important;}
-  .header-inner .logo-image{height:57px!important;}
-  .header-inner .header-search{height:40px!important;}
-  .header-inner .order-tracker-btn{height:40px!important;padding:7px 8px!important;font-size:11px!important;}
-  .header-inner > .header-cart:not(.order-tracker-btn){height:40px!important;min-width:46px!important;padding:7px 8px!important;}
-}
-</style>
-
-<!-- Firebase Cloud Messaging (Web Push) -->
-<script type="module">
-  import { initializeApp, getApps, getApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
-  import { getMessaging, getToken, isSupported } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-messaging.js";
-
-  window.FIREBASE_WEB_CONFIG = {
-    apiKey: "AIzaSyALoTwRXs-ddu6756M8Dj6RGeb1aNloWnc",
-    authDomain: "anvatlamthao.firebaseapp.com",
-    projectId: "anvatlamthao",
-    storageBucket: "anvatlamthao.firebasestorage.app",
-    messagingSenderId: "1018828516701",
-    appId: "1:1018828516701:web:59c3c36e414a14d9858cb4"
-  };
-
-  window.FIREBASE_VAPID_KEY = "BP3BGjVNvkDG5HJM5ccXGJJBEh-r_EqMm1Wi0pPCTmR_i0YnUVa9pxpdQEyeRBR_ayLxqaRUWkjbeLaLdSnZUNk";
-
-  window.initFirebaseNotifications = async function () {
-    try {
-      if (!window.isSecureContext || !('serviceWorker' in navigator) || !("Notification" in window)) {
-        throw new Error("Trình duyệt không hỗ trợ Web Push hoặc trang chưa chạy HTTPS.");
-      }
-      if (!(await isSupported())) {
-        throw new Error("Firebase Web Push không được hỗ trợ trên trình duyệt này.");
-      }
-
-      const permission = Notification.permission === "granted"
-        ? "granted"
-        : await Notification.requestPermission();
-      if (permission !== "granted") throw new Error("Quyền thông báo chưa được cấp.");
-
-      const registration = await navigator.serviceWorker.register('/firebase-messaging-sw.js', {scope:'/'});
-      await navigator.serviceWorker.ready;
-
-      const app = getApps().length ? getApp() : initializeApp(window.FIREBASE_WEB_CONFIG);
-      const messaging = getMessaging(app);
-
-      const token = await getToken(messaging, {
-        vapidKey: window.FIREBASE_VAPID_KEY,
-        serviceWorkerRegistration: registration
-      });
-      if (!token) throw new Error("Firebase không trả về FCM token.");
-
-      localStorage.setItem("ANVAT_FCM_TOKEN", token);
-      localStorage.setItem("ANVAT_NOTIFICATION_ENABLED", "1");
-
-      // Gửi token về Apps Script ngay lập tức.
-      const phone = document.getElementById("customerPhone")?.value.trim() || "";
-      await fetch(GOOGLE_SCRIPT_URL, {
-        method: "POST",
-        mode: "no-cors",
-        headers: { "Content-Type": "text/plain;charset=utf-8" },
-        body: JSON.stringify({ action:"saveFcmToken", phone, fcmToken:token }),
-        keepalive: true
-      });
-
-      console.log("✅ FCM TOKEN:", token);
-      console.log("✅ FCM token đã gửi tới Google Apps Script.");
-      return {success:true, token};
-    } catch (error) {
-      console.error("❌ FCM ERROR:", error);
-      return {success:false, message:error?.message || String(error)};
-    }
-  };
-</script>
-
 </head>
 <body>
 
@@ -546,8 +343,8 @@ button{-webkit-tap-highlight-color:transparent}
       <span>🔍</span>
       <input id="productSearch" type="search" placeholder="Tìm món ăn, đồ uống..." oninput="searchProducts(this.value)">
     </div>
-    <button class="header-cart order-tracker-btn" onclick="openOrderTracker()">📋 <span>Lịch Sử Đơn Hàng</span></button>
     <button class="header-cart" onclick="openCart()">🛒 <span>Giỏ hàng</span><b id="headerCartCount">0</b></button>
+    <button class="header-cart" onclick="openOrderTracker()">📦 <span>Đơn hàng</span></button>
     <button id="installAppBtn" class="pwa-install-btn" type="button" onclick="installPWA()" aria-label="Cài ứng dụng Ăn Vặt Lâm Thao">📲 Cài app</button>
   </div>
 </header>
@@ -888,17 +685,6 @@ button{-webkit-tap-highlight-color:transparent}
   <button type="button" class="location-btn" onclick="getLocation()">📍 Gửi vị trí hiện tại</button>
 </div>
 
-<div class="notification-permission" id="notificationPermissionBar">
-  <div class="notification-permission-text">
-    <span class="notification-permission-icon">🔔</span>
-    <div>
-      <b>Cho phép hiển thị thông báo</b>
-      <small>Nhận thông báo khi đơn hàng được tiếp nhận/cập nhật.</small>
-    </div>
-  </div>
-  <button type="button" id="notificationPermissionBtn" class="notification-permission-btn" onclick="enableNotifications()">Cho phép</button>
-</div>
-
 <input type="hidden" id="latitude">
 <input type="hidden" id="longitude">
 
@@ -1028,28 +814,16 @@ button{-webkit-tap-highlight-color:transparent}
 </div>
 
 
-<!-- LỊCH SỬ ĐƠN HÀNG -->
+<!-- ORDER TRACKER -->
 <div id="orderTrackerModal" class="modal" style="display:none">
-  <div class="modal-box order-history-modal" style="max-width:520px">
-    <div class="modal-header">
-      <h2>📋 Lịch Sử Đơn Hàng</h2>
-      <button class="close-btn" onclick="closeOrderTracker()" aria-label="Đóng">✕</button>
-    </div>
-
-    <p class="order-history-intro">
-      Các đơn hàng bạn đã đặt trên thiết bị này sẽ được lưu tại đây.
-      Bấm <b>Tra cứu</b> để xem trạng thái, món đã đặt và thời gian đặt.
-    </p>
-
-    <div id="orderHistoryList"></div>
-
-    <div id="orderHistoryEmpty" class="order-history-empty" style="display:none">
-      <div class="order-history-empty-icon">🧾</div>
-      <strong>Chưa có lịch sử đơn hàng</strong>
-      <span>Sau khi bạn đặt đơn thành công, mã đơn sẽ tự động xuất hiện tại đây.</span>
-    </div>
-
-    <div id="orderHistoryDetail" class="order-history-detail" style="display:none"></div>
+  <div class="modal-content" style="max-width:430px">
+    <button onclick="closeOrderTracker()" style="float:right;border:0;background:none;font-size:22px">✕</button>
+    <h3>📦 Theo dõi đơn hàng</h3>
+    <p style="color:#7b6658">Nhập mã đơn và số điện thoại để xem tình trạng đơn.</p>
+    <input id="trackOrderCode" placeholder="Mã đơn hàng (VD: CC12345678)">
+    <input id="trackOrderPhone" placeholder="Số điện thoại">
+    <button onclick="checkOrderStatus()" style="width:100%;margin-top:10px">🔎 Tra cứu đơn hàng</button>
+    <div id="orderStatusResult" style="margin-top:15px"></div>
   </div>
 </div>
 
@@ -1119,82 +893,6 @@ function getLocation(){
 
     );
 }
-
-
-/* ==================================================
-   THÔNG BÁO ĐƠN HÀNG
-================================================== */
-function updateNotificationPermissionUI(message){
-  const btn = document.getElementById("notificationPermissionBtn");
-  const bar = document.getElementById("notificationPermissionBar");
-  if(!btn || !bar) return;
-
-  if(!("Notification" in window)){
-    btn.textContent = "Không hỗ trợ";
-    btn.disabled = true;
-    return;
-  }
-
-  const hasToken = !!localStorage.getItem("ANVAT_FCM_TOKEN");
-  if(Notification.permission === "granted" && hasToken){
-    btn.textContent = "✅ Đã đăng ký";
-    btn.classList.add("enabled");
-    btn.disabled = false;
-    return;
-  }
-  if(Notification.permission === "granted" && !hasToken){
-    btn.textContent = "🔔 Đăng ký FCM";
-    btn.classList.remove("enabled");
-    btn.disabled = false;
-    return;
-  }
-
-  if(Notification.permission === "denied"){
-    btn.textContent = "Bị chặn";
-    btn.disabled = false;
-    return;
-  }
-
-  btn.textContent = "Cho phép";
-  btn.classList.remove("enabled");
-  btn.disabled = false;
-}
-
-async function enableNotifications(){
-  const btn = document.getElementById("notificationPermissionBtn");
-  if(btn){ btn.disabled=true; btn.textContent="⏳ Đang đăng ký FCM..."; }
-  try{
-    const result = await window.initFirebaseNotifications();
-    if(result.success){
-      updateNotificationPermissionUI();
-      alert("✅ Đã đăng ký FCM thành công. Token đã được gửi về Google Sheet.");
-    }else{
-      updateNotificationPermissionUI();
-      alert("❌ Chưa đăng ký được FCM.\n\n" + result.message);
-    }
-  }catch(error){
-    console.error("FCM enable error:", error);
-    updateNotificationPermissionUI();
-    alert("❌ Lỗi FCM: " + (error?.message || error));
-  }finally{
-    if(btn) btn.disabled=false;
-  }
-}
-
-function showOrderNotification(title, body){
-  try{
-    if("Notification" in window && Notification.permission === "granted"){
-      new Notification(title || "🔔 Ăn Vặt Lâm Thao", {
-        body: body || "Đơn hàng của bạn đã được tiếp nhận.",
-        icon: "icons/icon-192.png"
-      });
-    }
-  }catch(error){
-    console.warn("showOrderNotification:", error);
-  }
-}
-
-document.addEventListener("DOMContentLoaded", updateNotificationPermissionUI);
 
 /* ==================================================
    GOOGLE APPS SCRIPT
@@ -2717,26 +2415,9 @@ const payload = {
 
     createdAt:
         new Date()
-            .toLocaleString("vi-VN"),
-
-    // Token FCM (nếu người dùng đã cho phép thông báo)
-    fcmToken:
-        localStorage.getItem("ANVAT_FCM_TOKEN") || ""
+            .toLocaleString("vi-VN")
 
 };
-
-    /* ==============================
-       LƯU LỊCH SỬ ĐƠN HÀNG TRÊN THIẾT BỊ
-       Không xoá khi reset giỏ hàng.
-    ============================== */
-    saveOrderHistory({
-        code: orderCode,
-        phone: phone,
-        items: itemNames,
-        quantity: quantities,
-        total: finalData.total,
-        time: payload.createdAt
-    });
 
     /* ==============================
        HIỂN THỊ MÃ ĐƠN NGAY LẬP TỨC
@@ -2745,11 +2426,6 @@ const payload = {
     ============================== */
 
     showSuccessModal(orderCode, finalData.total);
-
-    showOrderNotification(
-        "🛒 Đặt hàng thành công",
-        "Mã đơn " + orderCode + " đã được tiếp nhận. Vui lòng chờ quán xác nhận."
-    );
 
     /* ==============================
        GỬI ĐƠN
@@ -3014,8 +2690,6 @@ loadProducts();
 setTimeout(openWelcomePopup, 350);
 
 
-updateNotificationPermissionUI();
-
 /* ==================================================
    PWA
 ================================================== */
@@ -3092,214 +2766,57 @@ window.addEventListener('appinstalled',function(){
 
 
 <script>
-function getOrderHistory(){
-  try{
-    const raw=localStorage.getItem("anvat_lamthao_order_history");
-    if(!raw) return [];
-    const data=JSON.parse(raw);
-    return Array.isArray(data) ? data : [];
-  }catch(e){
-    console.warn("Không đọc được lịch sử đơn hàng:",e);
-    return [];
-  }
-}
-
-function saveOrderHistory(order){
-  try{
-    const history=getOrderHistory().filter(item=>item && item.code!==order.code);
-    history.unshift(order);
-    localStorage.setItem(
-      "anvat_lamthao_order_history",
-      JSON.stringify(history.slice(0,20))
-    );
-  }catch(e){
-    console.warn("Không lưu được lịch sử đơn hàng:",e);
-  }
-}
-
 function openOrderTracker(){
-  const m=document.getElementById("orderTrackerModal");
-  if(m) m.style.display="flex";
-  renderOrderHistory();
+ const m=document.getElementById("orderTrackerModal");
+ if(m) m.style.display="flex";
 }
-
 function closeOrderTracker(){
-  const m=document.getElementById("orderTrackerModal");
-  if(m) m.style.display="none";
-  const detail=document.getElementById("orderHistoryDetail");
-  if(detail){
-    detail.style.display="none";
-    detail.innerHTML="";
-  }
+ const m=document.getElementById("orderTrackerModal");
+ if(m) m.style.display="none";
 }
 
-function escapeOrderHistoryHtml(value){
-  return String(value==null ? "" : value)
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#039;");
-}
+async function checkOrderStatus(){
+ const code=document.getElementById("trackOrderCode").value.trim();
+ const phone=document.getElementById("trackOrderPhone").value.trim();
+ const box=document.getElementById("orderStatusResult");
 
-function renderOrderHistory(){
-  const list=document.getElementById("orderHistoryList");
-  const empty=document.getElementById("orderHistoryEmpty");
-  if(!list || !empty) return;
+ if(!code || !phone){
+   box.innerHTML="❌ Vui lòng nhập đủ mã đơn và số điện thoại.";
+   return;
+ }
 
-  // Loại bỏ mã đơn trùng nhau khi hiển thị lịch sử cũ.
-  const rawHistory=getOrderHistory();
-  const seenCodes=new Set();
-  const history=rawHistory.filter(order=>{
-    const code=String(order && order.code || '').trim().toUpperCase();
-    if(!code || seenCodes.has(code)) return false;
-    seenCodes.add(code);
-    return true;
-  });
+ box.innerHTML="⏳ Đang kiểm tra...";
 
-  if(!history.length){
-    list.innerHTML="";
-    empty.style.display="block";
-    return;
-  }
+ try{
+   const url=GOOGLE_SCRIPT_URL+
+   "?action=getOrderStatus"+
+   "&code="+encodeURIComponent(code)+
+   "&phone="+encodeURIComponent(phone);
 
-  empty.style.display="none";
+   const res=await fetch(url);
+   const data=await res.json();
 
-  list.innerHTML=history.map((order,index)=>{
-    const items=order.items || "Đơn hàng";
-    const shortItems=items.length>105 ? items.slice(0,105)+"…" : items;
+   if(!data.success){
+     box.innerHTML="❌ "+(data.message||"Không tìm thấy đơn hàng");
+     return;
+   }
 
-    return `
-      <div class="order-history-card">
-        <div class="order-history-card-top">
-          <div>
-            <div class="order-history-code">📦 ${escapeOrderHistoryHtml(order.code)}</div>
-            <div class="order-history-time">🕒 ${escapeOrderHistoryHtml(order.time || order.createdAt || "")}</div>
-          </div>
-          <button class="order-history-lookup"
-                  onclick="lookupOrderFromHistory(${index})">
-            🔎 Tra cứu
-          </button>
-        </div>
-        <div class="order-history-summary">
-          ${escapeOrderHistoryHtml(shortItems)}
-        </div>
-      </div>`;
-  }).join("");
-}
+   let icon="🟡";
+   if(data.status==="Đang chuẩn bị") icon="🔵";
+   if(data.status==="Đang giao") icon="🛵";
+   if(data.status==="Đã giao") icon="🟢";
 
-async function lookupOrderFromHistory(index){
-  const history=getOrderHistory();
-  const order=history[index];
-  const detail=document.getElementById("orderHistoryDetail");
-
-  if(!order || !detail) return;
-
-  detail.style.display="block";
-  detail.innerHTML=`
-    <div class="order-history-detail-title">
-      <b>📦 ${escapeOrderHistoryHtml(order.code)}</b>
-      <span class="order-history-status">⏳ Đang tra cứu...</span>
-    </div>
-    <div class="order-history-detail-row">
-      <b>🕒 Thời gian đặt:</b> ${escapeOrderHistoryHtml(order.time || order.createdAt || "—")}
-    </div>`;
-
-  detail.scrollIntoView({behavior:"smooth",block:"nearest"});
-
-  try{
-    // Lịch sử đơn hàng tra cứu trực tiếp bằng Mã Đơn.
-    // Không bắt buộc số điện thoại để tránh lỗi định dạng số 0 / số điện thoại cũ.
-    const url=GOOGLE_SCRIPT_URL+
-      "?action=getOrderStatus"+
-      "&code="+encodeURIComponent(order.code);
-
-    const res=await fetch(url);
-    const data=await res.json();
-
-    if(!data.success){
-      detail.innerHTML=`
-        <div class="order-history-detail-title">
-          <b>📦 ${escapeOrderHistoryHtml(order.code)}</b>
-          <span class="order-history-status">⚠️ Không tìm thấy</span>
-        </div>
-        <div class="order-history-error">
-          ${escapeOrderHistoryHtml(data.message || "Không tìm thấy thông tin đơn hàng.")}
-        </div>`;
-      return;
-    }
-
-    const currentStatus = String(data.status || "Chờ xác nhận").trim();
-    let icon="🟡";
-    if(currentStatus==="Chờ xác nhận") icon="🕐";
-    if(currentStatus==="Đang chuẩn bị") icon="👨‍🍳";
-    if(currentStatus==="Đang giao") icon="🛵";
-    if(currentStatus==="Đã giao") icon="🟢";
-    if(currentStatus==="Đã huỷ" || currentStatus==="Đã hủy") icon="🔴";
-
-    detail.innerHTML=`
-      <div class="order-history-detail-title">
-        <b>📦 ${escapeOrderHistoryHtml(data.code || order.code)}</b>
-        <span class="order-history-status">${icon} ${escapeOrderHistoryHtml(currentStatus)}</span>
-      </div>
-
-      <div class="order-history-detail-row">
-        <b>🕒 Thời gian đặt:</b>
-        ${escapeOrderHistoryHtml(data.time || order.time || "—")}
-      </div>
-
-      <div class="order-history-detail-row">
-        <b>🍢 Món đã đặt:</b>
-        <div class="order-history-items">${escapeOrderHistoryHtml(data.items || order.items || "—")}</div>
-      </div>
-
-      <div class="order-history-detail-row">
-        <b>💰 Tổng tiền:</b>
-        ${Number(data.total || order.total || 0).toLocaleString("vi-VN")}đ
-      </div>
-
-      <div class="order-history-live-note">
-        🔄 Trạng thái được lấy trực tiếp từ Google Sheet. Bạn có thể bấm tra cứu lại để xem cập nhật mới nhất.
-      </div>
-
-      <button type="button"
-              class="order-history-refresh"
-              onclick="lookupOrderFromHistory(${index})">
-        🔄 Cập nhật trạng thái
-      </button>`;
-  }catch(e){
-    detail.innerHTML=`
-      <div class="order-history-detail-title">
-        <b>📦 ${escapeOrderHistoryHtml(order.code)}</b>
-        <span class="order-history-status">⚠️ Lỗi tra cứu</span>
-      </div>
-      <div class="order-history-error">
-        Không thể kết nối để tra cứu đơn hàng. Vui lòng thử lại sau.
-      </div>`;
-  }
-}
-
-/* Hàm cũ được giữ để tương thích nếu nơi khác trong website còn gọi tới. */
-async function checkOrderStatus(code,phone){
-  const orderCode=(code || document.getElementById("trackOrderCode")?.value || "").trim();
-  const orderPhone=(phone || document.getElementById("trackOrderPhone")?.value || "").trim();
-
-  if(!orderCode){
-    return;
-  }
-
-  try{
-    const url=GOOGLE_SCRIPT_URL+
-      "?action=getOrderStatus"+
-      "&code="+encodeURIComponent(orderCode);
-
-    const res=await fetch(url);
-    const data=await res.json();
-    return data;
-  }catch(e){
-    console.warn("checkOrderStatus error:",e);
-    return null;
-  }
+   box.innerHTML=`
+   <div style="background:#fffaf5;border-radius:15px;padding:15px;border:1px solid #eadbc9">
+   <b>📦 ${data.code}</b><br>
+   ${icon} <strong>${data.status}</strong><br><br>
+   🍢 ${data.items}<br>
+   💰 ${Number(data.total).toLocaleString("vi-VN")}đ<br>
+   🕒 ${data.time}
+   </div>`;
+ }catch(e){
+   box.innerHTML="❌ Không thể kiểm tra đơn hàng.";
+ }
 }
 </script>
 
