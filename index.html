@@ -542,6 +542,106 @@ button{-webkit-tap-highlight-color:transparent}
   };
 </script>
 
+
+<style>
+/* ===== MOBILE HEADER: LOGO + TÌM KIẾM + LỊCH SỬ CÙNG 1 HÀNG ===== */
+@media (max-width:800px){
+  header{padding:6px 8px!important}
+  .header-inner{
+    display:grid!important;
+    grid-template-columns:105px minmax(0,1fr) 44px!important;
+    grid-template-rows:44px!important;
+    align-items:center!important;
+    gap:6px!important;
+    padding:0!important;
+  }
+
+  .header-inner .logo{
+    grid-column:1!important;
+    grid-row:1!important;
+    width:105px!important;
+    min-width:0!important;
+    max-width:105px!important;
+    height:44px!important;
+    min-height:44px!important;
+    overflow:hidden!important;
+  }
+  .header-inner .logo-image{
+    width:100%!important;
+    height:44px!important;
+    max-width:105px!important;
+    object-fit:contain!important;
+    object-position:left center!important;
+  }
+
+  .header-inner .header-search{
+    grid-column:2!important;
+    grid-row:1!important;
+    width:100%!important;
+    min-width:0!important;
+    height:40px!important;
+    margin:0!important;
+    padding:0 10px!important;
+    border-radius:999px!important;
+  }
+  .header-inner .header-search input{
+    min-width:0!important;
+    width:100%!important;
+    font-size:14px!important;
+  }
+
+  .header-inner .order-tracker-btn{
+    grid-column:3!important;
+    grid-row:1!important;
+    width:44px!important;
+    min-width:44px!important;
+    max-width:44px!important;
+    height:40px!important;
+    padding:0!important;
+    margin:0!important;
+    border-radius:999px!important;
+    display:flex!important;
+    align-items:center!important;
+    justify-content:center!important;
+    font-size:18px!important;
+  }
+  .header-inner .order-tracker-btn span{display:none!important}
+
+  .header-inner #installAppBtn{display:none!important}
+}
+
+@media (max-width:520px){
+  .header-inner{
+    grid-template-columns:100px minmax(0,1fr) 42px!important;
+    grid-template-rows:42px!important;
+    gap:5px!important;
+  }
+  .header-inner .logo{
+    width:100px!important;
+    max-width:100px!important;
+    height:42px!important;
+    min-height:42px!important;
+  }
+  .header-inner .logo-image{
+    height:42px!important;
+    max-width:100px!important;
+  }
+  .header-inner .header-search{
+    height:38px!important;
+    padding:0 9px!important;
+  }
+  .header-inner .header-search input{
+    font-size:13px!important;
+  }
+  .header-inner .order-tracker-btn{
+    width:42px!important;
+    min-width:42px!important;
+    max-width:42px!important;
+    height:38px!important;
+  }
+}
+</style>
+
 </head>
 <body>
 
