@@ -8,7 +8,6 @@ firebase.initializeApp({
   storageBucket: "anvatlamthao.firebasestorage.app",
   messagingSenderId: "1018828516701",
   appId: "1:1018828516701:web:59c3c36e414a14d9858cb4",
-  measurementId: "G-J3D5VC2CJZ"
 });
 
 const messaging = firebase.messaging();
