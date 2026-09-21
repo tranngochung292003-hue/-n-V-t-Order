@@ -9,8 +9,8 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="Ăn Vặt Lâm Thao">
 <link rel="manifest" href="manifest.webmanifest">
-<link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
-<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" href="logowed.png">
+<link rel="apple-touch-icon" href="logowed.png">
 <link rel="preconnect" href="https://script.google.com" crossorigin>
 <link rel="dns-prefetch" href="//script.google.com">
 <title>Ăn Vặt Lâm Thao</title>
@@ -36,7 +36,30 @@ header{background:rgba(255,250,245,.96);border-bottom:1px solid var(--border);pa
 .total-box{margin-top:15px;padding:13px;background:#fafafa;border:1px solid #eee;border-radius:10px}.total-row{display:flex;justify-content:space-between;margin:6px 0;font-size:14px}.total-final{font-size:20px;color:var(--brand);font-weight:800}
 .form-group{margin-top:13px}.form-group label{display:block;margin-bottom:6px;color:#444;font-size:14px;font-weight:600}.form-group input,.form-group textarea,.voucher-row input{width:100%;border:1px solid #ddd;background:#fff;color:#222;padding:11px 12px;border-radius:8px;outline:none;font-size:15px}.form-group input:focus,.form-group textarea:focus,.voucher-row input:focus{border-color:var(--brand);box-shadow:0 0 0 2px rgba(229,57,53,.08)}.form-group textarea{min-height:78px;resize:vertical}
 .voucher-box{margin-top:15px;padding:13px;background:var(--brand-soft);border:1px solid #ffd4d2;border-radius:10px}.voucher-box strong{font-size:14px;color:#333}.voucher-row{display:flex;gap:8px;margin-top:9px}.voucher-row button{border:none;background:var(--brand);color:#fff;padding:10px 14px;border-radius:8px;font-weight:800;white-space:nowrap}.voucher-message{margin-top:7px;font-size:13px;line-height:1.5}
-.confirm-btn{width:100%;border:none;margin-top:17px;padding:12px;border-radius:9px;background:var(--brand);color:#fff;font-size:15px;font-weight:800}.confirm-btn:disabled{cursor:not-allowed}.location-btn{width:100%;border:1px solid var(--brand);background:#fff;color:var(--brand);padding:11px;border-radius:8px;font-size:14px;font-weight:800}
+.confirm-btn{width:100%;border:none;margin-top:17px;padding:12px;border-radius:9px;background:var(--brand);color:#fff;font-size:15px;font-weight:800}.confirm-btn:disabled{cursor:not-allowed}
+.notification-permission{
+  margin-top:10px;padding:11px 12px;border:1px solid #ead7c4;
+  background:#fffaf4;border-radius:12px;display:flex;align-items:center;
+  justify-content:space-between;gap:10px;box-shadow:0 2px 8px rgba(91,58,37,.05)
+}
+.notification-permission-text{display:flex;align-items:center;gap:9px;min-width:0}
+.notification-permission-icon{font-size:22px;flex:0 0 auto}
+.notification-permission-text div{min-width:0}
+.notification-permission-text b{display:block;color:#4d392d;font-size:13px}
+.notification-permission-text small{display:block;color:#8c7868;font-size:11px;margin-top:2px}
+.notification-permission-btn{
+  flex:0 0 auto;border:0;background:#8b5e3c;color:#fff;border-radius:9px;
+  padding:9px 12px;font-size:12px;font-weight:800
+}
+.notification-permission-btn.enabled{background:#2e7d32}
+.notification-permission-btn:disabled{opacity:.7;cursor:wait}
+@media(max-width:640px){
+ .notification-permission{align-items:flex-start}
+ .notification-permission-btn{padding:8px 10px}
+ .notification-permission-text small{font-size:10px}
+}
+
+.location-btn{width:100%;border:1px solid var(--brand);background:#fff;color:var(--brand);padding:11px;border-radius:8px;font-size:14px;font-weight:800}
 .payment-qr{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:300;align-items:center;justify-content:center;padding:16px}.payment-box{max-width:400px;width:100%;background:#fff;border-radius:16px;padding:20px;text-align:center;position:relative;box-shadow:0 15px 50px rgba(0,0,0,.25)}.payment-close{position:absolute;right:12px;top:9px;background:#f5f5f5;border:none;color:#444;width:34px;height:34px;border-radius:50%;font-size:23px}.payment-box h2{color:#111;margin-bottom:8px;font-size:20px}.payment-box p{color:#666;margin-bottom:12px;font-size:14px}.payment-box img{width:260px;max-width:100%;border-radius:8px;background:#fff;padding:6px}.payment-info{margin-top:12px;line-height:1.7;color:#444;font-size:14px}.payment-done{width:100%;margin-top:15px;padding:11px;border:none;border-radius:8px;background:var(--brand);color:#fff;font-weight:800}
 .contact-buttons{position:fixed;right:14px;bottom:75px;display:flex;flex-direction:column;gap:8px;z-index:80}.contact-btn{color:#fff;padding:9px 12px;border-radius:22px;font-size:13px;font-weight:700;box-shadow:0 4px 14px rgba(0,0,0,.14)}.contact-btn.facebook{background:#1877f2}.zalo{background:#008fe5}.phone{background:#16a34a}footer{text-align:center;padding:28px 18px;color:#888;border-top:1px solid #eee;background:#fff;font-size:13px}
 .welcome-popup{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:500;align-items:center;justify-content:center;padding:16px}.welcome-box{width:100%;max-width:430px;background:#fff;border-radius:16px;padding:24px 20px;text-align:center;box-shadow:0 15px 50px rgba(0,0,0,.2);animation:welcomeShow .25s ease}.welcome-icon{font-size:48px;margin-bottom:8px}.welcome-box h2{color:#111;font-size:22px;margin-bottom:10px}.welcome-box p{color:#555;line-height:1.7;margin-bottom:18px;font-size:14px}.welcome-close{width:100%;border:none;padding:11px;border-radius:9px;background:var(--brand);color:#fff;font-size:15px;font-weight:800}@keyframes welcomeShow{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:scale(1)}}
@@ -105,6 +128,39 @@ header{background:rgba(255,250,243,.96);border-bottom:1px solid #eadbca;box-shad
 .shipping-row{color:#6f5b4e}
 .shipping-row strong{color:#8b5e3c}
 .total-final{margin-top:8px!important;padding-top:8px;border-top:1px dashed #d9c5b2}
+/* ===== LỊCH SỬ ĐƠN HÀNG ===== */
+.order-history-modal{max-width:520px!important}
+.order-history-intro{color:#7b6658;font-size:13px;line-height:1.6;margin-bottom:14px}
+.order-history-list{display:flex;flex-direction:column;gap:10px}
+.order-history-card{background:#fff;border:1px solid #eadbc9;border-radius:14px;padding:12px;box-shadow:0 3px 10px rgba(91,58,37,.05)}
+.order-history-card-top{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.order-history-code{font-weight:900;color:#7e472a;font-size:15px}
+.order-history-time{font-size:11px;color:#95867a;margin-top:3px}
+.order-history-summary{font-size:12px;color:#6f6259;margin:8px 0;line-height:1.5}
+.order-history-lookup{border:0;background:#8b5e3c;color:#fff;border-radius:9px;padding:8px 12px;font-size:12px;font-weight:800;white-space:nowrap}
+.order-history-lookup:active{transform:scale(.97)}
+.order-history-empty{padding:22px 14px;text-align:center;background:#fff;border:1px dashed #dfcdbb;border-radius:14px;color:#76665a}
+.order-history-empty-icon{font-size:34px;margin-bottom:5px}
+.order-history-empty strong{display:block;color:#4d382b;font-size:15px}
+.order-history-empty span{display:block;font-size:12px;margin-top:4px;line-height:1.5}
+.order-history-detail{margin-top:14px;background:#fffdf9;border:1px solid #e5d4c1;border-radius:15px;padding:14px}
+.order-history-detail-title{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:10px}
+.order-history-detail-title b{color:#7e472a;font-size:15px}
+.order-history-status{display:inline-flex;align-items:center;gap:5px;background:#f5eadf;border-radius:999px;padding:5px 9px;color:#6f4a32;font-size:11px;font-weight:800}
+.order-history-detail-row{padding:8px 0;border-top:1px solid #eee4da;font-size:13px;line-height:1.55}
+.order-history-detail-row:first-of-type{border-top:0}
+.order-history-detail-row b{color:#49352a}
+.order-history-items{white-space:pre-line;color:#5f5148}
+.order-history-error{margin-top:12px;padding:10px;border-radius:10px;background:#fff0ed;color:#b42318;font-size:13px;line-height:1.5}
+.order-history-live-note{margin-top:12px;padding:9px 10px;border-radius:10px;background:#f8f1e8;color:#7b6658;font-size:11px;line-height:1.45}
+.order-history-refresh{width:100%;margin-top:10px;border:1px solid #d8bda4;background:#fffaf5;color:#7e472a;border-radius:10px;padding:9px 12px;font-weight:800;cursor:pointer}
+.order-history-refresh:hover{background:#f8eadc}
+
+@media(max-width:640px){
+  .order-history-card-top{align-items:flex-start}
+  .order-history-lookup{padding:8px 10px}
+  .order-history-modal{padding:14px!important}
+}
 @media(max-width:800px){.header-inner{grid-template-columns:1fr auto;gap:9px;padding:10px 12px}.logo{width:170px;min-width:170px;height:42px}.logo-image{max-width:170px;height:42px}.header-search{grid-column:1/-1;grid-row:2;height:42px}.header-cart{padding:10px 12px}.header-cart span{display:none}.den-hero{margin:10px 10px 0;padding:20px 17px;border-radius:20px;display:block}.den-hero h1{font-size:27px}.hero-voucher{margin-top:14px;min-width:0}.quick-benefits{margin:10px 10px 18px;grid-template-columns:repeat(2,1fr);gap:8px}.quick-benefits>div{font-size:13px;padding:10px}.container{padding:0 10px 90px}.section-title{font-size:21px}.products{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.product-info{padding:9px}.product-name{font-size:14px;min-height:38px}.product-price{font-size:16px}.add-btn{width:35px;height:35px;font-size:23px}.popular-row small{display:none}.photo-badge{font-size:9px}.contact-buttons{bottom:70px!important}}
 
 
@@ -276,6 +332,421 @@ button{-webkit-tap-highlight-color:transparent}
 .pwa-install-hint button{margin-top:7px;border:0;background:#8b5e3c;color:#fff;border-radius:9px;padding:7px 10px;font-weight:800}
 @media(max-width:800px){.pwa-install-btn{font-size:11px;padding:8px 10px}.pwa-install-hint{bottom:74px;left:10px;right:10px;max-width:none}}
 
+
+
+/* ===== ORDER SUCCESS: NỔI BẬT + HƯỚNG DẪN THEO DÕI ===== */
+.success-modal{
+  background:rgba(35,22,15,.72)!important;
+  backdrop-filter:blur(3px);
+}
+.success-box{
+  max-width:430px!important;
+  border:2px solid #d8ad83!important;
+  border-radius:26px!important;
+  padding:28px 22px 20px!important;
+  box-shadow:0 25px 80px rgba(55,35,23,.38)!important;
+  animation:successPop .32s ease!important;
+}
+.success-check{
+  width:72px!important;
+  height:72px!important;
+  font-size:39px!important;
+  background:linear-gradient(145deg,#a96f46,#765039)!important;
+  box-shadow:0 12px 28px rgba(111,71,44,.30)!important;
+}
+.success-box h2{
+  font-size:27px!important;
+  color:#4b2f20!important;
+}
+.success-thanks{
+  background:#fff7ee!important;
+  border:1px solid #ecd2b8!important;
+  font-size:13.5px!important;
+}
+.order-code-card{
+  background:linear-gradient(135deg,#f8eadb,#fff8f0)!important;
+  border:2px dashed #c7956d!important;
+  box-shadow:0 5px 15px rgba(139,94,60,.08);
+}
+.order-code-card strong{
+  font-size:30px!important;
+}
+.success-track-guide{
+  margin:14px 0 12px;
+  padding:14px;
+  text-align:left;
+  background:linear-gradient(135deg,#fffaf4,#f8eee3);
+  border:1px solid #e5cdb7;
+  border-radius:16px;
+}
+.success-track-title{
+  color:#6f472c;
+  font-size:15px;
+  font-weight:900;
+  margin-bottom:5px;
+}
+.success-track-text{
+  color:#735f50;
+  font-size:12px;
+  line-height:1.6;
+}
+.success-track-actions{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+  margin-top:11px;
+}
+.success-track-btn{
+  border:0;
+  border-radius:10px;
+  padding:10px 7px;
+  font-size:12px;
+  font-weight:850;
+  cursor:pointer;
+}
+.success-track-btn.primary{
+  background:#8b5e3c;
+  color:#fff;
+  box-shadow:0 4px 10px rgba(111,71,44,.16);
+}
+.success-track-btn.secondary{
+  background:#fff;
+  color:#6f472c;
+  border:1px solid #d9c0aa;
+}
+.success-close-btn{
+  background:linear-gradient(135deg,#8b5e3c,#6f472c)!important;
+  font-size:15px!important;
+  padding:13px!important;
+}
+@keyframes successPop{
+  from{opacity:0;transform:translateY(18px) scale(.94)}
+  to{opacity:1;transform:none}
+}
+@media(max-width:420px){
+  .success-modal{padding:10px!important}
+  .success-box{padding:24px 14px 16px!important;border-radius:22px!important}
+  .success-box h2{font-size:23px!important}
+  .success-check{width:64px!important;height:64px!important;font-size:34px!important}
+  .order-code-card{margin:14px 0 11px!important}
+  .order-code-card strong{font-size:26px!important}
+  .success-track-guide{padding:12px!important}
+  .success-track-actions{grid-template-columns:1fr!important}
+}
+
+</style>
+<style>
+/* ===== VỊ TRÍ LỊCH SỬ ĐƠN HÀNG: GIỮA TÌM KIẾM VÀ GIỎ HÀNG ===== */
+.order-tracker-btn{
+  background:#fffaf5!important;
+  color:#8b5e3c!important;
+  border:1px solid #d9c2aa!important;
+  white-space:nowrap!important;
+  flex:0 0 auto!important;
+}
+.order-tracker-btn:hover{background:#f3e7d8!important;}
+.order-tracker-btn span{display:inline!important;}
+
+@media(max-width:800px){
+  /* Mobile: LOGO + TÌM KIẾM + LỊCH SỬ trên cùng một hàng */
+  .header-inner{
+    display:grid!important;
+    grid-template-columns:78px minmax(100px,1fr) 122px!important;
+    grid-template-rows:42px!important;
+    align-items:center!important;
+    gap:5px!important;
+    padding:4px 6px!important;
+  }
+  .header-inner .logo{
+    grid-column:1!important;
+    grid-row:1!important;
+    width:78px!important;
+    min-width:78px!important;
+    max-width:78px!important;
+    height:42px!important;
+    min-height:42px!important;
+    overflow:hidden!important;
+  }
+  .header-inner .logo-image{
+    width:78px!important;
+    max-width:78px!important;
+    height:42px!important;
+    object-fit:contain!important;
+    object-position:left center!important;
+  }
+  .header-inner .header-search{
+    grid-column:2!important;
+    grid-row:1!important;
+    width:100%!important;
+    min-width:0!important;
+    height:38px!important;
+    margin:0!important;
+    padding:0 8px!important;
+    border-radius:999px!important;
+  }
+  .header-inner .header-search span{
+    flex:0 0 auto!important;
+    font-size:15px!important;
+  }
+  .header-inner .header-search input{
+    min-width:0!important;
+    width:100%!important;
+    font-size:12px!important;
+  }
+  .header-inner .order-tracker-btn{
+    grid-column:3!important;
+    grid-row:1!important;
+    width:122px!important;
+    min-width:122px!important;
+    max-width:122px!important;
+    height:38px!important;
+    padding:5px 6px!important;
+    margin:0!important;
+    border-radius:999px!important;
+    display:flex!important;
+    align-items:center!important;
+    justify-content:center!important;
+    gap:3px!important;
+    white-space:nowrap!important;
+    font-size:10px!important;
+    line-height:1.1!important;
+    font-weight:850!important;
+  }
+  .header-inner .order-tracker-btn span{
+    display:inline!important;
+    overflow:visible!important;
+  }
+  .header-inner #installAppBtn{display:none!important;}
+}
+
+@media(max-width:390px){
+  .header-inner{
+    grid-template-columns:70px minmax(88px,1fr) 116px!important;
+    gap:4px!important;
+    padding:4px 5px!important;
+  }
+  .header-inner .logo{
+    width:70px!important;
+    min-width:70px!important;
+    max-width:70px!important;
+    height:40px!important;
+    min-height:40px!important;
+  }
+  .header-inner .logo-image{
+    width:70px!important;
+    max-width:70px!important;
+    height:40px!important;
+  }
+  .header-inner .header-search{
+    height:36px!important;
+    padding:0 7px!important;
+  }
+  .header-inner .header-search input{
+    font-size:11px!important;
+  }
+  .header-inner .order-tracker-btn{
+    width:116px!important;
+    min-width:116px!important;
+    max-width:116px!important;
+    height:36px!important;
+    font-size:9.5px!important;
+    padding:4px 5px!important;
+  }
+}
+
+@media(max-width:340px){
+  .header-inner{
+    grid-template-columns:62px minmax(78px,1fr) 110px!important;
+    gap:3px!important;
+    padding:3px 4px!important;
+  }
+  .header-inner .logo,
+  .header-inner .logo-image{
+    width:62px!important;
+    max-width:62px!important;
+    height:38px!important;
+    min-height:38px!important;
+  }
+  .header-inner .header-search{
+    height:34px!important;
+    padding:0 6px!important;
+  }
+  .header-inner .header-search input{
+    font-size:10px!important;
+  }
+  .header-inner .order-tracker-btn{
+    width:110px!important;
+    min-width:110px!important;
+    max-width:110px!important;
+    height:34px!important;
+    font-size:9px!important;
+  }
+}
+</style>
+
+<!-- Firebase Cloud Messaging (Web Push) -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
+  import { getMessaging, getToken, isSupported } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-messaging.js";
+
+  window.FIREBASE_WEB_CONFIG = {
+    apiKey: "AIzaSyALoTwRXs-ddu6756M8Dj6RGeb1aNloWnc",
+    authDomain: "anvatlamthao.firebaseapp.com",
+    projectId: "anvatlamthao",
+    storageBucket: "anvatlamthao.firebasestorage.app",
+    messagingSenderId: "1018828516701",
+    appId: "1:1018828516701:web:59c3c36e414a14d9858cb4"
+  };
+
+  window.FIREBASE_VAPID_KEY = "BP3BGjVNvkDG5HJM5ccXGJJBEh-r_EqMm1Wi0pPCTmR_i0YnUVa9pxpdQEyeRBR_ayLxqaRUWkjbeLaLdSnZUNk";
+
+  // FCM dùng một scope riêng để không tranh chấp với sw.js của PWA.
+  const FCM_SW_URL = "/firebase-messaging-sw.js";
+  const FCM_SW_SCOPE = "/firebase-messaging/";
+
+  window.initFirebaseNotifications = async function () {
+    try {
+      if (!window.isSecureContext || !("serviceWorker" in navigator) || !("Notification" in window)) {
+        throw new Error("Trình duyệt không hỗ trợ Web Push hoặc trang chưa chạy HTTPS.");
+      }
+
+      if (!(await isSupported())) {
+        throw new Error("Firebase Web Push không được hỗ trợ trên trình duyệt này.");
+      }
+
+      const permission = Notification.permission === "granted"
+        ? "granted"
+        : await Notification.requestPermission();
+
+      if (permission !== "granted") {
+        throw new Error("Bạn chưa cho phép hiển thị thông báo.");
+      }
+
+      // Dọn registration FCM cũ ở scope / nếu bản trước đã tạo.
+      const oldRegs = await navigator.serviceWorker.getRegistrations();
+      for (const reg of oldRegs) {
+        const script = reg.active?.scriptURL || reg.waiting?.scriptURL || reg.installing?.scriptURL || "";
+        if (script.includes("/firebase-messaging-sw.js") && reg.scope === location.origin + "/") {
+          await reg.unregister();
+        }
+      }
+
+      // Đăng ký FCM ở scope riêng, không đụng PWA sw.js.
+      const registration = await navigator.serviceWorker.register(FCM_SW_URL, {
+        scope: FCM_SW_SCOPE,
+        updateViaCache: "none"
+      });
+
+      // Chờ riêng FCM worker hoạt động.
+      if (registration.installing) {
+        await new Promise((resolve, reject) => {
+          const worker = registration.installing;
+          const timer = setTimeout(() => reject(new Error("FCM Service Worker khởi động quá lâu.")), 15000);
+          worker.addEventListener("statechange", () => {
+            if (worker.state === "activated") {
+              clearTimeout(timer);
+              resolve();
+            }
+            if (worker.state === "redundant") {
+              clearTimeout(timer);
+              reject(new Error("FCM Service Worker bị trình duyệt từ chối kích hoạt."));
+            }
+          });
+        });
+      }
+
+      // Chỉ chờ đúng FCM Service Worker, không chờ service worker PWA chung.
+      if (!registration.active) {
+        await new Promise((resolve, reject) => {
+          const worker = registration.installing || registration.waiting;
+          if (!worker) {
+            reject(new Error("Không tìm thấy FCM Service Worker."));
+            return;
+          }
+          const timer = setTimeout(() => {
+            reject(new Error("FCM Service Worker khởi động quá lâu."));
+          }, 15000);
+          const check = () => {
+            if (worker.state === "activated") {
+              clearTimeout(timer);
+              resolve();
+            } else if (worker.state === "redundant") {
+              clearTimeout(timer);
+              reject(new Error("FCM Service Worker bị trình duyệt từ chối kích hoạt."));
+            }
+          };
+          worker.addEventListener("statechange", check);
+          check();
+        });
+      }
+
+      const app = initializeApp(window.FIREBASE_WEB_CONFIG, "anvatlamthao-fcm");
+      const messaging = getMessaging(app);
+
+      const token = await getToken(messaging, {
+        vapidKey: window.FIREBASE_VAPID_KEY,
+        serviceWorkerRegistration: registration
+      });
+
+      if (!token) {
+        throw new Error("Firebase không trả về FCM token.");
+      }
+
+      localStorage.setItem("ANVAT_FCM_TOKEN", token);
+      localStorage.setItem("ANVAT_NOTIFICATION_ENABLED", "1");
+
+      // Gửi token về Apps Script ngay lập tức.
+      const phone = document.getElementById("customerPhone")?.value.trim() || "";
+      try {
+        await fetch(GOOGLE_SCRIPT_URL, {
+          method: "POST",
+          mode: "no-cors",
+          headers: { "Content-Type": "text/plain;charset=utf-8" },
+          body: JSON.stringify({ action: "saveFcmToken", phone, fcmToken: token }),
+          keepalive: true
+        });
+      } catch (sendError) {
+        // Token vẫn được giữ trong localStorage; đơn hàng sau đó cũng gửi token.
+        console.warn("FCM token đã tạo nhưng chưa gửi được Apps Script:", sendError);
+      }
+
+      console.log("✅ FCM TOKEN:", token);
+      console.log("✅ FCM Service Worker:", registration.scope);
+      return { success: true, token };
+
+    } catch (error) {
+      console.error("❌ FCM ERROR:", error);
+      return { success: false, message: error?.message || String(error) };
+    }
+  };
+</script>
+
+
+<style>
+/* ===== TRA CỨU ĐƠN: HIỂN THỊ NGAY BÊN DƯỚI ĐÚNG MÃ ĐƠN ===== */
+.order-history-detail-inline{
+  margin-top:12px;
+  padding:14px;
+  border:1px solid #eadbc9;
+  border-radius:14px;
+  background:#fffaf5;
+  animation:orderDetailOpen .22s ease;
+}
+@keyframes orderDetailOpen{
+  from{opacity:0;transform:translateY(-5px)}
+  to{opacity:1;transform:translateY(0)}
+}
+.order-history-card .order-history-detail-title{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  margin-bottom:9px;
+}
+@media(max-width:520px){
+  .order-history-detail-inline{padding:12px;margin-top:10px}
+  .order-history-card .order-history-detail-title{align-items:flex-start;flex-direction:column;gap:5px}
+}
 </style>
 </head>
 <body>
@@ -329,6 +800,23 @@ button{-webkit-tap-highlight-color:transparent}
       <strong id="successOrderCode">CC00000000</strong>
       <button type="button" class="copy-code-btn" onclick="copyOrderCode()">📋 Sao chép mã đơn</button>
     </div>
+
+    <div class="success-track-guide">
+      <div class="success-track-title">📋 Theo dõi đơn hàng</div>
+      <div class="success-track-text">
+        Bạn có thể mở <b>Lịch Sử Đơn Hàng</b> để xem trạng thái mới nhất của đơn.
+        Khi quán cập nhật đơn, bạn cũng có thể nhận thông báo trên điện thoại nếu đã bật thông báo.
+      </div>
+      <div class="success-track-actions">
+        <button type="button" class="success-track-btn primary" onclick="closeSuccessModal();openOrderTracker();">
+          📋 Theo dõi đơn
+        </button>
+        <button type="button" class="success-track-btn secondary" onclick="closeSuccessModal();openOrderTracker();">
+          🔎 Tra cứu mã
+        </button>
+      </div>
+    </div>
+
     <div class="success-wish">💛 Chúc bạn ngon miệng và có một ngày thật vui!</div>
     <button class="success-primary success-close-btn" onclick="closeSuccessModal()">Hoàn tất</button>
   </div>
@@ -343,8 +831,7 @@ button{-webkit-tap-highlight-color:transparent}
       <span>🔍</span>
       <input id="productSearch" type="search" placeholder="Tìm món ăn, đồ uống..." oninput="searchProducts(this.value)">
     </div>
-    <button class="header-cart" onclick="openCart()">🛒 <span>Giỏ hàng</span><b id="headerCartCount">0</b></button>
-    <button class="header-cart" onclick="openOrderTracker()">📦 <span>Đơn hàng</span></button>
+    <button class="header-cart order-tracker-btn" onclick="openOrderTracker()">📋 <span>Lịch Sử Đơn Hàng</span></button>
     <button id="installAppBtn" class="pwa-install-btn" type="button" onclick="installPWA()" aria-label="Cài ứng dụng Ăn Vặt Lâm Thao">📲 Cài app</button>
   </div>
 </header>
@@ -685,6 +1172,17 @@ button{-webkit-tap-highlight-color:transparent}
   <button type="button" class="location-btn" onclick="getLocation()">📍 Gửi vị trí hiện tại</button>
 </div>
 
+<div class="notification-permission" id="notificationPermissionBar">
+  <div class="notification-permission-text">
+    <span class="notification-permission-icon">🔔</span>
+    <div>
+      <b>Cho phép hiển thị thông báo</b>
+      <small>Nhận thông báo khi quán cập nhật đơn hàng.</small>
+    </div>
+  </div>
+  <button type="button" id="notificationPermissionBtn" class="notification-permission-btn" onclick="enableNotifications()">🔔 Cho phép thông báo</button>
+</div>
+
 <input type="hidden" id="latitude">
 <input type="hidden" id="longitude">
 
@@ -814,16 +1312,27 @@ button{-webkit-tap-highlight-color:transparent}
 </div>
 
 
-<!-- ORDER TRACKER -->
+<!-- LỊCH SỬ ĐƠN HÀNG -->
 <div id="orderTrackerModal" class="modal" style="display:none">
-  <div class="modal-content" style="max-width:430px">
-    <button onclick="closeOrderTracker()" style="float:right;border:0;background:none;font-size:22px">✕</button>
-    <h3>📦 Theo dõi đơn hàng</h3>
-    <p style="color:#7b6658">Nhập mã đơn và số điện thoại để xem tình trạng đơn.</p>
-    <input id="trackOrderCode" placeholder="Mã đơn hàng (VD: CC12345678)">
-    <input id="trackOrderPhone" placeholder="Số điện thoại">
-    <button onclick="checkOrderStatus()" style="width:100%;margin-top:10px">🔎 Tra cứu đơn hàng</button>
-    <div id="orderStatusResult" style="margin-top:15px"></div>
+  <div class="modal-box order-history-modal" style="max-width:520px">
+    <div class="modal-header">
+      <h2>📋 Lịch Sử Đơn Hàng</h2>
+      <button class="close-btn" onclick="closeOrderTracker()" aria-label="Đóng">✕</button>
+    </div>
+
+    <p class="order-history-intro">
+      Các đơn hàng bạn đã đặt trên thiết bị này sẽ được lưu tại đây.
+      Bấm <b>Tra cứu</b> để xem trạng thái, món đã đặt và thời gian đặt.
+    </p>
+
+    <div id="orderHistoryList"></div>
+
+    <div id="orderHistoryEmpty" class="order-history-empty" style="display:none">
+      <div class="order-history-empty-icon">🧾</div>
+      <strong>Chưa có lịch sử đơn hàng</strong>
+      <span>Sau khi bạn đặt đơn thành công, mã đơn sẽ tự động xuất hiện tại đây.</span>
+    </div>
+
   </div>
 </div>
 
@@ -893,6 +1402,82 @@ function getLocation(){
 
     );
 }
+
+
+/* ==================================================
+   THÔNG BÁO ĐƠN HÀNG
+================================================== */
+function updateNotificationPermissionUI(message){
+  const btn = document.getElementById("notificationPermissionBtn");
+  const bar = document.getElementById("notificationPermissionBar");
+  if(!btn || !bar) return;
+
+  if(!("Notification" in window)){
+    btn.textContent = "Không hỗ trợ";
+    btn.disabled = true;
+    return;
+  }
+
+  const hasToken = !!localStorage.getItem("ANVAT_FCM_TOKEN");
+  if(Notification.permission === "granted" && hasToken){
+    btn.textContent = "✅ Đã đăng ký";
+    btn.classList.add("enabled");
+    btn.disabled = false;
+    return;
+  }
+  if(Notification.permission === "granted" && !hasToken){
+    btn.textContent = "🔔 Cho phép thông báo";
+    btn.classList.remove("enabled");
+    btn.disabled = false;
+    return;
+  }
+
+  if(Notification.permission === "denied"){
+    btn.textContent = "Bị chặn";
+    btn.disabled = false;
+    return;
+  }
+
+  btn.textContent = "Cho phép";
+  btn.classList.remove("enabled");
+  btn.disabled = false;
+}
+
+async function enableNotifications(){
+  const btn = document.getElementById("notificationPermissionBtn");
+  if(btn){ btn.disabled=true; btn.textContent="⏳ Đang bật thông báo..."; }
+  try{
+    const result = await window.initFirebaseNotifications();
+    if(result.success){
+      updateNotificationPermissionUI();
+      alert("✅ Đã bật thông báo thành công. Bạn sẽ nhận được cập nhật đơn hàng từ quán.");
+    }else{
+      updateNotificationPermissionUI();
+      alert("❌ Chưa bật được thông báo.\n\n" + result.message);
+    }
+  }catch(error){
+    console.error("FCM enable error:", error);
+    updateNotificationPermissionUI();
+    alert("❌ Lỗi khi bật thông báo: " + (error?.message || error));
+  }finally{
+    if(btn) btn.disabled=false;
+  }
+}
+
+function showOrderNotification(title, body){
+  try{
+    if("Notification" in window && Notification.permission === "granted"){
+      new Notification(title || "🔔 Ăn Vặt Lâm Thao", {
+        body: body || "Đơn hàng của bạn đã được tiếp nhận.",
+        icon: "logowed.png"
+      });
+    }
+  }catch(error){
+    console.warn("showOrderNotification:", error);
+  }
+}
+
+document.addEventListener("DOMContentLoaded", updateNotificationPermissionUI);
 
 /* ==================================================
    GOOGLE APPS SCRIPT
@@ -2080,6 +2665,18 @@ function openOrderForm(){
 
     }
 
+    // Mỗi lần mở một đơn mới, cho phép nút xác nhận hoạt động lại.
+    orderSubmitting = false;
+
+    const confirmButton =
+        document.getElementById("confirmOrderButton");
+
+    if(confirmButton){
+        confirmButton.disabled = false;
+        confirmButton.style.opacity = "1";
+        confirmButton.innerHTML = "✅ Xác nhận đặt hàng";
+    }
+
     calculateTotal();
 
     closeCart();
@@ -2196,12 +2793,30 @@ async function confirmOrder(){
     }
 
     /* ==============================
-       CHỐNG BẤM TRÙNG
+       CHỐNG BẤM TRÙNG + KHÓA NGAY LẬP TỨC
+       Khóa nút trước khi đọc/kiểm tra dữ liệu để không thể
+       phát sinh 2-3 đơn khi khách bấm nhanh hoặc máy bị lag.
     ============================== */
 
     if(button.disabled || orderSubmitting){
         return;
     }
+
+    orderSubmitting = true;
+    button.disabled = true;
+    button.setAttribute("aria-disabled", "true");
+    button.style.pointerEvents = "none";
+    button.style.opacity = "0.65";
+    button.innerHTML = "⏳ Đang kiểm tra...";
+
+    const unlockOrderButton = () => {
+        orderSubmitting = false;
+        button.disabled = false;
+        button.removeAttribute("aria-disabled");
+        button.style.pointerEvents = "";
+        button.style.opacity = "";
+        button.innerHTML = "✅ Xác nhận đặt hàng";
+    };
 
     /* ==============================
        LẤY THÔNG TIN
@@ -2264,6 +2879,7 @@ if(!phone){
         "📱 Vui lòng nhập số điện thoại."
     );
 
+    unlockOrderButton();
     return;
 }
 
@@ -2274,6 +2890,7 @@ if(!/^0\d{9}$/.test(phone)){
         "Vui lòng nhập đúng 10 chữ số và bắt đầu bằng số 0."
     );
 
+    unlockOrderButton();
     return;
 }
 
@@ -2297,9 +2914,6 @@ if(!/^0\d{9}$/.test(phone)){
 
     }
 
-    // Khóa ngay luồng đặt hàng để tránh thao tác tạo 2 đơn liên tiếp.
-    orderSubmitting = true;
-
     /* ==============================
        TÍNH TIỀN
     ============================== */
@@ -2308,17 +2922,9 @@ if(!/^0\d{9}$/.test(phone)){
         calculateTotal();
 
     /* ==============================
-       KHÓA NÚT NGAY LẬP TỨC
+       CHUYỂN SANG TRẠNG THÁI ĐANG GỬI
+       Nút đã bị khóa từ đầu hàm và tiếp tục bị khóa.
     ============================== */
-
-    const oldText =
-        button.innerHTML;
-
-    button.disabled =
-        true;
-
-    button.style.opacity =
-        "0.6";
 
     button.innerHTML =
         "⏳ Đang gửi đơn...";
@@ -2415,9 +3021,26 @@ const payload = {
 
     createdAt:
         new Date()
-            .toLocaleString("vi-VN")
+            .toLocaleString("vi-VN"),
+
+    // Token FCM (nếu người dùng đã cho phép thông báo)
+    fcmToken:
+        localStorage.getItem("ANVAT_FCM_TOKEN") || ""
 
 };
+
+    /* ==============================
+       LƯU LỊCH SỬ ĐƠN HÀNG TRÊN THIẾT BỊ
+       Không xoá khi reset giỏ hàng.
+    ============================== */
+    saveOrderHistory({
+        code: orderCode,
+        phone: phone,
+        items: itemNames,
+        quantity: quantities,
+        total: finalData.total,
+        time: payload.createdAt
+    });
 
     /* ==============================
        HIỂN THỊ MÃ ĐƠN NGAY LẬP TỨC
@@ -2425,51 +3048,20 @@ const payload = {
        Dữ liệu đơn vẫn được gửi nền ngay sau đó.
     ============================== */
 
-    showSuccessModal(orderCode, finalData.total);
-
     /* ==============================
-       GỬI ĐƠN
+       GỬI ĐƠN + CHỜ LOAD
+       Nút đã khóa từ đầu. Ở đây thực sự chờ request hoàn tất trước
+       khi đóng form để khách không thể bấm lại trong lúc máy đang lag.
     ============================== */
+
+    let requestStarted = false;
 
     try{
 
-        /*
-           Chỉ báo lỗi khi việc gửi yêu cầu thực sự thất bại.
-           Sau khi Google Apps Script đã nhận request, mọi lỗi ở phần
-           cập nhật giao diện/giỏ hàng không được phép biến thành
-           thông báo “Không thể gửi đơn hàng”.
-        */
         const orderBody = JSON.stringify(payload);
-        let requestStarted = false;
 
-        /*
-           Google Apps Script thường không cho trình duyệt đọc trực tiếp
-           phản hồi do CORS/redirect. Vì vậy không chờ response để kết luận
-           thành công hay thất bại. Chỉ cần request được xếp hàng/gửi đi,
-           giao diện sẽ tiếp tục hoàn tất đơn hàng.
-        */
-        if (navigator.sendBeacon) {
-            try {
-                const blob = new Blob(
-                    [orderBody],
-                    {type: "text/plain;charset=UTF-8"}
-                );
-                requestStarted = navigator.sendBeacon(
-                    GOOGLE_SCRIPT_URL,
-                    blob
-                );
-            } catch (beaconError) {
-                console.warn("sendBeacon error:", beaconError);
-            }
-        }
-
-        if (!requestStarted) {
-            /*
-               Không await fetch và không bắt lỗi mạng thành lỗi đơn hàng.
-               Trình duyệt vẫn gửi request ở chế độ no-cors/keepalive; nếu
-               Google trả response mà JS không đọc được thì cũng không sao.
-            */
-            fetch(
+        try {
+            await fetch(
                 GOOGLE_SCRIPT_URL,
                 {
                     method: "POST",
@@ -2480,20 +3072,37 @@ const payload = {
                     body: orderBody,
                     keepalive: true
                 }
-            ).catch(error => {
-                console.warn("Google Apps Script response/network:", error);
-            });
+            );
             requestStarted = true;
+        } catch (fetchError) {
+            console.warn("Fetch đơn hàng lỗi, chuyển sang sendBeacon:", fetchError);
+
+            if (navigator.sendBeacon) {
+                try {
+                    const blob = new Blob(
+                        [orderBody],
+                        {type: "text/plain;charset=UTF-8"}
+                    );
+                    requestStarted = navigator.sendBeacon(
+                        GOOGLE_SCRIPT_URL,
+                        blob
+                    );
+                } catch (beaconError) {
+                    console.warn("sendBeacon error:", beaconError);
+                }
+            }
+        }
+
+        if (!requestStarted) {
+            throw new Error("Không thể gửi yêu cầu đặt hàng.");
         }
 
         /* ==============================
-           ĐÃ KHỞI TẠO GỬI ĐƠN
-           Không dùng response CORS để báo lỗi giả cho khách hàng.
+           ĐÃ GỬI ĐƯỢC REQUEST
         ============================== */
 
         /* ==============================
            DỌN DẸP SAU KHI GỬI
-           Các lỗi giao diện không được báo thành lỗi gửi đơn.
         ============================== */
 
         try {
@@ -2508,13 +3117,22 @@ const payload = {
             console.warn("Đóng form đặt hàng:", modalError);
         }
 
+        showSuccessModal(orderCode, finalData.total);
+
+        showOrderNotification(
+            "🛒 Đặt hàng thành công",
+            "Mã đơn " + orderCode + " đã được tiếp nhận. Vui lòng chờ quán xác nhận."
+        );
+
         /* ==============================
-           RESET NÚT
+           GIỮ NÚT ĐÃ KHÓA SAU KHI GỬI
+           Modal đã đóng; khi khách tạo đơn mới,
+           openOrderForm() sẽ mở khóa nút lại.
         ============================== */
 
-        button.disabled = false;
-        button.style.opacity = "1";
-        button.innerHTML = oldText;
+        button.disabled = true;
+        button.style.opacity = "0.65";
+        button.innerHTML = "✅ Đã gửi đơn";
 
     }catch(error){
 
@@ -2527,15 +3145,20 @@ const payload = {
            được response do CORS/redirect.
         */
         try {
-            button.disabled = false;
-            button.style.opacity = "1";
-            button.innerHTML = oldText;
+            // Nếu request đã được gửi nền thì giữ khóa để tránh tạo đơn trùng.
+            // Nếu lỗi xảy ra trước khi tạo request, cho phép khách thử lại.
+            if (typeof requestStarted !== "undefined" && requestStarted) {
+                button.disabled = true;
+                button.style.pointerEvents = "none";
+                button.style.opacity = "0.65";
+                button.innerHTML = "✅ Đã gửi đơn";
+            } else {
+                unlockOrderButton();
+            }
         } catch (resetError) {
-            console.warn("Reset nút xác nhận:", resetError);
+            console.warn("Giữ trạng thái khóa nút xác nhận:", resetError);
         }
 
-        // Không cho tạo lại đơn từ cùng phiên sau khi mã đơn đã được tạo,
-        // vì request nền có thể đã tới Google Apps Script.
         console.warn("Luồng hiển thị sau khi tạo đơn gặp lỗi:", error);
 
     }
@@ -2561,13 +3184,13 @@ function showSuccessModal(orderCode,total){
   modal.style.display='flex';
   modal.setAttribute('aria-hidden','false');
 
-  // Tự reset trang sau 10 giây kể từ khi đơn được xác nhận thành công.
+  // Tự reset trang sau 15 giây kể từ khi đơn được xác nhận thành công.
   if(successResetTimer){
     clearTimeout(successResetTimer);
   }
   successResetTimer = setTimeout(() => {
     window.location.reload();
-  }, 10000);
+  }, 15000);
 }
 function closeSuccessModal(){
   const modal=document.getElementById('successModal');
@@ -2690,6 +3313,8 @@ loadProducts();
 setTimeout(openWelcomePopup, 350);
 
 
+updateNotificationPermissionUI();
+
 /* ==================================================
    PWA
 ================================================== */
@@ -2766,57 +3391,211 @@ window.addEventListener('appinstalled',function(){
 
 
 <script>
+function getOrderHistory(){
+  try{
+    const raw=localStorage.getItem("anvat_lamthao_order_history");
+    if(!raw) return [];
+    const data=JSON.parse(raw);
+    return Array.isArray(data) ? data : [];
+  }catch(e){
+    console.warn("Không đọc được lịch sử đơn hàng:",e);
+    return [];
+  }
+}
+
+function saveOrderHistory(order){
+  try{
+    const history=getOrderHistory().filter(item=>item && item.code!==order.code);
+    history.unshift(order);
+    localStorage.setItem(
+      "anvat_lamthao_order_history",
+      JSON.stringify(history.slice(0,20))
+    );
+  }catch(e){
+    console.warn("Không lưu được lịch sử đơn hàng:",e);
+  }
+}
+
 function openOrderTracker(){
- const m=document.getElementById("orderTrackerModal");
- if(m) m.style.display="flex";
+  const m=document.getElementById("orderTrackerModal");
+  if(m) m.style.display="flex";
+  renderOrderHistory();
 }
+
 function closeOrderTracker(){
- const m=document.getElementById("orderTrackerModal");
- if(m) m.style.display="none";
+  const m=document.getElementById("orderTrackerModal");
+  if(m) m.style.display="none";
+  const detail=document.getElementById("orderHistoryDetail");
+  if(detail){
+    detail.style.display="none";
+    detail.innerHTML="";
+  }
 }
 
-async function checkOrderStatus(){
- const code=document.getElementById("trackOrderCode").value.trim();
- const phone=document.getElementById("trackOrderPhone").value.trim();
- const box=document.getElementById("orderStatusResult");
+function escapeOrderHistoryHtml(value){
+  return String(value==null ? "" : value)
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+}
 
- if(!code || !phone){
-   box.innerHTML="❌ Vui lòng nhập đủ mã đơn và số điện thoại.";
-   return;
- }
+function renderOrderHistory(){
+  const list=document.getElementById("orderHistoryList");
+  const empty=document.getElementById("orderHistoryEmpty");
+  if(!list || !empty) return;
 
- box.innerHTML="⏳ Đang kiểm tra...";
+  // Loại bỏ mã đơn trùng nhau khi hiển thị lịch sử cũ.
+  const rawHistory=getOrderHistory();
+  const seenCodes=new Set();
+  const history=rawHistory.filter(order=>{
+    const code=String(order && order.code || '').trim().toUpperCase();
+    if(!code || seenCodes.has(code)) return false;
+    seenCodes.add(code);
+    return true;
+  });
 
- try{
-   const url=GOOGLE_SCRIPT_URL+
-   "?action=getOrderStatus"+
-   "&code="+encodeURIComponent(code)+
-   "&phone="+encodeURIComponent(phone);
+  if(!history.length){
+    list.innerHTML="";
+    empty.style.display="block";
+    return;
+  }
 
-   const res=await fetch(url);
-   const data=await res.json();
+  empty.style.display="none";
 
-   if(!data.success){
-     box.innerHTML="❌ "+(data.message||"Không tìm thấy đơn hàng");
-     return;
-   }
+  list.innerHTML=history.map((order,index)=>{
+    const items=order.items || "Đơn hàng";
+    const shortItems=items.length>105 ? items.slice(0,105)+"…" : items;
 
-   let icon="🟡";
-   if(data.status==="Đang chuẩn bị") icon="🔵";
-   if(data.status==="Đang giao") icon="🛵";
-   if(data.status==="Đã giao") icon="🟢";
+    return `
+      <div class="order-history-card" id="order-history-card-${index}">
+        <div class="order-history-card-top">
+          <div>
+            <div class="order-history-code">📦 ${escapeOrderHistoryHtml(order.code)}</div>
+            <div class="order-history-time">🕒 ${escapeOrderHistoryHtml(order.time || order.createdAt || "")}</div>
+          </div>
+          <button class="order-history-lookup"
+                  onclick="lookupOrderFromHistory(${index})">
+            🔎 Tra cứu
+          </button>
+        </div>
+        <div class="order-history-summary">
+          ${escapeOrderHistoryHtml(shortItems)}
+        </div>
+        <div id="orderHistoryDetail-${index}" class="order-history-detail-inline" style="display:none"></div>
+      </div>`;
+  }).join("");
+}
 
-   box.innerHTML=`
-   <div style="background:#fffaf5;border-radius:15px;padding:15px;border:1px solid #eadbc9">
-   <b>📦 ${data.code}</b><br>
-   ${icon} <strong>${data.status}</strong><br><br>
-   🍢 ${data.items}<br>
-   💰 ${Number(data.total).toLocaleString("vi-VN")}đ<br>
-   🕒 ${data.time}
-   </div>`;
- }catch(e){
-   box.innerHTML="❌ Không thể kiểm tra đơn hàng.";
- }
+async function lookupOrderFromHistory(index){
+  const history=getOrderHistory();
+  const order=history[index];
+  const detail=document.getElementById("orderHistoryDetail-"+index);
+
+  if(!order || !detail) return;
+
+  detail.style.display="block";
+  detail.innerHTML=`
+    <div class="order-history-detail-title">
+      <b>📦 ${escapeOrderHistoryHtml(order.code)}</b>
+      <span class="order-history-status">⏳ Đang tra cứu...</span>
+    </div>
+    <div class="order-history-detail-row">
+      <b>🕒 Thời gian đặt:</b> ${escapeOrderHistoryHtml(order.time || order.createdAt || "—")}
+    </div>`;
+
+  try{
+    const url=GOOGLE_SCRIPT_URL+
+      "?action=getOrderStatus"+
+      "&code="+encodeURIComponent(order.code);
+
+    const res=await fetch(url);
+    const data=await res.json();
+
+    if(!data.success){
+      detail.innerHTML=`
+        <div class="order-history-detail-title">
+          <b>📦 ${escapeOrderHistoryHtml(order.code)}</b>
+          <span class="order-history-status">⚠️ Không tìm thấy</span>
+        </div>
+        <div class="order-history-error">
+          ${escapeOrderHistoryHtml(data.message || "Không tìm thấy thông tin đơn hàng.")}
+        </div>`;
+      return;
+    }
+
+    const currentStatus = String(data.status || "Chờ xác nhận").trim();
+    let icon="🟡";
+    if(currentStatus==="Chờ xác nhận") icon="🕐";
+    if(currentStatus==="Đang chuẩn bị đơn hàng" || currentStatus==="Đang chuẩn bị") icon="👨‍🍳";
+    if(currentStatus==="Đang giao") icon="🛵";
+    if(currentStatus==="Đã giao") icon="🟢";
+    if(currentStatus==="Đã huỷ" || currentStatus==="Đã hủy") icon="🔴";
+
+    detail.innerHTML=`
+      <div class="order-history-detail-title">
+        <b>📦 ${escapeOrderHistoryHtml(data.code || order.code)}</b>
+        <span class="order-history-status">${icon} ${escapeOrderHistoryHtml(currentStatus)}</span>
+      </div>
+
+      <div class="order-history-detail-row">
+        <b>🕒 Thời gian đặt:</b>
+        ${escapeOrderHistoryHtml(data.time || order.time || "—")}
+      </div>
+
+      <div class="order-history-detail-row">
+        <b>🍢 Món đã đặt:</b>
+        <div class="order-history-items">${escapeOrderHistoryHtml(data.items || order.items || "—")}</div>
+      </div>
+
+      <div class="order-history-detail-row">
+        <b>💰 Tổng tiền:</b>
+        ${Number(data.total || order.total || 0).toLocaleString("vi-VN")}đ
+      </div>
+
+      <div class="order-history-live-note">
+        🔄 Trạng thái được lấy trực tiếp từ Google Sheet. Bạn có thể bấm tra cứu lại để xem cập nhật mới nhất.
+      </div>
+
+      <button type="button"
+              class="order-history-refresh"
+              onclick="lookupOrderFromHistory(${index})">
+        🔄 Cập nhật trạng thái
+      </button>`;
+  }catch(e){
+    detail.innerHTML=`
+      <div class="order-history-detail-title">
+        <b>📦 ${escapeOrderHistoryHtml(order.code)}</b>
+        <span class="order-history-status">⚠️ Lỗi tra cứu</span>
+      </div>
+      <div class="order-history-error">
+        Không thể kết nối để tra cứu đơn hàng. Vui lòng thử lại sau.
+      </div>`;
+  }
+}
+
+/* Hàm cũ được giữ để tương thích nếu nơi khác trong website còn gọi tới. */
+async function checkOrderStatus(code,phone){
+  const orderCode=(code || document.getElementById("trackOrderCode")?.value || "").trim();
+  const orderPhone=(phone || document.getElementById("trackOrderPhone")?.value || "").trim();
+
+  if(!orderCode){
+    return;
+  }
+
+  try{
+    const url=GOOGLE_SCRIPT_URL+
+      "?action=getOrderStatus"+
+      "&code="+encodeURIComponent(orderCode);
+
+    const res=await fetch(url);
+    const data=await res.json();
+    return data;
+  }catch(e){
+    console.warn("checkOrderStatus error:",e);
+    return null;
+  }
 }
 </script>
 
