@@ -417,60 +417,65 @@ button{-webkit-tap-highlight-color:transparent}
 
 <!-- Firebase Cloud Messaging (Web Push) -->
 <script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
+  import { initializeApp, getApps, getApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
   import { getMessaging, getToken, isSupported } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-messaging.js";
 
-  // DÁN ĐÚNG THÔNG TIN Firebase Web App CỦA BẠN VÀO ĐÂY.
-  // VAPID key đã được cấu hình theo key bạn cung cấp.
   window.FIREBASE_WEB_CONFIG = {
-    apiKey: "",
-    authDomain: "",
-    projectId: "",
-    storageBucket: "",
-    messagingSenderId: "",
-    appId: ""
+    apiKey: "AIzaSyALoTwRXs-ddu6756M8Dj6RGeb1aNloWnc",
+    authDomain: "anvatlamthao.firebaseapp.com",
+    projectId: "anvatlamthao",
+    storageBucket: "anvatlamthao.firebasestorage.app",
+    messagingSenderId: "1018828516701",
+    appId: "1:1018828516701:web:59c3c36e414a14d9858cb4"
   };
 
   window.FIREBASE_VAPID_KEY = "BP3BGjVNvkDG5HJM5ccXGJJBEh-r_EqMm1Wi0pPCTmR_i0YnUVa9pxpdQEyeRBR_ayLxqaRUWkjbeLaLdSnZUNk";
 
   window.initFirebaseNotifications = async function () {
     try {
-      if (!("Notification" in window)) return {success:false, message:"Thiết bị không hỗ trợ thông báo."};
-
-      const cfg = window.FIREBASE_WEB_CONFIG || {};
-      const required = ["apiKey","authDomain","projectId","storageBucket","messagingSenderId","appId"];
-      if (required.some(k => !cfg[k])) {
-        return {success:false, message:"Chưa nhập đủ Firebase Web App config."};
+      if (!window.isSecureContext || !('serviceWorker' in navigator) || !("Notification" in window)) {
+        throw new Error("Trình duyệt không hỗ trợ Web Push hoặc trang chưa chạy HTTPS.");
       }
-
       if (!(await isSupported())) {
-        return {success:false, message:"Trình duyệt này không hỗ trợ Firebase Web Push."};
+        throw new Error("Firebase Web Push không được hỗ trợ trên trình duyệt này.");
       }
 
-      const permission = await Notification.requestPermission();
-      if (permission !== "granted") {
-        return {success:false, message:"Bạn chưa cho phép hiển thị thông báo."};
-      }
+      const permission = Notification.permission === "granted"
+        ? "granted"
+        : await Notification.requestPermission();
+      if (permission !== "granted") throw new Error("Quyền thông báo chưa được cấp.");
 
-      const app = initializeApp(cfg);
+      const registration = await navigator.serviceWorker.register('/firebase-messaging-sw.js', {scope:'/'});
+      await navigator.serviceWorker.ready;
+
+      const app = getApps().length ? getApp() : initializeApp(window.FIREBASE_WEB_CONFIG);
       const messaging = getMessaging(app);
 
-      // FCM Web Push cần service worker firebase-messaging-sw.js để nhận
-      // thông báo nền. Nếu website đã có service worker, có thể truyền
-      // registration vào getToken ở đây.
       const token = await getToken(messaging, {
-        vapidKey: window.FIREBASE_VAPID_KEY
+        vapidKey: window.FIREBASE_VAPID_KEY,
+        serviceWorkerRegistration: registration
+      });
+      if (!token) throw new Error("Firebase không trả về FCM token.");
+
+      localStorage.setItem("ANVAT_FCM_TOKEN", token);
+      localStorage.setItem("ANVAT_NOTIFICATION_ENABLED", "1");
+
+      // Gửi token về Apps Script ngay lập tức.
+      const phone = document.getElementById("customerPhone")?.value.trim() || "";
+      await fetch(GOOGLE_SCRIPT_URL, {
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify({ action:"saveFcmToken", phone, fcmToken:token }),
+        keepalive: true
       });
 
-      if (token) {
-        localStorage.setItem("ANVAT_FCM_TOKEN", token);
-        return {success:true, token};
-      }
-
-      return {success:false, message:"Không lấy được FCM token."};
+      console.log("✅ FCM TOKEN:", token);
+      console.log("✅ FCM token đã gửi tới Google Apps Script.");
+      return {success:true, token};
     } catch (error) {
-      console.warn("Firebase notification:", error);
-      return {success:false, message:error.message || "Không thể bật thông báo."};
+      console.error("❌ FCM ERROR:", error);
+      return {success:false, message:error?.message || String(error)};
     }
   };
 </script>
@@ -1130,9 +1135,16 @@ function updateNotificationPermissionUI(message){
     return;
   }
 
-  if(Notification.permission === "granted"){
-    btn.textContent = "✅ Đã cho phép";
+  const hasToken = !!localStorage.getItem("ANVAT_FCM_TOKEN");
+  if(Notification.permission === "granted" && hasToken){
+    btn.textContent = "✅ Đã đăng ký";
     btn.classList.add("enabled");
+    btn.disabled = false;
+    return;
+  }
+  if(Notification.permission === "granted" && !hasToken){
+    btn.textContent = "🔔 Đăng ký FCM";
+    btn.classList.remove("enabled");
     btn.disabled = false;
     return;
   }
@@ -1150,51 +1162,22 @@ function updateNotificationPermissionUI(message){
 
 async function enableNotifications(){
   const btn = document.getElementById("notificationPermissionBtn");
-  if(btn){
-    btn.disabled = true;
-    btn.textContent = "⏳ Đang bật...";
-  }
-
+  if(btn){ btn.disabled=true; btn.textContent="⏳ Đang đăng ký FCM..."; }
   try{
-    if(!("Notification" in window)){
-      alert("❌ Thiết bị/trình duyệt này không hỗ trợ thông báo.");
-      return;
-    }
-
-    const result = window.initFirebaseNotifications
-      ? await window.initFirebaseNotifications()
-      : {success:false, message:"Firebase chưa sẵn sàng."};
-
+    const result = await window.initFirebaseNotifications();
     if(result.success){
-      localStorage.setItem("ANVAT_NOTIFICATION_ENABLED","1");
       updateNotificationPermissionUI();
-      alert("✅ Đã bật thông báo.\n\nWebsite có thể lưu mã thông báo để gửi cập nhật đơn hàng.");
-      return;
-    }
-
-    // Fallback: vẫn xin quyền Notification API để website có thể hiển thị
-    // thông báo cục bộ khi trang đang mở.
-    const permission = await Notification.requestPermission();
-
-    if(permission === "granted"){
-      localStorage.setItem("ANVAT_NOTIFICATION_ENABLED","1");
-      updateNotificationPermissionUI();
-      new Notification("🔔 Ăn Vặt Lâm Thao", {
-        body:"Đã bật thông báo thành công.",
-        icon:"icons/icon-192.png"
-      });
+      alert("✅ Đã đăng ký FCM thành công. Token đã được gửi về Google Sheet.");
     }else{
       updateNotificationPermissionUI();
-      alert("⚠️ Chưa bật được thông báo.\n\n" + (result.message || "Vui lòng kiểm tra quyền thông báo của trình duyệt."));
+      alert("❌ Chưa đăng ký được FCM.\n\n" + result.message);
     }
   }catch(error){
-    console.warn("enableNotifications:", error);
+    console.error("FCM enable error:", error);
     updateNotificationPermissionUI();
-    alert("❌ Không thể bật thông báo. Vui lòng thử lại.");
+    alert("❌ Lỗi FCM: " + (error?.message || error));
   }finally{
-    if(btn && Notification.permission !== "granted"){
-      btn.disabled = false;
-    }
+    if(btn) btn.disabled=false;
   }
 }
 
@@ -3030,6 +3013,8 @@ function loadProducts(){
 loadProducts();
 setTimeout(openWelcomePopup, 350);
 
+
+updateNotificationPermissionUI();
 
 /* ==================================================
    PWA
