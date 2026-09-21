@@ -721,6 +721,33 @@ button{-webkit-tap-highlight-color:transparent}
   };
 </script>
 
+
+<style>
+/* ===== TRA CỨU ĐƠN: HIỂN THỊ NGAY BÊN DƯỚI ĐÚNG MÃ ĐƠN ===== */
+.order-history-detail-inline{
+  margin-top:12px;
+  padding:14px;
+  border:1px solid #eadbc9;
+  border-radius:14px;
+  background:#fffaf5;
+  animation:orderDetailOpen .22s ease;
+}
+@keyframes orderDetailOpen{
+  from{opacity:0;transform:translateY(-5px)}
+  to{opacity:1;transform:translateY(0)}
+}
+.order-history-card .order-history-detail-title{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  margin-bottom:9px;
+}
+@media(max-width:520px){
+  .order-history-detail-inline{padding:12px;margin-top:10px}
+  .order-history-card .order-history-detail-title{align-items:flex-start;flex-direction:column;gap:5px}
+}
+</style>
 </head>
 <body>
 
@@ -1306,7 +1333,6 @@ button{-webkit-tap-highlight-color:transparent}
       <span>Sau khi bạn đặt đơn thành công, mã đơn sẽ tự động xuất hiện tại đây.</span>
     </div>
 
-    <div id="orderHistoryDetail" class="order-history-detail" style="display:none"></div>
   </div>
 </div>
 
@@ -3158,13 +3184,13 @@ function showSuccessModal(orderCode,total){
   modal.style.display='flex';
   modal.setAttribute('aria-hidden','false');
 
-  // Tự reset trang sau 10 giây kể từ khi đơn được xác nhận thành công.
+  // Tự reset trang sau 15 giây kể từ khi đơn được xác nhận thành công.
   if(successResetTimer){
     clearTimeout(successResetTimer);
   }
   successResetTimer = setTimeout(() => {
     window.location.reload();
-  }, 10000);
+  }, 15000);
 }
 function closeSuccessModal(){
   const modal=document.getElementById('successModal');
@@ -3443,7 +3469,7 @@ function renderOrderHistory(){
     const shortItems=items.length>105 ? items.slice(0,105)+"…" : items;
 
     return `
-      <div class="order-history-card">
+      <div class="order-history-card" id="order-history-card-${index}">
         <div class="order-history-card-top">
           <div>
             <div class="order-history-code">📦 ${escapeOrderHistoryHtml(order.code)}</div>
@@ -3457,6 +3483,7 @@ function renderOrderHistory(){
         <div class="order-history-summary">
           ${escapeOrderHistoryHtml(shortItems)}
         </div>
+        <div id="orderHistoryDetail-${index}" class="order-history-detail-inline" style="display:none"></div>
       </div>`;
   }).join("");
 }
@@ -3464,7 +3491,7 @@ function renderOrderHistory(){
 async function lookupOrderFromHistory(index){
   const history=getOrderHistory();
   const order=history[index];
-  const detail=document.getElementById("orderHistoryDetail");
+  const detail=document.getElementById("orderHistoryDetail-"+index);
 
   if(!order || !detail) return;
 
@@ -3478,11 +3505,7 @@ async function lookupOrderFromHistory(index){
       <b>🕒 Thời gian đặt:</b> ${escapeOrderHistoryHtml(order.time || order.createdAt || "—")}
     </div>`;
 
-  detail.scrollIntoView({behavior:"smooth",block:"nearest"});
-
   try{
-    // Lịch sử đơn hàng tra cứu trực tiếp bằng Mã Đơn.
-    // Không bắt buộc số điện thoại để tránh lỗi định dạng số 0 / số điện thoại cũ.
     const url=GOOGLE_SCRIPT_URL+
       "?action=getOrderStatus"+
       "&code="+encodeURIComponent(order.code);
