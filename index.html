@@ -105,6 +105,35 @@ header{background:rgba(255,250,243,.96);border-bottom:1px solid #eadbca;box-shad
 .shipping-row{color:#6f5b4e}
 .shipping-row strong{color:#8b5e3c}
 .total-final{margin-top:8px!important;padding-top:8px;border-top:1px dashed #d9c5b2}
+/* ===== LỊCH SỬ ĐƠN HÀNG ===== */
+.order-history-modal{max-width:520px!important}
+.order-history-intro{color:#7b6658;font-size:13px;line-height:1.6;margin-bottom:14px}
+.order-history-list{display:flex;flex-direction:column;gap:10px}
+.order-history-card{background:#fff;border:1px solid #eadbc9;border-radius:14px;padding:12px;box-shadow:0 3px 10px rgba(91,58,37,.05)}
+.order-history-card-top{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.order-history-code{font-weight:900;color:#7e472a;font-size:15px}
+.order-history-time{font-size:11px;color:#95867a;margin-top:3px}
+.order-history-summary{font-size:12px;color:#6f6259;margin:8px 0;line-height:1.5}
+.order-history-lookup{border:0;background:#8b5e3c;color:#fff;border-radius:9px;padding:8px 12px;font-size:12px;font-weight:800;white-space:nowrap}
+.order-history-lookup:active{transform:scale(.97)}
+.order-history-empty{padding:22px 14px;text-align:center;background:#fff;border:1px dashed #dfcdbb;border-radius:14px;color:#76665a}
+.order-history-empty-icon{font-size:34px;margin-bottom:5px}
+.order-history-empty strong{display:block;color:#4d382b;font-size:15px}
+.order-history-empty span{display:block;font-size:12px;margin-top:4px;line-height:1.5}
+.order-history-detail{margin-top:14px;background:#fffdf9;border:1px solid #e5d4c1;border-radius:15px;padding:14px}
+.order-history-detail-title{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:10px}
+.order-history-detail-title b{color:#7e472a;font-size:15px}
+.order-history-status{display:inline-flex;align-items:center;gap:5px;background:#f5eadf;border-radius:999px;padding:5px 9px;color:#6f4a32;font-size:11px;font-weight:800}
+.order-history-detail-row{padding:8px 0;border-top:1px solid #eee4da;font-size:13px;line-height:1.55}
+.order-history-detail-row:first-of-type{border-top:0}
+.order-history-detail-row b{color:#49352a}
+.order-history-items{white-space:pre-line;color:#5f5148}
+.order-history-error{margin-top:12px;padding:10px;border-radius:10px;background:#fff0ed;color:#b42318;font-size:13px;line-height:1.5}
+@media(max-width:640px){
+  .order-history-card-top{align-items:flex-start}
+  .order-history-lookup{padding:8px 10px}
+  .order-history-modal{padding:14px!important}
+}
 @media(max-width:800px){.header-inner{grid-template-columns:1fr auto;gap:9px;padding:10px 12px}.logo{width:170px;min-width:170px;height:42px}.logo-image{max-width:170px;height:42px}.header-search{grid-column:1/-1;grid-row:2;height:42px}.header-cart{padding:10px 12px}.header-cart span{display:none}.den-hero{margin:10px 10px 0;padding:20px 17px;border-radius:20px;display:block}.den-hero h1{font-size:27px}.hero-voucher{margin-top:14px;min-width:0}.quick-benefits{margin:10px 10px 18px;grid-template-columns:repeat(2,1fr);gap:8px}.quick-benefits>div{font-size:13px;padding:10px}.container{padding:0 10px 90px}.section-title{font-size:21px}.products{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.product-info{padding:9px}.product-name{font-size:14px;min-height:38px}.product-price{font-size:16px}.add-btn{width:35px;height:35px;font-size:23px}.popular-row small{display:none}.photo-badge{font-size:9px}.contact-buttons{bottom:70px!important}}
 
 
@@ -349,7 +378,7 @@ button{-webkit-tap-highlight-color:transparent}
       <input id="productSearch" type="search" placeholder="Tìm món ăn, đồ uống..." oninput="searchProducts(this.value)">
     </div>
     <button class="header-cart" onclick="openCart()">🛒 <span>Giỏ hàng</span><b id="headerCartCount">0</b></button>
-    <button class="header-cart order-tracker-btn" onclick="openOrderTracker()">📦 <span>Theo dõi đơn hàng</span></button>
+    <button class="header-cart order-tracker-btn" onclick="openOrderTracker()">📋 <span>Lịch Sử Đơn Hàng</span></button>
     <button id="installAppBtn" class="pwa-install-btn" type="button" onclick="installPWA()" aria-label="Cài ứng dụng Ăn Vặt Lâm Thao">📲 Cài app</button>
   </div>
 </header>
@@ -819,16 +848,28 @@ button{-webkit-tap-highlight-color:transparent}
 </div>
 
 
-<!-- ORDER TRACKER -->
+<!-- LỊCH SỬ ĐƠN HÀNG -->
 <div id="orderTrackerModal" class="modal" style="display:none">
-  <div class="modal-content" style="max-width:430px">
-    <button onclick="closeOrderTracker()" style="float:right;border:0;background:none;font-size:22px">✕</button>
-    <h3>📦 Theo dõi đơn hàng</h3>
-    <p style="color:#7b6658">Nhập mã đơn và số điện thoại để xem tình trạng đơn.</p>
-    <input id="trackOrderCode" placeholder="Mã đơn hàng (VD: CC12345678)">
-    <input id="trackOrderPhone" placeholder="Số điện thoại">
-    <button onclick="checkOrderStatus()" style="width:100%;margin-top:10px">🔎 Tra cứu đơn hàng</button>
-    <div id="orderStatusResult" style="margin-top:15px"></div>
+  <div class="modal-box order-history-modal" style="max-width:520px">
+    <div class="modal-header">
+      <h2>📋 Lịch Sử Đơn Hàng</h2>
+      <button class="close-btn" onclick="closeOrderTracker()" aria-label="Đóng">✕</button>
+    </div>
+
+    <p class="order-history-intro">
+      Các đơn hàng bạn đã đặt trên thiết bị này sẽ được lưu tại đây.
+      Bấm <b>Tra cứu</b> để xem trạng thái, món đã đặt và thời gian đặt.
+    </p>
+
+    <div id="orderHistoryList"></div>
+
+    <div id="orderHistoryEmpty" class="order-history-empty" style="display:none">
+      <div class="order-history-empty-icon">🧾</div>
+      <strong>Chưa có lịch sử đơn hàng</strong>
+      <span>Sau khi bạn đặt đơn thành công, mã đơn sẽ tự động xuất hiện tại đây.</span>
+    </div>
+
+    <div id="orderHistoryDetail" class="order-history-detail" style="display:none"></div>
   </div>
 </div>
 
@@ -2425,6 +2466,19 @@ const payload = {
 };
 
     /* ==============================
+       LƯU LỊCH SỬ ĐƠN HÀNG TRÊN THIẾT BỊ
+       Không xoá khi reset giỏ hàng.
+    ============================== */
+    saveOrderHistory({
+        code: orderCode,
+        phone: phone,
+        items: itemNames,
+        quantity: quantities,
+        total: finalData.total,
+        time: payload.createdAt
+    });
+
+    /* ==============================
        HIỂN THỊ MÃ ĐƠN NGAY LẬP TỨC
        Không chờ Google Apps Script phản hồi.
        Dữ liệu đơn vẫn được gửi nền ngay sau đó.
@@ -2771,57 +2825,194 @@ window.addEventListener('appinstalled',function(){
 
 
 <script>
+function getOrderHistory(){
+  try{
+    const raw=localStorage.getItem("anvat_lamthao_order_history");
+    if(!raw) return [];
+    const data=JSON.parse(raw);
+    return Array.isArray(data) ? data : [];
+  }catch(e){
+    console.warn("Không đọc được lịch sử đơn hàng:",e);
+    return [];
+  }
+}
+
+function saveOrderHistory(order){
+  try{
+    const history=getOrderHistory().filter(item=>item && item.code!==order.code);
+    history.unshift(order);
+    localStorage.setItem(
+      "anvat_lamthao_order_history",
+      JSON.stringify(history.slice(0,20))
+    );
+  }catch(e){
+    console.warn("Không lưu được lịch sử đơn hàng:",e);
+  }
+}
+
 function openOrderTracker(){
- const m=document.getElementById("orderTrackerModal");
- if(m) m.style.display="flex";
+  const m=document.getElementById("orderTrackerModal");
+  if(m) m.style.display="flex";
+  renderOrderHistory();
 }
+
 function closeOrderTracker(){
- const m=document.getElementById("orderTrackerModal");
- if(m) m.style.display="none";
+  const m=document.getElementById("orderTrackerModal");
+  if(m) m.style.display="none";
+  const detail=document.getElementById("orderHistoryDetail");
+  if(detail){
+    detail.style.display="none";
+    detail.innerHTML="";
+  }
 }
 
-async function checkOrderStatus(){
- const code=document.getElementById("trackOrderCode").value.trim();
- const phone=document.getElementById("trackOrderPhone").value.trim();
- const box=document.getElementById("orderStatusResult");
+function escapeOrderHistoryHtml(value){
+  return String(value==null ? "" : value)
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+}
 
- if(!code || !phone){
-   box.innerHTML="❌ Vui lòng nhập đủ mã đơn và số điện thoại.";
-   return;
- }
+function renderOrderHistory(){
+  const list=document.getElementById("orderHistoryList");
+  const empty=document.getElementById("orderHistoryEmpty");
+  if(!list || !empty) return;
 
- box.innerHTML="⏳ Đang kiểm tra...";
+  const history=getOrderHistory();
 
- try{
-   const url=GOOGLE_SCRIPT_URL+
-   "?action=getOrderStatus"+
-   "&code="+encodeURIComponent(code)+
-   "&phone="+encodeURIComponent(phone);
+  if(!history.length){
+    list.innerHTML="";
+    empty.style.display="block";
+    return;
+  }
 
-   const res=await fetch(url);
-   const data=await res.json();
+  empty.style.display="none";
 
-   if(!data.success){
-     box.innerHTML="❌ "+(data.message||"Không tìm thấy đơn hàng");
-     return;
-   }
+  list.innerHTML=history.map((order,index)=>{
+    const items=order.items || "Đơn hàng";
+    const shortItems=items.length>105 ? items.slice(0,105)+"…" : items;
 
-   let icon="🟡";
-   if(data.status==="Đang chuẩn bị") icon="🔵";
-   if(data.status==="Đang giao") icon="🛵";
-   if(data.status==="Đã giao") icon="🟢";
+    return `
+      <div class="order-history-card">
+        <div class="order-history-card-top">
+          <div>
+            <div class="order-history-code">📦 ${escapeOrderHistoryHtml(order.code)}</div>
+            <div class="order-history-time">🕒 ${escapeOrderHistoryHtml(order.time || order.createdAt || "")}</div>
+          </div>
+          <button class="order-history-lookup"
+                  onclick="lookupOrderFromHistory(${index})">
+            🔎 Tra cứu
+          </button>
+        </div>
+        <div class="order-history-summary">
+          ${escapeOrderHistoryHtml(shortItems)}
+        </div>
+      </div>`;
+  }).join("");
+}
 
-   box.innerHTML=`
-   <div style="background:#fffaf5;border-radius:15px;padding:15px;border:1px solid #eadbc9">
-   <b>📦 ${data.code}</b><br>
-   ${icon} <strong>${data.status}</strong><br><br>
-   🍢 ${data.items}<br>
-   💰 ${Number(data.total).toLocaleString("vi-VN")}đ<br>
-   🕒 ${data.time}
-   </div>`;
- }catch(e){
-   box.innerHTML="❌ Không thể kiểm tra đơn hàng.";
- }
+async function lookupOrderFromHistory(index){
+  const history=getOrderHistory();
+  const order=history[index];
+  const detail=document.getElementById("orderHistoryDetail");
+
+  if(!order || !detail) return;
+
+  detail.style.display="block";
+  detail.innerHTML=`
+    <div class="order-history-detail-title">
+      <b>📦 ${escapeOrderHistoryHtml(order.code)}</b>
+      <span class="order-history-status">⏳ Đang tra cứu...</span>
+    </div>
+    <div class="order-history-detail-row">
+      <b>🕒 Thời gian đặt:</b> ${escapeOrderHistoryHtml(order.time || order.createdAt || "—")}
+    </div>`;
+
+  detail.scrollIntoView({behavior:"smooth",block:"nearest"});
+
+  try{
+    const url=GOOGLE_SCRIPT_URL+
+      "?action=getOrderStatus"+
+      "&code="+encodeURIComponent(order.code)+
+      "&phone="+encodeURIComponent(order.phone || "");
+
+    const res=await fetch(url);
+    const data=await res.json();
+
+    if(!data.success){
+      detail.innerHTML=`
+        <div class="order-history-detail-title">
+          <b>📦 ${escapeOrderHistoryHtml(order.code)}</b>
+          <span class="order-history-status">⚠️ Không tìm thấy</span>
+        </div>
+        <div class="order-history-error">
+          ${escapeOrderHistoryHtml(data.message || "Không tìm thấy thông tin đơn hàng.")}
+        </div>`;
+      return;
+    }
+
+    let icon="🟡";
+    if(data.status==="Đang chuẩn bị") icon="🔵";
+    if(data.status==="Đang giao") icon="🛵";
+    if(data.status==="Đã giao") icon="🟢";
+    if(data.status==="Đã huỷ" || data.status==="Đã hủy") icon="🔴";
+
+    detail.innerHTML=`
+      <div class="order-history-detail-title">
+        <b>📦 ${escapeOrderHistoryHtml(data.code || order.code)}</b>
+        <span class="order-history-status">${icon} ${escapeOrderHistoryHtml(data.status || "Đang xử lý")}</span>
+      </div>
+
+      <div class="order-history-detail-row">
+        <b>🕒 Thời gian đặt:</b>
+        ${escapeOrderHistoryHtml(data.time || order.time || "—")}
+      </div>
+
+      <div class="order-history-detail-row">
+        <b>🍢 Món đã đặt:</b>
+        <div class="order-history-items">${escapeOrderHistoryHtml(data.items || order.items || "—")}</div>
+      </div>
+
+      <div class="order-history-detail-row">
+        <b>💰 Tổng tiền:</b>
+        ${Number(data.total || order.total || 0).toLocaleString("vi-VN")}đ
+      </div>`;
+  }catch(e){
+    detail.innerHTML=`
+      <div class="order-history-detail-title">
+        <b>📦 ${escapeOrderHistoryHtml(order.code)}</b>
+        <span class="order-history-status">⚠️ Lỗi tra cứu</span>
+      </div>
+      <div class="order-history-error">
+        Không thể kết nối để tra cứu đơn hàng. Vui lòng thử lại sau.
+      </div>`;
+  }
+}
+
+/* Hàm cũ được giữ để tương thích nếu nơi khác trong website còn gọi tới. */
+async function checkOrderStatus(code,phone){
+  const orderCode=(code || document.getElementById("trackOrderCode")?.value || "").trim();
+  const orderPhone=(phone || document.getElementById("trackOrderPhone")?.value || "").trim();
+
+  if(!orderCode || !orderPhone){
+    return;
+  }
+
+  try{
+    const url=GOOGLE_SCRIPT_URL+
+      "?action=getOrderStatus"+
+      "&code="+encodeURIComponent(orderCode)+
+      "&phone="+encodeURIComponent(orderPhone);
+
+    const res=await fetch(url);
+    const data=await res.json();
+    return data;
+  }catch(e){
+    console.warn("checkOrderStatus error:",e);
+    return null;
+  }
 }
 </script>
 
