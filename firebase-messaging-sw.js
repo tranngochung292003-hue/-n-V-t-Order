@@ -1,3 +1,7 @@
+// Firebase Cloud Messaging Service Worker
+// Phạm vi được đăng ký riêng tại /firebase-messaging/
+// để không xung đột với sw.js của PWA.
+
 importScripts('https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js');
 importScripts('https://www.gstatic.com/firebasejs/10.14.1/firebase-messaging-compat.js');
 
@@ -25,12 +29,14 @@ messaging.onBackgroundMessage(function(payload) {
     body:
       payload.notification?.body ||
       'Bạn có thông báo mới.',
-    icon: '/icons/icon-192.png',
-    badge: '/icons/icon-192.png',
+
+    icon: '/logowed.png',
+    badge: '/logowed.png',
+
     data: payload.data || {}
   };
 
-  self.registration.showNotification(
+  return self.registration.showNotification(
     notificationTitle,
     notificationOptions
   );
