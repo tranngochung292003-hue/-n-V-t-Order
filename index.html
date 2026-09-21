@@ -1266,19 +1266,7 @@ function showOrderNotification(title, body){
   }
 }
 
-document.addEventListener("DOMContentLoaded", function(){
-  updateNotificationPermissionUI();
-
-  // Nút cho phép thông báo luôn hiển thị khi website được load,
-  // không phụ thuộc việc khách đã mở form đặt hàng hay chưa.
-  const bar = document.getElementById("notificationPermissionBar");
-  const header = document.querySelector("header");
-  if(bar && header && bar.parentElement?.id === "orderModal"){
-    header.insertAdjacentElement("afterend", bar);
-    bar.style.maxWidth = "1180px";
-    bar.style.margin = "10px auto";
-  }
-});
+document.addEventListener("DOMContentLoaded", updateNotificationPermissionUI);
 
 /* ==================================================
    GOOGLE APPS SCRIPT
@@ -3403,3 +3391,72 @@ async function checkOrderStatus(code,phone){
 
 </body>
 </html>
+
+<style>
+/* ===== MOBILE HEADER: LOGO FULL ROW ===== */
+@media (max-width: 800px){
+  .header-inner.den-header{
+    display:grid!important;
+    grid-template-columns:minmax(0,1fr) auto auto!important;
+    grid-template-rows:58px 44px!important;
+    gap:8px!important;
+    width:100%!important;
+    padding:8px 10px!important;
+    align-items:center!important;
+  }
+
+  /* Dòng 1: logo kéo dài toàn bộ chiều ngang */
+  .header-inner.den-header .logo{
+    grid-column:1 / -1!important;
+    grid-row:1!important;
+    width:100%!important;
+    min-width:0!important;
+    height:58px!important;
+    display:flex!important;
+    align-items:center!important;
+    justify-content:flex-start!important;
+    overflow:hidden!important;
+    padding:0 2px!important;
+  }
+
+  .header-inner.den-header .logo-image{
+    width:auto!important;
+    max-width:100%!important;
+    height:54px!important;
+    object-fit:contain!important;
+    object-position:left center!important;
+  }
+
+  /* Dòng 2: Tìm kiếm - Lịch sử - Giỏ hàng */
+  .header-inner.den-header .header-search{
+    grid-column:1!important;
+    grid-row:2!important;
+    width:100%!important;
+    min-width:0!important;
+    height:42px!important;
+    order:initial!important;
+  }
+
+  .header-inner.den-header .order-tracker-btn{
+    grid-column:2!important;
+    grid-row:2!important;
+    height:42px!important;
+    min-width:44px!important;
+    padding:9px 10px!important;
+    white-space:nowrap!important;
+  }
+
+  .header-inner.den-header .header-cart:not(.order-tracker-btn){
+    grid-column:3!important;
+    grid-row:2!important;
+    height:42px!important;
+    min-width:44px!important;
+    padding:9px 10px!important;
+    white-space:nowrap!important;
+  }
+
+  .header-inner.den-header #installAppBtn{
+    display:none!important;
+  }
+}
+</style>
