@@ -16,24 +16,72 @@
 </main></div>
 <div id="modal" class="modal" onclick="if(event.target===this)closeModal()"><div class="box"><div class="head"><h2 id="modalTitle">Chi tiết</h2><button class="close" onclick="closeModal()">×</button></div><div id="modalBody"></div></div></div><div id="toast" class="toast"></div>
 <script>
-const GOOGLE_SCRIPT_URL="https://script.google.com/macros/s/AKfycbxva6g2yr098N7spmEGl_LbvNZKlDo_C2tPQUkI3IsAIpMyJtiGvPJhYNNXaGEXeUPm/exec";const SESSION_KEY="ANVAT_ADMIN_SESSION";let orders=[],products=[],vouchers=[];
-const $=id=>document.getElementById(id);const money=n=>Number(n||0).toLocaleString('vi-VN')+'đ';const esc=v=>String(v??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]));
-async function api(action,params={}){const q=new URLSearchParams({action,...params,token:token()});const controller=new AbortController();const timer=setTimeout(()=>controller.abort(),12000);try{const r=await fetch(GOOGLE_SCRIPT_URL+'?'+q.toString(),{cache:'no-store',signal:controller.signal});return await r.json()}finally{clearTimeout(timer)}}
-function token(){return sessionStorage.getItem(SESSION_KEY)||''}async function login(){const u=$('username').value.trim(),p=$('password').value,e=$('loginError');e.classList.add('hidden');if(!u||!p){e.textContent='Vui lòng nhập tài khoản và mật khẩu.';e.classList.remove('hidden');return}try{const d=await api('adminLogin',{username:u,password:p});if(!d.success){e.textContent=d.message||'Đăng nhập thất bại.';e.classList.remove('hidden');return}sessionStorage.setItem(SESSION_KEY,d.token);$('password').value='';showAdmin();await refreshAll()}catch(x){e.textContent=x.name==='AbortError'?'Hệ thống phản hồi quá lâu. Vui lòng thử lại.':'Không kết nối được hệ thống.';e.classList.remove('hidden')}}
-function showAdmin(){$('loginPage').classList.add('hidden');$('adminPage').classList.remove('hidden')}function logout(){sessionStorage.removeItem(SESSION_KEY);location.reload()}
-let loadingCount=0;
-let loadingTimer=null;
+const GOOGLE_SCRIPT_URL="https://script.google.com/macros/s/AKfycbxva6g2yr098N7spmEGl_LbvNZKlDo_C2tPQUkI3IsAIpMyJtiGvPJhYNNXaGEXeUPm/exec";
+const SESSION_KEY="ANVAT_ADMIN_SESSION";
+let orders=[],products=[],vouchers=[];
+const $=id=>document.getElementById(id);
+const money=n=>Number(n||0).toLocaleString('vi-VN')+'đ';
+const esc=v=>String(v??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]));
+function token(){return sessionStorage.getItem(SESSION_KEY)||''}
+async function api(action,params={},options={}){
+  const attempts=Math.max(1,Number(options.attempts||3));
+  let lastError=null;
+  for(let attempt=1;attempt<=attempts;attempt++){
+    const q=new URLSearchParams({action,...params,token:token(),_t:String(Date.now())});
+    const controller=new AbortController();
+    const timer=setTimeout(()=>controller.abort(),Number(options.timeout||20000));
+    try{
+      const r=await fetch(GOOGLE_SCRIPT_URL+'?'+q.toString(),{cache:'no-store',signal:controller.signal});
+      if(!r.ok) throw new Error('HTTP '+r.status);
+      const text=await r.text();
+      let data; try{data=JSON.parse(text)}catch(e){throw new Error('Phản hồi máy chủ không hợp lệ.')}
+      if(!data || typeof data!=='object') throw new Error('Dữ liệu máy chủ không hợp lệ.');
+      return data;
+    }catch(e){
+      lastError=e;
+      if(attempt<attempts) await new Promise(r=>setTimeout(r,700*attempt));
+    }finally{clearTimeout(timer)}
+  }
+  throw lastError||new Error('Không kết nối được hệ thống.');
+}
+async function login(){
+  const u=$('username').value.trim(),p=$('password').value,e=$('loginError');
+  e.classList.add('hidden');
+  if(!u||!p){e.textContent='Vui lòng nhập tài khoản và mật khẩu.';e.classList.remove('hidden');return}
+  try{showLoading('Đang đăng nhập...');const d=await api('adminLogin',{username:u,password:p},{attempts:2});if(!d.success){e.textContent=d.message||'Đăng nhập thất bại.';e.classList.remove('hidden');return}sessionStorage.setItem(SESSION_KEY,d.token);$('password').value='';showAdmin();await refreshAll()}catch(x){e.textContent=x.name==='AbortError'?'Hệ thống phản hồi quá lâu. Vui lòng thử lại.':'Không kết nối được hệ thống. Vui lòng thử lại.';e.classList.remove('hidden')}finally{hideLoading()}}
+function showAdmin(){$('loginPage').classList.add('hidden');$('adminPage').classList.remove('hidden')}
+function logout(){sessionStorage.removeItem(SESSION_KEY);location.reload()}
+let loadingCount=0,loadingTimer=null;
 function showLoading(text='Đang tải dữ liệu mới...'){loadingCount++;$('loadingText').textContent=text;clearTimeout(loadingTimer);loadingTimer=setTimeout(()=>{$('loadingOverlay').classList.add('show')},80)}
 function hideLoading(){loadingCount=Math.max(0,loadingCount-1);if(loadingCount===0){clearTimeout(loadingTimer);$('loadingOverlay').classList.remove('show')}}
 async function withLoading(fn,text){showLoading(text);try{return await fn()}finally{hideLoading()}}
-async function api(action,params={}){const q=new URLSearchParams({action,...params,token:token()});const controller=new AbortController();const timer=setTimeout(()=>controller.abort(),12000);try{const r=await fetch(GOOGLE_SCRIPT_URL+'?'+q.toString(),{cache:'no-store',signal:controller.signal});return await r.json()}finally{clearTimeout(timer)}}
-function token(){return sessionStorage.getItem(SESSION_KEY)||''}
-async function login(){const u=$('username').value.trim(),p=$('password').value,e=$('loginError');e.classList.add('hidden');if(!u||!p){e.textContent='Vui lòng nhập tài khoản và mật khẩu.';e.classList.remove('hidden');return}try{showLoading('Đang đăng nhập...');const d=await api('adminLogin',{username:u,password:p});if(!d.success){e.textContent=d.message||'Đăng nhập thất bại.';e.classList.remove('hidden');return}sessionStorage.setItem(SESSION_KEY,d.token);$('password').value='';showAdmin();await refreshAll()}catch(x){e.textContent=x.name==='AbortError'?'Hệ thống phản hồi quá lâu. Vui lòng thử lại.':'Không kết nối được hệ thống.';e.classList.remove('hidden')}finally{hideLoading()}}
-function showAdmin(){$('loginPage').classList.add('hidden');$('adminPage').classList.remove('hidden')}
-function logout(){sessionStorage.removeItem(SESSION_KEY);location.reload()}
-async function refreshAll(){if(!token())return;await withLoading(async()=>{await loadStats();},'Đang cập nhật tổng quan...')}
-async function loadTab(name){try{if(name==='dashboard')await loadStats();else if(name==='orders')await loadOrders();else if(name==='products')await loadProducts();else if(name==='vouchers')await loadVouchers();else if(name==='customers')await loadCustomers();else if(name==='settings')await loadSettings();else if(name==='reports')await loadReport()}catch(e){toast('Không tải được dữ liệu '+name+'.')}}
-async function loadStats(){const d=await api('adminStats');if(!d.success){toast(d.message||'Không tải được tổng quan');return}const s=d.stats||{};['Total','Waiting','Preparing','Delivering','Delivered'].forEach(x=>{$('s'+x).textContent=s[x.toLowerCase()]||0});$('sRevenue').textContent=money(s.revenueDelivered||0);$('sRevenueToday').textContent=money(s.revenueToday||0);$('sRevenueMonth').textContent=money(s.revenueMonth||0)}
+async function refreshAll(){if(!token())return;await withLoading(async()=>{const results=await Promise.allSettled([loadStats(),loadOrders()]);if(results.every(r=>r.status==='rejected'))toast('❌ Không tải được dữ liệu. Kiểm tra URL Apps Script/deployment rồi thử lại.');},'Đang cập nhật dữ liệu...')}
+async function loadTab(name){if(name==='dashboard')return loadStats();if(name==='orders')return loadOrders();if(name==='products')return loadProducts();if(name==='vouchers')return loadVouchers();if(name==='customers')return loadCustomers();if(name==='settings')return loadSettings();if(name==='reports')return loadReport();}
+function applyStats(s){s=s||{};['Total','Waiting','Preparing','Delivering','Delivered'].forEach(x=>{$('s'+x).textContent=s[x.toLowerCase()]||0});$('sRevenue').textContent=money(s.revenueDelivered||0);$('sRevenueToday').textContent=money(s.revenueToday||0);$('sRevenueMonth').textContent=money(s.revenueMonth||0)}
+function calculateStatsFromOrders(){
+  const now=new Date(),today=localDateKey(now),month=today.slice(0,7);
+  const s={total:0,waiting:0,preparing:0,delivering:0,delivered:0,revenueDelivered:0,revenueAll:0,revenueToday:0,revenueMonth:0};
+  orders.forEach(o=>{if(!o||!o.code)return;s.total++;const total=Number(o.total)||0;s.revenueAll+=total;const d=parseOrderDate(o.time),dk=d?localDateKey(d):'',st=String(o.status||'');if(st.includes('Chờ xác nhận'))s.waiting++;else if(st.includes('chuẩn bị'))s.preparing++;else if(st.includes('Đang giao'))s.delivering++;else if(st.includes('Đã giao')){s.delivered++;s.revenueDelivered+=total}if(dk===today)s.revenueToday+=total;if(dk.slice(0,7)===month)s.revenueMonth+=total});
+  return s;
+}
+async function loadStats(){
+  try{const d=await api('adminStats',{},{attempts:3,timeout:20000});if(!d.success)throw new Error(d.message||'Không tải được tổng quan');applyStats(d.stats||{});return true}
+  catch(e){try{if(!orders.length)await loadOrders();applyStats(calculateStatsFromOrders());toast('⚠️ Tổng quan tạm lấy từ danh sách đơn hàng.')}catch(inner){toast('❌ '+(e.message||'Không tải được tổng quan.'))}throw e}
+}
+
+async function loadOrders(){
+  try{
+    const d=await api('adminOrders',{limit:500},{attempts:3,timeout:20000});
+    if(!d.success) throw new Error(d.message||'Không tải được dữ liệu đơn hàng.');
+    orders=Array.isArray(d.orders)?d.orders:[];
+    renderOrders();
+    return true;
+  }catch(e){
+    if(orders.length){renderOrders();toast('⚠️ Không làm mới được đơn hàng: '+(e.message||'Lỗi kết nối')+' — đang giữ dữ liệu cũ.');}
+    else {$('ordersBody').innerHTML='<tr><td colspan="7" class="empty">Không tải được dữ liệu orders. Hãy bấm ↻ Cập nhật để thử lại.</td></tr>';toast('❌ '+(e.message||'Không tải được dữ liệu orders.'));}
+    throw e;
+  }
+}
 function parseOrderDate(time){
   const d = new Date(time);
   return isNaN(d.getTime()) ? null : d;
