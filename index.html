@@ -434,6 +434,44 @@ button{-webkit-tap-highlight-color:transparent}
   .success-track-actions{grid-template-columns:1fr!important}
 }
 
+
+
+/* ===== POPUP CHÀO MỪNG SAU KHI BẤM "ĐÃ HIỂU" ===== */
+.welcome-toast{
+  position:fixed;
+  left:50%;
+  bottom:82px;
+  z-index:650;
+  max-width:calc(100% - 28px);
+  padding:13px 20px;
+  border-radius:999px;
+  background:linear-gradient(135deg,#8b5e3c,#6f472c);
+  color:#fffaf5;
+  border:1px solid rgba(255,255,255,.28);
+  box-shadow:0 10px 28px rgba(75,48,31,.28);
+  font-size:14px;
+  font-weight:850;
+  text-align:center;
+  white-space:nowrap;
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+  transform:translate(-50%,18px) scale(.96);
+  transition:opacity .28s ease,transform .28s ease,visibility .28s ease;
+}
+.welcome-toast.show{
+  opacity:1;
+  visibility:visible;
+  transform:translate(-50%,0) scale(1);
+}
+@media(max-width:520px){
+  .welcome-toast{
+    bottom:76px;
+    max-width:calc(100% - 24px);
+    padding:12px 16px;
+    font-size:13px;
+  }
+}
 </style>
 <style>
 /* ===== VỊ TRÍ LỊCH SỬ ĐƠN HÀNG: GIỮA TÌM KIẾM VÀ GIỎ HÀNG ===== */
@@ -723,7 +761,6 @@ button{-webkit-tap-highlight-color:transparent}
 
 
 <style>
-
 /* ===== TRA CỨU ĐƠN: HIỂN THỊ NGAY BÊN DƯỚI ĐÚNG MÃ ĐƠN ===== */
 .order-history-detail-inline{
   margin-top:12px;
@@ -755,50 +792,6 @@ button{-webkit-tap-highlight-color:transparent}
 <!-- ==============================
      POPUP CHÀO MỪNG
 ============================== -->
-  .welcome-toast{
-    position:fixed;
-    left:50%;
-    bottom:28px;
-    transform:translateX(-50%) translateY(20px);
-    z-index:99999;
-
-    padding:14px 22px;
-    border-radius:999px;
-
-    background:#14532D;
-    color:#FFF7ED;
-    border:2px solid #22C55E;
-
-    font-size:15px;
-    font-weight:700;
-
-    box-shadow:0 12px 30px rgba(0,0,0,.25);
-
-    opacity:0;
-    visibility:hidden;
-    pointer-events:none;
-
-    transition:
-        opacity .3s ease,
-        transform .3s ease,
-        visibility .3s ease;
-}
-
-.welcome-toast.show{
-    opacity:1;
-    visibility:visible;
-    transform:translateX(-50%) translateY(0);
-}
-
-@media(max-width:520px){
-    .welcome-toast{
-        width:calc(100% - 28px);
-        text-align:center;
-        font-size:14px;
-        padding:13px 16px;
-        bottom:20px;
-    }
-}
 
 <div id="welcomePopup" class="welcome-popup">
 
@@ -809,7 +802,7 @@ button{-webkit-tap-highlight-color:transparent}
         </div>
 
         <h2>
-            Chào mừng đến Ăn Vặt Lâm Thao!
+            🎉 Chào mừng đến ĂN VẶT LÂM THAO
         </h2>
 
         <p>
@@ -830,9 +823,12 @@ button{-webkit-tap-highlight-color:transparent}
     </div>
 
 </div>
-<div id="welcomeToast" class="welcome-toast">
+
+<!-- THÔNG BÁO CHÀO MỪNG SAU KHI BẤM ĐÃ HIỂU -->
+<div id="welcomeToast" class="welcome-toast" aria-live="polite">
     🎉 Chào mừng đến ĂN VẶT LÂM THAO
 </div>
+
 <!-- ORDER SUCCESS MODAL -->
 <div id="successModal" class="success-modal" aria-hidden="true">
   <div class="success-box success-box-compact">
@@ -3386,23 +3382,37 @@ function openWelcomePopup(){
 
 function closeWelcomePopup(){
 
-    const popup = document.getElementById("welcomePopup");
+    const popup =
+        document.getElementById(
+            "welcomePopup"
+        );
 
     if(popup){
-        popup.style.display = "none";
+
+        popup.style.display =
+            "none";
+
     }
 
-    // Hiện thông báo chào mừng nhỏ
+    // Sau khi khách bấm "Đã hiểu", hiện lời chào nhỏ vài giây.
     const toast = document.getElementById("welcomeToast");
 
     if(toast){
-        toast.classList.add("show");
 
-        // Tự biến mất sau 4 giây
+        toast.classList.remove("show");
+
+        // Cho trình duyệt kịp nhận trạng thái ẩn trước khi chạy animation.
+        requestAnimationFrame(() => {
+            toast.classList.add("show");
+        });
+
+        // Tự biến mất sau 4 giây.
         setTimeout(() => {
             toast.classList.remove("show");
         }, 4000);
+
     }
+
 }
 
 /* ==================================================
