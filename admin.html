@@ -49,6 +49,15 @@ th{background:#fff8ef;color:#6d503d;font-size:11px;text-transform:uppercase;lett
 .detail-row b{color:#604838}.items{white-space:pre-line;color:#6c5a4c}
 .note{font-size:11px;color:#927866;margin-top:12px;line-height:1.5}
 .pagination{display:flex;justify-content:space-between;align-items:center;gap:10px;margin:10px 0 0;padding:10px 4px;color:#927866;font-size:12px}.pagination div{display:flex;align-items:center;gap:8px}.pagination button{border:1px solid #d8c1ad;background:#fffaf5;color:#65452f;border-radius:8px;padding:7px 10px;font-weight:800}.pagination button:disabled{opacity:.45;cursor:not-allowed}.toast{position:fixed;right:15px;bottom:15px;background:#4d382b;color:#fff;padding:11px 14px;border-radius:10px;display:none;z-index:100;font-size:13px}
+.new-order-alert{position:fixed;right:15px;top:15px;width:min(390px,calc(100vw - 30px));background:#fffaf5;border:2px solid #8b5e3c;border-radius:16px;box-shadow:0 14px 40px rgba(50,30,15,.25);padding:15px;display:none;z-index:200}
+.new-order-alert.show{display:block;animation:alertIn .22s ease-out}
+.new-order-title{font-weight:900;color:#5b3a25;font-size:16px}
+.new-order-info{font-size:13px;color:#6d503d;margin:7px 0 12px;line-height:1.5}
+.new-order-actions{display:flex;gap:8px}
+.new-order-actions button{flex:1;border:0;border-radius:10px;padding:10px;font-weight:900}
+.new-order-view{background:#8b5e3c;color:#fff}
+.new-order-close{background:#eee1d5;color:#65452f}
+@keyframes alertIn{from{transform:translateY(-12px);opacity:0}to{transform:translateY(0);opacity:1}}
 @media(max-width:950px){.stats{grid-template-columns:repeat(3,1fr)}}
 @media(max-width:650px){
  .top-inner{padding:11px 12px}.brand{font-size:18px}
@@ -146,6 +155,14 @@ th{background:#fff8ef;color:#6d503d;font-size:11px;text-transform:uppercase;lett
 </div>
 
 <div id="toast" class="toast"></div>
+<div id="newOrderAlert" class="new-order-alert">
+  <div class="new-order-title">🔔 Có đơn hàng mới!</div>
+  <div id="newOrderInfo" class="new-order-info"></div>
+  <div class="new-order-actions">
+    <button class="new-order-view" onclick="viewNewOrder()">👀 Xem đơn</button>
+    <button class="new-order-close" onclick="closeNewOrderAlert()">Đóng</button>
+  </div>
+</div>
 
 <script>
 const GOOGLE_SCRIPT_URL =
@@ -159,6 +176,12 @@ let currentPage=1;
 const PAGE_SIZE=50;
 let lastOrdersSignature="";
 let refreshBusy=false;
+let latestOrderCode="";
+let latestOrderTime="";
+let newOrderTimer=null;
+let newOrderBusy=false;
+let pendingNewOrderCode="";
+let audioContext=null;
 
 function money(n){
   return Number(n||0).toLocaleString("vi-VN")+"đ";
@@ -203,6 +226,7 @@ async function login(){
     document.getElementById("password").value="";
     showAdmin();
     refreshAll();
+    startNewOrderWatcher();
   }catch(e){
     err.textContent="Không kết nối được hệ thống quản trị.";
     err.classList.remove("hidden");
@@ -217,12 +241,128 @@ function showAdmin(){
 function logout(){
   sessionStorage.removeItem(SESSION_KEY);
   if(timer)clearInterval(timer);
+  if(newOrderTimer)clearInterval(newOrderTimer);
+  newOrderTimer=null;
+  latestOrderCode="";
+  pendingNewOrderCode="";
+  closeNewOrderAlert();
   document.getElementById("adminPage").classList.add("hidden");
   document.getElementById("loginPage").classList.remove("hidden");
 }
 
 function token(){
   return sessionStorage.getItem(SESSION_KEY)||"";
+}
+
+
+function rememberLatestOrder(order){
+  if(!order) return;
+  latestOrderCode=String(order.code||"");
+  latestOrderTime=String(order.time||"");
+}
+
+async function checkNewOrder(){
+  if(newOrderBusy || !token() || document.visibilityState!=="visible") return;
+  newOrderBusy=true;
+  try{
+    const data=await api("adminLatestOrder",{token:token()});
+    if(!data.success){
+      if((data.message||"").toLowerCase().includes("phiên")) logout();
+      return;
+    }
+
+    const order=data.order;
+    if(!order || !order.code) return;
+
+    // Lần kiểm tra đầu tiên chỉ ghi nhận đơn hiện tại, không báo lại đơn cũ.
+    if(!latestOrderCode){
+      rememberLatestOrder(order);
+      return;
+    }
+
+    if(String(order.code)!==latestOrderCode){
+      latestOrderCode=String(order.code);
+      latestOrderTime=String(order.time||"");
+      pendingNewOrderCode=String(order.code);
+
+      showNewOrderAlert(order);
+      playNewOrderSound();
+
+      // Cập nhật danh sách ngay nhưng không reload toàn trang.
+      await loadStats(true);
+      await loadOrders(true);
+    }
+  }catch(e){
+    // Không làm ảnh hưởng trang admin nếu lần kiểm tra nền gặp lỗi.
+  }finally{
+    newOrderBusy=false;
+  }
+}
+
+function showNewOrderAlert(order){
+  const info=document.getElementById("newOrderInfo");
+  info.innerHTML=
+    "<b>Mã đơn:</b> "+esc(order.code)+
+    "<br><b>Khách:</b> "+esc(order.name||"")+
+    "<br><b>Tổng:</b> "+money(order.total||0);
+
+  const alert=document.getElementById("newOrderAlert");
+  alert.classList.add("show");
+}
+
+function closeNewOrderAlert(){
+  document.getElementById("newOrderAlert").classList.remove("show");
+}
+
+function viewNewOrder(){
+  closeNewOrderAlert();
+  const code=pendingNewOrderCode;
+  if(!code) return;
+
+  const index=orders.findIndex(o=>String(o.code)===code);
+  if(index>=0){
+    const filtered=getFilteredOrders();
+    const filteredIndex=filtered.findIndex(o=>String(o.code)===code);
+    if(filteredIndex>=0){
+      currentPage=Math.floor(filteredIndex/PAGE_SIZE)+1;
+      renderOrders();
+    }
+    showDetail(index);
+    return;
+  }
+
+  loadOrders(true).then(()=>{
+    const i=orders.findIndex(o=>String(o.code)===code);
+    if(i>=0) showDetail(i);
+  });
+}
+
+function playNewOrderSound(){
+  try{
+    audioContext=audioContext || new (window.AudioContext||window.webkitAudioContext)();
+    if(audioContext.state==="suspended") audioContext.resume();
+
+    const now=audioContext.currentTime;
+    [0,0.18,0.36].forEach((offset,i)=>{
+      const osc=audioContext.createOscillator();
+      const gain=audioContext.createGain();
+      osc.type="sine";
+      osc.frequency.value=i===1?880:660;
+      gain.gain.setValueAtTime(0.0001,now+offset);
+      gain.gain.exponentialRampToValueAtTime(0.16,now+offset+0.02);
+      gain.gain.exponentialRampToValueAtTime(0.0001,now+offset+0.13);
+      osc.connect(gain);
+      gain.connect(audioContext.destination);
+      osc.start(now+offset);
+      osc.stop(now+offset+0.14);
+    });
+  }catch(e){}
+}
+
+function startNewOrderWatcher(){
+  if(newOrderTimer) clearInterval(newOrderTimer);
+  checkNewOrder();
+  newOrderTimer=setInterval(checkNewOrder,10000);
 }
 
 async function refreshAll(silent=false){
@@ -436,6 +576,7 @@ document.getElementById("password").addEventListener("keydown",e=>{
 if(sessionStorage.getItem(SESSION_KEY)){
   showAdmin();
   refreshAll(false);
+  startNewOrderWatcher();
 }
 
 // Chỉ đồng bộ nền mỗi 60 giây và không chạy khi người dùng đang ở tab khác.
