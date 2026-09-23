@@ -723,6 +723,7 @@ button{-webkit-tap-highlight-color:transparent}
 
 
 <style>
+
 /* ===== TRA CỨU ĐƠN: HIỂN THỊ NGAY BÊN DƯỚI ĐÚNG MÃ ĐƠN ===== */
 .order-history-detail-inline{
   margin-top:12px;
@@ -754,6 +755,50 @@ button{-webkit-tap-highlight-color:transparent}
 <!-- ==============================
      POPUP CHÀO MỪNG
 ============================== -->
+  .welcome-toast{
+    position:fixed;
+    left:50%;
+    bottom:28px;
+    transform:translateX(-50%) translateY(20px);
+    z-index:99999;
+
+    padding:14px 22px;
+    border-radius:999px;
+
+    background:#14532D;
+    color:#FFF7ED;
+    border:2px solid #22C55E;
+
+    font-size:15px;
+    font-weight:700;
+
+    box-shadow:0 12px 30px rgba(0,0,0,.25);
+
+    opacity:0;
+    visibility:hidden;
+    pointer-events:none;
+
+    transition:
+        opacity .3s ease,
+        transform .3s ease,
+        visibility .3s ease;
+}
+
+.welcome-toast.show{
+    opacity:1;
+    visibility:visible;
+    transform:translateX(-50%) translateY(0);
+}
+
+@media(max-width:520px){
+    .welcome-toast{
+        width:calc(100% - 28px);
+        text-align:center;
+        font-size:14px;
+        padding:13px 16px;
+        bottom:20px;
+    }
+}
 
 <div id="welcomePopup" class="welcome-popup">
 
@@ -785,7 +830,9 @@ button{-webkit-tap-highlight-color:transparent}
     </div>
 
 </div>
-
+<div id="welcomeToast" class="welcome-toast">
+    🎉 Chào mừng đến ĂN VẶT LÂM THAO
+</div>
 <!-- ORDER SUCCESS MODAL -->
 <div id="successModal" class="success-modal" aria-hidden="true">
   <div class="success-box success-box-compact">
@@ -3339,18 +3386,23 @@ function openWelcomePopup(){
 
 function closeWelcomePopup(){
 
-    const popup =
-        document.getElementById(
-            "welcomePopup"
-        );
+    const popup = document.getElementById("welcomePopup");
 
     if(popup){
-
-        popup.style.display =
-            "none";
-
+        popup.style.display = "none";
     }
 
+    // Hiện thông báo chào mừng nhỏ
+    const toast = document.getElementById("welcomeToast");
+
+    if(toast){
+        toast.classList.add("show");
+
+        // Tự biến mất sau 4 giây
+        setTimeout(() => {
+            toast.classList.remove("show");
+        }, 4000);
+    }
 }
 
 /* ==================================================
