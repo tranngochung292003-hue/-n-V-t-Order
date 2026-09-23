@@ -210,7 +210,7 @@ button{-webkit-tap-highlight-color:transparent}
 .menu-quantity{display:flex;align-items:center;gap:2px;background:#8b5e3c;border-radius:999px;padding:2px;box-shadow:0 4px 9px rgba(111,71,44,.18)}
 .menu-quantity button{width:25px;height:25px;border:0;border-radius:50%;background:#fff;color:#6f472c;font-size:16px;font-weight:900;line-height:1;padding:0}.menu-quantity strong{min-width:19px;text-align:center;color:#fff;font-size:12px;line-height:1}.menu-quantity button:active{transform:scale(.92)}
 .cart-item{align-items:center}.cart-product-main{display:flex;align-items:center;gap:10px;min-width:0}.cart-product-thumb{width:58px;height:58px;border-radius:12px;object-fit:cover;flex:0 0 58px;background:#efe5da;border:1px solid #ead9c7}.cart-product-copy{min-width:0}.cart-item-name{white-space:normal}.cart-item-price{font-weight:700}
-.location-toolbar{display:grid;grid-template-columns:repeat(5,1fr);gap:7px;margin-top:7px}.location-option{border:1px solid #e1d0bd;background:#fffaf5;color:#654938;border-radius:12px;padding:10px 6px;font-size:12px;font-weight:800;min-height:54px}.location-option.active{background:#8b5e3c;color:#fff;border-color:#8b5e3c;box-shadow:0 5px 12px rgba(111,71,44,.16)}.location-selected{margin-top:8px;padding:9px 11px;border-radius:10px;background:#f5eadf;color:#6f472c;font-size:13px;font-weight:700}.location-required{font-size:12px;color:#927866;margin-top:5px}
+.location-toolbar{display:grid;grid-template-columns:repeat(5,1fr);gap:7px;margin-top:7px;position:relative;z-index:5}.location-option{position:relative;z-index:6;display:block;width:100%;border:1px solid #e1d0bd;background:#fffaf5;color:#654938;border-radius:12px;padding:10px 6px;font-size:12px;font-weight:800;min-height:54px;cursor:pointer!important;pointer-events:auto!important;touch-action:manipulation;-webkit-tap-highlight-color:rgba(139,94,60,.18)}.location-option:hover{background:#f4e6d7}.location-option:active{transform:scale(.98)}.location-option.active{background:#8b5e3c;color:#fff;border-color:#8b5e3c;box-shadow:0 5px 12px rgba(111,71,44,.16)}.location-selected{margin-top:8px;padding:9px 11px;border-radius:10px;background:#f5eadf;color:#6f472c;font-size:13px;font-weight:700}.location-required{font-size:12px;color:#927866;margin-top:5px}
 .success-modal{display:none;position:fixed;inset:0;background:rgba(45,28,19,.60);z-index:700;align-items:center;justify-content:center;padding:16px}.success-box{position:relative;width:100%;max-width:390px;background:linear-gradient(180deg,#fffaf5,#fff);border:1px solid #ead8c5;border-radius:24px;padding:30px 24px 22px;text-align:center;box-shadow:0 24px 70px rgba(55,35,23,.28);animation:successShow .24s ease}.success-box-compact{max-width:390px}.success-eyebrow{margin:0 0 7px;font-size:10px;letter-spacing:2.2px;font-weight:900;color:#a06a46}.success-thanks{margin:13px 0 0;color:#6f5b4e;font-size:13px;line-height:1.65;background:#fbf4ed;border-radius:12px;padding:10px 12px;border:1px solid #f0dfcf}.success-wish{margin:12px 0 16px;color:#8b6b56;font-size:12px;font-weight:700}.success-x{position:absolute;top:10px;right:12px;width:34px;height:34px;border:0;border-radius:50%;background:#f3e7da;color:#6f472c;font-size:23px;line-height:1;cursor:pointer}.success-check{width:62px;height:62px;margin:0 auto 13px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(145deg,#9a6a4c,#765039);color:#fff;font-size:34px;font-weight:600;box-shadow:0 10px 24px rgba(111,71,44,.24)}.success-box h2{font-size:25px;color:#493326;margin:0 0 7px;letter-spacing:-.3px}.success-subtitle{margin:0;color:#88776a;font-size:13px;line-height:1.5}.order-code-card{margin:18px 0 14px;padding:15px 14px 13px;border-radius:16px;background:#f5eadf;border:1px dashed #bf916d}.order-code-card span{display:block;font-size:10px;font-weight:900;letter-spacing:1.5px;color:#a36b46;margin-bottom:6px}.order-code-card strong{display:block;font-size:28px;letter-spacing:2.2px;color:#65412d}.copy-code-btn{margin-top:9px;border:0;background:transparent;color:#8b5e3c;font-weight:800;font-size:12px;cursor:pointer}.success-primary{width:100%;border:0;border-radius:12px;padding:12px;background:#8b5e3c;color:#fff;box-shadow:0 7px 16px rgba(111,71,44,.18);font-weight:900;font-size:14px;cursor:pointer}@keyframes successShow{from{opacity:0;transform:translateY(8px) scale(.98)}to{opacity:1;transform:none}}
 @media(max-width:700px){.location-toolbar{gap:5px}.location-option{font-size:10px;padding:8px 3px;min-height:50px}.cart-product-thumb{width:52px;height:52px;flex-basis:52px}.menu-quantity{gap:1px;padding:2px}.menu-quantity button{width:23px;height:23px;font-size:15px}.menu-quantity strong{min-width:18px;font-size:11px}.success-box{padding:24px 16px 18px;border-radius:22px}}
 
@@ -1024,7 +1024,7 @@ button{-webkit-tap-highlight-color:transparent}
 
             <div class="total-row shipping-row">
                 <span>🚚 Phí giao hàng</span>
-                <strong id="shippingFee">10.000đ</strong>
+                <strong id="shippingFee">0đ</strong>
             </div>
 
             <div class="total-row total-final">
@@ -1157,11 +1157,11 @@ button{-webkit-tap-highlight-color:transparent}
         <div class="form-group">
   <label>📍 Khu vực nhận hàng *</label>
   <div class="location-toolbar" id="locationToolbar">
-    <button type="button" class="location-option" data-location="Việt Trì" onclick="selectLocation('Việt Trì',this)">📍<br>Việt Trì</button>
-    <button type="button" class="location-option" data-location="Thị xã Phú Thọ" onclick="selectLocation('Thị xã Phú Thọ',this)">📍<br>TX Phú Thọ</button>
-    <button type="button" class="location-option" data-location="Lâm Thao" onclick="selectLocation('Lâm Thao',this)">📍<br>Lâm Thao</button>
-    <button type="button" class="location-option" data-location="KCN Phú Hà" onclick="selectLocation('KCN Phú Hà',this)">📍<br>KCN Phú Hà</button>
-    <button type="button" class="location-option" data-location="KCN Thuỵ Vân" onclick="selectLocation('KCN Thuỵ Vân',this)">📍<br>KCN Thuỵ Vân</button>
+    <button type="button" class="location-option" data-location="Việt Trì">📍<br>Việt Trì</button>
+    <button type="button" class="location-option" data-location="Thị xã Phú Thọ">📍<br>TX Phú Thọ</button>
+    <button type="button" class="location-option" data-location="Lâm Thao">📍<br>Lâm Thao</button>
+    <button type="button" class="location-option" data-location="KCN Phú Hà">📍<br>KCN Phú Hà</button>
+    <button type="button" class="location-option" data-location="KCN Thuỵ Vân">📍<br>KCN Thuỵ Vân</button>
   </div>
   <div id="locationSelected" class="location-selected">Chưa chọn khu vực nhận hàng</div>
   <div class="location-required">Chọn 1 trong 5 khu vực để tiếp tục đặt hàng.</div>
@@ -1213,7 +1213,7 @@ button{-webkit-tap-highlight-color:transparent}
 
             <div class="total-row shipping-row">
                 <span>🚚 Phí giao hàng</span>
-                <strong id="orderShippingFee">10.000đ</strong>
+                <strong id="orderShippingFee">0đ</strong>
             </div>
 
             <div class="total-row total-final">
@@ -1343,33 +1343,141 @@ button{-webkit-tap-highlight-color:transparent}
 </footer>
 
 <script>
+/* ==================================================
+   KHU VỰC GIAO HÀNG + PHÍ SHIP
+   Bản V3: nút chọn khu vực luôn bấm được, kể cả khi
+   Apps Script chưa tải được cấu hình khu vực.
+================================================== */
 let selectedLocation = '';
-let shippingZones = [];
+let shippingZones = [
+  {id:'viet-tri', name:'Việt Trì', fee:10000, enabled:true},
+  {id:'phu-tho', name:'Thị xã Phú Thọ', fee:15000, enabled:true},
+  {id:'lam-thao', name:'Lâm Thao', fee:10000, enabled:true},
+  {id:'kcn-phu-ha', name:'KCN Phú Hà', fee:15000, enabled:true},
+  {id:'kcn-thuy-van', name:'KCN Thuỵ Vân', fee:15000, enabled:true}
+];
 let selectedShippingFee = 0;
-async function loadShippingZones(){
-  try{
-    const r=await fetch(GOOGLE_SCRIPT_URL+'?action=shippingZones&v='+Date.now(),{cache:'no-store'});
-    const d=await r.json();
-    if(!d.success) throw new Error(d.message||'Không tải được khu vực');
-    shippingZones=d.zones||[];
-    renderShippingZones();
-  }catch(e){ console.warn('Không tải được khu vực giao hàng:',e); }
+
+function escapeLocationHtml(value){
+  return String(value == null ? '' : value)
+    .replace(/&/g,'&amp;')
+    .replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;')
+    .replace(/"/g,'&quot;')
+    .replace(/'/g,'&#039;');
 }
+
+function getDefaultShippingZones(){
+  return [
+    {id:'viet-tri', name:'Việt Trì', fee:10000, enabled:true},
+    {id:'phu-tho', name:'Thị xã Phú Thọ', fee:15000, enabled:true},
+    {id:'lam-thao', name:'Lâm Thao', fee:10000, enabled:true},
+    {id:'kcn-phu-ha', name:'KCN Phú Hà', fee:15000, enabled:true},
+    {id:'kcn-thuy-van', name:'KCN Thuỵ Vân', fee:15000, enabled:true}
+  ];
+}
+
+function normalizeShippingZones(list){
+  if(!Array.isArray(list)) return [];
+  return list.filter(z=>z && z.name && z.enabled !== false).map((z,i)=>({
+    id:String(z.id || ('zone-'+i)),
+    name:String(z.name).trim(),
+    fee:Math.max(0,Number(z.fee)||0),
+    enabled:z.enabled !== false
+  })).filter(z=>z.name);
+}
+
 function renderShippingZones(){
-  const box=document.getElementById('locationToolbar'); if(!box)return;
-  if(!shippingZones.length){box.innerHTML='<div class="location-required">Chưa có khu vực giao hàng.</div>';return;}
-  box.innerHTML=shippingZones.map(z=>`<button type="button" class="location-option" data-location="${String(z.name).replace(/"/g,'&quot;')}" onclick="selectLocation(${JSON.stringify(z.name)},this)">📍<br>${String(z.name).replace(/^Thị xã /,'TX ')}</button>`).join('');
+  const box=document.getElementById('locationToolbar');
+  if(!box) return;
+
+  const zones=normalizeShippingZones(shippingZones);
+  if(!zones.length){
+    box.innerHTML='<div class="location-required">Chưa có khu vực giao hàng.</div>';
+    return;
+  }
+
+  box.innerHTML=zones.map(z=>`
+    <button type="button" class="location-option" data-location="${escapeLocationHtml(z.name)}" data-fee="${z.fee}" aria-pressed="false">
+      📍<br>${escapeLocationHtml(z.name.replace(/^Thị xã /,'TX '))}
+    </button>`).join('');
+
+  // Dùng event delegation: không phụ thuộc onclick inline,
+  // giúp nút vẫn hoạt động sau khi innerHTML được render lại.
+  if(!box.dataset.bound){
+    box.addEventListener('click',function(event){
+      const button=event.target.closest('.location-option');
+      if(!button || !box.contains(button)) return;
+      event.preventDefault();
+      event.stopPropagation();
+      selectLocation(button.dataset.location,button);
+    });
+    box.dataset.bound='1';
+  }
+
+  // Nếu khách đã chọn trước đó thì giữ lựa chọn sau khi API tải xong.
+  if(selectedLocation){
+    const selectedButton=[...box.querySelectorAll('.location-option')].find(b=>b.dataset.location===selectedLocation);
+    if(selectedButton) selectLocation(selectedLocation,selectedButton);
+  }
 }
+
 function selectLocation(name, button){
-  selectedLocation = name;
-  const zone = shippingZones.find(z=>String(z.name)===String(name));
-  selectedShippingFee = zone ? Number(zone.fee)||0 : 0;
-  document.getElementById('customerAddress').value = name;
-  document.querySelectorAll('.location-option').forEach(b=>b.classList.remove('active'));
-  if(button) button.classList.add('active');
+  const wanted=String(name || '').trim();
+  const zone=normalizeShippingZones(shippingZones).find(z=>z.name===wanted);
+
+  if(!zone){
+    // Nếu cấu hình GS chưa về, thử dùng 5 khu vực mặc định.
+    const fallback=normalizeShippingZones(getDefaultShippingZones()).find(z=>z.name===wanted);
+    if(fallback){
+      shippingZones=getDefaultShippingZones();
+      return selectLocation(wanted,button);
+    }
+    return;
+  }
+
+  selectedLocation=zone.name;
+  selectedShippingFee=zone.fee;
+
+  const address=document.getElementById('customerAddress');
+  if(address) address.value=zone.name;
+
+  document.querySelectorAll('.location-option').forEach(b=>{
+    const active=b.dataset.location===zone.name;
+    b.classList.toggle('active',active);
+    b.setAttribute('aria-pressed',active?'true':'false');
+  });
+
   const label=document.getElementById('locationSelected');
-  if(label) label.textContent='✅ '+name+' · Phí ship: '+money(selectedShippingFee);
+  if(label) label.textContent='✅ '+zone.name+' · Phí ship: '+money(zone.fee);
+
   calculateTotal();
+}
+
+async function loadShippingZones(){
+  // Hiển thị 5 khu vực ngay lập tức, không chờ mạng.
+  shippingZones=getDefaultShippingZones();
+  renderShippingZones();
+
+  try{
+    const controller=new AbortController();
+    const timer=setTimeout(()=>controller.abort(),8000);
+    const r=await fetch(GOOGLE_SCRIPT_URL+'?action=shippingZones&v='+Date.now(),{
+      cache:'no-store',
+      signal:controller.signal
+    });
+    clearTimeout(timer);
+    const d=await r.json();
+    const zones=normalizeShippingZones(d && d.zones);
+    if(d && d.success && zones.length){
+      shippingZones=zones;
+      renderShippingZones();
+    }
+  }catch(e){
+    console.warn('Không tải được khu vực giao hàng, dùng 5 khu vực mặc định:',e);
+    shippingZones=getDefaultShippingZones();
+    renderShippingZones();
+  }
 }
 
 
