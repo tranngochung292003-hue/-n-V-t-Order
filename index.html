@@ -1344,14 +1344,34 @@ button{-webkit-tap-highlight-color:transparent}
 
 <script>
 let selectedLocation = '';
+let shippingZones = [];
+let selectedShippingFee = 0;
+async function loadShippingZones(){
+  try{
+    const r=await fetch(GOOGLE_SCRIPT_URL+'?action=shippingZones&v='+Date.now(),{cache:'no-store'});
+    const d=await r.json();
+    if(!d.success) throw new Error(d.message||'Không tải được khu vực');
+    shippingZones=d.zones||[];
+    renderShippingZones();
+  }catch(e){ console.warn('Không tải được khu vực giao hàng:',e); }
+}
+function renderShippingZones(){
+  const box=document.getElementById('locationToolbar'); if(!box)return;
+  if(!shippingZones.length){box.innerHTML='<div class="location-required">Chưa có khu vực giao hàng.</div>';return;}
+  box.innerHTML=shippingZones.map(z=>`<button type="button" class="location-option" data-location="${String(z.name).replace(/"/g,'&quot;')}" onclick="selectLocation(${JSON.stringify(z.name)},this)">📍<br>${String(z.name).replace(/^Thị xã /,'TX ')}</button>`).join('');
+}
 function selectLocation(name, button){
   selectedLocation = name;
+  const zone = shippingZones.find(z=>String(z.name)===String(name));
+  selectedShippingFee = zone ? Number(zone.fee)||0 : 0;
   document.getElementById('customerAddress').value = name;
   document.querySelectorAll('.location-option').forEach(b=>b.classList.remove('active'));
   if(button) button.classList.add('active');
   const label=document.getElementById('locationSelected');
-  if(label) label.textContent='✅ Khu vực đã chọn: '+name;
+  if(label) label.textContent='✅ '+name+' · Phí ship: '+money(selectedShippingFee);
+  calculateTotal();
 }
+
 
 function getLocation(){
 
@@ -2586,10 +2606,7 @@ function calculateTotal(){
     }
 
     // Phí giao hàng cố định 10.000đ cho các khu vực.
-    const shippingFee =
-        subtotal > 0
-            ? SHIPPING_FEE
-            : 0;
+    const shippingFee = subtotal > 0 ? (selectedLocation ? selectedShippingFee : 0) : 0;
 
     const finalTotal =
         Math.max(
@@ -2847,13 +2864,15 @@ const latitude =
 const longitude =
     document.getElementById("longitude").value.trim();
 
+if(!selectedLocation){
+    alert('📍 Vui lòng chọn khu vực nhận hàng.');
+    unlockOrderButton();
+    return;
+}
+
 if(!latitude || !longitude){
-
-    alert(
-        "📍 Vui lòng cho phép truy cập vị trí " +
-        "trước khi đặt hàng."
-    );
-
+    alert('📍 Vui lòng cho phép truy cập vị trí trước khi đặt hàng.');
+    unlockOrderButton();
     return;
 }
 
@@ -2864,13 +2883,9 @@ if(!latitude || !longitude){
     ============================== */
 
     if(!name){
-
-        alert(
-            "Vui lòng nhập họ tên."
-        );
-
+        alert('Vui lòng nhập họ tên.');
+        unlockOrderButton();
         return;
-
     }
 
 if(!phone){
@@ -2895,23 +2910,15 @@ if(!/^0\d{9}$/.test(phone)){
 }
 
     if(!address){
-
-        alert(
-            "Vui lòng nhập địa chỉ."
-        );
-
+        alert('Vui lòng chọn khu vực nhận hàng.');
+        unlockOrderButton();
         return;
-
     }
 
     if(cart.length === 0){
-
-        alert(
-            "🛒 Giỏ hàng đang trống."
-        );
-
+        alert('🛒 Giỏ hàng đang trống.');
+        unlockOrderButton();
         return;
-
     }
 
     /* ==============================
@@ -2986,6 +2993,9 @@ const payload = {
 
     address:
         address,
+
+    shippingZone:
+        selectedLocation,
 
     latitude:
         document.getElementById("latitude").value.trim(),
@@ -3597,6 +3607,8 @@ async function checkOrderStatus(code,phone){
     return null;
   }
 }
+
+loadShippingZones();
 </script>
 
 </body>
