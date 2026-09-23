@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="theme-color" content="#8b5e3c">
+<meta name="theme-color" content="#09090B">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
@@ -749,151 +749,529 @@ button{-webkit-tap-highlight-color:transparent}
 }
 </style>
 
-<style id="ui-menu-update-v1">
-/* ===== UI UPDATE V1: MENU NGANG DƯỚI HEADER ===== */
+<style id="huticha-premium-theme">
+/* =========================================================
+   ANVATLAMTHAO — HUTICHA-INSPIRED DARK PREMIUM UI
+   UI-only layer: product/order data and backend logic untouched.
+========================================================= */
 :root{
-  --ui-green:#22c55e;
-  --ui-green-dark:#15803d;
-  --ui-dark:#09090b;
-  --ui-card:#18181b;
-  --ui-cream:#fff7ed;
+  --brand:#14532D;
+  --brand-dark:#0B3B1F;
+  --accent:#22C55E;
+  --accent-soft:#DCFCE7;
+  --cream:#FFF7ED;
+  --bg:#09090B;
+  --panel:#18181B;
+  --panel-2:#111113;
+  --text:#F8FAFC;
+  --muted:#A1A1AA;
+  --border:rgba(34,197,94,.28);
+  --border-soft:rgba(255,255,255,.09);
+}
+html{background:#09090B}
+body{
+  background:
+    radial-gradient(circle at 10% -5%,rgba(34,197,94,.14),transparent 30%),
+    radial-gradient(circle at 90% 10%,rgba(20,83,45,.18),transparent 28%),
+    #09090B!important;
+  color:var(--text)!important;
+}
+a{color:inherit}
+header.premium-header{
+  background:rgba(9,9,11,.90)!important;
+  border-bottom:1px solid rgba(255,255,255,.08)!important;
+  box-shadow:0 10px 35px rgba(0,0,0,.28)!important;
+  backdrop-filter:blur(16px)!important;
+}
+.premium-header-inner{
+  max-width:1240px!important;
+  min-height:76px;
+  padding:10px 18px!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:space-between!important;
+  gap:22px!important;
+}
+.brand-lockup{
+  display:flex;align-items:center;gap:10px;min-width:220px;
+}
+.brand-lockup .logo-image{
+  width:50px!important;height:50px!important;max-width:50px!important;
+  object-fit:contain!important;border-radius:12px;
+  filter:drop-shadow(0 5px 12px rgba(34,197,94,.18));
+}
+.brand-copy{display:flex;flex-direction:column;line-height:1.12}
+.brand-copy strong{font-size:17px;color:#fff;font-weight:900;letter-spacing:-.2px}
+.brand-copy small{margin-top:5px;color:#A7F3D0;font-size:10px;font-weight:700;white-space:nowrap}
+.premium-nav{
+  display:flex;align-items:center;justify-content:center;gap:4px;
+  min-width:0;flex:1;
+}
+.premium-nav .nav-link{
+  position:relative;padding:12px 11px;color:#D4D4D8;font-size:13px;font-weight:800;
+  white-space:nowrap;transition:color .2s ease;
+}
+.premium-nav .nav-link:after{
+  content:"";position:absolute;left:11px;right:11px;bottom:5px;height:2px;
+  border-radius:99px;background:var(--accent);transform:scaleX(0);transition:transform .2s ease;
+}
+.premium-nav .nav-link:hover,.premium-nav .nav-link.active{color:#86EFAC}
+.premium-nav .nav-link:hover:after,.premium-nav .nav-link.active:after{transform:scaleX(1)}
+.premium-order-btn{
+  flex:0 0 auto!important;
+  border:1px solid rgba(34,197,94,.35)!important;
+  background:linear-gradient(135deg,#14532D,#166534)!important;
+  color:#fff!important;
+  border-radius:12px!important;
+  padding:11px 14px!important;
+  box-shadow:0 7px 18px rgba(20,83,45,.24)!important;
+}
+.premium-order-btn:hover{transform:translateY(-1px);border-color:rgba(34,197,94,.7)!important}
+.hero.premium-hero{
+  position:relative;isolation:isolate;
+  max-width:1240px!important;min-height:350px!important;
+  margin:20px auto 12px!important;padding:45px 48px!important;
+  overflow:hidden;text-align:left!important;
+  display:flex!important;align-items:center!important;justify-content:space-between!important;
+  border:1px solid rgba(34,197,94,.22)!important;
+  border-radius:26px!important;
+  background:
+    radial-gradient(circle at 78% 50%,rgba(34,197,94,.20),transparent 26%),
+    linear-gradient(120deg,#09090B 0%,#111814 52%,#0B2D1A 100%)!important;
+  box-shadow:0 22px 70px rgba(0,0,0,.42)!important;
+}
+.premium-hero:before{
+  content:"";position:absolute;inset:-35%;z-index:-1;
+  background:radial-gradient(circle,rgba(34,197,94,.08),transparent 45%);
+  animation:premiumGlow 7s ease-in-out infinite alternate;
+}
+.hero-content{max-width:650px!important;position:relative;z-index:2}
+.hero-badge{
+  background:rgba(34,197,94,.12)!important;color:#86EFAC!important;
+  border:1px solid rgba(34,197,94,.25)!important;
+}
+.den-hero h1{font-size:clamp(32px,4vw,54px)!important;color:#fff!important;line-height:1.05!important}
+.den-hero h1 span{color:#4ADE80!important}
+.den-hero p{color:#D4D4D8!important;font-size:15px!important}
+.ship-chips span{
+  background:rgba(24,24,27,.78)!important;color:#D1FAE5!important;
+  border-color:rgba(34,197,94,.22)!important;
+}
+.hero-voucher{
+  position:relative;z-index:2;
+  background:rgba(255,247,237,.97)!important;color:#14532D;
+  border:1px dashed #22C55E!important;
+  box-shadow:0 15px 40px rgba(0,0,0,.24)!important;
+}
+.hero-voucher strong{color:#14532D!important}.hero-voucher small{color:#57534E!important}
+.hero-visual{
+  position:relative;z-index:1;width:320px;height:280px;display:grid;place-items:center;
+  flex:0 0 320px;
+}
+.hero-glow{
+  position:absolute;width:270px;height:270px;border-radius:50%;
+  background:radial-gradient(circle,rgba(34,197,94,.35),rgba(20,83,45,.12) 45%,transparent 70%);
+  filter:blur(2px);animation:heroPulse 4s ease-in-out infinite;
+}
+.hero-image-shell{
+  position:relative;width:235px;height:235px;padding:8px;border-radius:50%;
+  background:linear-gradient(145deg,rgba(34,197,94,.85),rgba(20,83,45,.25));
+  box-shadow:0 25px 70px rgba(0,0,0,.5),0 0 45px rgba(34,197,94,.18);
+}
+.hero-image-shell img{
+  width:100%;height:100%;object-fit:cover;border-radius:50%;display:block;
+  background:#18181B;border:6px solid #09090B;
+}
+.quick-benefits{
+  max-width:1240px!important;padding:0 18px!important;margin:14px auto 24px!important;
+  grid-template-columns:repeat(4,1fr)!important;
+}
+.quick-benefits>div{
+  background:linear-gradient(145deg,#18181B,#111113)!important;
+  border:1px solid var(--border)!important;color:#D1FAE5!important;
+  box-shadow:0 8px 22px rgba(0,0,0,.24)!important;
+}
+.quick-benefits b{color:#fff!important}.quick-benefits small{color:#A1A1AA!important}
+.container{max-width:1240px!important}
+.popular-row{
+  background:transparent!important;border:0!important;box-shadow:none!important;
+  padding:8px 0!important;
+}
+.popular-row b{color:#fff!important}.popular-row small,.scroll-hint{color:#A1A1AA!important}
+.category-menu{
+  background:rgba(24,24,27,.88)!important;
+  border:1px solid rgba(255,255,255,.08)!important;
+  box-shadow:0 10px 30px rgba(0,0,0,.25)!important;
+  border-radius:18px!important;
+  padding:7px!important;
+  position:sticky!important;
+}
+.category-btn{
+  color:#D4D4D8!important;background:transparent!important;
+  border-color:transparent!important;border-radius:999px!important;
+  padding:10px 16px!important;
+}
+.category-btn:hover{background:rgba(34,197,94,.10)!important;color:#86EFAC!important}
+.category-btn.active{
+  background:#14532D!important;color:#fff!important;border-color:#22C55E!important;
+  box-shadow:0 6px 18px rgba(34,197,94,.18)!important;
+}
+.products{gap:18px!important}
+.product.den-product{
+  background:linear-gradient(145deg,#1C1C1F,#151518)!important;
+  border:1px solid rgba(34,197,94,.28)!important;
+  border-radius:18px!important;
+  box-shadow:0 10px 28px rgba(0,0,0,.28)!important;
+  transition:transform .3s ease,box-shadow .3s ease,border-color .3s ease!important;
+}
+.product.den-product:hover{
+  transform:translateY(-8px)!important;
+  border-color:rgba(34,197,94,.72)!important;
+  box-shadow:0 20px 45px rgba(0,0,0,.42),0 0 22px rgba(34,197,94,.10)!important;
+}
+.product-photo-wrap{background:#27272A!important;overflow:hidden!important}
+.product-image{
+  object-fit:cover!important;transition:transform .3s ease!important;
+}
+.product.den-product:hover .product-image{transform:scale(1.06)!important}
+.photo-badge{
+  background:rgba(9,9,11,.82)!important;color:#BBF7D0!important;
+  border:1px solid rgba(34,197,94,.25)!important;
+}
+.product-info{padding:15px!important}
+.product-name{color:#FAFAFA!important;font-weight:850!important}
+.product-meta{color:#A1A1AA!important}.product-meta b{color:#D4D4D8!important}
+.stars{color:#FBBF24!important}
+.product-price{color:#4ADE80!important;font-size:19px!important}
+.add-btn{
+  background:#22C55E!important;color:#fff!important;border:0!important;
+  box-shadow:0 8px 18px rgba(34,197,94,.25)!important;
+  transition:transform .2s ease,filter .2s ease!important;
+}
+.add-btn:hover{filter:brightness(1.08);transform:translateY(-2px) scale(1.04)!important}
+.cart-bar{
+  background:rgba(9,9,11,.94)!important;border-top:1px solid rgba(34,197,94,.22)!important;
+  box-shadow:0 -12px 35px rgba(0,0,0,.35)!important;
+}
+.cart-summary{color:#E4E4E7!important}.cart-summary span{color:#4ADE80!important}
+.checkout-btn,.confirm-btn{
+  background:#22C55E!important;color:#052E16!important;border-radius:12px!important;
+  font-weight:950!important;box-shadow:0 8px 18px rgba(34,197,94,.22)!important;
+}
+.checkout-btn:hover,.confirm-btn:hover{background:#4ADE80!important}
+.modal-box{
+  background:#18181B!important;border:1px solid rgba(34,197,94,.25)!important;color:#F8FAFC!important;
+}
+.modal-header{border-bottom-color:rgba(255,255,255,.08)!important}
+.modal-header h2,.cart-item-name{color:#fff!important}
+.close-btn{background:#27272A!important;color:#D4D4D8!important}
+.cart-item{border-bottom-color:rgba(255,255,255,.08)!important}
+.cart-item-price,.total-final{color:#4ADE80!important}
+.total-box,.voucher-box{
+  background:#111113!important;border-color:rgba(34,197,94,.18)!important;color:#D4D4D8!important;
+}
+.form-group label{color:#D4D4D8!important}
+.form-group input,.form-group textarea,.voucher-row input{
+  background:#09090B!important;color:#fff!important;border-color:#3F3F46!important;
+}
+.form-group input:focus,.form-group textarea:focus,.voucher-row input:focus{
+  border-color:#22C55E!important;box-shadow:0 0 0 2px rgba(34,197,94,.12)!important;
+}
+.voucher-message{color:#D4D4D8}
+.notification-permission{background:#111113!important;border-color:rgba(34,197,94,.2)!important}
+.notification-permission-text b{color:#fff!important}.notification-permission-text small{color:#A1A1AA!important}
+.notification-permission-btn{background:#14532D!important;color:#fff!important}
+.location-option{
+  background:#111113!important;color:#D4D4D8!important;border-color:#3F3F46!important;
+}
+.location-option:hover{background:#182A20!important;color:#BBF7D0!important}
+.location-option.active{background:#14532D!important;color:#fff!important;border-color:#22C55E!important}
+.location-selected{background:#0F2418!important;color:#BBF7D0!important}
+footer{
+  background:#050506!important;color:#A1A1AA!important;border-top:1px solid rgba(34,197,94,.16)!important;
+}
+.trust-strip>div{
+  background:#111113!important;border-color:rgba(34,197,94,.18)!important;color:#F4F4F5!important;
+}
+.trust-strip small{color:#A1A1AA!important}
+.order-history-card,.order-history-detail-inline,.order-history-detail,.order-history-empty{
+  background:#111113!important;border-color:rgba(34,197,94,.18)!important;
+}
+.order-history-code,.order-history-detail-title b{color:#4ADE80!important}
+.order-history-time,.order-history-summary,.order-history-intro,.order-history-detail-row,.order-history-live-note{color:#A1A1AA!important}
+.order-history-status{background:#0F2418!important;color:#BBF7D0!important}
+.order-history-lookup,.order-history-refresh{background:#14532D!important;color:#fff!important;border-color:#22C55E!important}
+.success-modal{background:rgba(0,0,0,.78)!important}
+.success-box{background:#18181B!important;border-color:rgba(34,197,94,.42)!important}
+.success-box h2{color:#fff!important}.success-subtitle,.success-thanks,.success-wish{color:#D4D4D8!important}
+.order-code-card,.success-track-guide{background:#111113!important;border-color:rgba(34,197,94,.25)!important}
+.order-code-card strong{color:#4ADE80!important}.success-track-title{color:#86EFAC!important}
+.success-track-text{color:#A1A1AA!important}
+.success-track-btn.primary,.success-primary{background:#22C55E!important;color:#052E16!important}
+.success-track-btn.secondary{background:#18181B!important;color:#BBF7D0!important;border-color:#3F3F46!important}
+.payment-box{background:#18181B!important;color:#fff!important;border-color:rgba(34,197,94,.25)!important}
+.payment-box h2{color:#fff!important}.payment-box p,.payment-info{color:#A1A1AA!important}
+.payment-done{background:#22C55E!important;color:#052E16!important}
+.contact-btn{box-shadow:0 8px 22px rgba(0,0,0,.32)!important}
+.welcome-box{background:linear-gradient(145deg,#18181B,#0F2418)!important;border-color:rgba(34,197,94,.35)!important}
+.welcome-box h2,.welcome-box p{color:#fff!important}.welcome-close{background:#22C55E!important;color:#052E16!important}
+@keyframes premiumGlow{from{transform:scale(.96);opacity:.65}to{transform:scale(1.06);opacity:1}}
+@keyframes heroPulse{0%,100%{transform:scale(.96);opacity:.7}50%{transform:scale(1.04);opacity:1}}
+
+@media(max-width:1050px){
+  .premium-nav{gap:0}
+  .premium-nav .nav-link{padding:11px 7px;font-size:12px}
+  .brand-lockup{min-width:205px}
+}
+@media(max-width:800px){
+  .premium-header-inner{min-height:62px;padding:7px 10px!important;gap:8px!important;overflow:hidden}
+  .brand-lockup{min-width:0;flex:1}
+  .brand-lockup .logo-image{width:42px!important;height:42px!important;max-width:42px!important}
+  .brand-copy strong{font-size:14px}.brand-copy small{font-size:8.5px}
+  .premium-nav{
+    order:5;flex:0 0 100%;width:100%;justify-content:flex-start;overflow-x:auto;
+    padding:2px 0 4px;scrollbar-width:none;
+  }
+  .premium-nav::-webkit-scrollbar{display:none}
+  .premium-nav .nav-link{font-size:11px;padding:8px 11px}
+  .premium-order-btn{font-size:10px!important;padding:9px 10px!important}
+  .premium-order-btn span{display:inline!important}
+  .premium-hero{
+    min-height:300px!important;margin:10px 9px!important;padding:28px 20px!important;
+  }
+  .hero-visual{position:absolute;right:-50px;bottom:-25px;width:220px;height:220px;opacity:.75}
+  .hero-image-shell{width:175px;height:175px}
+  .hero-voucher{display:inline-block;margin-top:12px}
+  .quick-benefits{grid-template-columns:repeat(2,1fr)!important;padding:0 10px!important}
+  .products{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px!important}
+  .product-info{padding:10px!important}
+  .product-name{font-size:13px!important}
+  .product-price{font-size:16px!important}
+}
+@media(max-width:480px){
+  .brand-copy small{display:none}
+  .premium-order-btn{padding:8px 9px!important;font-size:9px!important}
+  .premium-hero{min-height:285px!important;padding:24px 16px!important}
+  .den-hero h1{font-size:28px!important}
+  .hero-voucher{padding:12px 14px!important}.hero-voucher strong{font-size:16px!important}
+  .quick-benefits>div{padding:9px!important}
+  .quick-benefits b{font-size:10px!important}
+  .quick-benefits small{font-size:8.5px!important}
+}
+@media(max-width:340px){
+  .brand-copy strong{font-size:12px}
+  .premium-order-btn span{display:none!important}
+  .premium-order-btn{min-width:42px!important}
+}
+</style>
+
+
+<style id="huticha-header-logo-update">
+.brand-lockup{display:flex;align-items:center;gap:11px;text-decoration:none;min-width:0}
+.brand-lockup .logo-image{width:48px;height:48px;object-fit:contain;display:block;flex:0 0 48px}
+.brand-copy{display:flex;flex-direction:column;min-width:0;line-height:1.05}
+.brand-copy strong{color:#fff;font-size:19px;font-weight:900;white-space:nowrap}
+.brand-copy small{margin-top:5px;color:#a1a1aa;font-size:11px;font-weight:600;white-space:nowrap}
+.premium-header .main-nav{display:flex;align-items:center;justify-content:center;gap:20px;min-width:0}
+.premium-header .nav-link{color:#e4e4e7;text-decoration:none;font-size:13px;font-weight:800;white-space:nowrap;transition:color .2s ease}
+.premium-header .nav-link:hover,.premium-header .nav-link:focus{color:#22c55e}
+.premium-order-btn{white-space:nowrap}
+@media(max-width:900px){.premium-header .main-nav{order:3;flex-basis:100%;justify-content:flex-start;overflow-x:auto;overflow-y:hidden;scrollbar-width:none;padding:2px 0 3px;gap:16px}.premium-header .main-nav::-webkit-scrollbar{display:none}.brand-copy strong{font-size:17px}.brand-copy small{font-size:10px}.brand-lockup .logo-image{width:44px;height:44px;flex-basis:44px}}
+@media(max-width:560px){.premium-header-inner{grid-template-columns:1fr auto;gap:9px;padding:9px 12px}.brand-copy strong{font-size:16px}.brand-copy small{font-size:9px}.brand-lockup .logo-image{width:40px;height:40px;flex-basis:40px}.premium-order-btn{padding:8px 10px!important}.premium-order-btn span{display:inline!important;font-size:11px}.premium-header .main-nav{gap:13px}.premium-header .nav-link{font-size:11px}}
+</style>
+
+<style id="header-nav-update-v3">
+/* ===== HEADER MOBILE: LOGO + TÊN + TAGLINE ===== */
+.brand-lockup{
+  min-width:0!important;
+  flex:1 1 auto!important;
+  max-width:100%!important;
+  display:flex!important;
+  align-items:center!important;
+  gap:8px!important;
+}
+.brand-lockup .logo-image{
+  flex:0 0 auto!important;
+  width:44px!important;
+  height:44px!important;
+  max-width:44px!important;
+}
+.brand-copy{
+  min-width:0!important;
+  max-width:calc(100% - 52px)!important;
+  overflow:hidden!important;
+}
+.brand-copy strong{
+  display:block!important;
+  overflow:hidden!important;
+  text-overflow:ellipsis!important;
+  white-space:nowrap!important;
+  font-size:15px!important;
+  line-height:1.15!important;
+}
+.brand-copy small{
+  display:block!important;
+  overflow:hidden!important;
+  text-overflow:ellipsis!important;
+  white-space:nowrap!important;
+  font-size:9px!important;
+  line-height:1.2!important;
+  margin-top:3px!important;
 }
 
+/* ===== THANH CÔNG CỤ CÙNG MÀU WEBSITE ===== */
 .top-nav-pills{
-  position:sticky;
-  top:0;
-  z-index:96;
-  width:100%;
-  padding:9px 12px;
-  background:rgba(9,9,11,.96);
-  border-bottom:1px solid rgba(34,197,94,.18);
-  box-shadow:0 7px 22px rgba(0,0,0,.16);
-  backdrop-filter:blur(12px);
+  position:sticky!important;
+  top:0!important;
+  z-index:96!important;
+  width:100%!important;
+  padding:8px 10px!important;
+  background:rgba(9,9,11,.96)!important;
+  border-bottom:1px solid rgba(34,197,94,.18)!important;
+  box-shadow:0 7px 22px rgba(0,0,0,.28)!important;
+  backdrop-filter:blur(12px)!important;
 }
 .top-nav-pills-inner{
-  max-width:1180px;
-  margin:0 auto;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:10px;
-  overflow-x:auto;
-  scrollbar-width:none;
+  max-width:1240px!important;
+  margin:0 auto!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  gap:8px!important;
+  overflow-x:auto!important;
+  scrollbar-width:none!important;
 }
 .top-nav-pills-inner::-webkit-scrollbar{display:none}
 .top-nav-pill{
-  flex:0 0 auto;
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  min-height:40px;
-  padding:8px 20px;
-  border:1px solid rgba(34,197,94,.45);
-  border-radius:999px;
-  background:linear-gradient(135deg,#17171a,#111113);
-  color:#f4f4f5;
-  font-size:14px;
-  font-weight:850;
-  letter-spacing:.1px;
-  box-shadow:0 3px 12px rgba(0,0,0,.2);
-  transition:transform .22s ease,background .22s ease,border-color .22s ease,box-shadow .22s ease,color .22s ease;
+  flex:0 0 auto!important;
+  min-height:38px!important;
+  padding:8px 17px!important;
+  border:1px solid rgba(34,197,94,.34)!important;
+  border-radius:999px!important;
+  background:#18181B!important;
+  color:#D4D4D8!important;
+  font-size:13px!important;
+  font-weight:850!important;
+  white-space:nowrap!important;
+  box-shadow:0 4px 13px rgba(0,0,0,.2)!important;
+  transition:all .22s ease!important;
 }
 .top-nav-pill:hover{
-  color:#fff;
-  background:linear-gradient(135deg,#14532d,#166534);
-  border-color:#22c55e;
-  transform:translateY(-2px);
-  box-shadow:0 7px 18px rgba(34,197,94,.22);
+  color:#fff!important;
+  background:#14532D!important;
+  border-color:#22C55E!important;
+  transform:translateY(-1px)!important;
+  box-shadow:0 7px 18px rgba(34,197,94,.20)!important;
 }
 .top-nav-pill.active{
-  color:#052e16;
-  background:#22c55e;
-  border-color:#22c55e;
-  box-shadow:0 6px 18px rgba(34,197,94,.28);
+  color:#052E16!important;
+  background:#22C55E!important;
+  border-color:#22C55E!important;
+  box-shadow:0 6px 18px rgba(34,197,94,.25)!important;
 }
-.top-nav-pill:active{transform:scale(.97)}
+
+/* Popup khuyến mãi */
+.promo-nav-modal{
+  display:none;
+  position:fixed;
+  inset:0;
+  z-index:600;
+  align-items:center;
+  justify-content:center;
+  padding:18px;
+  background:rgba(0,0,0,.68);
+  backdrop-filter:blur(5px);
+}
+.promo-nav-card{
+  width:min(420px,100%);
+  position:relative;
+  padding:25px 22px 22px;
+  border:1px solid rgba(34,197,94,.42);
+  border-radius:22px;
+  background:linear-gradient(145deg,#18181B,#0F1712);
+  color:#fff;
+  text-align:center;
+  box-shadow:0 25px 80px rgba(0,0,0,.55),0 0 35px rgba(34,197,94,.12);
+  animation:promoCardIn .22s ease;
+}
+.promo-nav-card .promo-icon{font-size:38px;margin-bottom:8px}
+.promo-nav-card h3{font-size:21px;margin:0 0 10px;color:#fff}
+.promo-nav-card p{margin:0;color:#D4D4D8;font-size:14px;line-height:1.7}
+.promo-nav-card strong{color:#4ADE80}
+.promo-nav-close{
+  position:absolute;
+  top:10px;
+  right:10px;
+  width:34px;
+  height:34px;
+  border:0;
+  border-radius:50%;
+  background:#27272A;
+  color:#fff;
+  font-size:22px;
+  cursor:pointer;
+}
+@keyframes promoCardIn{
+  from{opacity:0;transform:translateY(8px) scale(.97)}
+  to{opacity:1;transform:translateY(0) scale(1)}
+}
 
 @media(max-width:700px){
+  .premium-header-inner{
+    min-height:62px!important;
+    padding:7px 10px!important;
+    gap:7px!important;
+  }
+  .brand-lockup{
+    gap:7px!important;
+    min-width:0!important;
+  }
+  .brand-lockup .logo-image{
+    width:40px!important;
+    height:40px!important;
+    max-width:40px!important;
+  }
+  .brand-copy{
+    max-width:calc(100vw - 160px)!important;
+  }
+  .brand-copy strong{
+    font-size:14px!important;
+  }
+  .brand-copy small{
+    font-size:8.5px!important;
+    letter-spacing:-.1px;
+  }
+  .premium-nav{display:none!important}
+  .premium-order-btn{
+    padding:8px 9px!important;
+    border-radius:999px!important;
+    font-size:10px!important;
+    white-space:nowrap!important;
+    flex:0 0 auto!important;
+  }
   .top-nav-pills{
-    padding:7px 9px;
-    top:0;
+    padding:7px 8px!important;
   }
   .top-nav-pills-inner{
-    justify-content:flex-start;
-    gap:7px;
+    justify-content:flex-start!important;
+    gap:7px!important;
   }
   .top-nav-pill{
-    min-height:36px;
-    padding:7px 15px;
-    font-size:12px;
+    min-height:35px!important;
+    padding:7px 14px!important;
+    font-size:12px!important;
   }
 }
 
-/* Khi menu mới xuất hiện, category filter không che menu */
-.category-menu{
-  z-index:50!important;
+@media(max-width:390px){
+  .premium-header-inner{padding:6px 7px!important;gap:5px!important}
+  .brand-lockup .logo-image{width:37px!important;height:37px!important;max-width:37px!important}
+  .brand-copy{max-width:calc(100vw - 145px)!important}
+  .brand-copy strong{font-size:12.5px!important}
+  .brand-copy small{font-size:7.7px!important}
+  .premium-order-btn{font-size:9px!important;padding:7px 7px!important}
 }
-
-/* Giữ phần Hero thoáng và nổi bật hơn */
-.den-hero{
-  margin-top:14px!important;
-}
-
-/* Không còn các quick-benefits đã được yêu cầu xóa */
-.quick-benefits{display:none!important}
-
-/* Đường neo không bị header/menu che khi bấm điều hướng */
-#home,#products,#promotion,#contact{
-  scroll-margin-top:78px;
-}
-
-/* Liên hệ là cụm nút fixed; không làm thay đổi chức năng */
-#contact{scroll-margin-top:90px}
 </style>
-
-<script>
-(function(){
-  const nav = document.querySelector('.top-nav-pills');
-  if(!nav) return;
-
-  const links = [...nav.querySelectorAll('.top-nav-pill')];
-
-  function setActive(name){
-    links.forEach(link => {
-      link.classList.toggle('active', link.dataset.nav === name);
-    });
-  }
-
-  links.forEach(link => {
-    link.addEventListener('click', function(){
-      setActive(this.dataset.nav);
-    });
-  });
-
-  // Tự đổi trạng thái menu khi cuộn trang.
-  const sections = [
-    {id:'home', name:'home'},
-    {id:'products', name:'menu'},
-    {id:'promotion', name:'promotion'},
-    {id:'contact', name:'contact'}
-  ];
-
-  const updateByScroll = () => {
-    const y = window.scrollY + 140;
-    let current = 'home';
-
-    sections.forEach(section => {
-      const el = document.getElementById(section.id);
-      if(el && el.offsetTop <= y) current = section.name;
-    });
-
-    setActive(current);
-  };
-
-  window.addEventListener('scroll', updateByScroll, {passive:true});
-  updateByScroll();
-})();
-</script>
 
 </head>
 <body>
@@ -970,29 +1348,30 @@ button{-webkit-tap-highlight-color:transparent}
 </div>
 
 <!-- HEADER -->
-
-<header>
-  <div class="header-inner den-header">
-    <div class="logo"><img class="logo-image" src="logowed.png" alt="Ăn Vặt Lâm Thao" loading="eager" decoding="async"></div>
-<div class="brand"><h1>Ăn vặt lâm thao</h1><p>Trà sữa • Đồ ăn vặt • Coffee</p></div>
-    <button class="header-cart order-tracker-btn" onclick="openOrderTracker()">📋 <span>Lịch Sử Đơn Hàng</span></button>
+<header class="premium-header">
+  <div class="header-inner premium-header-inner">
+    <a class="brand-lockup" href="#" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;" aria-label="Ăn Vặt Lâm Thao">
+      <img class="logo-image" src="https://uuwrokonline30-tech.github.io/huticha-lamthao/logo.svg" alt="HUTICHA" loading="eager" decoding="async">
+      <span class="brand-copy">
+        <strong>Ăn Vặt Lâm Thao</strong>
+        <small>Trà sữa • Đồ ăn vặt • Coffee</small>
+      </span>
+    </a>
+    <nav class="main-nav" aria-label="Điều hướng chính">
+      <a class="nav-link" href="#home">Trang chủ</a>
+      <a class="nav-link" href="#products">Đồ ăn vặt</a>
+      <a class="nav-link" href="#products">Đồ uống</a>
+      <a class="nav-link" href="#products">Combo</a>
+      <a class="nav-link" href="#products">Khuyến mãi</a>
+      <a class="nav-link" href="#contact">Liên hệ</a>
+    </nav>
+    <button class="header-cart order-tracker-btn premium-order-btn" onclick="openOrderTracker()">📋 <span>Lịch Sử Đơn Hàng</span></button>
     <button id="installAppBtn" class="pwa-install-btn" type="button" onclick="installPWA()" aria-label="Cài ứng dụng Ăn Vặt Lâm Thao">📲 Cài app</button>
   </div>
 </header>
 
-<!-- THANH ĐIỀU HƯỚNG -->
-<nav class="top-nav-pills" aria-label="Điều hướng chính">
-  <div class="top-nav-pills-inner">
-    <a href="#home" class="top-nav-pill active" data-nav="home">Trang chủ</a>
-    <a href="#products" class="top-nav-pill" data-nav="menu">Thực đơn</a>
-    <a href="#promotion" class="top-nav-pill" data-nav="promotion">Khuyến mãi</a>
-    <a href="#contact" class="top-nav-pill" data-nav="contact">Liên hệ</a>
-  </div>
-</nav>
-
-
 <!-- HERO -->
-<section id="home" class="hero den-hero">
+<section id="home" class="hero den-hero premium-hero">
   <div class="hero-content">
     <div class="hero-badge">🔥 ĂN VẶT NGON MỖI NGÀY</div>
     <h1>Đặt món online <span>nhanh chóng</span></h1>
@@ -1001,12 +1380,30 @@ button{-webkit-tap-highlight-color:transparent}
       <span>📍 Việt Trì</span><span>📍 Thị xã PT</span><span>📍 Lâm Thao</span><span>📍 KCN Phú Hà</span><span>📍 KCN Thuỵ Vân</span>
     </div>
   </div>
-  <div id="promotion" class="hero-voucher"><strong>🎁 KHACHMOI</strong><small>Giảm 20% cho đơn đầu tiên</small></div>
+  <div class="hero-voucher"><strong>🎁 KHACHMOI</strong><small>Giảm 20% cho đơn đầu tiên</small></div>
+  <div class="hero-visual" aria-hidden="true">
+    <div class="hero-glow"></div>
+    <div class="hero-image-shell">
+      <img id="heroProductImage" src="logowed.png" alt="" loading="eager" decoding="async">
+    </div>
+  </div>
 </section>
+
+<div class="quick-benefits">
+  <div>🚚<span><b>Giao tận nơi</b><small>Trong khu vực</small></span></div>
+  <div>⚡<span><b>Đặt món online</b><small>Quán gọi xác nhận đơn sau 1-2 Phút</small></span></div>
+  <div>🎁<span><b>Ưu đãi khách mới</b><small>Voucher: KHACHMOI</small></span></div>
+  <div>💬<span><b>Hỗ trợ đặt hàng</b><small>Zalo / Hotline</small></span></div>
+</div>
 
 <!-- PRODUCTS -->
 
-<main class="container">
+<main id="products" class="container">
+
+    <div class="popular-row">
+      <div><span class="hot-dot">🔥</span><b>Danh mục món</b><small>Chọn nhanh món bạn thích</small></div>
+      <span class="scroll-hint">Vuốt ngang →</span>
+    </div>
     <div class="category-menu">
 
     <button
@@ -3860,6 +4257,110 @@ async function checkOrderStatus(code,phone){
 }
 
 loadShippingZones();
+</script>
+
+
+<script>
+(function(){
+  function syncHeroImage(){
+    const hero = document.getElementById('heroProductImage');
+    const first = document.querySelector('#products .product-image');
+    if(hero && first && first.src){
+      hero.src = first.currentSrc || first.src;
+    }
+  }
+  window.addEventListener('load', function(){
+    setTimeout(syncHeroImage, 500);
+    setTimeout(syncHeroImage, 1800);
+  });
+  const target = document.getElementById('products');
+  if(target){
+    new MutationObserver(syncHeroImage).observe(target,{childList:true,subtree:true});
+  }
+})();
+</script>
+
+
+<!-- POPUP KHUYẾN MÃI TỪ THANH ĐIỀU HƯỚNG -->
+<div id="promoNavModal" class="promo-nav-modal" aria-hidden="true">
+  <div class="promo-nav-card" role="dialog" aria-modal="true" aria-labelledby="promoNavTitle">
+    <button class="promo-nav-close" type="button" onclick="closePromoNav()" aria-label="Đóng">×</button>
+    <div class="promo-icon">🎁</div>
+    <h3 id="promoNavTitle">Voucher khách mới</h3>
+    <p>Khách mới được <strong>giảm 20%</strong><br>khi sử dụng mã <strong>KHACHMOI</strong></p>
+  </div>
+</div>
+
+<script>
+(function(){
+  const modal = document.getElementById('promoNavModal');
+
+  window.openPromoNav = function(){
+    if(!modal) return;
+    modal.style.display = 'flex';
+    modal.setAttribute('aria-hidden','false');
+    document.body.style.overflow = 'hidden';
+  };
+
+  window.closePromoNav = function(){
+    if(!modal) return;
+    modal.style.display = 'none';
+    modal.setAttribute('aria-hidden','true');
+    document.body.style.overflow = '';
+  };
+
+  if(modal){
+    modal.addEventListener('click', function(e){
+      if(e.target === modal) window.closePromoNav();
+    });
+  }
+
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape') window.closePromoNav();
+  });
+
+  // Điều hướng:
+  // Trang chủ -> đầu trang
+  // Thực đơn -> khu vực menu
+  // Khuyến mãi -> popup
+  // Liên hệ -> cuối trang
+  document.querySelectorAll('.top-nav-pill').forEach(function(link){
+    const nav = link.dataset.nav;
+    link.addEventListener('click', function(e){
+      if(nav === 'promotion'){
+        e.preventDefault();
+        document.querySelectorAll('.top-nav-pill').forEach(x=>x.classList.remove('active'));
+        link.classList.add('active');
+        window.openPromoNav();
+        return;
+      }
+
+      if(nav === 'home'){
+        e.preventDefault();
+        document.querySelectorAll('.top-nav-pill').forEach(x=>x.classList.remove('active'));
+        link.classList.add('active');
+        window.scrollTo({top:0, behavior:'smooth'});
+        return;
+      }
+
+      if(nav === 'menu'){
+        e.preventDefault();
+        document.querySelectorAll('.top-nav-pill').forEach(x=>x.classList.remove('active'));
+        link.classList.add('active');
+        const target = document.getElementById('products');
+        if(target) target.scrollIntoView({behavior:'smooth', block:'start'});
+        return;
+      }
+
+      if(nav === 'contact'){
+        e.preventDefault();
+        document.querySelectorAll('.top-nav-pill').forEach(x=>x.classList.remove('active'));
+        link.classList.add('active');
+        window.scrollTo({top:document.documentElement.scrollHeight, behavior:'smooth'});
+      }
+    });
+  });
+})();
 </script>
 
 </body>
