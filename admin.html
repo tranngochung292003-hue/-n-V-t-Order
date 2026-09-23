@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#8b5e3c">
+<title>Admin - Ăn Vặt Lâm Thao</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;background:#f7f0e6;color:#3f3027}
+button,input,select{font:inherit}
+button{cursor:pointer}
+.hidden{display:none!important}
+.top{background:#fffaf4;border-bottom:1px solid #eadbca;position:sticky;top:0;z-index:20;box-shadow:0 2px 12px rgba(91,61,39,.08)}
+.top-inner{max-width:1200px;margin:auto;padding:13px 18px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.brand{font-weight:900;color:#5b3a25;font-size:20px}
+.sub{font-size:12px;color:#927866;margin-top:2px}
+.logout{border:1px solid #d8c1ad;background:#fff;color:#7d4d31;border-radius:10px;padding:9px 12px;font-weight:800}
+.wrap{max-width:1200px;margin:auto;padding:18px}
+.login-wrap{min-height:100vh;display:grid;place-items:center;padding:20px}
+.login{width:100%;max-width:420px;background:#fffaf5;border:1px solid #eadbca;border-radius:22px;padding:25px;box-shadow:0 12px 35px rgba(83,57,38,.12)}
+.login h1{margin:0 0 5px;color:#5b3a25;font-size:25px}
+.login p{margin:0 0 20px;color:#927866;font-size:13px}
+.field{margin:12px 0}
+.field label{display:block;font-size:13px;font-weight:800;color:#604838;margin-bottom:6px}
+.field input,.toolbar input,.toolbar select{width:100%;border:1px solid #dfcdbb;background:#fff;padding:11px 12px;border-radius:10px;outline:none}
+.field input:focus,.toolbar input:focus,.toolbar select:focus{border-color:#8b5e3c;box-shadow:0 0 0 3px rgba(139,94,60,.1)}
+.primary{width:100%;border:0;background:#8b5e3c;color:#fff;padding:12px;border-radius:11px;font-weight:900;margin-top:8px}
+.error{margin-top:12px;padding:10px;border-radius:10px;background:#fff0ed;color:#b42318;font-size:13px}
+.stats{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin-bottom:15px}
+.stat{background:#fffaf5;border:1px solid #eadbca;border-radius:15px;padding:13px;box-shadow:0 3px 12px rgba(83,57,38,.05)}
+.stat small{display:block;color:#927866;font-size:11px}.stat b{display:block;color:#65452f;font-size:21px;margin-top:3px}
+.toolbar{background:#fffaf5;border:1px solid #eadbca;border-radius:15px;padding:12px;display:grid;grid-template-columns:1fr 210px auto;gap:9px;margin-bottom:12px}
+.refresh{border:0;background:#8b5e3c;color:#fff;border-radius:10px;padding:10px 15px;font-weight:900}
+.table-wrap{background:#fff;border:1px solid #eadbca;border-radius:16px;overflow:auto;box-shadow:0 4px 15px rgba(83,57,38,.06)}
+table{width:100%;border-collapse:collapse;min-width:920px}
+th,td{padding:11px 10px;border-bottom:1px solid #eee3d8;text-align:left;vertical-align:top;font-size:13px}
+th{background:#fff8ef;color:#6d503d;font-size:11px;text-transform:uppercase;letter-spacing:.3px;position:sticky;top:0}
+.code{font-weight:900;color:#8b4f2b}.name{font-weight:800;color:#49352a}.muted{color:#927e70;font-size:11px;margin-top:3px}
+.status{border:1px solid #ddc8b4;background:#fffaf5;color:#65452f;border-radius:9px;padding:8px;font-weight:800}
+.detail{border:0;background:#f3e7da;color:#7d4d31;border-radius:9px;padding:8px 10px;font-weight:800}
+.empty{text-align:center;padding:35px;color:#927866}
+.modal{position:fixed;inset:0;background:rgba(40,25,15,.55);z-index:50;display:none;align-items:center;justify-content:center;padding:15px}
+.modal-box{width:100%;max-width:560px;max-height:90vh;overflow:auto;background:#fffaf5;border-radius:20px;padding:19px;border:1px solid #eadbca}
+.modal-head{display:flex;justify-content:space-between;gap:10px;align-items:center;border-bottom:1px solid #eadbca;padding-bottom:10px;margin-bottom:10px}
+.modal-head h2{margin:0;color:#5b3a25;font-size:19px}
+.close{border:0;background:#eee1d5;width:34px;height:34px;border-radius:50%;font-size:20px}
+.detail-row{padding:9px 0;border-bottom:1px solid #eee3d8;font-size:13px;line-height:1.5}
+.detail-row b{color:#604838}.items{white-space:pre-line;color:#6c5a4c}
+.note{font-size:11px;color:#927866;margin-top:12px;line-height:1.5}
+.toast{position:fixed;right:15px;bottom:15px;background:#4d382b;color:#fff;padding:11px 14px;border-radius:10px;display:none;z-index:100;font-size:13px}
+@media(max-width:950px){.stats{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:650px){
+ .top-inner{padding:11px 12px}.brand{font-size:18px}
+ .wrap{padding:12px}.stats{grid-template-columns:repeat(2,1fr)}
+ .toolbar{grid-template-columns:1fr}.refresh{width:100%}
+ .stat b{font-size:18px}
+}
+</style>
+</head>
+<body>
+
+<div id="loginPage" class="login-wrap">
+  <div class="login">
+    <h1>🔐 Quản trị Ăn Vặt Lâm Thao</h1>
+    <p>Đăng nhập để quản lý đơn hàng trực tiếp trên website.</p>
+
+    <div class="field">
+      <label>Tài khoản</label>
+      <input id="username" autocomplete="username" placeholder="Tài khoản admin">
+    </div>
+
+    <div class="field">
+      <label>Mật khẩu</label>
+      <input id="password" type="password" autocomplete="current-password" placeholder="Mật khẩu">
+    </div>
+
+    <button class="primary" onclick="login()">Đăng nhập</button>
+    <div id="loginError" class="error hidden"></div>
+  </div>
+</div>
+
+<div id="adminPage" class="hidden">
+  <header class="top">
+    <div class="top-inner">
+      <div>
+        <div class="brand">🍢 Ăn Vặt Lâm Thao — Admin</div>
+        <div class="sub">Quản lý đơn hàng trực tiếp từ website</div>
+      </div>
+      <button class="logout" onclick="logout()">Đăng xuất</button>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="stats">
+      <div class="stat"><small>Tổng đơn</small><b id="sTotal">0</b></div>
+      <div class="stat"><small>Chờ xác nhận</small><b id="sWaiting">0</b></div>
+      <div class="stat"><small>Đang chuẩn bị</small><b id="sPreparing">0</b></div>
+      <div class="stat"><small>Đang giao</small><b id="sDelivering">0</b></div>
+      <div class="stat"><small>Đã giao</small><b id="sDelivered">0</b></div>
+      <div class="stat"><small>Doanh thu đã giao</small><b id="sRevenue">0đ</b></div>
+    </section>
+
+    <section class="toolbar">
+      <input id="search" placeholder="Tìm mã đơn, tên, SĐT, địa chỉ..." oninput="debouncedLoadOrders()">
+      <select id="statusFilter" onchange="loadOrders()">
+        <option value="">Tất cả trạng thái</option>
+        <option value="🌎 Chờ xác nhận">🌎 Chờ xác nhận</option>
+        <option value="👨🏽‍🍳 Đang chuẩn bị đơn hàng">👨🏽‍🍳 Đang chuẩn bị đơn hàng</option>
+        <option value="🛵 Đang giao">🛵 Đang giao</option>
+        <option value="☑️ Đã giao">☑️ Đã giao</option>
+      </select>
+      <button class="refresh" onclick="refreshAll()">↻ Cập nhật</button>
+    </section>
+
+    <section class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Mã đơn</th>
+            <th>Khách hàng</th>
+            <th>Sản phẩm</th>
+            <th>Tổng tiền</th>
+            <th>Thời gian</th>
+            <th>Trạng thái</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="ordersBody"></tbody>
+      </table>
+    </section>
+    <div class="note">
+      Dữ liệu lấy trực tiếp từ sheet CHICHUCHE. Khi đổi trạng thái, hệ thống vẫn gọi luồng thông báo FCM hiện tại của website.
+    </div>
+  </main>
+</div>
+
+<div id="detailModal" class="modal" onclick="if(event.target===this)closeDetail()">
+  <div class="modal-box">
+    <div class="modal-head">
+      <h2 id="detailTitle">Chi tiết đơn hàng</h2>
+      <button class="close" onclick="closeDetail()">×</button>
+    </div>
+    <div id="detailContent"></div>
+  </div>
+</div>
+
+<div id="toast" class="toast"></div>
+
+<script>
+const GOOGLE_SCRIPT_URL =
+"https://script.google.com/macros/s/AKfycbxva6g2yr098N7spmEGl_LbvNZKlDo_C2tPQUkI3IsAIpMyJtiGvPJhYNNXaGEXeUPm/exec";
+
+const SESSION_KEY="ANVAT_ADMIN_SESSION";
+let orders=[];
+let timer=null;
+let debounceTimer=null;
+
+function money(n){
+  return Number(n||0).toLocaleString("vi-VN")+"đ";
+}
+
+function esc(v){
+  return String(v==null?"":v)
+    .replace(/&/g,"&amp;").replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;").replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+}
+
+async function api(action, params={}){
+  const q=new URLSearchParams();
+  q.set("action",action);
+  Object.entries(params).forEach(([k,v])=>q.set(k,String(v??"")));
+  const res=await fetch(GOOGLE_SCRIPT_URL+"?"+q.toString(),{cache:"no-store"});
+  return await res.json();
+}
+
+async function login(){
+  const username=document.getElementById("username").value.trim();
+  const password=document.getElementById("password").value;
+  const err=document.getElementById("loginError");
+  err.classList.add("hidden");
+
+  if(!username || !password){
+    err.textContent="Vui lòng nhập đầy đủ tài khoản và mật khẩu.";
+    err.classList.remove("hidden");
+    return;
+  }
+
+  try{
+    const data=await api("adminLogin",{username,password});
+    if(!data.success){
+      err.textContent=data.message||"Đăng nhập thất bại.";
+      err.classList.remove("hidden");
+      return;
+    }
+
+    sessionStorage.setItem(SESSION_KEY,data.token);
+    document.getElementById("password").value="";
+    showAdmin();
+    refreshAll();
+  }catch(e){
+    err.textContent="Không kết nối được hệ thống quản trị.";
+    err.classList.remove("hidden");
+  }
+}
+
+function showAdmin(){
+  document.getElementById("loginPage").classList.add("hidden");
+  document.getElementById("adminPage").classList.remove("hidden");
+}
+
+function logout(){
+  sessionStorage.removeItem(SESSION_KEY);
+  if(timer)clearInterval(timer);
+  document.getElementById("adminPage").classList.add("hidden");
+  document.getElementById("loginPage").classList.remove("hidden");
+}
+
+function token(){
+  return sessionStorage.getItem(SESSION_KEY)||"";
+}
+
+async function refreshAll(){
+  if(!token()){logout();return;}
+  await Promise.all([loadStats(),loadOrders()]);
+}
+
+async function loadStats(){
+  try{
+    const data=await api("adminStats",{token:token()});
+    if(!data.success){toast(data.message||"Phiên đăng nhập hết hạn.");logout();return;}
+    const s=data.stats||{};
+    document.getElementById("sTotal").textContent=s.total||0;
+    document.getElementById("sWaiting").textContent=s.waiting||0;
+    document.getElementById("sPreparing").textContent=s.preparing||0;
+    document.getElementById("sDelivering").textContent=s.delivering||0;
+    document.getElementById("sDelivered").textContent=s.delivered||0;
+    document.getElementById("sRevenue").textContent=money(s.revenueDelivered||0);
+  }catch(e){}
+}
+
+function debouncedLoadOrders(){
+  clearTimeout(debounceTimer);
+  debounceTimer=setTimeout(loadOrders,350);
+}
+
+async function loadOrders(){
+  if(!token()){logout();return;}
+  const body=document.getElementById("ordersBody");
+  body.innerHTML='<tr><td colspan="7" class="empty">Đang tải đơn hàng...</td></tr>';
+
+  try{
+    const data=await api("adminOrders",{
+      token:token(),
+      search:document.getElementById("search").value.trim(),
+      status:document.getElementById("statusFilter").value,
+      limit:300
+    });
+
+    if(!data.success){
+      toast(data.message||"Không tải được đơn hàng.");
+      if((data.message||"").toLowerCase().includes("phiên"))logout();
+      return;
+    }
+
+    orders=data.orders||[];
+    renderOrders();
+  }catch(e){
+    body.innerHTML='<tr><td colspan="7" class="empty">Không thể kết nối dữ liệu.</td></tr>';
+  }
+}
+
+function renderOrders(){
+  const body=document.getElementById("ordersBody");
+
+  if(!orders.length){
+    body.innerHTML='<tr><td colspan="7" class="empty">Chưa có đơn hàng phù hợp.</td></tr>';
+    return;
+  }
+
+  body.innerHTML=orders.map((o,i)=>{
+    const statusOptions=[
+      "🌎 Chờ xác nhận",
+      "👨🏽‍🍳 Đang chuẩn bị đơn hàng",
+      "🛵 Đang giao",
+      "☑️ Đã giao"
+    ].map(s=>`<option value="${esc(s)}" ${o.status===s?"selected":""}>${esc(s)}</option>`).join("");
+
+    const disabled=o.status==="☑️ Đã giao"?"disabled":"";
+
+    return `<tr>
+      <td>
+        <div class="code">${esc(o.code)}</div>
+        <div class="muted">${o.hasFcm?"🔔 FCM":"—"}</div>
+      </td>
+      <td>
+        <div class="name">${esc(o.name)}</div>
+        <div class="muted">${esc(o.phone)}</div>
+        <div class="muted">${esc(o.address)}</div>
+      </td>
+      <td><div>${esc(o.items)}</div><div class="muted">SL: ${esc(o.quantity)}</div></td>
+      <td><b>${money(o.total)}</b></td>
+      <td>${esc(o.time)}</td>
+      <td>
+        <select class="status" ${disabled}
+          onchange="updateStatus(${i},this.value)">
+          ${statusOptions}
+        </select>
+      </td>
+      <td><button class="detail" onclick="showDetail(${i})">Chi tiết</button></td>
+    </tr>`;
+  }).join("");
+}
+
+async function updateStatus(index,newStatus){
+  const order=orders[index];
+  if(!order)return;
+
+  if(order.status==="☑️ Đã giao"){
+    toast("Đơn đã giao đã bị khóa.");
+    return;
+  }
+
+  if(!confirm("Đổi trạng thái đơn "+order.code+" thành:\n"+newStatus+" ?")) {
+    renderOrders();
+    return;
+  }
+
+  try{
+    const data=await api("adminUpdateStatus",{
+      token:token(),
+      code:order.code,
+      status:newStatus
+    });
+
+    if(!data.success){
+      toast(data.message||"Không cập nhật được trạng thái.");
+      await loadOrders();
+      return;
+    }
+
+    toast("✅ Đã cập nhật "+order.code);
+    await refreshAll();
+  }catch(e){
+    toast("❌ Không thể cập nhật trạng thái.");
+    await loadOrders();
+  }
+}
+
+function showDetail(index){
+  const o=orders[index];
+  if(!o)return;
+
+  document.getElementById("detailTitle").textContent="📦 "+o.code;
+
+  document.getElementById("detailContent").innerHTML=`
+    <div class="detail-row"><b>Khách hàng:</b> ${esc(o.name)}</div>
+    <div class="detail-row"><b>Số điện thoại:</b> ${esc(o.phone)}</div>
+    <div class="detail-row"><b>Địa chỉ:</b> ${esc(o.address)}</div>
+    <div class="detail-row"><b>Ghi chú:</b> ${esc(o.note||"Không có")}</div>
+    <div class="detail-row"><b>Món đã đặt:</b><div class="items">${esc(o.items)}</div></div>
+    <div class="detail-row"><b>Số lượng:</b> ${esc(o.quantity)}</div>
+    <div class="detail-row"><b>Tổng tiền:</b> <strong>${money(o.total)}</strong></div>
+    <div class="detail-row"><b>Thời gian:</b> ${esc(o.time)}</div>
+    <div class="detail-row"><b>Trạng thái:</b> ${esc(o.status)}</div>
+    <div class="detail-row"><b>Tọa độ:</b> ${esc(o.latitude)} ${o.longitude!==""?", "+esc(o.longitude):""}</div>
+  `;
+
+  document.getElementById("detailModal").style.display="flex";
+}
+
+function closeDetail(){
+  document.getElementById("detailModal").style.display="none";
+}
+
+function toast(message){
+  const el=document.getElementById("toast");
+  el.textContent=message;
+  el.style.display="block";
+  clearTimeout(el._t);
+  el._t=setTimeout(()=>el.style.display="none",2800);
+}
+
+document.getElementById("password").addEventListener("keydown",e=>{
+  if(e.key==="Enter")login();
+});
+
+if(sessionStorage.getItem(SESSION_KEY)){
+  showAdmin();
+  refreshAll();
+}
+
+timer=setInterval(()=>{
+  if(sessionStorage.getItem(SESSION_KEY)) refreshAll();
+},20000);
+</script>
+</body>
+</html>
