@@ -748,153 +748,6 @@ button{-webkit-tap-highlight-color:transparent}
   .order-history-card .order-history-detail-title{align-items:flex-start;flex-direction:column;gap:5px}
 }
 </style>
-
-<style id="ui-menu-update-v1">
-/* ===== UI UPDATE V1: MENU NGANG DƯỚI HEADER ===== */
-:root{
-  --ui-green:#22c55e;
-  --ui-green-dark:#15803d;
-  --ui-dark:#09090b;
-  --ui-card:#18181b;
-  --ui-cream:#fff7ed;
-}
-
-.top-nav-pills{
-  position:sticky;
-  top:0;
-  z-index:96;
-  width:100%;
-  padding:9px 12px;
-  background:rgba(9,9,11,.96);
-  border-bottom:1px solid rgba(34,197,94,.18);
-  box-shadow:0 7px 22px rgba(0,0,0,.16);
-  backdrop-filter:blur(12px);
-}
-.top-nav-pills-inner{
-  max-width:1180px;
-  margin:0 auto;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:10px;
-  overflow-x:auto;
-  scrollbar-width:none;
-}
-.top-nav-pills-inner::-webkit-scrollbar{display:none}
-.top-nav-pill{
-  flex:0 0 auto;
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  min-height:40px;
-  padding:8px 20px;
-  border:1px solid rgba(34,197,94,.45);
-  border-radius:999px;
-  background:linear-gradient(135deg,#17171a,#111113);
-  color:#f4f4f5;
-  font-size:14px;
-  font-weight:850;
-  letter-spacing:.1px;
-  box-shadow:0 3px 12px rgba(0,0,0,.2);
-  transition:transform .22s ease,background .22s ease,border-color .22s ease,box-shadow .22s ease,color .22s ease;
-}
-.top-nav-pill:hover{
-  color:#fff;
-  background:linear-gradient(135deg,#14532d,#166534);
-  border-color:#22c55e;
-  transform:translateY(-2px);
-  box-shadow:0 7px 18px rgba(34,197,94,.22);
-}
-.top-nav-pill.active{
-  color:#052e16;
-  background:#22c55e;
-  border-color:#22c55e;
-  box-shadow:0 6px 18px rgba(34,197,94,.28);
-}
-.top-nav-pill:active{transform:scale(.97)}
-
-@media(max-width:700px){
-  .top-nav-pills{
-    padding:7px 9px;
-    top:0;
-  }
-  .top-nav-pills-inner{
-    justify-content:flex-start;
-    gap:7px;
-  }
-  .top-nav-pill{
-    min-height:36px;
-    padding:7px 15px;
-    font-size:12px;
-  }
-}
-
-/* Khi menu mới xuất hiện, category filter không che menu */
-.category-menu{
-  z-index:50!important;
-}
-
-/* Giữ phần Hero thoáng và nổi bật hơn */
-.den-hero{
-  margin-top:14px!important;
-}
-
-/* Không còn các quick-benefits đã được yêu cầu xóa */
-.quick-benefits{display:none!important}
-
-/* Đường neo không bị header/menu che khi bấm điều hướng */
-#home,#products,#promotion,#contact{
-  scroll-margin-top:78px;
-}
-
-/* Liên hệ là cụm nút fixed; không làm thay đổi chức năng */
-#contact{scroll-margin-top:90px}
-</style>
-
-<script>
-(function(){
-  const nav = document.querySelector('.top-nav-pills');
-  if(!nav) return;
-
-  const links = [...nav.querySelectorAll('.top-nav-pill')];
-
-  function setActive(name){
-    links.forEach(link => {
-      link.classList.toggle('active', link.dataset.nav === name);
-    });
-  }
-
-  links.forEach(link => {
-    link.addEventListener('click', function(){
-      setActive(this.dataset.nav);
-    });
-  });
-
-  // Tự đổi trạng thái menu khi cuộn trang.
-  const sections = [
-    {id:'home', name:'home'},
-    {id:'products', name:'menu'},
-    {id:'promotion', name:'promotion'},
-    {id:'contact', name:'contact'}
-  ];
-
-  const updateByScroll = () => {
-    const y = window.scrollY + 140;
-    let current = 'home';
-
-    sections.forEach(section => {
-      const el = document.getElementById(section.id);
-      if(el && el.offsetTop <= y) current = section.name;
-    });
-
-    setActive(current);
-  };
-
-  window.addEventListener('scroll', updateByScroll, {passive:true});
-  updateByScroll();
-})();
-</script>
-
 </head>
 <body>
 
@@ -974,28 +827,17 @@ button{-webkit-tap-highlight-color:transparent}
 <header>
   <div class="header-inner den-header">
     <div class="logo"><img class="logo-image" src="logowed.png" alt="Ăn Vặt Lâm Thao" loading="eager" decoding="async"></div>
-        <strong>Ăn Vặt Lâm Thao</strong>
-        <small>Trà sữa • Đồ ăn vặt • Coffee</small>
-      </span>
-    </a>
+    <div class="header-search">
+      <span>🔍</span>
+      <input id="productSearch" type="search" placeholder="Tìm món ăn, đồ uống..." oninput="searchProducts(this.value)">
+    </div>
     <button class="header-cart order-tracker-btn" onclick="openOrderTracker()">📋 <span>Lịch Sử Đơn Hàng</span></button>
     <button id="installAppBtn" class="pwa-install-btn" type="button" onclick="installPWA()" aria-label="Cài ứng dụng Ăn Vặt Lâm Thao">📲 Cài app</button>
   </div>
 </header>
 
-<!-- THANH ĐIỀU HƯỚNG -->
-<nav class="top-nav-pills" aria-label="Điều hướng chính">
-  <div class="top-nav-pills-inner">
-    <a href="#home" class="top-nav-pill active" data-nav="home">Trang chủ</a>
-    <a href="#products" class="top-nav-pill" data-nav="menu">Thực đơn</a>
-    <a href="#promotion" class="top-nav-pill" data-nav="promotion">Khuyến mãi</a>
-    <a href="#contact" class="top-nav-pill" data-nav="contact">Liên hệ</a>
-  </div>
-</nav>
-
-
 <!-- HERO -->
-<section id="home" class="hero den-hero">
+<section class="hero den-hero">
   <div class="hero-content">
     <div class="hero-badge">🔥 ĂN VẶT NGON MỖI NGÀY</div>
     <h1>Đặt món online <span>nhanh chóng</span></h1>
@@ -1004,12 +846,24 @@ button{-webkit-tap-highlight-color:transparent}
       <span>📍 Việt Trì</span><span>📍 Thị xã PT</span><span>📍 Lâm Thao</span><span>📍 KCN Phú Hà</span><span>📍 KCN Thuỵ Vân</span>
     </div>
   </div>
-  <div id="promotion" class="hero-voucher"><strong>🎁 KHACHMOI</strong><small>Giảm 20% cho đơn đầu tiên</small></div>
+  <div class="hero-voucher"><strong>🎁 KHACHMOI</strong><small>Giảm 20% cho đơn đầu tiên</small></div>
 </section>
+
+<div class="quick-benefits">
+  <div>🚚<span><b>Giao tận nơi</b><small>Trong khu vực</small></span></div>
+  <div>⚡<span><b>Đặt món online</b><small>Quán gọi xác nhận đơn sau 1-2 Phút</small></span></div>
+  <div>🎁<span><b>Ưu đãi khách mới</b><small>Voucher: KHACHMOI</small></span></div>
+  <div>💬<span><b>Hỗ trợ đặt hàng</b><small>Zalo / Hotline</small></span></div>
+</div>
 
 <!-- PRODUCTS -->
 
 <main class="container">
+
+    <div class="popular-row">
+      <div><span class="hot-dot">🔥</span><b>Danh mục món</b><small>Chọn nhanh món bạn thích</small></div>
+      <span class="scroll-hint">Vuốt ngang →</span>
+    </div>
     <div class="category-menu">
 
     <button
@@ -1090,7 +944,7 @@ button{-webkit-tap-highlight-color:transparent}
 
 <!-- CONTACT -->
 
-<div id="contact" class="contact-buttons">
+<div class="contact-buttons">
 
     <a
         href="https://zalo.me/0978472704"
