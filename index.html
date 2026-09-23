@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="theme-color" content="#8b5e3c">
+<meta name="theme-color" content="#2563EB">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
@@ -748,6 +748,28 @@ button{-webkit-tap-highlight-color:transparent}
   .order-history-card .order-history-detail-title{align-items:flex-start;flex-direction:column;gap:5px}
 }
 </style>
+<style id="premium-blue-cream-ui">
+:root{--brand:#2563EB;--brand-dark:#1D4ED8;--brand-soft:#EAF2FF;--text:#182235;--border:#D9E5F5;--bg:#F7F9FC;--white:#fff;--cream:#FFFDF8;--blue-ink:#163A70}
+body{background:linear-gradient(180deg,#fffdf8 0%,#f7f9fc 42%,#f3f7fc 100%);color:var(--text)}
+header{background:rgba(255,253,248,.94);border-bottom:1px solid #dbe6f4;box-shadow:0 5px 24px rgba(37,99,235,.08);backdrop-filter:blur(16px);padding:10px 16px}
+.header-inner{max-width:1200px!important;justify-content:space-between!important;gap:18px;min-height:66px}
+.logo{display:flex!important;align-items:center;gap:12px;color:#163A70!important;min-width:0}
+.logo-image{width:52px;height:52px;object-fit:contain;border-radius:15px;background:#fff;box-shadow:0 5px 18px rgba(37,99,235,.16);border:1px solid #dbe8f8}
+.logo-copy{display:flex;flex-direction:column;line-height:1.15;text-align:left}.logo-copy strong{font-size:21px;color:#123568;letter-spacing:-.3px}.logo-copy small{font-size:11px;color:#54709a;margin-top:5px;font-weight:700;letter-spacing:.2px}
+.header-search{display:none!important}.pwa-install-btn{display:none!important}.customer-btn{display:none!important}
+.order-tracker-btn{border:1px solid #c9daf2!important;background:linear-gradient(180deg,#fff,#f5f9ff)!important;color:#17457f!important;border-radius:999px!important;padding:11px 16px!important;font-weight:800!important;box-shadow:0 5px 16px rgba(37,99,235,.10);transition:.2s}.order-tracker-btn:hover{border-color:#2563eb!important;color:#2563eb!important;transform:translateY(-1px);box-shadow:0 8px 22px rgba(37,99,235,.16)}
+.hero{background:radial-gradient(circle at 85% 15%,rgba(37,99,235,.16),transparent 30%),linear-gradient(135deg,#fffdf8,#edf5ff 55%,#f7fbff);border:1px solid #d9e6f6;box-shadow:0 12px 35px rgba(28,63,110,.09);border-radius:24px}.hero h1{color:#173a6b}.hero h1 span{color:#2563eb}.hero p{color:#5e6f86}.hero-badge{background:#e9f2ff!important;color:#1d4ed8!important;border-color:#cfe0f7!important}.hero-voucher{background:#fff;border:1px solid #cfe0f5!important;box-shadow:0 10px 24px rgba(37,99,235,.10)!important;color:#17457f!important}.ship-chips span{background:rgba(255,255,255,.78)!important;border-color:#d7e4f4!important;color:#46658c!important}
+.quick-benefits{filter:drop-shadow(0 7px 16px rgba(37,99,235,.06))}.quick-benefits>div{background:rgba(255,255,255,.86)!important;border:1px solid #dbe6f4!important;color:#183b6d!important;border-radius:16px!important}.quick-benefits small{color:#71819a!important}
+.popular-row{color:#173a6b}.hot-dot{filter:drop-shadow(0 2px 5px rgba(37,99,235,.2))}.category-menu{background:rgba(255,253,248,.92);border-color:#d7e4f4;box-shadow:0 8px 22px rgba(35,65,105,.08)}.category-btn{color:#5d6f87}.category-btn:hover{background:#edf4ff;color:#1d4ed8}.category-btn.active{background:linear-gradient(135deg,#2563eb,#1d4ed8);border-color:#2563eb;box-shadow:0 7px 16px rgba(37,99,235,.22)}
+.products{gap:16px}.product{background:linear-gradient(180deg,#fff,#fbfdff);border:1px solid #dbe6f3;border-radius:16px;box-shadow:0 7px 20px rgba(28,63,110,.08)}.product:hover{transform:translateY(-4px);border-color:#9dbce5;box-shadow:0 15px 30px rgba(37,99,235,.14)}.product-photo-wrap{background:#f0f6ff}.product-image{transition:transform .35s ease;object-fit:cover}.product:hover .product-image{transform:scale(1.035)}.photo-badge{background:rgba(255,255,255,.92)!important;color:#1d4ed8!important;border-color:#cfe0f5!important;box-shadow:0 4px 12px rgba(37,99,235,.10)}.product-name{color:#1c2d43}.product-meta{color:#6d7e95}.stars{color:#f59e0b!important}.product-price{color:#1d4ed8!important}.add-btn{background:linear-gradient(135deg,#2563eb,#1d4ed8)!important;border:2px solid #fff!important;box-shadow:0 7px 16px rgba(37,99,235,.25)!important}.add-btn:hover{background:#174bbd!important}.menu-quantity{border-color:#cfe0f5!important;background:#f4f8ff!important}.menu-quantity button{color:#1d4ed8!important}
+.cart-bar{background:rgba(255,253,248,.96)!important;border-top:1px solid #d9e5f5!important;box-shadow:0 -8px 25px rgba(37,99,235,.10)!important}.checkout-btn{background:linear-gradient(135deg,#2563eb,#1d4ed8)!important;box-shadow:0 7px 16px rgba(37,99,235,.20)!important;border-radius:999px!important}.cart-summary span{color:#1d4ed8!important}
+.modal-box,.payment-box{background:#fffdf9;border:1px solid #dce7f4;box-shadow:0 22px 60px rgba(25,55,95,.18);border-radius:20px}.modal-header h2,.payment-box h2{color:#183b6d}.close-btn,.payment-close{background:#edf4ff;color:#31557f}.confirm-btn,.payment-done,.voucher-row button{background:linear-gradient(135deg,#2563eb,#1d4ed8)!important}.form-group input,.form-group textarea,.voucher-row input{border-color:#d6e2f0;background:#fff}.form-group input:focus,.form-group textarea:focus,.voucher-row input:focus{border-color:#2563eb;box-shadow:0 0 0 3px rgba(37,99,235,.10)}.voucher-box{background:#eef5ff;border-color:#cfe0f5}.notification-permission{background:#f7fbff;border-color:#d5e4f5}.notification-permission-btn{background:#2563eb}.notification-permission-btn.enabled{background:#16a34a}
+.contact-btn{box-shadow:0 7px 18px rgba(28,63,110,.15)}footer{background:#f7faff;border-top-color:#dce7f4;color:#66758b}
+.welcome-popup{background:rgba(15,32,55,.55);backdrop-filter:blur(6px)}.welcome-box{max-width:450px;padding:30px 24px;border:1px solid #d5e3f3;border-radius:24px;background:linear-gradient(145deg,#fffdf8,#f3f8ff);box-shadow:0 28px 80px rgba(20,48,86,.28);animation:welcomePremium .38s cubic-bezier(.2,.8,.2,1)}.welcome-icon{width:72px;height:72px;margin:0 auto 12px;display:flex;align-items:center;justify-content:center;border-radius:22px;background:linear-gradient(135deg,#2563eb,#60a5fa);box-shadow:0 12px 28px rgba(37,99,235,.22);font-size:36px}.welcome-box h2{color:#163a70;font-size:24px;line-height:1.25}.welcome-box p{color:#586b84}.welcome-close{background:linear-gradient(135deg,#2563eb,#1d4ed8);border-radius:999px;box-shadow:0 8px 18px rgba(37,99,235,.22)}@keyframes welcomePremium{from{opacity:0;transform:translateY(14px) scale(.96)}to{opacity:1;transform:translateY(0) scale(1)}}
+/* Header mobile: logo + thương hiệu bên trái, lịch sử bên phải */
+@media(max-width:640px){header{padding:8px 10px}.header-inner{min-height:58px;gap:8px}.logo-image{width:44px;height:44px;border-radius:13px}.logo-copy strong{font-size:16px}.logo-copy small{font-size:9px;margin-top:3px}.order-tracker-btn{padding:9px 11px!important;font-size:12px!important;white-space:nowrap}.order-tracker-btn span{display:inline!important}.hero{margin-top:10px}.products{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.product-image{height:155px}.product-info{padding:9px}.product-name{font-size:13px}.product-price{font-size:16px}.add-btn{width:34px;height:34px;font-size:21px;line-height:34px}}
+@media(max-width:370px){.logo-copy strong{font-size:14px}.logo-copy small{font-size:8px}.order-tracker-btn{padding:8px 9px!important;font-size:11px!important}.product-image{height:135px}.product-name{font-size:12px}.product-price{font-size:15px}}
+</style>
 </head>
 <body>
 
@@ -756,34 +778,12 @@ button{-webkit-tap-highlight-color:transparent}
 ============================== -->
 
 <div id="welcomePopup" class="welcome-popup">
-
-    <div class="welcome-box">
-
-        <div class="welcome-icon">
-            🛍️
-        </div>
-
-        <h2>
-            Chào mừng đến Ăn Vặt Lâm Thao!
-        </h2>
-
-        <p>
-            🎉 Cảm ơn bạn đã ghé thăm shop.<br>
-            🎁 Voucher tặng bạn giảm 20% : KHACHMOI
-            🛒 Chúc bạn mua hàng vui vẻ!<br>
-            🚀 Ship hàng hoả tốc 24/7
-            💟 Mua càng nhiều giá càng hời .
-        </p>
-
-        <button
-            class="welcome-close"
-            onclick="closeWelcomePopup()"
-        >
-            ✅ Đã hiểu
-        </button>
-
-    </div>
-
+  <div class="welcome-box">
+    <div class="welcome-icon">🛍️</div>
+    <h2>Chào mừng đến Ăn Vặt Lâm Thao!</h2>
+    <p>✨ Món ngon mỗi ngày · 🧋 Trà sữa · ☕ Coffee · 🍟 Đồ ăn vặt<br>🎁 Khách mới nhận ưu đãi <b>KHACHMOI</b><br>🛵 Đặt online nhanh chóng · Quán gọi xác nhận đơn sau 1–2 phút</p>
+    <button class="welcome-close" onclick="closeWelcomePopup()">✨ Khám phá thực đơn</button>
+  </div>
 </div>
 
 <!-- ORDER SUCCESS MODAL -->
@@ -826,13 +826,14 @@ button{-webkit-tap-highlight-color:transparent}
 
 <header>
   <div class="header-inner den-header">
-    <div class="logo"><img class="logo-image" src="logowed.png" alt="Ăn Vặt Lâm Thao" loading="eager" decoding="async"></div>
-    <div class="header-search">
-      <span>🔍</span>
-      <input id="productSearch" type="search" placeholder="Tìm món ăn, đồ uống..." oninput="searchProducts(this.value)">
+    <div class="logo">
+      <img class="logo-image" src="logowed.png" alt="Ăn Vặt Lâm Thao" loading="eager" decoding="async">
+      <div class="logo-copy">
+        <strong>Ăn Vặt Lâm Thao</strong>
+        <small>Trà sữa · Đồ ăn vặt · Coffee</small>
+      </div>
     </div>
     <button class="header-cart order-tracker-btn" onclick="openOrderTracker()">📋 <span>Lịch Sử Đơn Hàng</span></button>
-    <button id="installAppBtn" class="pwa-install-btn" type="button" onclick="installPWA()" aria-label="Cài ứng dụng Ăn Vặt Lâm Thao">📲 Cài app</button>
   </div>
 </header>
 
