@@ -435,43 +435,8 @@ button{-webkit-tap-highlight-color:transparent}
 }
 
 
-
-/* ===== POPUP CHÀO MỪNG SAU KHI BẤM "ĐÃ HIỂU" ===== */
-.welcome-toast{
-  position:fixed;
-  left:50%;
-  bottom:82px;
-  z-index:650;
-  max-width:calc(100% - 28px);
-  padding:13px 20px;
-  border-radius:999px;
-  background:linear-gradient(135deg,#8b5e3c,#6f472c);
-  color:#fffaf5;
-  border:1px solid rgba(255,255,255,.28);
-  box-shadow:0 10px 28px rgba(75,48,31,.28);
-  font-size:14px;
-  font-weight:850;
-  text-align:center;
-  white-space:nowrap;
-  opacity:0;
-  visibility:hidden;
-  pointer-events:none;
-  transform:translate(-50%,18px) scale(.96);
-  transition:opacity .28s ease,transform .28s ease,visibility .28s ease;
-}
-.welcome-toast.show{
-  opacity:1;
-  visibility:visible;
-  transform:translate(-50%,0) scale(1);
-}
-@media(max-width:520px){
-  .welcome-toast{
-    bottom:76px;
-    max-width:calc(100% - 24px);
-    padding:12px 16px;
-    font-size:13px;
-  }
-}
+.store-closed-banner{display:none;position:sticky;top:0;z-index:60;margin:0 auto;padding:12px 16px;background:linear-gradient(135deg,#fff1ed,#fff8f5);border-bottom:1px solid #f0b8a8;box-shadow:0 5px 18px #00000012;text-align:center;color:#9f2d1f}.store-closed-banner.show{display:block}.store-closed-banner strong{display:block;font-size:15px}.store-closed-banner small{display:block;margin-top:3px;color:#7b5547}.store-closed-banner .reopen{font-weight:800;color:#7d4d31;margin-top:3px}
+.order-store-closed{background:#fff0ed!important;color:#b42318!important;border-color:#f0b8a8!important}
 </style>
 <style>
 /* ===== VỊ TRÍ LỊCH SỬ ĐƠN HÀNG: GIỮA TÌM KIẾM VÀ GIỎ HÀNG ===== */
@@ -789,6 +754,8 @@ button{-webkit-tap-highlight-color:transparent}
 </head>
 <body>
 
+<div id="storeClosedBanner" class="store-closed-banner" role="status" aria-live="polite"><strong>🔴 Quán đang tạm nghỉ</strong><small id="storeClosedMessage">Hiện tại quán chưa nhận đơn.</small><div id="storeClosedReopen" class="reopen"></div></div>
+
 <!-- ==============================
      POPUP CHÀO MỪNG
 ============================== -->
@@ -802,7 +769,7 @@ button{-webkit-tap-highlight-color:transparent}
         </div>
 
         <h2>
-            🎉 Chào mừng đến ĂN VẶT LÂM THAO
+            Chào mừng đến Ăn Vặt Lâm Thao!
         </h2>
 
         <p>
@@ -822,11 +789,6 @@ button{-webkit-tap-highlight-color:transparent}
 
     </div>
 
-</div>
-
-<!-- THÔNG BÁO CHÀO MỪNG SAU KHI BẤM ĐÃ HIỂU -->
-<div id="welcomeToast" class="welcome-toast" aria-live="polite">
-    🎉 Chào mừng đến ĂN VẶT LÂM THAO
 </div>
 
 <!-- ORDER SUCCESS MODAL -->
@@ -2821,7 +2783,26 @@ function calculateTotal(){
    ORDER FORM
 ================================================== */
 
+let storeOpen=true;let storeStatusLoaded=false;let storeStatusTimer=null;
+function formatReopenTime(value){if(!value)return '';const d=new Date(value);if(isNaN(d.getTime()))return '';return d.toLocaleString('vi-VN',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'});}
+function applyStoreStatus(st){storeOpen=!!(st&&st.open);storeStatusLoaded=true;const banner=document.getElementById('storeClosedBanner'),msg=document.getElementById('storeClosedMessage'),reopen=document.getElementById('storeClosedReopen'),btn=document.getElementById('confirmOrderButton');if(storeOpen){if(banner)banner.classList.remove('show');if(btn){btn.disabled=false;btn.classList.remove('order-store-closed');btn.innerHTML='✅ Xác nhận đặt hàng';}}else{if(banner){banner.classList.add('show');if(msg)msg.textContent=st.message||'🔴 Hiện tại quán đang tạm nghỉ và chưa nhận đơn.';if(reopen)reopen.textContent=st.reopenAt?'⏰ Mở bán lại: '+formatReopenTime(st.reopenAt):'';}if(btn){btn.disabled=true;btn.classList.add('order-store-closed');btn.innerHTML='🔴 Quán đang tạm nghỉ';}}}
+async function refreshStoreStatus(){try{const r=await fetch(GOOGLE_SCRIPT_URL+'?action=storeStatus&_t='+Date.now(),{cache:'no-store'});if(!r.ok)throw new Error('HTTP '+r.status);const st=await r.json();if(st&&typeof st.open!=='undefined')applyStoreStatus(st);return st;}catch(e){console.warn('Không kiểm tra được trạng thái bán hàng:',e);return null;}}
+function startStoreStatusPolling(){clearInterval(storeStatusTimer);storeStatusTimer=setInterval(refreshStoreStatus,30000);}
+
 function openOrderForm(){
+
+    if(!storeStatusLoaded){
+        refreshStoreStatus().then(function(st){if(st&&st.open) openOrderForm();});
+        return;
+    }
+
+    if(!storeOpen){
+        refreshStoreStatus().then(function(st){
+            const message=(st&&st.message)||'🔴 Hiện tại quán đang tạm nghỉ và chưa nhận đơn.';
+            alert(message+(st&&st.reopenAt?'\n\n⏰ Mở bán lại: '+formatReopenTime(st.reopenAt):''));
+        });
+        return;
+    }
 
     if(cart.length === 0){
 
@@ -2946,6 +2927,14 @@ async function useVoucherServer(
 ================================================== */
 
 async function confirmOrder(){
+
+    if(!storeOpen){
+        const st=await refreshStoreStatus();
+        if(!st || !st.open){
+            alert((st&&st.message)||'🔴 Hiện tại quán đang tạm nghỉ và chưa nhận đơn.');
+            return;
+        }
+    }
 
     /* ==============================
        LẤY NÚT
@@ -3394,25 +3383,6 @@ function closeWelcomePopup(){
 
     }
 
-    // Sau khi khách bấm "Đã hiểu", hiện lời chào nhỏ vài giây.
-    const toast = document.getElementById("welcomeToast");
-
-    if(toast){
-
-        toast.classList.remove("show");
-
-        // Cho trình duyệt kịp nhận trạng thái ẩn trước khi chạy animation.
-        requestAnimationFrame(() => {
-            toast.classList.add("show");
-        });
-
-        // Tự biến mất sau 4 giây.
-        setTimeout(() => {
-            toast.classList.remove("show");
-        }, 4000);
-
-    }
-
 }
 
 /* ==================================================
@@ -3490,6 +3460,8 @@ function loadProducts(){
 }
 
 loadProducts();
+refreshStoreStatus();
+startStoreStatusPolling();
 setTimeout(openWelcomePopup, 350);
 
 
