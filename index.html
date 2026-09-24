@@ -4324,6 +4324,129 @@ function loadAllReviewSummaries(){
   return Promise.resolve(true);
 }
 
+function getReviewOrderHistory(){
+  try{
+    const list=typeof getOrderHistory==='function'?getOrderHistory():[];
+    return Array.isArray(list)?list:[];
+  }catch(e){return []}
+}
+function parseLocalOrderItems(order){
+  const raw=String(order?.items||'').split(',').map(x=>x.trim()).filter(Boolean),out=[];
+  raw.forEach(part=>{
+    let text=part.replace(/\s+/g,' ').trim(),qty=1;
+    const m=text.match(/\s*x\s*(\d+)\s*$/i);
+    if(m){qty=Math.max(1,Number(m[1])||1);text=text.slice(0,m.index).trim()}
+    if(text)out.push({name:text,qty});
+  });
+  return out;
+}
+function populateReviewOrders(){
+  const select=document.getElementById('reviewOrderSelect');
+  if(!select)return;
+  const history=getReviewOrderHistory();
+  select.innerHTML='<option value="">Chọn mã đơn cần đánh giá</option>'+history.map((o,i)=>{
+    const code=String(o.code||'').trim();
+    if(!code)return '';
+    const time=String(o.time||'').trim();
+    return `<option value="${i}">${escapeOrderHistoryHtml(code)} · ${escapeOrderHistoryHtml(time||'Không rõ thời gian')}</option>`;
+  }).join('');
+}
+function findReviewProduct(item){
+  return (products||[]).find(p=>
+    String(p.name||'').trim().toLowerCase()===
+    String(item.name||'').trim().toLowerCase()
+  )||null;
+}
+function reviewRowStarButtons(productId){
+  const current=Number(reviewRowRatings[String(productId)]||5);
+  return Array.from({length:5},(_,i)=>{
+    const n=i+1;
+    const safeId=String(productId).replace(/'/g,"\\'");
+    return `<button type="button" class="review-row-star ${n<=current?'active':''}" onclick="setReviewRowRating('${safeId}',${n})" aria-label="${n} sao">★</button>`;
+  }).join('');
+}
+function setReviewRowRating(productId,n){
+  reviewRowRatings[String(productId)]=Math.max(1,Math.min(5,Number(n)||5));
+  const selector=`[data-review-row="${String(productId).replace(/\\/g,'\\\\').replace(/"/g,'\\"')}"] .review-row-stars`;
+  const box=document.querySelector(selector);
+  if(box)box.innerHTML=reviewRowStarButtons(productId);
+}
+function renderReviewProductsRows(){
+  const box=document.getElementById('reviewProductsRows');
+  if(!box)return;
+  reviewRowRatings={};
+  const rows=reviewSelectedOrderItems.map(item=>{
+    const p=findReviewProduct(item);
+    if(!p){
+      return `<div class="review-product-row review-product-row-disabled">
+        <div class="review-row-name">🍢 ${escapeOrderHistoryHtml(item.name)}${item.qty>1?' × '+item.qty:''}</div>
+        <div class="review-row-unmatched">Món này chưa khớp dữ liệu hiện tại</div>
+      </div>`;
+    }
+    reviewRowRatings[String(p.id)]=5;
+    return `<div class="review-product-row" data-review-row="${escapeOrderHistoryHtml(String(p.id))}">
+      <div class="review-row-name" title="${escapeOrderHistoryHtml(item.name)}">🍢 ${escapeOrderHistoryHtml(item.name)}${item.qty>1?' × '+item.qty:''}</div>
+      <div class="review-row-stars">${reviewRowStarButtons(p.id)}</div>
+      <input class="review-row-comment" data-review-comment="${escapeOrderHistoryHtml(String(p.id))}" maxlength="500" placeholder="Nhận xét món này...">
+    </div>`;
+  }).join('');
+  box.innerHTML=rows||'<div class="review-empty">Đơn hàng chưa có danh sách món để đánh giá.</div>';
+}
+function onReviewOrderSelected(){
+  const select=document.getElementById('reviewOrderSelect');
+  const wrap=document.getElementById('reviewOrderProductsWrap');
+  const summary=document.getElementById('reviewCustomerSummary');
+  const history=getReviewOrderHistory();
+  const index=Number(select?.value);
+  reviewSelectedOrder=Number.isInteger(index)&&index>=0&&history[index]?history[index]:null;
+  reviewSelectedOrderItems=reviewSelectedOrder?parseLocalOrderItems(reviewSelectedOrder):[];
+  reviewProductId=null;
+  if(!reviewSelectedOrder){
+    if(wrap)wrap.style.display='none';
+    if(summary){summary.style.display='none';summary.innerHTML=''}
+    return;
+  }
+  const customerName=String(reviewSelectedOrder.name||reviewSelectedOrder.customerName||'Khách hàng').trim()||'Khách hàng';
+  if(summary){
+    summary.style.display='block';
+    summary.innerHTML=`👤 <b>${escapeOrderHistoryHtml(customerName)}</b><span> · Mã đơn: <b>${escapeOrderHistoryHtml(reviewSelectedOrder.code||'—')}</b></span><span> · ${escapeOrderHistoryHtml(reviewSelectedOrder.time||'Không rõ thời gian')}</span>`;
+  }
+  if(wrap)wrap.style.display='block';
+  renderReviewProductsRows();
+}
+function openReviewCenter(){
+  reviewProductId=null;
+  reviewSelectedOrder=null;
+  reviewSelectedOrderItems=[];
+  reviewRowRatings={};
+  const modal=document.getElementById('reviewModal');
+  const summary=document.getElementById('reviewCustomerSummary');
+  const msg=document.getElementById('reviewMessage');
+  const wrap=document.getElementById('reviewOrderProductsWrap');
+  if(msg){msg.textContent='';msg.style.color=''}
+  if(summary){summary.style.display='none';summary.innerHTML=''}
+  if(wrap)wrap.style.display='none';
+  populateReviewOrders();
+  const select=document.getElementById('reviewOrderSelect');
+  if(select)select.value='';
+  if(modal){
+    modal.classList.add('show');
+    modal.setAttribute('aria-hidden','false');
+  }
+}
+function openProductReview(id){openReviewCenter()}
+function closeProductReview(){
+  const modal=document.getElementById('reviewModal');
+  if(modal){
+    modal.classList.remove('show');
+    modal.setAttribute('aria-hidden','true');
+  }
+  reviewSelectedOrder=null;
+  reviewSelectedOrderItems=[];
+  reviewProductId=null;
+  reviewRowRatings={};
+}
+
 function submitAllProductReviews(items,order,name,phone,code){
   return new Promise(resolve=>{
     const cb='submitReviewsCallback_'+Date.now()+'_'+Math.floor(Math.random()*10000),s=document.createElement('script');
@@ -4432,6 +4555,15 @@ setTimeout(()=>{
   renderReviewSummaries();
 },0);
 
+function reviewButtonDelegationV17(){
+  document.addEventListener('click',function(ev){
+    const btn=ev.target && ev.target.closest ? ev.target.closest('#headerReviewBtn') : null;
+    if(!btn)return;
+    ev.preventDefault();
+    ev.stopPropagation();
+    openReviewCenter();
+  },true);
+}
 function initReviewButtonFix(){
   const btn=document.getElementById('headerReviewBtn');
   if(!btn || btn.__reviewBound)return;
