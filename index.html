@@ -1124,7 +1124,7 @@ button{-webkit-tap-highlight-color:transparent}
   }
 }
 </style>
-<style id="review-header-final-v1">.den-header{grid-template-columns:auto 1fr auto auto!important;align-items:center!important;gap:10px!important}.header-review-btn{width:170px!important;min-width:170px!important;height:42px!important;border:1px solid #b98b62!important;border-radius:10px!important;background:#fff7ef!important;color:#70472d!important;font-weight:800!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;white-space:nowrap!important}@media(max-width:700px){.den-header{grid-template-columns:78px minmax(0,1fr) 170px!important}.header-review-btn{width:170px!important;min-width:170px!important;height:36px!important;font-size:11px!important}.den-header #installAppBtn{display:none!important}}@media(max-width:390px){.den-header{grid-template-columns:62px minmax(0,1fr) 112px!important}.header-review-btn{width:112px!important;min-width:112px!important;height:34px!important;font-size:9px!important}}</style></head>
+</head>
 <body>
 
 <div id="storeClosedBanner" class="store-closed-banner" role="status" aria-live="polite"><strong>🔴 Quán đang tạm nghỉ</strong><small id="storeClosedMessage">Hiện tại quán chưa nhận đơn.</small><div id="storeClosedReopen" class="reopen"></div></div>
@@ -4230,7 +4230,7 @@ setTimeout(renderReviewSummaries,0);
 refreshStoreStatus();
 startStoreStatusPolling();
 
-<!-- ANVAT_REVIEW_STATIC_DATA_START -->\n<script id="ANVAT_REVIEW_STATIC_DATA">\nwindow.ANVAT_REVIEW_STATIC_DATA = {"version":1,"updatedAt":"2026-09-24 13:39:41","products":{}};\n</script>\n<!-- ANVAT_REVIEW_STATIC_DATA_END -->
+<!-- ANVAT_REVIEW_STATIC_DATA_START -->\n<script id="ANVAT_REVIEW_STATIC_DATA">\nwindow.ANVAT_REVIEW_STATIC_DATA = {"version":1,"updatedAt":"2026-09-24 12:41:35","products":{"1":{"rating":5,"count":1,"comments":[]},"2":{"rating":5,"count":1,"comments":[]},"3":{"rating":5,"count":1,"comments":[{"id":"RV202609241054029723","orderCode":"CC21845136","productId":"3","productName":"Thịt xiên","name":"Khách hàng","stars":5,"comment":"10đỉm","time":"24/09/2026 10:54:02"}]},"4":{"rating":5,"count":1,"comments":[]},"5":{"rating":5,"count":1,"comments":[]},"6":{"rating":5,"count":2,"comments":[{"id":"RV202609241019487921","orderCode":"CC10668448","productId":"6","productName":"Bánh tráng trộn","name":"Khách hàng","stars":5,"comment":"Ngon","time":"24/09/2026 10:19:48"}]},"7":{"rating":5,"count":2,"comments":[{"id":"RV202609240950415097","orderCode":"CC11328599","productId":"7","productName":"Bánh tráng cuộn","name":"Hùng","stars":5,"comment":"Ngon","time":"24/09/2026 9:50:41"}]},"8":{"rating":5,"count":1,"comments":[]},"9":{"rating":5,"count":1,"comments":[]},"10":{"rating":5,"count":1,"comments":[]},"11":{"rating":5,"count":1,"comments":[]},"12":{"rating":5,"count":1,"comments":[]},"13":{"rating":5,"count":1,"comments":[]},"14":{"rating":5,"count":1,"comments":[]},"15":{"rating":5,"count":1,"comments":[]},"17":{"rating":5,"count":1,"comments":[]},"18":{"rating":5,"count":1,"comments":[]},"19":{"rating":5,"count":1,"comments":[]},"20":{"rating":5,"count":1,"comments":[]},"21":{"rating":5,"count":1,"comments":[]},"22":{"rating":5,"count":1,"comments":[]},"23":{"rating":5,"count":1,"comments":[]},"24":{"rating":5,"count":1,"comments":[]},"25":{"rating":5,"count":1,"comments":[]},"26":{"rating":5,"count":1,"comments":[]},"27":{"rating":5,"count":1,"comments":[]},"28":{"rating":5,"count":1,"comments":[]},"29":{"rating":5,"count":1,"comments":[]},"30":{"rating":5,"count":1,"comments":[]},"31":{"rating":5,"count":1,"comments":[]},"33":{"rating":5,"count":1,"comments":[]},"34":{"rating":5,"count":1,"comments":[]},"35":{"rating":5,"count":1,"comments":[]},"37":{"rating":5,"count":1,"comments":[]},"38":{"rating":5,"count":1,"comments":[]},"41":{"rating":5,"count":1,"comments":[]},"42":{"rating":5,"count":2,"comments":[{"id":"RV202609241053262904","orderCode":"CC21762232","productId":"42","productName":"Hotdog SEOUL'S Khoai Tây","name":"Khách hàng","stars":5,"comment":"Ngon","time":"24/09/2026 10:53:26"}]},"43":{"rating":5,"count":1,"comments":[]},"54":{"rating":5,"count":1,"comments":[]},"55":{"rating":5,"count":1,"comments":[]}}};\n</script>\n<!-- ANVAT_REVIEW_STATIC_DATA_END -->
 
 /* ==================================================
    CUSTOMER REVIEWS V4 - ĐÁNH GIÁ TOÀN BỘ MÓN TRONG ĐƠN
@@ -4412,7 +4412,6 @@ function closeProductReview(){
   if(modal){modal.classList.remove('show');modal.setAttribute('aria-hidden','true')}
   reviewSelectedOrder=null;reviewSelectedOrderItems=[];reviewProductId=null;reviewRowRatings={};
 }
-function getReviewOrderPhoneV19(order){return String(order?.phone??order?.sdt??order?.phoneNumber??order?.customerPhone??'').trim();}
 function submitAllProductReviews(items,order,name,phone,code){
   return new Promise(resolve=>{
     const cb='submitReviewsCallback_'+Date.now()+'_'+Math.floor(Math.random()*10000),s=document.createElement('script');
@@ -4427,7 +4426,7 @@ function submitAllProductReviews(items,order,name,phone,code){
 async function submitProductReview(){
   const msg=document.getElementById('reviewMessage'),order=reviewSelectedOrder;
   if(!order){if(msg){msg.textContent='⚠️ Vui lòng chọn mã đơn cần đánh giá.';msg.style.color='#b42318'}return}
-  const phone=getReviewOrderPhoneV19(order),code=String(order.code||'').trim().toUpperCase();
+  const phone=String(order.phone||'').trim(),code=String(order.code||'').trim().toUpperCase();
   const name=String(order.name||order.customerName||'Khách hàng').trim()||'Khách hàng';
   const rows=Array.from(document.querySelectorAll('#reviewProductsRows .review-product-row:not(.review-product-row-disabled)'));
   if(!rows.length){if(msg){msg.textContent='⚠️ Không có món hợp lệ để đánh giá.';msg.style.color='#b42318'}return}
@@ -4554,5 +4553,39 @@ renderReviewSummaries();
   },true);
 })();
 </script>
+
+
+<!-- REVIEW CLICK FIX V14: bảo đảm nút Đánh giá luôn nhận click trên desktop/mobile -->
+<style id="review-click-fix-v14">
+.review-modal{z-index:99999!important;pointer-events:none!important}
+.review-modal.show{display:flex!important;pointer-events:auto!important}
+.review-modal .review-box{pointer-events:auto!important;position:relative;z-index:100000!important}
+.header-review-btn,.review-customer-btn{position:relative!important;z-index:100!important;pointer-events:auto!important;cursor:pointer!important;touch-action:manipulation!important}
+</style>
+<script>
+(function(){
+  function openReviewFromClick(e){
+    const target=e.target && e.target.closest ? e.target.closest('.header-review-btn,.review-customer-btn') : null;
+    if(!target) return;
+    e.preventDefault();
+    e.stopPropagation();
+    if(typeof e.stopImmediatePropagation==='function') e.stopImmediatePropagation();
+
+    if(target.classList.contains('header-review-btn')){
+      if(typeof window.openReviewCenter==='function') window.openReviewCenter();
+      return;
+    }
+
+    const card=target.closest('[data-product-id]');
+    const id=card ? card.getAttribute('data-product-id') : '';
+    if(id!=='' && typeof window.openCustomerReviews==='function'){
+      window.openCustomerReviews(id);
+    }
+  }
+  // Capture phase: xử lý trước các handler khác/overlay của trang.
+  document.addEventListener('click',openReviewFromClick,true);
+})();
+</script>
+
 </body>
 </html>
