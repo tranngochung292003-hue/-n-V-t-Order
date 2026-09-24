@@ -4230,6 +4230,16 @@ setTimeout(renderReviewSummaries,0);
 refreshStoreStatus();
 startStoreStatusPolling();
 
+<!-- ANVAT_REVIEW_STATIC_DATA_START -->
+<script id="ANVAT_REVIEW_STATIC_DATA">
+window.ANVAT_REVIEW_STATIC_DATA = {
+  "version": 1,
+  "updatedAt": "",
+  "products": {}
+};
+</script>
+<!-- ANVAT_REVIEW_STATIC_DATA_END -->
+
 /* ==================================================
    CUSTOMER REVIEWS V4 - ĐÁNH GIÁ TOÀN BỘ MÓN TRONG ĐƠN
 ================================================== */
@@ -4241,15 +4251,55 @@ let reviewSelectedOrder=null;
 let reviewSelectedOrderItems=[];
 let reviewRowRatings={};
 
-function getCustomerReviews(){try{const raw=localStorage.getItem(CUSTOMER_REVIEWS_KEY);const data=raw?JSON.parse(raw):{};return data&&typeof data==='object'?data:{}}catch(e){return {}}}
-function saveCustomerReviews(data){try{localStorage.setItem(CUSTOMER_REVIEWS_KEY,JSON.stringify(data||{}))}catch(e){}}
-function productByIdForReview(id){return (products||[]).find(p=>String(p.id)===String(id));}
-function reviewStarsText(n){n=Math.max(1,Math.min(5,Number(n)||5));return '★'.repeat(n)+'☆'.repeat(5-n)}
-function reviewsForProduct(id){return Array.isArray(reviewServerCache[String(id)])?reviewServerCache[String(id)]:getCustomerReviews()[String(id)]||[]}
+function getCustomerReviews(){
+  try{
+    const raw=localStorage.getItem(CUSTOMER_REVIEWS_KEY);
+    const data=raw?JSON.parse(raw):{};
+    return data&&typeof data==='object'?data:{};
+  }catch(e){return {}}
+}
+function saveCustomerReviews(data){
+  try{localStorage.setItem(CUSTOMER_REVIEWS_KEY,JSON.stringify(data||{}))}catch(e){}
+}
+function productByIdForReview(id){
+  return (products||[]).find(p=>String(p.id)===String(id));
+}
+function reviewStarsText(n){
+  n=Math.max(1,Math.min(5,Number(n)||5));
+  return '★'.repeat(n)+'☆'.repeat(5-n);
+}
+
+/*
+ * REVIEW STATIC:
+ * - Không gọi Google Apps Script khi mở trang để tải đánh giá.
+ * - Dữ liệu được Google Apps Script đồng bộ từ sheet DANH_GIA
+ *   vào block ANVAT_REVIEW_STATIC_DATA trong index.html.
+ */
+function getStaticReviewProduct(id){
+  const data=window.ANVAT_REVIEW_STATIC_DATA;
+  if(!data||!data.products) return null;
+  return data.products[String(id)]||null;
+}
+function reviewsForProduct(id){
+  const key=String(id||'');
+  const st=getStaticReviewProduct(key);
+  if(st&&Array.isArray(st.comments)) return st.comments;
+  return Array.isArray(reviewServerCache[key])
+    ? reviewServerCache[key]
+    : (getCustomerReviews()[key]||[]);
+}
 function reviewStats(id){
-  const server=reviewServerCache['__summary_'+id];
-  if(server)return server;
-  const p=productByIdForReview(id),list=reviewsForProduct(id),base=Number(p?.rating||0);
+  const key=String(id||'');
+  const st=getStaticReviewProduct(key);
+  if(st){
+    return {
+      rating:Number(st.rating)||5,
+      count:Number(st.count)||0
+    };
+  }
+  const cached=reviewServerCache['__summary_'+key];
+  if(cached) return cached;
+  const p=productByIdForReview(key),list=reviewsForProduct(key),base=Number(p?.rating||0);
   if(!list.length)return{rating:base||5,count:0};
   const avg=list.reduce((sum,r)=>sum+Number(r.stars||0),0)/list.length;
   return{rating:Math.round(avg*10)/10,count:list.length};
@@ -4260,47 +4310,7 @@ function renderReviewSummaries(){
     el.innerHTML=`<span class="review-stars">${reviewStarsText(Math.round(st.rating))}</span><span class="review-count">${st.rating.toFixed(1)}/5${st.count?' · '+st.count+' đánh giá':' · Chưa có đánh giá'}</span>`;
   });
 }
-function loadProductReviews(id){
-  const key=String(id||'');
-  if(!key)return Promise.resolve(false);
-  if(reviewServerCache['__loaded_'+key])return Promise.resolve(true);
-  return new Promise(resolve=>{
-    const cb='reviewCallback_'+Date.now()+'_'+Math.floor(Math.random()*10000),s=document.createElement('script');
-    const timer=setTimeout(()=>{cleanup();resolve(false)},8000);
-    function cleanup(){clearTimeout(timer);s.remove();try{delete window[cb]}catch(e){window[cb]=undefined}}
-    window[cb]=data=>{
-      cleanup();
-      if(data&&data.success){
-        reviewServerCache[key]=Array.isArray(data.reviews)?data.reviews:[];
-        reviewServerCache['__summary_'+key]=data.summary||{rating:5,count:0};
-        reviewServerCache['__loaded_'+key]=true;
-        renderReviewSummaries();
-      }
-      resolve(!!(data&&data.success));
-    };
-    s.src=GOOGLE_SCRIPT_URL+'?action=getReviews&productId='+encodeURIComponent(key)+'&callback='+encodeURIComponent(cb);
-    document.body.appendChild(s);
-  });
-}
-function loadAllReviewSummaries(){
-  return new Promise(resolve=>{
-    const ids=(products||[]).map(p=>String(p.id||'')).filter(Boolean);
-    if(!ids.length){renderReviewSummaries();resolve(false);return}
-    const wantedKey=ids.slice().sort().join(',');
-    const localKey='anvat_review_summaries_v2';
-    try{
-      const raw=localStorage.getItem(localKey);
-      const cached=raw?JSON.parse(raw):null;
-      if(cached&&cached.savedAt&&Date.now()-cached.savedAt<300000&&cached.ids===wantedKey&&cached.summaries){
-        Object.keys(cached.summaries).forEach(id=>{const st=cached.summaries[id]||{};reviewServerCache['__summary_'+id]={rating:Number(st.rating)||5,count:Number(st.count)||0};reviewServerCache['__loaded_'+id]=true;});
-        renderReviewSummaries();
-        // Cache đủ mới thì không gọi GS lần nữa.
-        resolve(true);return;
-      }
-    }catch(e){}
-    const cb='reviewSummaryCallback_'+Date.now()+'_'+Math.floor(Math.random()*10000),s=document.createElement('script');
-    const timer=setTimeout(()=>{cleanup();resolve(false)},6000);
-    function cleanup(){clearTimeout(timer);s.remove();try{delete window[cb]}catch(e){window[cb]=undefined}}
+function cleanup(){clearTimeout(timer);s.remove();try{delete window[cb]}catch(e){window[cb]=undefined}}
     window[cb]=data=>{
       cleanup();
       if(data&&data.success&&data.summaries){
@@ -4314,7 +4324,7 @@ function loadAllReviewSummaries(){
       }
       resolve(!!(data&&data.success));
     };
-    s.src=GOOGLE_SCRIPT_URL+'?action=getReviewSummaries&productIds='+encodeURIComponent(ids.join(','))+'&callback='+encodeURIComponent(cb);
+    
     document.body.appendChild(s);
   });
 }
@@ -4452,13 +4462,8 @@ async function submitProductReview(){
         reviewServerCache[k]=[review].concat(list.filter(x=>x.id!==review.id));
         reviewServerCache['__loaded_'+k]=true;
       });
-      // Cập nhật số lượng/rating tại chỗ, không cần gọi lại GS ngay.
-      if(data.summaries){
-        Object.keys(data.summaries).forEach(id=>{
-          const st=data.summaries[id]||{};
-          reviewServerCache['__summary_'+id]={rating:Number(st.rating)||5,count:Number(st.count)||0};
-        });
-      }
+      // Cập nhật ngay giao diện hiện tại. Dữ liệu chính thức sẽ được
+      // Apps Script đồng bộ từ Sheet DANH_GIA -> index.html theo lịch.
       renderReviewSummaries();
       if(btn){btn.disabled=false;btn.textContent='⭐ Gửi đánh giá'}
       closeProductReview();
@@ -4488,12 +4493,12 @@ function openCustomerReviews(id){
   const modal=document.getElementById('customerReviewsModal'),title=document.getElementById('customerReviewsTitle'),summary=document.getElementById('customerReviewsSummary'),listBox=document.getElementById('customerReviewsList');
   if(title)title.textContent='💬 Đánh giá khách hàng · '+String(p.name||'Món ăn');
   if(summary){const st=reviewStats(id);summary.innerHTML=`<span class="review-view-stars">${reviewStarsText(Math.round(st.rating))}</span><b>${st.rating.toFixed(1)}/5</b><span>${st.count?' · '+st.count+' đánh giá':' · Chưa có đánh giá'}</span>`}
-  if(listBox)listBox.innerHTML='<div class="review-empty">⏳ Đang tải nhận xét...</div>';
   if(modal){modal.classList.add('show');modal.setAttribute('aria-hidden','false')}
-  loadProductReviews(id).then(()=>{
-    const list=reviewsForProduct(id);
-    if(listBox){
-      if(!list.length){listBox.innerHTML='<div class="review-empty">Chưa có nhận xét được duyệt cho món này.</div>';return}
+  const list=reviewsForProduct(id);
+  if(listBox){
+    if(!list.length){
+      listBox.innerHTML='<div class="review-empty">Chưa có nhận xét được duyệt cho món này.</div>';
+    }else{
       listBox.innerHTML=list.slice(0,30).map(r=>`<div class="review-item">
         <div class="review-item-top"><span class="review-item-name">${escapeOrderHistoryHtml(r.name||'Khách hàng')}</span><span class="review-item-stars">${reviewStarsText(Number(r.stars)||5)}</span></div>
         <div class="review-item-order">📦 Mã đơn: <b>${escapeOrderHistoryHtml(r.orderCode||'—')}</b></div>
@@ -4501,17 +4506,13 @@ function openCustomerReviews(id){
         <div class="review-item-text">${escapeOrderHistoryHtml(r.comment||'')}</div>
       </div>`).join('');
     }
-  });
+  }
 }
 function closeCustomerReviewsModal(){
   const modal=document.getElementById('customerReviewsModal');
   if(modal){modal.classList.remove('show');modal.setAttribute('aria-hidden','true')}
 }
-setTimeout(()=>{
-  // Ưu tiên hiển thị menu trước; đánh giá tải nền sau đó.
-  renderReviewSummaries();
-  loadAllReviewSummaries().catch(()=>false);
-},1200);
+renderReviewSummaries();
 
 </script>
 
