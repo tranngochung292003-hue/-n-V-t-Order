@@ -613,7 +613,15 @@ button{-webkit-tap-highlight-color:transparent}
 
 </style>
 
-<!-- ANVAT_REVIEW_STATIC_DATA_START -->\n<script id="ANVAT_REVIEW_STATIC_DATA">\nwindow.ANVAT_REVIEW_STATIC_DATA = {"version":1,"updatedAt":"2026-09-24 16:53:47","products":{"1":{"rating":5,"count":3,"comments":[]},"2":{"rating":5,"count":3,"comments":[]},"3":{"rating":5,"count":3,"comments":[]},"4":{"rating":5,"count":1,"comments":[]},"5":{"rating":5,"count":1,"comments":[]},"6":{"rating":5,"count":1,"comments":[]},"7":{"rating":5,"count":1,"comments":[]},"8":{"rating":5,"count":1,"comments":[]},"9":{"rating":5,"count":1,"comments":[]},"10":{"rating":5,"count":1,"comments":[]},"11":{"rating":5,"count":1,"comments":[]},"12":{"rating":5,"count":1,"comments":[]},"13":{"rating":5,"count":1,"comments":[]},"14":{"rating":5,"count":1,"comments":[]},"15":{"rating":5,"count":1,"comments":[]},"17":{"rating":5,"count":1,"comments":[]},"18":{"rating":5,"count":1,"comments":[]},"19":{"rating":5,"count":1,"comments":[]},"20":{"rating":5,"count":1,"comments":[]},"21":{"rating":5,"count":1,"comments":[]},"22":{"rating":5,"count":1,"comments":[]},"23":{"rating":5,"count":2,"comments":[]},"24":{"rating":5,"count":1,"comments":[]},"25":{"rating":5,"count":1,"comments":[]},"26":{"rating":5,"count":1,"comments":[]},"27":{"rating":5,"count":1,"comments":[]},"28":{"rating":5,"count":1,"comments":[]},"29":{"rating":5,"count":1,"comments":[]},"30":{"rating":5,"count":1,"comments":[]},"31":{"rating":5,"count":1,"comments":[]},"33":{"rating":5,"count":1,"comments":[]},"34":{"rating":5,"count":1,"comments":[]},"35":{"rating":5,"count":1,"comments":[]},"37":{"rating":5,"count":1,"comments":[]},"38":{"rating":5,"count":1,"comments":[]},"41":{"rating":5,"count":1,"comments":[]},"42":{"rating":5,"count":1,"comments":[]},"43":{"rating":5,"count":1,"comments":[]},"54":{"rating":5,"count":1,"comments":[]},"55":{"rating":5,"count":1,"comments":[]}}};\n</script>\n<!-- ANVAT_REVIEW_STATIC_DATA_END -->
+<!-- ANVAT_REVIEW_STATIC_DATA_START -->
+<script id="ANVAT_REVIEW_STATIC_DATA">
+window.ANVAT_REVIEW_STATIC_DATA = {
+  "version": 1,
+  "updatedAt": "",
+  "products": {}
+};
+</script>
+<!-- ANVAT_REVIEW_STATIC_DATA_END -->
 
 <!-- Firebase Cloud Messaging (Web Push) -->
 <script type="module">
@@ -1422,6 +1430,121 @@ header{
   height:100%!important;
   z-index:2147483001!important;
   pointer-events:none!important;
+}
+</style>
+
+
+<style id="anvat-welcome-after-close-toast-v35">
+/* ===== POPUP CHÀO MỪNG SAU KHI BẤM "ĐÃ HIỂU" ===== */
+#welcomeAfterCloseToast{
+  position:fixed!important;
+  top:calc(env(safe-area-inset-top,0px) + 10px)!important;
+  right:10px!important;
+  width:min(390px,calc(100vw - 20px))!important;
+  min-height:58px;
+  padding:12px 42px 12px 15px;
+  display:flex;
+  align-items:center;
+  z-index:2147483005!important;
+  isolation:isolate;
+  overflow:hidden;
+  border:1px solid rgba(255,255,255,.28);
+  border-radius:16px;
+  background:linear-gradient(135deg,#8b5e3c,#6f472c 60%,#543525);
+  color:#fff;
+  box-shadow:0 16px 40px rgba(55,35,23,.32);
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+  transform:translate3d(calc(100% + 28px),0,0) scale(.96);
+  transform-origin:right top;
+  transition:
+    transform .48s cubic-bezier(.22,.82,.22,1),
+    opacity .28s ease,
+    visibility 0s linear .48s;
+}
+#welcomeAfterCloseToast.show{
+  opacity:1;
+  visibility:visible;
+  transform:translate3d(0,0,0) scale(1);
+  transition:
+    transform .48s cubic-bezier(.22,.82,.22,1),
+    opacity .28s ease;
+}
+#welcomeAfterCloseToast.hide{
+  opacity:0;
+  visibility:hidden;
+  transform:translate3d(calc(100% + 28px),0,0) scale(.96);
+  pointer-events:none;
+}
+#welcomeAfterCloseToast .welcome-after-close-icon{
+  width:34px;
+  height:34px;
+  margin-right:10px;
+  flex:0 0 34px;
+  display:grid;
+  place-items:center;
+  border-radius:50%;
+  background:rgba(255,255,255,.14);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.18);
+  font-size:20px;
+}
+#welcomeAfterCloseToast .welcome-after-close-text{
+  min-width:0;
+  font-size:14px;
+  line-height:1.35;
+  font-weight:900;
+  letter-spacing:.05px;
+  text-align:left;
+}
+#welcomeAfterCloseToast .welcome-after-close-sub{
+  display:block;
+  margin-top:2px;
+  font-size:11px;
+  line-height:1.35;
+  font-weight:600;
+  opacity:.9;
+}
+#welcomeAfterCloseToast .welcome-after-close-progress{
+  position:absolute;
+  left:0;
+  bottom:0;
+  height:3px;
+  width:100%;
+  background:rgba(255,255,255,.15);
+}
+#welcomeAfterCloseToast .welcome-after-close-progress span{
+  display:block;
+  width:100%;
+  height:100%;
+  background:rgba(255,255,255,.82);
+  transform-origin:left center;
+}
+#welcomeAfterCloseToast.show .welcome-after-close-progress span{
+  animation:welcomeAfterCloseProgress 2.8s linear forwards;
+}
+@keyframes welcomeAfterCloseProgress{
+  from{transform:scaleX(1)}
+  to{transform:scaleX(0)}
+}
+@media(max-width:640px){
+  #welcomeAfterCloseToast{
+    top:calc(env(safe-area-inset-top,0px) + 8px)!important;
+    right:8px!important;
+    width:calc(100vw - 16px)!important;
+    min-height:56px;
+    padding:11px 38px 11px 12px;
+    border-radius:14px;
+  }
+  #welcomeAfterCloseToast .welcome-after-close-icon{
+    width:32px;
+    height:32px;
+    flex-basis:32px;
+    margin-right:9px;
+    font-size:19px;
+  }
+  #welcomeAfterCloseToast .welcome-after-close-text{font-size:13px}
+  #welcomeAfterCloseToast .welcome-after-close-sub{font-size:10px}
 }
 </style>
 
@@ -4106,7 +4229,43 @@ function closeWelcomePopup(){
         popup.style.setProperty("visibility","hidden","important");
         popup.setAttribute("aria-hidden","true");
     }
+
+    // Sau khi khách bấm "Đã hiểu": hiện 1 thanh chào mừng nhỏ ở góc phải trên,
+    // trượt từ bên phải vào, giữ ~2.8 giây rồi tự trượt ra.
+    showWelcomeAfterCloseToast();
 }
+
+function showWelcomeAfterCloseToast(){
+    let toast=document.getElementById('welcomeAfterCloseToast');
+    if(!toast){
+        toast=document.createElement('div');
+        toast.id='welcomeAfterCloseToast';
+        toast.setAttribute('role','status');
+        toast.setAttribute('aria-live','polite');
+        toast.innerHTML=
+          '<div class="welcome-after-close-icon">👋</div>'+
+          '<div class="welcome-after-close-text">'+
+            'Chào mừng đến với Ăn Vặt Lâm Thao!'+
+            '<span class="welcome-after-close-sub">Cảm ơn bạn đã ghé thăm shop ❤️</span>'+
+          '</div>'+
+          '<div class="welcome-after-close-progress"><span></span></div>';
+        document.body.appendChild(toast);
+    }
+
+    toast.classList.remove('hide');
+    toast.classList.remove('show');
+    void toast.offsetWidth;
+    toast.classList.add('show');
+
+    if(toast.__welcomeAfterCloseTimer){
+        clearTimeout(toast.__welcomeAfterCloseTimer);
+    }
+    toast.__welcomeAfterCloseTimer=setTimeout(function(){
+        toast.classList.remove('show');
+        toast.classList.add('hide');
+    },2800);
+}
+
 
 /* ==================================================
    LOAD WEBSITE
