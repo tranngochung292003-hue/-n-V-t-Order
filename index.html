@@ -1148,58 +1148,156 @@ header{position:sticky!important;z-index:1000!important}
 }
 </style>
 
-<style id="anvat-modal-layer-fix-v21">
+<style id="anvat-modal-layer-fix-v22">
 /* ==================================================
-   MODAL / POPUP FIX V21
-   - Luôn nằm trên header/logo/menu.
-   - Không khoá thao tác cuộn trang phía sau overlay.
-   - Nội dung từng form vẫn tự cuộn khi form dài.
+   MODAL / POPUP FIX V22 - MOBILE
+   Chỉ sửa lớp hiển thị và thao tác form.
+   Không thay đổi dữ liệu sản phẩm/đơn hàng/voucher.
 ================================================== */
-header{position:sticky!important;z-index:1000!important}
 
-.welcome-popup,
+/* Header chỉ đứng trên nội dung trang, không đứng trên popup/form. */
+header{
+  position:sticky!important;
+  z-index:1000!important;
+}
+
+/* Tất cả popup/form nằm trên header, logo và thanh đánh giá/lịch sử. */
+#welcomePopup,
+#reviewModal,
+#reviewThanksModal,
+#customerReviewsModal,
+#successModal,
 .modal,
-.success-modal,
-.review-modal{
-  z-index:10000!important;
-  isolation:isolate;
+.payment-qr{
+  position:fixed!important;
+  inset:0!important;
+  z-index:2147483000!important;
+  isolation:isolate!important;
+}
+
+/* Quan trọng: lớp nền không chặn trang phía sau.
+   Chỉ phần hộp form nhận thao tác. */
+#welcomePopup,
+#reviewModal,
+#reviewThanksModal,
+#customerReviewsModal,
+#successModal,
+.modal,
+.payment-qr{
   pointer-events:none!important;
+  touch-action:auto!important;
 }
 
-.welcome-box,
-.modal-box,
-.success-box,
-.review-box{
-  position:relative;
-  z-index:10001!important;
+/* Hộp form vẫn bấm, nhập, chọn và cuộn bình thường. */
+#welcomePopup > .welcome-box,
+#reviewModal > .review-box,
+#reviewThanksModal > .review-box,
+#customerReviewsModal > .review-box,
+#successModal > .success-box,
+.modal > .modal-box,
+.payment-qr > .payment-box{
+  position:relative!important;
+  z-index:2147483001!important;
   pointer-events:auto!important;
+  touch-action:auto!important;
 }
 
-/* Cho phép trang phía sau tiếp tục cuộn; không dùng overflow:hidden trên body. */
-html,body{overflow-x:hidden!important;}
-body{overflow-y:auto!important;}
-
-/* Form dài tự cuộn trong chính form, không làm mất trang phía sau. */
-.modal-box,
-.review-box{
-  max-height:calc(100vh - 28px)!important;
+/* Không khóa trang chủ khi một form đang mở. */
+html{
+  overflow-x:hidden!important;
   overflow-y:auto!important;
-  -webkit-overflow-scrolling:touch;
+  overscroll-behavior-y:auto!important;
+}
+body{
+  overflow-x:hidden!important;
+  overflow-y:auto!important;
+  position:relative!important;
+  touch-action:auto!important;
+  overscroll-behavior-y:auto!important;
 }
 
-/* Các nút đóng / thao tác trong popup vẫn bấm bình thường. */
-.welcome-close,
-.close-btn,
-.success-x,
-.review-close,
-.review-submit,
-.review-cancel,
-.review-modal button,
-.modal button{pointer-events:auto!important;}
+/* Form dài: form tự cuộn, còn trang chủ vẫn hoạt động ở phần ngoài form. */
+.modal > .modal-box,
+#reviewModal > .review-box,
+#reviewThanksModal > .review-box,
+#customerReviewsModal > .review-box{
+  max-height:calc(100dvh - 20px)!important;
+  overflow-y:auto!important;
+  overflow-x:hidden!important;
+  -webkit-overflow-scrolling:touch!important;
+  overscroll-behavior:contain!important;
+}
+
+/* Popup chào mừng không bị header che trên điện thoại. */
+#welcomePopup{
+  align-items:center!important;
+  justify-content:center!important;
+  padding:max(10px, env(safe-area-inset-top)) 10px max(10px, env(safe-area-inset-bottom))!important;
+}
+#welcomePopup > .welcome-box{
+  width:min(430px, calc(100vw - 20px))!important;
+  max-height:calc(100dvh - 20px)!important;
+  overflow-y:auto!important;
+  -webkit-overflow-scrolling:touch!important;
+}
+
+/* Lịch sử đơn hàng: luôn nằm trọn trong màn hình điện thoại,
+   không bị header/logo/⭐/📋 đè lên. */
+.modal > .order-history-modal{
+  width:min(520px, calc(100vw - 20px))!important;
+  max-height:calc(100dvh - 20px)!important;
+  margin:10px auto!important;
+  overflow-y:auto!important;
+  -webkit-overflow-scrolling:touch!important;
+}
+
+/* Nút trong form luôn nhận thao tác cảm ứng. */
+#welcomePopup button,
+#reviewModal button,
+#reviewThanksModal button,
+#customerReviewsModal button,
+#successModal button,
+.modal button,
+.payment-qr button,
+.modal input,
+.modal textarea,
+.modal select,
+.review-modal input,
+.review-modal textarea,
+.review-modal select{
+  pointer-events:auto!important;
+  touch-action:manipulation!important;
+}
 
 @media(max-width:650px){
-  .welcome-popup,.modal,.success-modal,.review-modal{padding:10px!important}
-  .modal-box,.review-box{max-height:calc(100vh - 20px)!important}
+  #welcomePopup,
+  #reviewModal,
+  #reviewThanksModal,
+  #customerReviewsModal,
+  #successModal,
+  .modal,
+  .payment-qr{
+    padding:
+      max(8px, env(safe-area-inset-top))
+      8px
+      max(8px, env(safe-area-inset-bottom))
+      8px!important;
+  }
+
+  #welcomePopup > .welcome-box,
+  #reviewModal > .review-box,
+  #reviewThanksModal > .review-box,
+  #customerReviewsModal > .review-box,
+  #successModal > .success-box,
+  .modal > .modal-box{
+    max-height:calc(100dvh - 16px)!important;
+  }
+
+  .modal > .order-history-modal{
+    width:calc(100vw - 16px)!important;
+    max-height:calc(100dvh - 16px)!important;
+    margin:8px auto!important;
+  }
 }
 </style>
 </head>
@@ -4739,5 +4837,37 @@ if(document.readyState==='loading'){
   },true);
 })();
 </script>
+
+<script id="anvat-modal-interaction-fix-v22">
+/* V22: defensive mobile interaction fix.
+   Không sửa dữ liệu; chỉ đảm bảo body không bị khóa bởi modal. */
+(function(){
+  function releasePageScroll(){
+    try{
+      document.documentElement.style.removeProperty('overflow');
+      document.documentElement.style.removeProperty('overflow-y');
+      document.body.style.removeProperty('overflow');
+      document.body.style.removeProperty('overflow-y');
+      document.body.style.removeProperty('position');
+      document.body.style.removeProperty('touch-action');
+    }catch(e){}
+  }
+
+  /* Không can thiệp khi người dùng đang cuộn bên trong hộp form. */
+  document.addEventListener('touchstart', function(e){
+    if(e.target && e.target.closest && (
+      e.target.closest('.modal-box') ||
+      e.target.closest('.review-box') ||
+      e.target.closest('.welcome-box') ||
+      e.target.closest('.success-box') ||
+      e.target.closest('.payment-box')
+    )) return;
+    releasePageScroll();
+  }, {passive:true});
+
+  window.addEventListener('pageshow', releasePageScroll);
+})();
+</script>
+
 </body>
 </html>
