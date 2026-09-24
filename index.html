@@ -1008,6 +1008,27 @@ button{-webkit-tap-highlight-color:transparent}
   .review-row-comment{font-size:11px}
 }
 </style>
+
+<style id="review-center-v8-style">
+/* V8: card đánh giá bo tròn, kiểu gọn như Lịch Sử Đơn Hàng nhưng dùng màu riêng */
+.review-center-box{
+  max-width:560px!important;
+  border:2px solid #c9a27e!important;
+  border-radius:16px!important;
+  background:#fffaf5!important;
+  box-shadow:0 12px 36px rgba(91,58,37,.18)!important;
+}
+.review-order-only{padding:12px;border:1px solid #dfc9b4;border-radius:13px;background:#fff!important}
+.review-order-only label{color:#70472d!important}
+.review-order-select{border-color:#c9a27e!important;border-radius:11px!important;background:#fff!important}
+.review-products-review-wrap{border:1px solid #dfc9b4!important;border-radius:14px!important;background:#fff!important;padding:10px!important;margin-top:12px}
+.review-products-title{color:#70472d!important;font-weight:900!important}
+.review-product-row{border:1px solid #e3d0bd!important;border-radius:12px!important;background:#fffaf5!important}
+.review-customer-btn{border-color:#b98b62!important;background:#fffaf5!important;color:#70472d!important;border-radius:11px!important}
+.review-customer-btn:hover{background:#f0e1d2!important}
+.header-review-btn{border-color:#b98b62!important;background:#fff7ef!important;color:#70472d!important}
+.header-review-btn:hover{background:#ead8c4!important}
+</style>
 </head>
 <body>
 
@@ -1091,7 +1112,7 @@ button{-webkit-tap-highlight-color:transparent}
 <div id="customerReviewsModal" class="review-modal" aria-hidden="true" onclick="if(event.target===this)closeCustomerReviewsModal()">
   <div class="review-box review-view-box">
     <div class="review-head">
-      <h2 id="customerReviewsTitle">💬 Nhận xét món ăn</h2>
+      <h2 id="customerReviewsTitle">💬 Đánh giá khách hàng</h2>
       <button type="button" class="review-close" onclick="closeCustomerReviewsModal()" aria-label="Đóng">×</button>
     </div>
     <div id="customerReviewsSummary" class="review-view-summary"></div>
@@ -2409,7 +2430,7 @@ function productCard(product){
             <span class="review-stars">★★★★★</span><span class="review-count">Chưa có đánh giá</span>
           </div>
           <div class="review-buttons-wrap">
-            <button type="button" class="review-customer-btn" onclick="openCustomerReviews(${product.id});event.stopPropagation()">💬 Nhận xét món ăn</button>
+            <button type="button" class="review-customer-btn" onclick="openCustomerReviews(${product.id});event.stopPropagation()">💬 Đánh giá khách hàng</button>
           </div>
           <div class="product-bottom">
             <div><div class="product-price">${money(product.price)}</div>${oldPrice>Number(product.price||0)?`<del style="font-size:11px;color:#a18d7c">${money(oldPrice)}</del>`:''}</div>
@@ -4267,11 +4288,12 @@ async function submitProductReview(){
   const btn=document.querySelector('#reviewModal .review-submit');
   if(btn){btn.disabled=true;btn.textContent='⏳ Đang gửi...'}
   if(msg){msg.textContent=`Đang gửi ${payloads.length} đánh giá...`;msg.style.color='#7d5438'}
-  let ok=0,fail=0,failMessages=[];
+  let ok=0,fail=0,failMessages=[],lastRatedProductId=null;
   for(const item of payloads){
     const data=await submitOneProductReview(item.productId,order,name,phone,code,item.stars,item.comment);
     if(data&&data.success){
       ok++;
+      lastRatedProductId=item.productId;
       if(data.review){
         const k=String(item.productId),list=reviewsForProduct(item.productId);
         reviewServerCache[k]=[data.review].concat(list.filter(x=>x.id!==data.review.id));
@@ -4286,12 +4308,15 @@ async function submitProductReview(){
   }
   if(ok){
     payloads.forEach(item=>{const el=document.querySelector(`[data-review-comment="${CSS.escape(item.productId)}"]`);if(el)el.value=''});
+    if(lastRatedProductId){
+      setTimeout(()=>{closeProductReview();openCustomerReviews(lastRatedProductId)},220);
+    }
   }
 }
 function openCustomerReviews(id){
   const p=productByIdForReview(id);if(!p)return;
   const modal=document.getElementById('customerReviewsModal'),title=document.getElementById('customerReviewsTitle'),summary=document.getElementById('customerReviewsSummary'),listBox=document.getElementById('customerReviewsList');
-  if(title)title.textContent='💬 Nhận xét món ăn · '+String(p.name||'Món ăn');
+  if(title)title.textContent='💬 Đánh giá khách hàng · '+String(p.name||'Món ăn');
   if(summary){const st=reviewStats(id);summary.innerHTML=`<span class="review-view-stars">${reviewStarsText(Math.round(st.rating))}</span><b>${st.rating.toFixed(1)}/5</b><span>${st.count?' · '+st.count+' đánh giá':' · Chưa có đánh giá'}</span>`}
   if(listBox)listBox.innerHTML='<div class="review-empty">⏳ Đang tải nhận xét...</div>';
   if(modal){modal.classList.add('show');modal.setAttribute('aria-hidden','false')}
@@ -4312,7 +4337,13 @@ function closeCustomerReviewsModal(){
   const modal=document.getElementById('customerReviewsModal');
   if(modal){modal.classList.remove('show');modal.setAttribute('aria-hidden','true')}
 }
-setTimeout(renderReviewSummaries,0);
+setTimeout(async()=>{
+  renderReviewSummaries();
+  // Nạp số lượng đánh giá thật từ GS cho toàn bộ món để card hiển thị đúng ngay sau khi dữ liệu về.
+  const ids=(products||[]).map(p=>String(p.id)).filter(Boolean);
+  await Promise.all(ids.map(id=>loadProductReviews(id).catch(()=>false)));
+  renderReviewSummaries();
+},0);
 
 </script>
 
