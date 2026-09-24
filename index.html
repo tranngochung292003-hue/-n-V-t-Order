@@ -3658,42 +3658,30 @@ const payload = {
 
         const orderBody = JSON.stringify(payload);
 
-        try {
-            await fetch(
-                GOOGLE_SCRIPT_URL,
-                {
-                    method: "POST",
-                    mode: "no-cors",
-                    headers: {
-                        "Content-Type": "text/plain;charset=utf-8"
-                    },
-                    body: orderBody,
-                    keepalive: true
-                }
-            );
-            requestStarted = true;
-        } catch (fetchError) {
-            console.warn("Fetch đơn hàng lỗi, chuyển sang sendBeacon:", fetchError);
-
-            if (navigator.sendBeacon) {
-                try {
-                    const blob = new Blob(
-                        [orderBody],
-                        {type: "text/plain;charset=UTF-8"}
-                    );
-                    requestStarted = navigator.sendBeacon(
-                        GOOGLE_SCRIPT_URL,
-                        blob
-                    );
-                } catch (beaconError) {
-                    console.warn("sendBeacon error:", beaconError);
-                }
+        // V12: gửi nền bằng sendBeacon để khách không phải chờ Google Apps Script
+        // xử lý Gmail/FCM/voucher xong mới thấy màn hình thành công.
+        if (navigator.sendBeacon) {
+            try {
+                const blob = new Blob([orderBody], {type:"text/plain;charset=UTF-8"});
+                requestStarted = navigator.sendBeacon(GOOGLE_SCRIPT_URL, blob);
+            } catch (beaconError) {
+                console.warn("sendBeacon error:", beaconError);
             }
         }
-
+        // Fallback: không chờ response, chỉ cần trình duyệt bắt đầu gửi request.
         if (!requestStarted) {
-            throw new Error("Không thể gửi yêu cầu đặt hàng.");
+            try {
+                fetch(GOOGLE_SCRIPT_URL,{
+                    method:"POST",mode:"no-cors",
+                    headers:{"Content-Type":"text/plain;charset=utf-8"},
+                    body:orderBody,keepalive:true
+                });
+                requestStarted=true;
+            } catch(fetchError) {
+                console.warn("Fallback fetch đơn hàng lỗi:",fetchError);
+            }
         }
+        if (!requestStarted) throw new Error("Không thể gửi yêu cầu đặt hàng.");
 
         /* ==============================
            ĐÃ GỬI ĐƯỢC REQUEST
@@ -4397,13 +4385,14 @@ function closeProductReview(){
   if(modal){modal.classList.remove('show');modal.setAttribute('aria-hidden','true')}
   reviewSelectedOrder=null;reviewSelectedOrderItems=[];reviewProductId=null;reviewRowRatings={};
 }
-function submitOneProductReview(productId,order,name,phone,code,stars,comment){
+function submitAllProductReviews(items,order,name,phone,code){
   return new Promise(resolve=>{
-    const cb='submitReviewCallback_'+Date.now()+'_'+Math.floor(Math.random()*10000),s=document.createElement('script');
-    const timer=setTimeout(()=>{cleanup();resolve({success:false,message:'Hệ thống phản hồi quá lâu.'})},15000);
+    const cb='submitReviewsCallback_'+Date.now()+'_'+Math.floor(Math.random()*10000),s=document.createElement('script');
+    const timer=setTimeout(()=>{cleanup();resolve({success:false,message:'Hệ thống phản hồi quá lâu.'})},12000);
     function cleanup(){clearTimeout(timer);s.remove();try{delete window[cb]}catch(e){window[cb]=undefined}}
     window[cb]=data=>{cleanup();resolve(data||{success:false,message:'Không nhận được phản hồi.'})};
-    s.src=GOOGLE_SCRIPT_URL+'?action=submitReview&productId='+encodeURIComponent(productId)+'&orderCode='+encodeURIComponent(code)+'&phone='+encodeURIComponent(phone)+'&name='+encodeURIComponent(name.slice(0,40))+'&stars='+encodeURIComponent(stars)+'&comment='+encodeURIComponent(comment.slice(0,500))+'&callback='+encodeURIComponent(cb);
+    const reviews=items.map(x=>({productId:String(x.productId||''),stars:Number(x.stars)||5,comment:String(x.comment||'').slice(0,500)}));
+    s.src=GOOGLE_SCRIPT_URL+'?action=submitReviews&orderCode='+encodeURIComponent(code)+'&phone='+encodeURIComponent(phone)+'&name='+encodeURIComponent(name.slice(0,40))+'&reviews='+encodeURIComponent(JSON.stringify(reviews))+'&callback='+encodeURIComponent(cb);
     document.body.appendChild(s);
   });
 }
@@ -4425,24 +4414,33 @@ async function submitProductReview(){
   if(btn){btn.disabled=true;btn.textContent='⏳ Đang gửi...'}
   if(msg){msg.textContent=`Đang gửi ${payloads.length} đánh giá...`;msg.style.color='#7d5438'}
   try{
-    // Gửi song song để không phải chờ từng món lần lượt. Nhận xét có thể để trống.
-    const results=await Promise.all(payloads.map(item=>submitOneProductReview(item.productId,order,name,phone,code,item.stars,item.comment)));
-    let ok=0,fail=0,failMessages=[];
-    results.forEach((data,i)=>{
-      if(data&&data.success){
-        ok++;
-        const k=String(payloads[i].productId),list=reviewsForProduct(payloads[i].productId);
-        if(data.review)reviewServerCache[k]=[data.review].concat(list.filter(x=>x.id!==data.review.id));
+    // V12: chỉ gửi 1 request cho toàn bộ món trong đơn, thay vì 1 request/món.
+    // Nhận xét có thể để trống; tất cả đánh giá sao vẫn được tính vào tổng số.
+    const data=await submitAllProductReviews(payloads,order,name,phone,code);
+    if(data&&data.success){
+      const reviews=Array.isArray(data.reviews)?data.reviews:[];
+      reviews.forEach(review=>{
+        const k=String(review.productId||'');
+        if(!k)return;
+        const list=reviewsForProduct(k);
+        reviewServerCache[k]=[review].concat(list.filter(x=>x.id!==review.id));
         reviewServerCache['__loaded_'+k]=true;
-      }else{fail++;if(data?.message)failMessages.push(data.message)}
-    });
-    renderReviewSummaries();
-    if(ok){
+      });
+      // Cập nhật số lượng/rating tại chỗ, không cần gọi lại GS ngay.
+      if(data.summaries){
+        Object.keys(data.summaries).forEach(id=>{
+          const st=data.summaries[id]||{};
+          reviewServerCache['__summary_'+id]={rating:Number(st.rating)||5,count:Number(st.count)||0};
+        });
+      }
+      renderReviewSummaries();
       if(btn){btn.disabled=false;btn.textContent='⭐ Gửi đánh giá'}
       closeProductReview();
       showReviewThanks();
       return;
     }
+    let failMessages=[];
+    if(data?.message)failMessages.push(data.message);
     if(btn){btn.disabled=false;btn.textContent='⭐ Gửi đánh giá'}
     if(msg){msg.textContent='❌ '+(failMessages[0]||'Không thể gửi đánh giá. Vui lòng thử lại.');msg.style.color='#b42318'}
   }catch(e){
