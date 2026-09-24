@@ -677,7 +677,15 @@ button{-webkit-tap-highlight-color:transparent}
 
 </style>
 
-<!-- ANVAT_REVIEW_STATIC_DATA_START -->\n<script id="ANVAT_REVIEW_STATIC_DATA">\nwindow.ANVAT_REVIEW_STATIC_DATA = {"version":1,"updatedAt":"2026-09-24 14:53:46","products":{"1":{"rating":5,"count":2,"comments":[]},"2":{"rating":5,"count":1,"comments":[]},"3":{"rating":5,"count":1,"comments":[]}}};\n</script>\n<!-- ANVAT_REVIEW_STATIC_DATA_END -->
+<!-- ANVAT_REVIEW_STATIC_DATA_START -->
+<script id="ANVAT_REVIEW_STATIC_DATA">
+window.ANVAT_REVIEW_STATIC_DATA = {
+  "version": 1,
+  "updatedAt": "",
+  "products": {}
+};
+</script>
+<!-- ANVAT_REVIEW_STATIC_DATA_END -->
 
 <!-- Firebase Cloud Messaging (Web Push) -->
 <script type="module">
@@ -1292,6 +1300,33 @@ body{
   }
 }
 </style>
+
+<style id="anvat-product-card-compact-v23">
+.product-info{padding:8px 10px 10px!important}
+.product-name{margin:0 0 2px!important;line-height:1.25!important;min-height:35px!important}
+.product-review-summary{margin:0 0 4px!important;gap:3px!important;line-height:1.15!important}
+.product-review-summary .review-stars{font-size:11px!important;letter-spacing:.5px!important}
+.product-review-summary .review-count{font-size:10px!important;line-height:1.15!important}
+.review-buttons-wrap{margin:2px 0 5px!important;gap:4px!important}
+.review-customer-btn{padding:5px 8px!important;font-size:10px!important;line-height:1.2!important}
+.product-bottom{margin-top:4px!important}
+@media(max-width:700px){
+  .product-info{padding:7px 8px 9px!important}
+  .product-name{font-size:13px!important;line-height:1.22!important;min-height:32px!important}
+  .product-review-summary{margin-bottom:3px!important}
+  .product-review-summary .review-stars{font-size:10px!important}
+  .product-review-summary .review-count{font-size:9px!important}
+  .review-buttons-wrap{margin:2px 0 4px!important}
+  .review-customer-btn{padding:5px 6px!important;font-size:9px!important;border-radius:7px!important}
+  .product-bottom{margin-top:3px!important}
+}
+@media(max-width:420px){
+  .product-info{padding:6px 7px 8px!important}
+  .product-name{font-size:12.5px!important;min-height:30px!important}
+  .review-customer-btn{font-size:8.5px!important;padding:4px 5px!important}
+}
+</style>
+
 </head>
 <body>
 
@@ -4084,6 +4119,7 @@ async function refreshProductsInBackground(){
             saveProductsCache(products);
             renderProducts();
             updateCart();
+            loadAllReviewSummaries();
         }
     }catch(error){
         // Không làm mất thực đơn đang hiển thị nếu mạng/Apps Script chậm.
@@ -4100,6 +4136,8 @@ function loadProducts(){
 
     // 2) Sau khi giao diện đã hiện, cập nhật dữ liệu từ Google Sheet ở nền.
     setTimeout(refreshProductsInBackground, 700);
+    // 3) Đồng bộ tổng hợp đánh giá ở nền để tải lại trang không làm mất số liệu.
+    setTimeout(loadAllReviewSummaries, 900);
 }
 
 loadProducts();
@@ -4410,8 +4448,25 @@ let reviewSelectedOrder=null;
 let reviewSelectedOrderItems=[];
 let reviewRowRatings={};
 
+const CUSTOMER_REVIEW_SUMMARIES_KEY="ANVAT_LAMTHAO_CUSTOMER_REVIEW_SUMMARIES_V1";
 function getCustomerReviews(){try{const raw=localStorage.getItem(CUSTOMER_REVIEWS_KEY);const data=raw?JSON.parse(raw):{};return data&&typeof data==='object'?data:{}}catch(e){return {}}}
 function saveCustomerReviews(data){try{localStorage.setItem(CUSTOMER_REVIEWS_KEY,JSON.stringify(data||{}))}catch(e){}}
+function getCustomerReviewSummaries(){try{const raw=localStorage.getItem(CUSTOMER_REVIEW_SUMMARIES_KEY);const data=raw?JSON.parse(raw):{};return data&&typeof data==='object'?data:{}}catch(e){return {}}}
+function saveCustomerReviewSummaries(data){try{localStorage.setItem(CUSTOMER_REVIEW_SUMMARIES_KEY,JSON.stringify(data||{}))}catch(e){}}
+function mergeReviewLists(){
+  const out=[],seen={};
+  Array.from(arguments).forEach(list=>{
+    if(!Array.isArray(list))return;
+    list.forEach(r=>{
+      if(!r)return;
+      const id=String(r.id||'');
+      const key=id||JSON.stringify([r.orderCode||'',r.productId||'',r.time||'',r.stars||5,r.comment||'']);
+      if(seen[key])return;
+      seen[key]=true;out.push(r);
+    });
+  });
+  return out;
+}
 function productByIdForReview(id){return (products||[]).find(p=>String(p.id)===String(id));}
 function reviewStarsText(n){n=Math.max(1,Math.min(5,Number(n)||5));return '★'.repeat(n)+'☆'.repeat(5-n)}
 function reviewsForProduct(id){return Array.isArray(reviewServerCache[String(id)])?reviewServerCache[String(id)]:getCustomerReviews()[String(id)]||[]}
@@ -4435,23 +4490,31 @@ function getStaticReviewData(){
 }
 function reviewsForProduct(id){
   const key=String(id||'');
-  const staticData=getStaticReviewData().products[key];
-  if(staticData && Array.isArray(staticData.comments)) return staticData.comments;
-  return Array.isArray(reviewServerCache[key]) ? reviewServerCache[key] : getCustomerReviews()[key]||[];
+  const staticItem=getStaticReviewData().products[key];
+  const local=getCustomerReviews()[key];
+  const server=reviewServerCache[key];
+  return mergeReviewLists(
+    staticItem&&Array.isArray(staticItem.comments)?staticItem.comments:[],
+    Array.isArray(server)?server:[],
+    Array.isArray(local)?local:[]
+  );
 }
 function reviewStats(id){
   const key=String(id||'');
-  const staticData=getStaticReviewData().products[key];
-  if(staticData){
-    return {
-      rating:Number(staticData.rating)||5,
-      count:Number(staticData.count)||0
-    };
-  }
+  const staticItem=getStaticReviewData().products[key];
   const server=reviewServerCache['__summary_'+key];
-  if(server)return server;
-  const p=productByIdForReview(key),list=reviewsForProduct(key),base=Number(p?.rating||0);
-  if(!list.length)return{rating:base||5,count:0};
+  const local=getCustomerReviewSummaries()[key];
+  const base=productByIdForReview(key),fallback=Number(base?.rating||0);
+  if(server)return{rating:Number(server.rating)||5,count:Number(server.count)||0};
+  if(local && Number(local.count||0)>Number(staticItem?.count||0)){
+    return{rating:Number(local.rating)||5,count:Number(local.count)||0};
+  }
+  if(staticItem){
+    return{rating:Number(staticItem.rating)||5,count:Number(staticItem.count)||0};
+  }
+  if(local){return{rating:Number(local.rating)||5,count:Number(local.count)||0};}
+  const list=reviewsForProduct(key);
+  if(!list.length)return{rating:fallback||5,count:0};
   const avg=list.reduce((sum,r)=>sum+Number(r.stars||0),0)/list.length;
   return{rating:Math.round(avg*10)/10,count:list.length};
 }
@@ -4461,13 +4524,57 @@ function renderReviewSummaries(){
     el.innerHTML=`<span class="review-stars">${reviewStarsText(Math.round(st.rating))}</span><span class="review-count">${st.rating.toFixed(1)}/5${st.count?' · '+st.count+' đánh giá':' · Chưa có đánh giá'}</span>`;
   });
 }
-function loadProductReviews(id){
-  // Dữ liệu review đã được nhúng trong HTML; không gọi Google Apps Script khi mở website.
-  return Promise.resolve(true);
+const REVIEW_FETCH_TTL=60000;
+async function loadProductReviews(id,force=false){
+  const key=String(id||'').trim();
+  if(!key)return false;
+  const loadedAt=Number(reviewServerCache['__loadedAt_'+key]||0);
+  if(!force && reviewServerCache['__loaded_'+key] && Date.now()-loadedAt<REVIEW_FETCH_TTL)return true;
+  try{
+    const url=GOOGLE_SCRIPT_URL+'?action=getReviews&productId='+encodeURIComponent(key)+'&_t='+Date.now();
+    const res=await fetch(url,{cache:'no-store'});
+    if(!res.ok)throw new Error('HTTP '+res.status);
+    const data=await res.json();
+    if(data&&data.success){
+      reviewServerCache[key]=Array.isArray(data.reviews)?data.reviews:[];
+      reviewServerCache['__summary_'+key]=data.summary||{rating:5,count:0};
+      reviewServerCache['__loaded_'+key]=true;
+      reviewServerCache['__loadedAt_'+key]=Date.now();
+      const local=getCustomerReviews();
+      local[key]=mergeReviewLists(local[key],reviewServerCache[key]);
+      if(local[key].length)saveCustomerReviews(local);
+      const sums=getCustomerReviewSummaries();
+      sums[key]=reviewServerCache['__summary_'+key];
+      saveCustomerReviewSummaries(sums);
+      renderReviewSummaries();
+      return true;
+    }
+  }catch(e){console.warn('Không tải được đánh giá sản phẩm:',e);}
+  return false;
 }
-function loadAllReviewSummaries(){
+async function loadAllReviewSummaries(){
+  try{
+    const ids=(products||[]).map(p=>String(p.id||'').trim()).filter(Boolean);
+    if(!ids.length){renderReviewSummaries();return false;}
+    const url=GOOGLE_SCRIPT_URL+'?action=getReviewSummaries&productIds='+encodeURIComponent(ids.join(','))+'&_t='+Date.now();
+    const res=await fetch(url,{cache:'no-store'});
+    if(!res.ok)throw new Error('HTTP '+res.status);
+    const data=await res.json();
+    if(data&&data.success&&data.summaries){
+      const sums=getCustomerReviewSummaries();
+      Object.keys(data.summaries).forEach(id=>{
+        const st=data.summaries[id]||{rating:5,count:0};
+        reviewServerCache['__summary_'+id]=st;
+        reviewServerCache['__loadedSummary_'+id]=true;
+        sums[id]=st;
+      });
+      saveCustomerReviewSummaries(sums);
+      renderReviewSummaries();
+      return true;
+    }
+  }catch(e){console.warn('Không tải được tổng hợp đánh giá:',e);}
   renderReviewSummaries();
-  return Promise.resolve(true);
+  return false;
 }
 
 function getReviewOrderHistory(){
@@ -4675,21 +4782,37 @@ async function submitProductReview(){
     const data=await submitAllProductReviews(payloads,order,name,phone,code);
     if(data&&data.success){
       const reviews=Array.isArray(data.reviews)?data.reviews:[];
+      const localReviews=getCustomerReviews();
+      const localSummaries=getCustomerReviewSummaries();
       reviews.forEach(review=>{
         const k=String(review.productId||'');
         if(!k)return;
-        const list=reviewsForProduct(k);
-        reviewServerCache[k]=[review].concat(list.filter(x=>x.id!==review.id));
+        reviewServerCache[k]=mergeReviewLists([review],reviewServerCache[k],localReviews[k]);
         reviewServerCache['__loaded_'+k]=true;
+        reviewServerCache['__loadedAt_'+k]=Date.now();
+        localReviews[k]=mergeReviewLists([review],localReviews[k]);
+        const previous=reviewStats(k);
+        const oldCount=Math.max(0,Number(previous.count)||0);
+        const oldRating=Number(previous.rating)||5;
+        const newCount=oldCount+1;
+        const newRating=Math.round((((oldRating*oldCount)+(Number(review.stars)||5))/newCount)*10)/10;
+        const st={rating:newRating,count:newCount};
+        localSummaries[k]=st;
+        reviewServerCache['__summary_'+k]=st;
       });
-      // Cập nhật số lượng/rating tại chỗ, không cần gọi lại GS ngay.
+      saveCustomerReviews(localReviews);
+      saveCustomerReviewSummaries(localSummaries);
       if(data.summaries){
         Object.keys(data.summaries).forEach(id=>{
           const st=data.summaries[id]||{};
-          reviewServerCache['__summary_'+id]={rating:Number(st.rating)||5,count:Number(st.count)||0};
+          const normalized={rating:Number(st.rating)||5,count:Number(st.count)||0};
+          reviewServerCache['__summary_'+id]=normalized;
+          localSummaries[id]=normalized;
         });
+        saveCustomerReviewSummaries(localSummaries);
       }
       renderReviewSummaries();
+      loadAllReviewSummaries();
       if(btn){btn.disabled=false;btn.textContent='⭐ Gửi đánh giá'}
       closeProductReview();
       showReviewThanks();
@@ -4713,10 +4836,9 @@ function closeReviewThanks(){
   const modal=document.getElementById('reviewThanksModal');
   if(modal){modal.classList.remove('show');modal.setAttribute('aria-hidden','true')}
 }
-function openCustomerReviews(id){
+function renderCustomerReviewsModalContent(id){
   const p=productByIdForReview(id);if(!p)return;
-  const modal=document.getElementById('customerReviewsModal'),
-        title=document.getElementById('customerReviewsTitle'),
+  const title=document.getElementById('customerReviewsTitle'),
         summary=document.getElementById('customerReviewsSummary'),
         listBox=document.getElementById('customerReviewsList');
   if(title)title.textContent='💬 Đánh giá khách hàng · '+String(p.name||'Món ăn');
@@ -4737,9 +4859,16 @@ function openCustomerReviews(id){
       </div>`).join('');
     }
   }
-  if(modal){modal.classList.add('show');modal.setAttribute('aria-hidden','false')}
 }
-
+function openCustomerReviews(id){
+  const p=productByIdForReview(id);if(!p)return;
+  const modal=document.getElementById('customerReviewsModal');
+  renderCustomerReviewsModalContent(id);
+  if(modal){modal.classList.add('show');modal.setAttribute('aria-hidden','false');}
+  loadProductReviews(id,false).then(()=>{
+    if(modal && modal.classList.contains('show')) renderCustomerReviewsModalContent(id);
+  });
+}
 function closeCustomerReviewsModal(){
   const modal=document.getElementById('customerReviewsModal');
   if(modal){modal.classList.remove('show');modal.setAttribute('aria-hidden','true')}
