@@ -854,6 +854,7 @@ button{-webkit-tap-highlight-color:transparent}
 @media(max-width:520px){.review-box{padding:15px;border-radius:17px}.review-head h2{font-size:18px}.review-star-btn{font-size:29px}}
 </style>
 
+<!-- AN VAT LAM THAO CUSTOMER HTML V5 -->
 </head>
 <body>
 
@@ -911,11 +912,11 @@ button{-webkit-tap-highlight-color:transparent}
     <div id="reviewProductInfo" class="review-product"></div>
     <div class="review-selection-grid">
       <div class="review-field review-stars-field">
-        <label>⭐ Chấm điểm + mã đơn</label>
+        <label>⭐ Chấm điểm + Mã đơn đã đặt</label>
         <div class="review-order-row">
           <div id="reviewStarsInput" class="review-stars-input" role="radiogroup" aria-label="Chọn số sao"></div>
           <select id="reviewOrderSelect" class="review-order-select" onchange="onReviewOrderSelected()">
-            <option value="">Chọn đơn đã đặt trên máy này</option>
+            <option value="">Chọn mã đơn trên máy này</option>
           </select>
         </div>
         <small class="review-help">Chọn mã đơn để xem thời gian đặt và các món trong đơn.</small>
@@ -2960,13 +2961,24 @@ document.addEventListener("visibilitychange",function(){
 window.addEventListener("focus",function(){ refreshStoreStatus(); });
 
 function openOrderForm(){
-
-    if(!storeStatusLoaded){
-        refreshStoreStatus().then(function(st){if(st&&st.open) openOrderForm();});
+    // Không để việc kiểm tra trạng thái cửa hàng chặn thao tác của khách.
+    // Khách đã có món trong giỏ thì mở form ngay; trạng thái cửa hàng vẫn được kiểm tra song song.
+    if(!Array.isArray(cart) || cart.length === 0){
+        alert("🛒 Vui lòng thêm sản phẩm vào giỏ hàng.");
         return;
     }
 
-    if(!storeOpen){
+    if(!storeStatusLoaded){
+        refreshStoreStatus().then(function(st){
+            if(st && st.open === false){
+                const message=(st.message)||'🔴 Hiện tại quán đang tạm nghỉ và chưa nhận đơn.';
+                // Nếu form đã mở do thao tác của khách thì đóng lại khi server xác nhận quán đang nghỉ.
+                const orderModal=document.getElementById('orderModal');
+                if(orderModal) orderModal.style.display='none';
+                alert(message+(st.reopenAt?'\n\n⏰ Mở bán lại: '+formatReopenTime(st.reopenAt):''));
+            }
+        }).catch(function(){});
+    }else if(!storeOpen){
         refreshStoreStatus().then(function(st){
             const message=(st&&st.message)||'🔴 Hiện tại quán đang tạm nghỉ và chưa nhận đơn.';
             alert(message+(st&&st.reopenAt?'\n\n⏰ Mở bán lại: '+formatReopenTime(st.reopenAt):''));
@@ -2974,35 +2986,22 @@ function openOrderForm(){
         return;
     }
 
-    if(cart.length === 0){
-
-        alert(
-            "🛒 Vui lòng thêm sản phẩm vào giỏ hàng."
-        );
-
-        return;
-
-    }
-
-    // Mỗi lần mở một đơn mới, cho phép nút xác nhận hoạt động lại.
-    orderSubmitting = false;
-
-    const confirmButton =
-        document.getElementById("confirmOrderButton");
-
+    orderSubmitting=false;
+    const confirmButton=document.getElementById('confirmOrderButton');
     if(confirmButton){
-        confirmButton.disabled = false;
-        confirmButton.style.opacity = "1";
-        confirmButton.innerHTML = "✅ Xác nhận đặt hàng";
+        confirmButton.disabled=false;
+        confirmButton.style.opacity='1';
+        confirmButton.innerHTML='✅ Xác nhận đặt hàng';
     }
 
     calculateTotal();
-
     closeCart();
 
-    document.getElementById("orderModal")
-        .style.display = "flex";
-
+    const modal=document.getElementById('orderModal');
+    if(modal){
+        modal.style.display='flex';
+        modal.setAttribute('aria-hidden','false');
+    }
 }
 
 function closeOrderForm(){
@@ -4013,11 +4012,17 @@ function onReviewOrderSelected(){
     const id=matched?String(matched.id):'name:'+encodeURIComponent(item.name);
     return `<option value="${escapeOrderHistoryHtml(id)}">${escapeOrderHistoryHtml(item.name)}${item.qty>1?' × '+item.qty:''}</option>`;
   }).join('');
-  if(productSelect){productSelect.innerHTML='<option value="">Chọn món cần đánh giá</option>'+options;}
+  if(productSelect){
+    productSelect.innerHTML='<option value="">Chọn món cần đánh giá</option>'+options;
+    // Nếu khách mở đánh giá từ một món cụ thể và món đó có trong đơn vừa chọn, chọn sẵn món đó.
+    const wanted=String(reviewProductId||'');
+    if(wanted && Array.from(productSelect.options).some(o=>o.value===wanted)) productSelect.value=wanted;
+  }
   if(note){
     const others=reviewSelectedOrderItems.map((item,i)=>({item,i})).filter(x=>x.i!==0);
     note.innerHTML=`🕒 Đặt lúc: <b>${escapeOrderHistoryHtml(reviewSelectedOrder.time||'Không rõ')}</b>`+
-      (others.length?`<div class="review-other-items">${others.map(x=>`<div class="review-other-item"><span>${escapeOrderHistoryHtml(x.item.name)}${x.item.qty>1?' × '+x.item.qty:''}</span><b>⭐ 5/5 · Tốt</b></div>`).join('')}</div>`:'');
+      `<div style="margin-top:5px">📦 Mã đơn: <b>${escapeOrderHistoryHtml(reviewSelectedOrder.code||'—')}</b></div>`+
+      (others.length?`<div class="review-other-items">${others.map(x=>`<div class="review-other-item"><span>${escapeOrderHistoryHtml(x.item.name)}${x.item.qty>1?' × '+x.item.qty:''}</span><b>⭐ 5/5 · Tốt mặc định</b></div>`).join('')}</div>`:'');
   }
 }
 function onReviewProductSelected(){
@@ -4078,14 +4083,42 @@ setTimeout(renderReviewSummaries,0);
 </script>
 
 
+<style id="customer-v5-fixes">
+/* V5: nút tiếp tục luôn nằm trên overlay và chỉ có một luồng xử lý. */
+#continueOrderButton{position:relative;z-index:20!important;pointer-events:auto!important;touch-action:manipulation!important;-webkit-tap-highlight-color:transparent}
+.product-rating{display:none!important}
+.review-buttons-wrap{position:relative;z-index:2}
+.review-customer-btn{display:block!important}
+</style>
 <script>
-// Bảo đảm nút "Tiếp tục đặt hàng" luôn nhận được thao tác sau khi áp voucher.
-document.addEventListener('click',function(e){
-  const btn=e.target.closest && e.target.closest('#continueOrderButton');
-  if(!btn)return;
-  e.preventDefault();e.stopPropagation();
-  if(typeof openOrderForm==='function')openOrderForm();
-},true);
+// V5: fallback bắt sự kiện ở capture phase để không bị form/voucher/overlay nuốt click.
+(function(){
+  function continueOrderV5(e){
+    const btn=e.target && e.target.closest ? e.target.closest('#continueOrderButton') : null;
+    if(!btn)return;
+    e.preventDefault();
+    e.stopPropagation();
+    if(typeof e.stopImmediatePropagation==='function')e.stopImmediatePropagation();
+    if(typeof openOrderForm==='function')openOrderForm();
+  }
+  document.addEventListener('click',continueOrderV5,true);
+  document.addEventListener('pointerup',function(e){
+    const btn=e.target && e.target.closest ? e.target.closest('#continueOrderButton') : null;
+    if(!btn)return;
+    if(typeof openOrderForm==='function' && !btn.__v5PointerHandled){
+      btn.__v5PointerHandled=true;
+      setTimeout(function(){btn.__v5PointerHandled=false},300);
+    }
+  },true);
+  document.addEventListener('keydown',function(e){
+    if(e.key!=='Enter' && e.key!==' ')return;
+    const btn=e.target && e.target.closest ? e.target.closest('#continueOrderButton') : null;
+    if(!btn)return;
+    e.preventDefault();
+    e.stopPropagation();
+    if(typeof openOrderForm==='function')openOrderForm();
+  },true);
+})();
 </script>
 </body>
 </html>
