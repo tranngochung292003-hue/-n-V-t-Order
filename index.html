@@ -4388,7 +4388,7 @@ function closeProductReview(){
 function submitAllProductReviews(items,order,name,phone,code){
   return new Promise(resolve=>{
     const cb='submitReviewsCallback_'+Date.now()+'_'+Math.floor(Math.random()*10000),s=document.createElement('script');
-    const timer=setTimeout(()=>{cleanup();resolve({success:false,message:'Hệ thống phản hồi quá lâu.'})},12000);
+    const timer=setTimeout(()=>{cleanup();resolve({success:false,message:'Hệ thống phản hồi quá lâu. Vui lòng thử lại.'})},12000);
     function cleanup(){clearTimeout(timer);s.remove();try{delete window[cb]}catch(e){window[cb]=undefined}}
     window[cb]=data=>{cleanup();resolve(data||{success:false,message:'Không nhận được phản hồi.'})};
     const reviews=items.map(x=>({productId:String(x.productId||''),stars:Number(x.stars)||5,comment:String(x.comment||'').slice(0,500)}));
@@ -4406,7 +4406,8 @@ async function submitProductReview(){
   const payloads=rows.map(row=>{
     const productId=row.getAttribute('data-review-row')||'';
     const comment=(row.querySelector('.review-row-comment')?.value||'').trim();
-    return {productId,comment,stars:Number(reviewRowRatings[String(productId)]||5)};
+    const productName=(row.querySelector('.review-row-name')?.textContent||'').replace(/^🍢\s*/, '').replace(/\s+×\s*\d+\s*$/,'').trim();
+    return {productId,productName,comment,stars:Number(reviewRowRatings[String(productId)]||5)};
   }).filter(x=>x.productId);
   if(!payloads.length){if(msg){msg.textContent='⚠️ Không có món hợp lệ để đánh giá.';msg.style.color='#b42318'}return}
   if(!phone){if(msg){msg.textContent='⚠️ Đơn này chưa có số điện thoại để xác thực.';msg.style.color='#b42318'}return}
