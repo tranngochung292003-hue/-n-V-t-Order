@@ -37,30 +37,6 @@ header{background:rgba(255,250,245,.96);border-bottom:1px solid var(--border);pa
 .form-group{margin-top:13px}.form-group label{display:block;margin-bottom:6px;color:#444;font-size:14px;font-weight:600}.form-group input,.form-group textarea,.voucher-row input{width:100%;border:1px solid #ddd;background:#fff;color:#222;padding:11px 12px;border-radius:8px;outline:none;font-size:15px}.form-group input:focus,.form-group textarea:focus,.voucher-row input:focus{border-color:var(--brand);box-shadow:0 0 0 2px rgba(229,57,53,.08)}.form-group textarea{min-height:78px;resize:vertical}
 .voucher-box{margin-top:15px;padding:13px;background:var(--brand-soft);border:1px solid #ffd4d2;border-radius:10px}.voucher-box strong{font-size:14px;color:#333}.voucher-row{display:flex;gap:8px;margin-top:9px}.voucher-row button{border:none;background:var(--brand);color:#fff;padding:10px 14px;border-radius:8px;font-weight:800;white-space:nowrap}.voucher-message{margin-top:7px;font-size:13px;line-height:1.5}
 .confirm-btn{width:100%;border:none;margin-top:17px;padding:12px;border-radius:9px;background:var(--brand);color:#fff;font-size:15px;font-weight:800}.confirm-btn:disabled{cursor:not-allowed}
-/* ===== FIX NÚT TIẾP TỤC ĐẶT HÀNG SAU KHI ÁP VOUCHER ===== */
-#cartModal .modal-box{
-  position:relative;
-}
-#cartModal .voucher-box{
-  position:relative;
-  z-index:10;
-}
-#cartModal #continueOrderButton{
-  position:relative;
-  z-index:30;
-  display:block;
-  width:100%;
-  min-height:48px;
-  pointer-events:auto!important;
-  touch-action:manipulation;
-  -webkit-tap-highlight-color:transparent;
-  cursor:pointer!important;
-}
-#cartModal #continueOrderButton:disabled{
-  pointer-events:none!important;
-  opacity:.65;
-}
-
 .notification-permission{
   margin-top:10px;padding:11px 12px;border:1px solid #ead7c4;
   background:#fffaf4;border-radius:12px;display:flex;align-items:center;
@@ -1174,7 +1150,6 @@ button{-webkit-tap-highlight-color:transparent}
                 >
 
                 <button
-                    type="button"
                     onclick="applyVoucher()"
                 >
                     Áp dụng
@@ -1189,12 +1164,8 @@ button{-webkit-tap-highlight-color:transparent}
 
         </div>
 
-        <button
-            type="button"
-            class="confirm-btn"
-            id="continueOrderButton"
+        <button class="confirm-btn"
             onclick="openOrderForm()"
-            aria-label="Tiếp tục đặt hàng"
         >
             Tiếp tục đặt hàng
         </button>
@@ -3891,25 +3862,6 @@ loadShippingZones();
 // Kiểm tra trạng thái ngay khi trang tải và bắt đầu polling 3 giây/lần.
 refreshStoreStatus();
 startStoreStatusPolling();
-
-/* ===== FALLBACK CLICK: NÚT TIẾP TỤC ĐẶT HÀNG ===== */
-document.addEventListener("click", function(e){
-  const btn = e.target && e.target.closest
-    ? e.target.closest("#continueOrderButton")
-    : null;
-  if(!btn) return;
-
-  /* Không cho click xuyên/đúp khi nút đang bị khóa thật sự. */
-  if(btn.disabled) return;
-
-  /* Gọi trực tiếp luồng mở form đặt hàng. */
-  e.preventDefault();
-  e.stopPropagation();
-
-  if(typeof openOrderForm === "function"){
-    openOrderForm();
-  }
-}, true);
 </script>
 
 </body>
