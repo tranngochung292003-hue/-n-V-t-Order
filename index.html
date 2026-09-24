@@ -1413,6 +1413,90 @@ header{
 }
 </style>
 
+
+<style id="anvat-v25-sticky-layout-fix">
+/* V25: Chỉ sửa vị trí thanh đầu trang/danh mục + nút liên hệ.
+   Không thay đổi dữ liệu sản phẩm, đơn hàng, voucher hay đánh giá. */
+:root{--anvat-header-height:74px;--anvat-category-height:0px;--anvat-category-top:74px}
+html,body{overflow-x:hidden!important}
+/* Header luôn bám theo màn hình khi cuộn. */
+body{padding-top:var(--anvat-header-height)!important}
+header{
+  position:fixed!important;
+  top:0!important;
+  left:0!important;
+  right:0!important;
+  width:100%!important;
+  z-index:2147482000!important;
+}
+.header-inner{position:relative!important;z-index:2147482001!important}
+/* Danh mục giữ nguyên kích thước/nội dung hiện tại, chỉ đổi vị trí khi cuộn. */
+.category-menu{
+  position:sticky!important;
+  top:var(--anvat-header-height)!important;
+  z-index:1500!important;
+  isolation:isolate!important;
+}
+.category-menu.anvat-category-fixed{
+  position:fixed!important;
+  top:var(--anvat-header-height)!important;
+  left:50%!important;
+  right:auto!important;
+  width:min(calc(100% - 20px),1180px)!important;
+  margin:0!important;
+  transform:translateX(-50%)!important;
+  z-index:2147481000!important;
+  box-shadow:0 5px 14px rgba(91,58,37,.14)!important;
+}
+.anvat-category-placeholder{
+  display:none;
+  width:100%;
+  height:0;
+}
+.anvat-category-placeholder.active{display:block}
+/* Zalo / Facebook / Gọi luôn nằm trên thanh danh mục khi cần, không bị che. */
+.contact-buttons{
+  z-index:2147481500!important;
+}
+@media(max-width:700px){
+  :root{--anvat-header-height:60px}
+  .category-menu.anvat-category-fixed{
+    width:calc(100% - 12px)!important;
+  }
+}
+@media(max-width:420px){
+  .category-menu.anvat-category-fixed{
+    width:calc(100% - 10px)!important;
+  }
+}
+</style>
+
+<style id="anvat-v25-welcome-force-fix">
+/* V25: đảm bảo popup chào mừng luôn xuất hiện sau khi DOM đã sẵn sàng. */
+#welcomePopup.anvat-welcome-v25-open{
+  display:flex!important;
+  visibility:visible!important;
+  opacity:1!important;
+  position:fixed!important;
+  inset:0!important;
+  z-index:2147483000!important;
+  pointer-events:none!important;
+}
+#welcomePopup.anvat-welcome-v25-open .welcome-box{
+  position:relative!important;
+  z-index:2147483002!important;
+  pointer-events:auto!important;
+}
+#welcomePopup.anvat-welcome-v25-open .welcome-fireworks-canvas{
+  position:absolute!important;
+  inset:0!important;
+  width:100%!important;
+  height:100%!important;
+  z-index:2147483001!important;
+  pointer-events:none!important;
+}
+</style>
+
 </head>
 <body>
 
@@ -5187,6 +5271,250 @@ if(document.readyState==='loading'){
   }, {passive:true});
 
   window.addEventListener('pageshow', releasePageScroll);
+})();
+</script>
+
+
+<script id="anvat-v25-sticky-welcome-js">
+(function(){
+  'use strict';
+
+  /* ---------- Header / category sticky fallback ---------- */
+  let headerEl=null, categoryEl=null, placeholderEl=null;
+  let categoryTriggerTop=0;
+
+  function updateHeaderHeight(){
+    headerEl=document.querySelector('header');
+    if(!headerEl) return 0;
+    const h=Math.max(1,Math.ceil(headerEl.getBoundingClientRect().height));
+    document.documentElement.style.setProperty('--anvat-header-height',h+'px');
+    return h;
+  }
+
+  function setupCategory(){
+    categoryEl=document.querySelector('.category-menu');
+    if(!categoryEl) return;
+    if(!placeholderEl){
+      placeholderEl=document.createElement('div');
+      placeholderEl.className='anvat-category-placeholder';
+      categoryEl.parentNode.insertBefore(placeholderEl,categoryEl);
+    }
+    const rect=categoryEl.getBoundingClientRect();
+    const scrollY=window.pageYOffset||document.documentElement.scrollTop||0;
+    categoryTriggerTop=rect.top+scrollY;
+    placeholderEl.style.height=categoryEl.offsetHeight+'px';
+  }
+
+  function updateCategory(){
+    if(!categoryEl) return;
+    const h=updateHeaderHeight()||74;
+    const scrollY=window.pageYOffset||document.documentElement.scrollTop||0;
+    const shouldFix=scrollY > categoryTriggerTop - h - 2;
+    if(shouldFix){
+      if(!categoryEl.classList.contains('anvat-category-fixed')){
+        categoryEl.classList.add('anvat-category-fixed');
+        placeholderEl && placeholderEl.classList.add('active');
+      }
+    }else{
+      categoryEl.classList.remove('anvat-category-fixed');
+      placeholderEl && placeholderEl.classList.remove('active');
+    }
+  }
+
+  function refreshStickyLayout(){
+    updateHeaderHeight();
+    if(!categoryEl) setupCategory();
+    else{
+      const wasFixed=categoryEl.classList.contains('anvat-category-fixed');
+      if(!wasFixed) setupCategory();
+    }
+    updateCategory();
+  }
+
+  function initStickyLayout(){
+    headerEl=document.querySelector('header');
+    categoryEl=document.querySelector('.category-menu');
+    if(!headerEl||!categoryEl) return;
+    refreshStickyLayout();
+    window.addEventListener('scroll',updateCategory,{passive:true});
+    window.addEventListener('resize',function(){
+      updateHeaderHeight();
+      const wasFixed=categoryEl.classList.contains('anvat-category-fixed');
+      if(wasFixed){
+        categoryEl.classList.remove('anvat-category-fixed');
+        placeholderEl && placeholderEl.classList.remove('active');
+      }
+      setupCategory();
+      updateCategory();
+    },{passive:true});
+    window.addEventListener('load',refreshStickyLayout,{passive:true});
+    if('ResizeObserver' in window){
+      try{
+        const ro=new ResizeObserver(function(){
+          updateHeaderHeight();
+          const wasFixed=categoryEl.classList.contains('anvat-category-fixed');
+          if(!wasFixed) setupCategory();
+          updateCategory();
+        });
+        ro.observe(headerEl);
+      }catch(e){}
+    }
+  }
+
+  /* ---------- Welcome popup fallback ---------- */
+  let welcomeTimer=null;
+  let fireworksFrame=null;
+  let fireworksInterval=null;
+  let bursts=[];
+
+  function stopFireworks(){
+    if(welcomeTimer){clearTimeout(welcomeTimer);welcomeTimer=null;}
+    if(fireworksFrame){cancelAnimationFrame(fireworksFrame);fireworksFrame=null;}
+    if(fireworksInterval){clearInterval(fireworksInterval);fireworksInterval=null;}
+    bursts=[];
+    const canvas=document.getElementById('welcomeFireworksCanvas');
+    const ctx=canvas&&canvas.getContext?canvas.getContext('2d'):null;
+    if(canvas&&ctx) ctx.clearRect(0,0,canvas.width,canvas.height);
+  }
+
+  function resizeCanvas(){
+    const popup=document.getElementById('welcomePopup');
+    const canvas=document.getElementById('welcomeFireworksCanvas');
+    if(!canvas) return null;
+    const w=Math.max(1,Math.floor((popup&&popup.clientWidth)||window.innerWidth));
+    const h=Math.max(1,Math.floor((popup&&popup.clientHeight)||window.innerHeight));
+    const dpr=Math.min(window.devicePixelRatio||1,2);
+    canvas.width=Math.floor(w*dpr);
+    canvas.height=Math.floor(h*dpr);
+    canvas.style.width=w+'px';
+    canvas.style.height=h+'px';
+    const ctx=canvas.getContext('2d');
+    if(ctx) ctx.setTransform(dpr,0,0,dpr,0,0);
+    canvas.__w=w;canvas.__h=h;
+    return {canvas,ctx,w,h};
+  }
+
+  function spawnBurst(){
+    const s=resizeCanvas();
+    if(!s||!s.ctx) return;
+    const {w,h}=s;
+    const x=w*(0.15+Math.random()*0.7);
+    const y=h*(0.12+Math.random()*0.42);
+    const colors=['#ffd166','#ff9f1c','#ff5d8f','#8ecae6','#c77dff','#90be6d'];
+    const color=colors[Math.floor(Math.random()*colors.length)];
+    const count=34+Math.floor(Math.random()*18);
+    const particles=[];
+    for(let i=0;i<count;i++){
+      const a=Math.PI*2*i/count+(Math.random()-.5)*0.12;
+      const speed=1.3+Math.random()*2.8;
+      particles.push({x,y,vx:Math.cos(a)*speed,vy:Math.sin(a)*speed,life:34+Math.random()*24,age:0,size:1.3+Math.random()*1.8});
+    }
+    bursts.push({particles,color});
+    if(bursts.length>9) bursts.shift();
+  }
+
+  function drawFireworks(){
+    const popup=document.getElementById('welcomePopup');
+    if(!popup || !popup.classList.contains('anvat-welcome-v25-open')) return;
+    const s=resizeCanvas();
+    if(!s||!s.ctx) return;
+    const {ctx,w,h}=s;
+    ctx.clearRect(0,0,w,h);
+    const keep=[];
+    for(const burst of bursts){
+      let alive=false;
+      for(const p of burst.particles){
+        p.age++;
+        if(p.age>=p.life) continue;
+        alive=true;
+        p.vy+=0.035;
+        p.x+=p.vx;
+        p.y+=p.vy;
+        const alpha=Math.max(0,1-p.age/p.life);
+        ctx.globalAlpha=alpha;
+        ctx.fillStyle=burst.color;
+        ctx.beginPath();
+        ctx.arc(p.x,p.y,p.size,0,Math.PI*2);
+        ctx.fill();
+      }
+      if(alive) keep.push(burst);
+    }
+    ctx.globalAlpha=1;
+    bursts=keep;
+    fireworksFrame=requestAnimationFrame(drawFireworks);
+  }
+
+  function startFireworks(){
+    if(fireworksFrame) cancelAnimationFrame(fireworksFrame);
+    if(fireworksInterval) clearInterval(fireworksInterval);
+    bursts=[];
+    spawnBurst();
+    setTimeout(spawnBurst,260);
+    fireworksInterval=setInterval(spawnBurst,700);
+    fireworksFrame=requestAnimationFrame(drawFireworks);
+  }
+
+  function openWelcome(){
+    const popup=document.getElementById('welcomePopup');
+    if(!popup) return;
+    popup.classList.add('anvat-welcome-v25-open');
+    popup.setAttribute('aria-hidden','false');
+    popup.style.setProperty('display','flex','important');
+    popup.style.setProperty('visibility','visible','important');
+    popup.style.setProperty('opacity','1','important');
+    startFireworks();
+  }
+
+  function scheduleWelcome(){
+    if(welcomeTimer) clearTimeout(welcomeTimer);
+    welcomeTimer=setTimeout(function(){
+      openWelcome();
+    },1200);
+    setTimeout(function(){
+      const popup=document.getElementById('welcomePopup');
+      if(popup && getComputedStyle(popup).display==='none') openWelcome();
+    },2200);
+  }
+
+  function closeWelcomeV25(){
+    const popup=document.getElementById('welcomePopup');
+    stopFireworks();
+    if(popup){
+      popup.classList.remove('anvat-welcome-v25-open');
+      popup.style.setProperty('display','none','important');
+      popup.style.setProperty('visibility','hidden','important');
+      popup.setAttribute('aria-hidden','true');
+    }
+  }
+
+  function bindWelcomeClose(){
+    const btn=document.querySelector('#welcomePopup .welcome-close');
+    if(!btn||btn.__v25Bound) return;
+    btn.__v25Bound=true;
+    btn.addEventListener('click',function(){closeWelcomeV25();},{passive:true});
+  }
+
+  function init(){
+    initStickyLayout();
+    bindWelcomeClose();
+    scheduleWelcome();
+    window.addEventListener('resize',function(){
+      const popup=document.getElementById('welcomePopup');
+      if(popup && popup.classList.contains('anvat-welcome-v25-open')) resizeCanvas();
+    },{passive:true});
+  }
+
+  if(document.readyState==='loading'){
+    document.addEventListener('DOMContentLoaded',init,{once:true});
+  }else{
+    init();
+  }
+  window.addEventListener('load',function(){
+    refreshStickyLayout();
+    bindWelcomeClose();
+    const popup=document.getElementById('welcomePopup');
+    if(popup && getComputedStyle(popup).display==='none') scheduleWelcome();
+  },{once:true});
 })();
 </script>
 
