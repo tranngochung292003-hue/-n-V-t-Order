@@ -3829,7 +3829,7 @@ let welcomeToastTimer = null;
 function openWelcomePopup(){
     const popup = document.getElementById("welcomePopup");
     if(popup){
-        popup.style.display = "flex";
+        popup.style.setProperty("display","flex","important");
     }
 }
 
@@ -3875,7 +3875,7 @@ function closeWelcomePopup(){
     const popup = document.getElementById("welcomePopup");
 
     if(popup){
-        popup.style.display = "none";
+        popup.style.setProperty("display","none","important");
     }
 
     // Sau khi khách bấm "Đã hiểu", hiện thông báo từ trên cùng bên phải.
@@ -4447,6 +4447,23 @@ function closeProductReview(){
   reviewRowRatings={};
 }
 
+
+function normalizeReviewClientPhoneV18(value){
+  let x=String(value==null?'':value).replace(/\D/g,'');
+  if(x.startsWith('84') && x.length>=11) x='0'+x.slice(2);
+  if(x.length===9) x='0'+x;
+  return x;
+}
+function getReviewOrderPhoneV18(order){
+  return String(
+    order?.phone ??
+    order?.sdt ??
+    order?.phoneNumber ??
+    order?.customerPhone ??
+    ''
+  ).trim();
+}
+
 function submitAllProductReviews(items,order,name,phone,code){
   return new Promise(resolve=>{
     const cb='submitReviewsCallback_'+Date.now()+'_'+Math.floor(Math.random()*10000),s=document.createElement('script');
@@ -4461,7 +4478,7 @@ function submitAllProductReviews(items,order,name,phone,code){
 async function submitProductReview(){
   const msg=document.getElementById('reviewMessage'),order=reviewSelectedOrder;
   if(!order){if(msg){msg.textContent='⚠️ Vui lòng chọn mã đơn cần đánh giá.';msg.style.color='#b42318'}return}
-  const phone=String(order.phone||'').trim(),code=String(order.code||'').trim().toUpperCase();
+  const phone=getReviewOrderPhoneV18(order),code=String(order.code||'').trim().toUpperCase();
   const name=String(order.name||order.customerName||'Khách hàng').trim()||'Khách hàng';
   const rows=Array.from(document.querySelectorAll('#reviewProductsRows .review-product-row:not(.review-product-row-disabled)'));
   if(!rows.length){if(msg){msg.textContent='⚠️ Không có món hợp lệ để đánh giá.';msg.style.color='#b42318'}return}
@@ -4472,7 +4489,7 @@ async function submitProductReview(){
     return {productId,productName,comment,stars:Number(reviewRowRatings[String(productId)]||5)};
   }).filter(x=>x.productId);
   if(!payloads.length){if(msg){msg.textContent='⚠️ Không có món hợp lệ để đánh giá.';msg.style.color='#b42318'}return}
-  if(!phone){if(msg){msg.textContent='⚠️ Đơn này chưa có số điện thoại để xác thực.';msg.style.color='#b42318'}return}
+  if(!phone){if(msg){msg.textContent='⚠️ Lịch sử đơn này chưa lưu số điện thoại. Hãy đánh giá bằng một đơn được đặt trên phiên bản website mới.';msg.style.color='#b42318'}return}
   const btn=document.querySelector('#reviewModal .review-submit');
   if(btn){btn.disabled=true;btn.textContent='⏳ Đang gửi...'}
   if(msg){msg.textContent=`Đang gửi ${payloads.length} đánh giá...`;msg.style.color='#7d5438'}
