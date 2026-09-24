@@ -3223,21 +3223,33 @@ function calculateTotal(){
    ORDER FORM
 ================================================== */
 
-let storeOpen=true;let storeStatusLoaded=false;let storeStatusTimer=null;
+let storeOpen=true;let storeStatusLoaded=false;let storeStatusTimer=null;let storeStatusLastCheck=0;
 function formatReopenTime(value){if(!value)return '';const d=new Date(value);if(isNaN(d.getTime()))return '';return d.toLocaleString('vi-VN',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'});}
 function applyStoreStatus(st){storeOpen=!!(st&&st.open);storeStatusLoaded=true;const banner=document.getElementById('storeClosedBanner'),msg=document.getElementById('storeClosedMessage'),reopen=document.getElementById('storeClosedReopen'),btn=document.getElementById('confirmOrderButton');if(storeOpen){if(banner)banner.classList.remove('show');if(btn){btn.disabled=false;btn.classList.remove('order-store-closed');btn.innerHTML='✅ Xác nhận đặt hàng';}}else{if(banner){banner.classList.add('show');if(msg)msg.textContent=st.message||'🔴 Hiện tại quán đang tạm nghỉ và chưa nhận đơn.';if(reopen)reopen.textContent=st.reopenAt?'⏰ Mở bán lại: '+formatReopenTime(st.reopenAt):'';}if(btn){btn.disabled=true;btn.classList.add('order-store-closed');btn.innerHTML='🔴 Quán đang tạm nghỉ';}}}
-async function refreshStoreStatus(){try{const r=await fetch(GOOGLE_SCRIPT_URL+'?action=storeStatus&_t='+Date.now(),{cache:'no-store'});if(!r.ok)throw new Error('HTTP '+r.status);const st=await r.json();if(st&&typeof st.open!=='undefined')applyStoreStatus(st);return st;}catch(e){console.warn('Không kiểm tra được trạng thái bán hàng:',e);return null;}}
+async function refreshStoreStatus(force=false){
+  const now=Date.now();
+  // Không gọi GS liên tục: tối đa 1 lần/60 giây, trừ khi thực sự ép kiểm tra.
+  if(!force && storeStatusLoaded && now-storeStatusLastCheck<60000) return null;
+  storeStatusLastCheck=now;
+  try{
+    const r=await fetch(GOOGLE_SCRIPT_URL+'?action=storeStatus&_t='+now,{cache:'no-store'});
+    if(!r.ok)throw new Error('HTTP '+r.status);
+    const st=await r.json();
+    if(st&&typeof st.open!=='undefined')applyStoreStatus(st);
+    return st;
+  }catch(e){console.warn('Không kiểm tra được trạng thái bán hàng:',e);return null;}
+}
 function startStoreStatusPolling(){
   clearInterval(storeStatusTimer);
-  // Kiểm tra trạng thái liên tục để khách đang mở web thấy Mở bán/Tạm nghỉ gần như ngay lập tức.
-  storeStatusTimer=setInterval(refreshStoreStatus,3000);
+  // 60 giây mới kiểm tra một lần thay vì 3 giây.
+  storeStatusTimer=setInterval(()=>refreshStoreStatus(true),60000);
 }
 
-// Khi khách quay lại tab/app, kiểm tra ngay thay vì chờ chu kỳ 3 giây.
+// Chỉ kiểm tra khi quay lại tab nếu đã lâu hơn 30 giây.
 document.addEventListener("visibilitychange",function(){
-  if(document.visibilityState === "visible") refreshStoreStatus();
+  if(document.visibilityState === "visible") refreshStoreStatus(false);
 });
-window.addEventListener("focus",function(){ refreshStoreStatus(); });
+window.addEventListener("focus",function(){ refreshStoreStatus(false); });
 
 function openOrderForm(){
     // Không để việc kiểm tra trạng thái cửa hàng chặn thao tác của khách.
@@ -4274,8 +4286,20 @@ function loadAllReviewSummaries(){
   return new Promise(resolve=>{
     const ids=(products||[]).map(p=>String(p.id||'')).filter(Boolean);
     if(!ids.length){renderReviewSummaries();resolve(false);return}
+    const wantedKey=ids.slice().sort().join(',');
+    const localKey='anvat_review_summaries_v2';
+    try{
+      const raw=localStorage.getItem(localKey);
+      const cached=raw?JSON.parse(raw):null;
+      if(cached&&cached.savedAt&&Date.now()-cached.savedAt<300000&&cached.ids===wantedKey&&cached.summaries){
+        Object.keys(cached.summaries).forEach(id=>{const st=cached.summaries[id]||{};reviewServerCache['__summary_'+id]={rating:Number(st.rating)||5,count:Number(st.count)||0};reviewServerCache['__loaded_'+id]=true;});
+        renderReviewSummaries();
+        // Cache đủ mới thì không gọi GS lần nữa.
+        resolve(true);return;
+      }
+    }catch(e){}
     const cb='reviewSummaryCallback_'+Date.now()+'_'+Math.floor(Math.random()*10000),s=document.createElement('script');
-    const timer=setTimeout(()=>{cleanup();resolve(false)},8000);
+    const timer=setTimeout(()=>{cleanup();resolve(false)},6000);
     function cleanup(){clearTimeout(timer);s.remove();try{delete window[cb]}catch(e){window[cb]=undefined}}
     window[cb]=data=>{
       cleanup();
@@ -4285,6 +4309,7 @@ function loadAllReviewSummaries(){
           reviewServerCache['__summary_'+id]={rating:Number(st.rating)||5,count:Number(st.count)||0};
           reviewServerCache['__loaded_'+id]=true;
         });
+        try{localStorage.setItem(localKey,JSON.stringify({savedAt:Date.now(),ids:wantedKey,summaries:data.summaries}));}catch(e){}
         renderReviewSummaries();
       }
       resolve(!!(data&&data.success));
@@ -4483,10 +4508,10 @@ function closeCustomerReviewsModal(){
   if(modal){modal.classList.remove('show');modal.setAttribute('aria-hidden','true')}
 }
 setTimeout(()=>{
-  // Chỉ 1 request để lấy toàn bộ số lượng/số sao, tránh website bị chậm khi có nhiều món.
+  // Ưu tiên hiển thị menu trước; đánh giá tải nền sau đó.
   renderReviewSummaries();
   loadAllReviewSummaries().catch(()=>false);
-},0);
+},1200);
 
 </script>
 
