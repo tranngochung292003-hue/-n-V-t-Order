@@ -1203,6 +1203,20 @@ button{-webkit-tap-highlight-color:transparent}
   </div>
 </div>
 
+<!-- CẢM ƠN SAU KHI GỬI ĐÁNH GIÁ -->
+<div id="reviewThanksModal" class="review-modal" aria-hidden="true">
+  <div class="review-box review-thanks-box">
+    <div class="review-head">
+      <h2>💖 Cảm ơn bạn!</h2>
+      <button type="button" class="review-close" onclick="closeReviewThanks()" aria-label="Đóng">×</button>
+    </div>
+    <div class="review-thanks-icon">✓</div>
+    <div class="review-thanks-title">Đánh giá đã được gửi thành công</div>
+    <div class="review-thanks-text">Cảm ơn bạn đã dành thời gian đánh giá món ăn. Ý kiến của bạn giúp quán phục vụ tốt hơn! ❤️</div>
+    <button type="button" class="review-thanks-btn" onclick="closeReviewThanks()">Đã hiểu</button>
+  </div>
+</div>
+
 <!-- XEM NHẬN XÉT MÓN ĂN -->
 <div id="customerReviewsModal" class="review-modal" aria-hidden="true" onclick="if(event.target===this)closeCustomerReviewsModal()">
   <div class="review-box review-view-box">
@@ -4247,20 +4261,47 @@ function renderReviewSummaries(){
   });
 }
 function loadProductReviews(id){
+  const key=String(id||'');
+  if(!key)return Promise.resolve(false);
+  if(reviewServerCache['__loaded_'+key])return Promise.resolve(true);
   return new Promise(resolve=>{
     const cb='reviewCallback_'+Date.now()+'_'+Math.floor(Math.random()*10000),s=document.createElement('script');
-    const timer=setTimeout(()=>{cleanup();resolve(false)},10000);
+    const timer=setTimeout(()=>{cleanup();resolve(false)},8000);
     function cleanup(){clearTimeout(timer);s.remove();try{delete window[cb]}catch(e){window[cb]=undefined}}
     window[cb]=data=>{
       cleanup();
       if(data&&data.success){
-        reviewServerCache[String(id)]=Array.isArray(data.reviews)?data.reviews:[];
-        reviewServerCache['__summary_'+id]=data.summary||{rating:5,count:0};
+        reviewServerCache[key]=Array.isArray(data.reviews)?data.reviews:[];
+        reviewServerCache['__summary_'+key]=data.summary||{rating:5,count:0};
+        reviewServerCache['__loaded_'+key]=true;
         renderReviewSummaries();
       }
       resolve(!!(data&&data.success));
     };
-    s.src=GOOGLE_SCRIPT_URL+'?action=getReviews&productId='+encodeURIComponent(id)+'&callback='+encodeURIComponent(cb);
+    s.src=GOOGLE_SCRIPT_URL+'?action=getReviews&productId='+encodeURIComponent(key)+'&callback='+encodeURIComponent(cb);
+    document.body.appendChild(s);
+  });
+}
+function loadAllReviewSummaries(){
+  return new Promise(resolve=>{
+    const ids=(products||[]).map(p=>String(p.id||'')).filter(Boolean);
+    if(!ids.length){renderReviewSummaries();resolve(false);return}
+    const cb='reviewSummaryCallback_'+Date.now()+'_'+Math.floor(Math.random()*10000),s=document.createElement('script');
+    const timer=setTimeout(()=>{cleanup();resolve(false)},8000);
+    function cleanup(){clearTimeout(timer);s.remove();try{delete window[cb]}catch(e){window[cb]=undefined}}
+    window[cb]=data=>{
+      cleanup();
+      if(data&&data.success&&data.summaries){
+        Object.keys(data.summaries).forEach(id=>{
+          const st=data.summaries[id]||{};
+          reviewServerCache['__summary_'+id]={rating:Number(st.rating)||5,count:Number(st.count)||0};
+          reviewServerCache['__loaded_'+id]=true;
+        });
+        renderReviewSummaries();
+      }
+      resolve(!!(data&&data.success));
+    };
+    s.src=GOOGLE_SCRIPT_URL+'?action=getReviewSummaries&productIds='+encodeURIComponent(ids.join(','))+'&callback='+encodeURIComponent(cb);
     document.body.appendChild(s);
   });
 }
@@ -4377,36 +4418,46 @@ async function submitProductReview(){
     const productId=row.getAttribute('data-review-row')||'';
     const comment=(row.querySelector('.review-row-comment')?.value||'').trim();
     return {productId,comment,stars:Number(reviewRowRatings[String(productId)]||5)};
-  }).filter(x=>x.productId&&x.comment);
-  if(!payloads.length){if(msg){msg.textContent='⚠️ Hãy nhập ít nhất 1 nhận xét cho món bạn muốn đánh giá.';msg.style.color='#b42318'}return}
+  }).filter(x=>x.productId);
+  if(!payloads.length){if(msg){msg.textContent='⚠️ Không có món hợp lệ để đánh giá.';msg.style.color='#b42318'}return}
   if(!phone){if(msg){msg.textContent='⚠️ Đơn này chưa có số điện thoại để xác thực.';msg.style.color='#b42318'}return}
   const btn=document.querySelector('#reviewModal .review-submit');
   if(btn){btn.disabled=true;btn.textContent='⏳ Đang gửi...'}
   if(msg){msg.textContent=`Đang gửi ${payloads.length} đánh giá...`;msg.style.color='#7d5438'}
-  let ok=0,fail=0,failMessages=[],lastRatedProductId=null;
-  for(const item of payloads){
-    const data=await submitOneProductReview(item.productId,order,name,phone,code,item.stars,item.comment);
-    if(data&&data.success){
-      ok++;
-      lastRatedProductId=item.productId;
-      if(data.review){
-        const k=String(item.productId),list=reviewsForProduct(item.productId);
-        reviewServerCache[k]=[data.review].concat(list.filter(x=>x.id!==data.review.id));
-      }
-    }else{fail++;if(data?.message)failMessages.push(data.message)}
-  }
-  renderReviewSummaries();
-  if(btn){btn.disabled=false;btn.textContent='⭐ Gửi đánh giá'}
-  if(msg){
-    if(ok){msg.textContent=`✅ Đã gửi ${ok} đánh giá${fail?' · '+fail+' món chưa gửi được':''}.`;msg.style.color='#23733a'}
-    else{msg.textContent='❌ '+(failMessages[0]||'Không thể gửi đánh giá.');msg.style.color='#b42318'}
-  }
-  if(ok){
-    payloads.forEach(item=>{const el=document.querySelector(`[data-review-comment="${CSS.escape(item.productId)}"]`);if(el)el.value=''});
-    if(lastRatedProductId){
-      setTimeout(()=>{closeProductReview();openCustomerReviews(lastRatedProductId)},220);
+  try{
+    // Gửi song song để không phải chờ từng món lần lượt. Nhận xét có thể để trống.
+    const results=await Promise.all(payloads.map(item=>submitOneProductReview(item.productId,order,name,phone,code,item.stars,item.comment)));
+    let ok=0,fail=0,failMessages=[];
+    results.forEach((data,i)=>{
+      if(data&&data.success){
+        ok++;
+        const k=String(payloads[i].productId),list=reviewsForProduct(payloads[i].productId);
+        if(data.review)reviewServerCache[k]=[data.review].concat(list.filter(x=>x.id!==data.review.id));
+        reviewServerCache['__loaded_'+k]=true;
+      }else{fail++;if(data?.message)failMessages.push(data.message)}
+    });
+    renderReviewSummaries();
+    if(ok){
+      if(btn){btn.disabled=false;btn.textContent='⭐ Gửi đánh giá'}
+      closeProductReview();
+      showReviewThanks();
+      return;
     }
+    if(btn){btn.disabled=false;btn.textContent='⭐ Gửi đánh giá'}
+    if(msg){msg.textContent='❌ '+(failMessages[0]||'Không thể gửi đánh giá. Vui lòng thử lại.');msg.style.color='#b42318'}
+  }catch(e){
+    if(btn){btn.disabled=false;btn.textContent='⭐ Gửi đánh giá'}
+    if(msg){msg.textContent='❌ Không thể gửi đánh giá. Vui lòng thử lại.';msg.style.color='#b42318'}
+    console.warn('submitProductReview error:',e);
   }
+}
+function showReviewThanks(){
+  const modal=document.getElementById('reviewThanksModal');
+  if(modal){modal.classList.add('show');modal.setAttribute('aria-hidden','false')}
+}
+function closeReviewThanks(){
+  const modal=document.getElementById('reviewThanksModal');
+  if(modal){modal.classList.remove('show');modal.setAttribute('aria-hidden','true')}
 }
 function openCustomerReviews(id){
   const p=productByIdForReview(id);if(!p)return;
@@ -4432,17 +4483,22 @@ function closeCustomerReviewsModal(){
   const modal=document.getElementById('customerReviewsModal');
   if(modal){modal.classList.remove('show');modal.setAttribute('aria-hidden','true')}
 }
-setTimeout(async()=>{
+setTimeout(()=>{
+  // Chỉ 1 request để lấy toàn bộ số lượng/số sao, tránh website bị chậm khi có nhiều món.
   renderReviewSummaries();
-  // Nạp số lượng đánh giá thật từ GS cho toàn bộ món để card hiển thị đúng ngay sau khi dữ liệu về.
-  const ids=(products||[]).map(p=>String(p.id)).filter(Boolean);
-  await Promise.all(ids.map(id=>loadProductReviews(id).catch(()=>false)));
-  renderReviewSummaries();
+  loadAllReviewSummaries().catch(()=>false);
 },0);
 
 </script>
 
 
+<style id="review-v11-fixes">
+.review-thanks-box{max-width:430px!important;text-align:center;padding:26px 22px 22px!important}
+.review-thanks-icon{width:66px;height:66px;margin:6px auto 14px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(145deg,#d59a4f,#b56f25);color:#fff;font-size:34px;font-weight:900;box-shadow:0 10px 24px rgba(181,111,37,.22)}
+.review-thanks-title{font-size:21px;font-weight:900;color:#5c3a25;margin-bottom:8px}
+.review-thanks-text{font-size:14px;line-height:1.65;color:#806b5d;background:#fff8ef;border:1px solid #ecd8c1;border-radius:13px;padding:12px 13px;margin-bottom:16px}
+.review-thanks-btn{width:100%;border:0;border-radius:12px;padding:12px 16px;background:#c9822d;color:#fff;font-weight:900;font-size:14px;cursor:pointer}
+</style>
 <style id="customer-v5-fixes">
 /* V5: nút tiếp tục luôn nằm trên overlay và chỉ có một luồng xử lý. */
 #continueOrderButton{position:relative;z-index:20!important;pointer-events:auto!important;touch-action:manipulation!important;-webkit-tap-highlight-color:transparent}
