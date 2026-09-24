@@ -4293,9 +4293,6 @@ function scheduleWelcomePopup(){
     }else{
         show();
     }
-    window.addEventListener('load',function(){
-        if(!welcomePopupOpened) setTimeout(openWelcomePopup,500);
-    },{once:true});
 }
 
 function showWelcomeToast(){
