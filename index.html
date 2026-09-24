@@ -1009,8 +1009,28 @@ button{-webkit-tap-highlight-color:transparent}
 }
 </style>
 
-<style id="review-center-v8-style">
-/* V8: card đánh giá bo tròn, kiểu gọn như Lịch Sử Đơn Hàng nhưng dùng màu riêng */
+<style id="review-center-v9-style">
+/* V9: nút Đánh giá món ăn bo viền ôm đúng nội dung, không kéo dài toàn ô giữa header */
+.den-header{
+  grid-template-columns:auto auto auto!important;
+  justify-content:space-between!important;
+  align-items:center!important;
+}
+.header-review-btn{
+  justify-self:center!important;
+  width:max-content!important;
+  min-width:0!important;
+  max-width:max-content!important;
+  flex:0 0 auto!important;
+  border:2px solid #b98b62!important;
+  border-radius:999px!important;
+  background:#fff7ef!important;
+  color:#70472d!important;
+  padding:9px 18px!important;
+  line-height:1.2!important;
+  box-shadow:0 3px 10px rgba(91,58,37,.10)!important;
+}
+.header-review-btn:hover{background:#ead8c4!important}
 .review-center-box{
   max-width:560px!important;
   border:2px solid #c9a27e!important;
@@ -1026,8 +1046,24 @@ button{-webkit-tap-highlight-color:transparent}
 .review-product-row{border:1px solid #e3d0bd!important;border-radius:12px!important;background:#fffaf5!important}
 .review-customer-btn{border-color:#b98b62!important;background:#fffaf5!important;color:#70472d!important;border-radius:11px!important}
 .review-customer-btn:hover{background:#f0e1d2!important}
-.header-review-btn{border-color:#b98b62!important;background:#fff7ef!important;color:#70472d!important}
-.header-review-btn:hover{background:#ead8c4!important}
+@media(max-width:700px){
+  .den-header{
+    grid-template-columns:78px minmax(0,1fr) auto!important;
+    justify-content:space-between!important;
+    gap:6px!important;
+  }
+  .header-review-btn{
+    justify-self:center!important;
+    width:max-content!important;
+    max-width:100%!important;
+    padding:8px 11px!important;
+    border-radius:999px!important;
+    font-size:11px!important;
+  }
+}
+@media(max-width:390px){
+  .header-review-btn{padding:7px 9px!important;font-size:10px!important}
+}
 </style>
 </head>
 <body>
