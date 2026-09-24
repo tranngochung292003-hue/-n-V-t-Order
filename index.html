@@ -880,6 +880,134 @@ button{-webkit-tap-highlight-color:transparent}
 </style>
 
 <!-- AN VAT LAM THAO CUSTOMER HTML V5 -->
+
+<style id="review-v4-ui">
+/* ===== REVIEW V4: CARD ÔM VIỀN TRÒN + ĐÁNH GIÁ THEO HÀNG ===== */
+.review-center-box{
+  max-width:760px!important;
+  border-radius:26px!important;
+  padding:20px!important;
+  border:1px solid #e6d3c0!important;
+  background:linear-gradient(180deg,#fffaf5 0%,#fff 100%)!important;
+}
+.review-view-box{max-width:600px!important;border-radius:24px!important}
+.review-order-only{
+  padding:14px;
+  background:#fff;
+  border:1px solid #e6d3c0;
+  border-radius:18px;
+  box-shadow:0 3px 12px rgba(91,58,37,.05);
+}
+.review-order-only label{font-size:13px!important;margin-bottom:7px!important}
+.review-order-select{width:100%!important;border-radius:12px!important;padding:12px 13px!important;font-weight:750}
+.review-customer-summary{
+  margin-top:10px;
+  padding:10px 13px;
+  border:1px solid #ead8c6;
+  border-radius:14px;
+  background:#fff;
+  color:#705b4d;
+  font-size:12px;
+  line-height:1.5;
+}
+.review-products-review-wrap{
+  margin-top:12px;
+  padding:13px;
+  border:1px solid #e6d3c0;
+  border-radius:20px;
+  background:#fff;
+  box-shadow:0 4px 14px rgba(91,58,37,.05);
+}
+.review-products-title{
+  font-size:14px;
+  font-weight:900;
+  color:#5b3a25;
+  margin-bottom:9px;
+}
+.review-products-rows{display:flex;flex-direction:column;gap:8px}
+.review-product-row{
+  display:grid;
+  grid-template-columns:minmax(130px,1.1fr) auto minmax(150px,1.3fr);
+  align-items:center;
+  gap:8px;
+  padding:9px 10px;
+  border:1px solid #eadfd5;
+  border-radius:15px;
+  background:#fffaf5;
+}
+.review-product-row-disabled{opacity:.65}
+.review-row-name{
+  min-width:0;
+  color:#4d392d;
+  font-size:12px;
+  font-weight:850;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.review-row-stars{display:flex;gap:1px;align-items:center;white-space:nowrap}
+.review-row-star{
+  border:0;background:transparent;color:#d7c6b8;padding:0 1px;font-size:20px;line-height:1;cursor:pointer;
+}
+.review-row-star.active{color:#e3a11b}
+.review-row-comment{
+  width:100%;
+  min-width:0;
+  border:1px solid #dfcdbb;
+  border-radius:10px;
+  background:#fff;
+  color:#3d3028;
+  padding:8px 9px;
+  font-size:11px;
+  outline:none;
+}
+.review-row-comment:focus{border-color:#b88b67;box-shadow:0 0 0 2px rgba(139,94,60,.08)}
+.review-row-unmatched{font-size:11px;color:#9b6b50}
+.review-view-summary{
+  display:flex;align-items:center;gap:6px;
+  padding:10px 12px;margin-bottom:8px;
+  border:1px solid #ead8c6;border-radius:14px;background:#fff;
+  color:#786456;font-size:12px;
+}
+.review-view-stars{color:#e3a11b;letter-spacing:1px;font-size:16px}
+.review-view-box .review-item{
+  padding:11px 12px;
+  border:1px solid #eadfd5;
+  border-radius:14px;
+  background:#fffaf5;
+  margin-top:8px;
+}
+.review-view-box .review-item:first-child{margin-top:0}
+.review-view-box .review-item-order{font-size:10px;color:#8b6f5d;margin-top:3px}
+.review-view-box .review-item-text{font-size:12px}
+.review-buttons-wrap{margin:5px 0 8px}
+.review-customer-btn{
+  border:1px solid #d8c0aa!important;
+  background:#fff!important;
+  color:#7d5438!important;
+  border-radius:999px!important;
+  padding:6px 10px!important;
+  font-size:11px!important;
+  font-weight:850!important;
+  width:100%!important;
+}
+.review-customer-btn:hover{background:#f8efe7!important}
+@media(max-width:700px){
+  .review-center-box{padding:14px!important;border-radius:20px!important}
+  .review-product-row{
+    grid-template-columns:minmax(105px,1fr) auto;
+    gap:7px;
+    padding:9px;
+  }
+  .review-row-comment{grid-column:1 / -1}
+  .review-row-star{font-size:19px}
+}
+@media(max-width:430px){
+  .review-product-row{grid-template-columns:1fr auto}
+  .review-row-name{font-size:11px}
+  .review-row-comment{font-size:11px}
+}
+</style>
 </head>
 <body>
 
@@ -929,44 +1057,45 @@ button{-webkit-tap-highlight-color:transparent}
 
 <!-- ĐÁNH GIÁ MÓN ĂN -->
 <div id="reviewModal" class="review-modal" aria-hidden="true" onclick="if(event.target===this)closeProductReview()">
-  <div class="review-box">
+  <div class="review-box review-center-box">
     <div class="review-head">
       <h2>⭐ Đánh giá món ăn</h2>
       <button type="button" class="review-close" onclick="closeProductReview()" aria-label="Đóng">×</button>
     </div>
-    <div id="reviewProductInfo" class="review-product" style="display:none"></div>
-    <div class="review-selection-grid">
-      <div class="review-field review-stars-field">
-        <label>⭐ Chấm điểm + Mã đơn đã đặt</label>
-        <div class="review-order-row">
-          <div id="reviewStarsInput" class="review-stars-input" role="radiogroup" aria-label="Chọn số sao"></div>
-          <select id="reviewOrderSelect" class="review-order-select" onchange="onReviewOrderSelected()">
-            <option value="">Chọn mã đơn trên máy này</option>
-          </select>
-        </div>
-        <small class="review-help">Chọn mã đơn để xem thời gian đặt và các món trong đơn.</small>
-      </div>
-    </div>
-    <div id="reviewOrderProductsWrap" class="review-field" style="display:none">
-      <label for="reviewProductSelect">🍢 Món cần đánh giá</label>
-      <select id="reviewProductSelect" class="review-product-select" onchange="onReviewProductSelected()">
-        <option value="">Chọn món trong đơn</option>
+
+    <div class="review-field review-order-only">
+      <label for="reviewOrderSelect">📦 Chọn mã đơn cần đánh giá</label>
+      <select id="reviewOrderSelect" class="review-order-select" onchange="onReviewOrderSelected()">
+        <option value="">Chọn mã đơn cần đánh giá</option>
       </select>
-      <div id="reviewOrderProductsNote" class="review-order-products-note"></div>
+      <small class="review-help">Chọn mã đơn để hiển thị toàn bộ món trong đơn.</small>
     </div>
-    <div class="review-field">
-      <label for="reviewCustomerName">Tên hiển thị</label>
-      <input id="reviewCustomerName" maxlength="40" placeholder="Ví dụ: Hùng">
+
+    <div id="reviewCustomerSummary" class="review-customer-summary" style="display:none"></div>
+
+    <div id="reviewOrderProductsWrap" class="review-products-review-wrap" style="display:none">
+      <div class="review-products-title">🍢 Danh sách món trong đơn</div>
+      <div id="reviewProductsRows" class="review-products-rows"></div>
     </div>
-    <div class="review-field">
-      <label for="reviewComment">Nhận xét về món đã chọn</label>
-      <textarea id="reviewComment" maxlength="500" placeholder="Món ăn có ngon không? Bạn thích điểm nào?"></textarea>
-    </div>
+
     <div id="reviewMessage" class="voucher-message"></div>
+
     <div class="review-actions">
       <button type="button" class="review-cancel" onclick="closeProductReview()">Đóng</button>
       <button type="button" class="review-submit" onclick="submitProductReview()">⭐ Gửi đánh giá</button>
     </div>
+  </div>
+</div>
+
+<!-- XEM NHẬN XÉT MÓN ĂN -->
+<div id="customerReviewsModal" class="review-modal" aria-hidden="true" onclick="if(event.target===this)closeCustomerReviewsModal()">
+  <div class="review-box review-view-box">
+    <div class="review-head">
+      <h2 id="customerReviewsTitle">💬 Nhận xét món ăn</h2>
+      <button type="button" class="review-close" onclick="closeCustomerReviewsModal()" aria-label="Đóng">×</button>
+    </div>
+    <div id="customerReviewsSummary" class="review-view-summary"></div>
+    <div id="customerReviewsList" class="review-list"></div>
   </div>
 </div>
 
@@ -2278,6 +2407,9 @@ function productCard(product){
           <div class="product-name">${product.name || ''}</div>
           <div class="product-review-summary" data-review-summary="${product.id}">
             <span class="review-stars">★★★★★</span><span class="review-count">Chưa có đánh giá</span>
+          </div>
+          <div class="review-buttons-wrap">
+            <button type="button" class="review-customer-btn" onclick="openCustomerReviews(${product.id});event.stopPropagation()">💬 Nhận xét món ăn</button>
           </div>
           <div class="product-bottom">
             <div><div class="product-price">${money(product.price)}</div>${oldPrice>Number(product.price||0)?`<del style="font-size:11px;color:#a18d7c">${money(oldPrice)}</del>`:''}</div>
@@ -3969,7 +4101,7 @@ refreshStoreStatus();
 startStoreStatusPolling();
 
 /* ==================================================
-   CUSTOMER REVIEWS V3 - CHỌN ĐƠN/MÓN TỪ LỊCH SỬ TRÊN MÁY
+   CUSTOMER REVIEWS V4 - ĐÁNH GIÁ TOÀN BỘ MÓN TRONG ĐƠN
 ================================================== */
 const CUSTOMER_REVIEWS_KEY="ANVAT_LAMTHAO_CUSTOMER_REVIEWS_V1";
 let reviewProductId=null;
@@ -3977,6 +4109,8 @@ let reviewSelectedStars=5;
 let reviewServerCache={};
 let reviewSelectedOrder=null;
 let reviewSelectedOrderItems=[];
+let reviewRowRatings={};
+
 function getCustomerReviews(){try{const raw=localStorage.getItem(CUSTOMER_REVIEWS_KEY);const data=raw?JSON.parse(raw):{};return data&&typeof data==='object'?data:{}}catch(e){return {}}}
 function saveCustomerReviews(data){try{localStorage.setItem(CUSTOMER_REVIEWS_KEY,JSON.stringify(data||{}))}catch(e){}}
 function productByIdForReview(id){return (products||[]).find(p=>String(p.id)===String(id));}
@@ -4015,19 +4149,15 @@ function loadProductReviews(id){
   });
 }
 function getReviewOrderHistory(){
-  try{
-    const list=typeof getOrderHistory==='function'?getOrderHistory():[];
-    return Array.isArray(list)?list:[];
-  }catch(e){return []}
+  try{const list=typeof getOrderHistory==='function'?getOrderHistory():[];return Array.isArray(list)?list:[]}
+  catch(e){return []}
 }
 function parseLocalOrderItems(order){
-  const raw=String(order?.items||'').split(',').map(x=>x.trim()).filter(Boolean);
-  const out=[];
+  const raw=String(order?.items||'').split(',').map(x=>x.trim()).filter(Boolean),out=[];
   raw.forEach(part=>{
-    let text=part.replace(/\s+/g,' ').trim();
-    let qty=1;
+    let text=part.replace(/\s+/g,' ').trim(),qty=1;
     const m=text.match(/\s*x\s*(\d+)\s*$/i);
-    if(m){qty=Math.max(1,Number(m[1])||1);text=text.slice(0,m.index).trim();}
+    if(m){qty=Math.max(1,Number(m[1])||1);text=text.slice(0,m.index).trim()}
     if(text)out.push({name:text,qty});
   });
   return out;
@@ -4035,150 +4165,152 @@ function parseLocalOrderItems(order){
 function populateReviewOrders(){
   const select=document.getElementById('reviewOrderSelect');if(!select)return;
   const history=getReviewOrderHistory();
-  select.innerHTML='<option value="">Chọn mã đơn cần đánh giá</option>'+history.map((o,i)=>{
+  select.innerHTML='<option value="">Chọn mã đơn cần đánh giá</option>'+history.map((o,i)=>{
     const code=String(o.code||'').trim();if(!code)return '';
     const time=String(o.time||'').trim();
     return `<option value="${i}">${escapeOrderHistoryHtml(code)} · ${escapeOrderHistoryHtml(time||'Không rõ thời gian')}</option>`;
   }).join('');
 }
+function findReviewProduct(item){
+  return (products||[]).find(p=>String(p.name||'').trim().toLowerCase()===String(item.name||'').trim().toLowerCase())||null;
+}
+function reviewRowStarButtons(productId){
+  const current=Number(reviewRowRatings[String(productId)]||5);
+  return Array.from({length:5},(_,i)=>{
+    const n=i+1;
+    return `<button type="button" class="review-row-star ${n<=current?'active':''}" onclick="setReviewRowRating('${String(productId).replace(/'/g,"\\'")}',${n})" aria-label="${n} sao">★</button>`;
+  }).join('');
+}
+function setReviewRowRating(productId,n){
+  reviewRowRatings[String(productId)]=Math.max(1,Math.min(5,Number(n)||5));
+  const box=document.querySelector(`[data-review-row="${CSS.escape(String(productId))}"] .review-row-stars`);
+  if(box)box.innerHTML=reviewRowStarButtons(productId);
+}
+function renderReviewProductsRows(){
+  const box=document.getElementById('reviewProductsRows');
+  if(!box)return;
+  reviewRowRatings={};
+  const rows=reviewSelectedOrderItems.map((item,index)=>{
+    const p=findReviewProduct(item);
+    if(!p)return `<div class="review-product-row review-product-row-disabled"><div class="review-row-name">🍢 ${escapeOrderHistoryHtml(item.name)}${item.qty>1?' × '+item.qty:''}</div><div class="review-row-unmatched">Món này chưa khớp dữ liệu hiện tại</div></div>`;
+    reviewRowRatings[String(p.id)]=5;
+    return `<div class="review-product-row" data-review-row="${escapeOrderHistoryHtml(String(p.id))}">
+      <div class="review-row-name" title="${escapeOrderHistoryHtml(item.name)}">🍢 ${escapeOrderHistoryHtml(item.name)}${item.qty>1?' × '+item.qty:''}</div>
+      <div class="review-row-stars">${reviewRowStarButtons(p.id)}</div>
+      <input class="review-row-comment" data-review-comment="${escapeOrderHistoryHtml(String(p.id))}" maxlength="500" placeholder="Nhận xét món này...">
+    </div>`;
+  }).join('');
+  box.innerHTML=rows||'<div class="review-empty">Đơn hàng chưa có danh sách món để đánh giá.</div>';
+}
 function onReviewOrderSelected(){
   const select=document.getElementById('reviewOrderSelect');
   const wrap=document.getElementById('reviewOrderProductsWrap');
-  const productSelect=document.getElementById('reviewProductSelect');
-  const note=document.getElementById('reviewOrderProductsNote');
-  const nameInput=document.getElementById('reviewCustomerName');
-  const history=getReviewOrderHistory();
-  const index=Number(select?.value);
+  const summary=document.getElementById('reviewCustomerSummary');
+  const history=getReviewOrderHistory(),index=Number(select?.value);
   reviewSelectedOrder=Number.isInteger(index)&&index>=0&&history[index]?history[index]:null;
   reviewSelectedOrderItems=reviewSelectedOrder?parseLocalOrderItems(reviewSelectedOrder):[];
+  reviewProductId=null;
   if(!reviewSelectedOrder){
     if(wrap)wrap.style.display='none';
-    if(productSelect)productSelect.innerHTML='<option value="">Chọn món trong đơn</option>';
-    if(note)note.innerHTML='';
-    if(nameInput)nameInput.value='';
+    if(summary){summary.style.display='none';summary.innerHTML=''}
     return;
   }
-
-  // Tự lấy tên khách từ đơn hàng; khách vẫn có thể sửa tên hiển thị nếu muốn.
-  if(nameInput){
-    const customerName=String(reviewSelectedOrder.name||reviewSelectedOrder.customerName||'').trim();
-    nameInput.value=customerName;
+  const customerName=String(reviewSelectedOrder.name||reviewSelectedOrder.customerName||'Khách hàng').trim()||'Khách hàng';
+  if(summary){
+    summary.style.display='block';
+    summary.innerHTML=`👤 <b>${escapeOrderHistoryHtml(customerName)}</b><span> · Mã đơn: <b>${escapeOrderHistoryHtml(reviewSelectedOrder.code||'—')}</b></span><span> · ${escapeOrderHistoryHtml(reviewSelectedOrder.time||'Không rõ thời gian')}</span>`;
   }
-
   if(wrap)wrap.style.display='block';
-  const options=reviewSelectedOrderItems.map(item=>{
-    const matched=(products||[]).find(p=>String(p.name||'').trim().toLowerCase()===item.name.trim().toLowerCase());
-    const id=matched?String(matched.id):'name:'+encodeURIComponent(item.name);
-    return `<option value="${escapeOrderHistoryHtml(id)}">${escapeOrderHistoryHtml(item.name)}${item.qty>1?' × '+item.qty:''}</option>`;
-  }).join('');
-
-  if(productSelect){
-    productSelect.innerHTML='<option value="">Chọn món cần đánh giá</option>'+options;
-    if(reviewSelectedOrderItems.length===1) productSelect.selectedIndex=1;
-  }
-
-  if(note){
-    note.innerHTML=
-      `👤 Khách hàng: <b>${escapeOrderHistoryHtml(reviewSelectedOrder.name||reviewSelectedOrder.customerName||'Khách hàng')}</b>`+
-      `<div style="margin-top:5px">📦 Mã đơn: <b>${escapeOrderHistoryHtml(reviewSelectedOrder.code||'—')}</b></div>`+
-      `<div style="margin-top:5px">🕒 Thời gian: <b>${escapeOrderHistoryHtml(reviewSelectedOrder.time||'Không rõ')}</b></div>`+
-      `<div style="margin-top:6px">🍢 ${reviewSelectedOrderItems.length} món trong đơn — hãy chọn 1 món để đánh giá.</div>`;
-  }
-}
-function onReviewProductSelected(){
-  const select=document.getElementById('reviewProductSelect');
-  const value=String(select?.value||'');
-  if(!value)return;
-  if(value.startsWith('name:')){reviewProductId=null;return;}
-  reviewProductId=value;
+  renderReviewProductsRows();
 }
 function openReviewCenter(){
-  reviewProductId=null;
-  reviewSelectedStars=5;
-  reviewSelectedOrder=null;
-  reviewSelectedOrderItems=[];
-  const modal=document.getElementById('reviewModal');
-  const info=document.getElementById('reviewProductInfo');
-  const name=document.getElementById('reviewCustomerName');
-  const comment=document.getElementById('reviewComment');
-  const msg=document.getElementById('reviewMessage');
-  const wrap=document.getElementById('reviewOrderProductsWrap');
-  const productSelect=document.getElementById('reviewProductSelect');
-  const note=document.getElementById('reviewOrderProductsNote');
-
-  if(info)info.style.display='none';
-  if(name)name.value='';
-  if(comment)comment.value='';
+  reviewProductId=null;reviewSelectedOrder=null;reviewSelectedOrderItems=[];reviewRowRatings={};
+  const modal=document.getElementById('reviewModal'),summary=document.getElementById('reviewCustomerSummary');
+  const msg=document.getElementById('reviewMessage'),wrap=document.getElementById('reviewOrderProductsWrap');
   if(msg){msg.textContent='';msg.style.color=''}
+  if(summary){summary.style.display='none';summary.innerHTML=''}
   if(wrap)wrap.style.display='none';
-  if(productSelect)productSelect.innerHTML='<option value="">Chọn món trong đơn</option>';
-  if(note)note.innerHTML='';
-
-  renderReviewStarButtons();
   populateReviewOrders();
-
-  if(modal){
-    modal.classList.add('show');
-    modal.setAttribute('aria-hidden','false');
-  }
+  const select=document.getElementById('reviewOrderSelect');if(select)select.value='';
+  if(modal){modal.classList.add('show');modal.setAttribute('aria-hidden','false')}
 }
-function openProductReview(id){openReviewCenter();}
-function openCustomerReviews(id){openReviewCenter();}
+function openProductReview(id){openReviewCenter()}
 function closeProductReview(){
   const modal=document.getElementById('reviewModal');
   if(modal){modal.classList.remove('show');modal.setAttribute('aria-hidden','true')}
-  reviewSelectedOrder=null;
-  reviewSelectedOrderItems=[];
-  reviewProductId=null;
+  reviewSelectedOrder=null;reviewSelectedOrderItems=[];reviewProductId=null;reviewRowRatings={};
 }
-function renderReviewStarButtons(){
-  const box=document.getElementById('reviewStarsInput');if(!box)return;
-  box.innerHTML=Array.from({length:5},(_,i)=>{
-    const n=i+1;
-    return `<button type="button" class="review-star-btn ${n<=reviewSelectedStars?'active':''}" onclick="selectReviewStars(${n})" aria-label="${n} sao">★</button>`;
-  }).join('');
+function submitOneProductReview(productId,order,name,phone,code,stars,comment){
+  return new Promise(resolve=>{
+    const cb='submitReviewCallback_'+Date.now()+'_'+Math.floor(Math.random()*10000),s=document.createElement('script');
+    const timer=setTimeout(()=>{cleanup();resolve({success:false,message:'Hệ thống phản hồi quá lâu.'})},15000);
+    function cleanup(){clearTimeout(timer);s.remove();try{delete window[cb]}catch(e){window[cb]=undefined}}
+    window[cb]=data=>{cleanup();resolve(data||{success:false,message:'Không nhận được phản hồi.'})};
+    s.src=GOOGLE_SCRIPT_URL+'?action=submitReview&productId='+encodeURIComponent(productId)+'&orderCode='+encodeURIComponent(code)+'&phone='+encodeURIComponent(phone)+'&name='+encodeURIComponent(name.slice(0,40))+'&stars='+encodeURIComponent(stars)+'&comment='+encodeURIComponent(comment.slice(0,500))+'&callback='+encodeURIComponent(cb);
+    document.body.appendChild(s);
+  });
 }
-function selectReviewStars(n){
-  reviewSelectedStars=Math.max(1,Math.min(5,Number(n)||5));
-  renderReviewStarButtons();
-}
-function submitProductReview(){
-  const msg=document.getElementById('reviewMessage');
-  const order=reviewSelectedOrder;
-  const selectedProduct=document.getElementById('reviewProductSelect')?.value||'';
-
+async function submitProductReview(){
+  const msg=document.getElementById('reviewMessage'),order=reviewSelectedOrder;
   if(!order){if(msg){msg.textContent='⚠️ Vui lòng chọn mã đơn cần đánh giá.';msg.style.color='#b42318'}return}
-  if(!selectedProduct){if(msg){msg.textContent='⚠️ Vui lòng chọn món trong đơn để đánh giá.';msg.style.color='#b42318'}return}
-  if(selectedProduct.startsWith('name:')){if(msg){msg.textContent='⚠️ Món này chưa khớp dữ liệu sản phẩm hiện tại. Vui lòng chọn món khác.';msg.style.color='#b42318'}return}
-
-  const name=(document.getElementById('reviewCustomerName')?.value||'').trim()||String(order.name||order.customerName||'Khách hàng').trim()||'Khách hàng';
-  const phone=String(order.phone||'').trim();
-  const comment=(document.getElementById('reviewComment')?.value||'').trim();
-
-  if(!phone||!comment){if(msg){msg.textContent='⚠️ Đơn này chưa có đủ số điện thoại hoặc bạn chưa nhập nhận xét.';msg.style.color='#b42318'}return}
-
-  const code=String(order.code||'').trim().toUpperCase();
-  const cb='submitReviewCallback_'+Date.now()+'_'+Math.floor(Math.random()*10000),s=document.createElement('script');
-  const timer=setTimeout(()=>{cleanup();if(msg){msg.textContent='❌ Hệ thống phản hồi quá lâu, vui lòng thử lại.';msg.style.color='#b42318'}},15000);
-  function cleanup(){clearTimeout(timer);s.remove();try{delete window[cb]}catch(e){window[cb]=undefined}}
-
-  window[cb]=data=>{
-    cleanup();
+  const phone=String(order.phone||'').trim(),code=String(order.code||'').trim().toUpperCase();
+  const name=String(order.name||order.customerName||'Khách hàng').trim()||'Khách hàng';
+  const rows=Array.from(document.querySelectorAll('#reviewProductsRows .review-product-row:not(.review-product-row-disabled)'));
+  if(!rows.length){if(msg){msg.textContent='⚠️ Không có món hợp lệ để đánh giá.';msg.style.color='#b42318'}return}
+  const payloads=rows.map(row=>{
+    const productId=row.getAttribute('data-review-row')||'';
+    const comment=(row.querySelector('.review-row-comment')?.value||'').trim();
+    return {productId,comment,stars:Number(reviewRowRatings[String(productId)]||5)};
+  }).filter(x=>x.productId&&x.comment);
+  if(!payloads.length){if(msg){msg.textContent='⚠️ Hãy nhập ít nhất 1 nhận xét cho món bạn muốn đánh giá.';msg.style.color='#b42318'}return}
+  if(!phone){if(msg){msg.textContent='⚠️ Đơn này chưa có số điện thoại để xác thực.';msg.style.color='#b42318'}return}
+  const btn=document.querySelector('#reviewModal .review-submit');
+  if(btn){btn.disabled=true;btn.textContent='⏳ Đang gửi...'}
+  if(msg){msg.textContent=`Đang gửi ${payloads.length} đánh giá...`;msg.style.color='#7d5438'}
+  let ok=0,fail=0,failMessages=[];
+  for(const item of payloads){
+    const data=await submitOneProductReview(item.productId,order,name,phone,code,item.stars,item.comment);
     if(data&&data.success){
-      if(msg){msg.textContent='✅ '+(data.message||'Đã gửi đánh giá.');msg.style.color='#23733a'}
-      const c=document.getElementById('reviewComment');if(c)c.value='';
+      ok++;
       if(data.review){
-        const k=String(selectedProduct),list=reviewsForProduct(selectedProduct);
+        const k=String(item.productId),list=reviewsForProduct(item.productId);
         reviewServerCache[k]=[data.review].concat(list.filter(x=>x.id!==data.review.id));
-        renderReviewSummaries();
       }
-    }else{
-      if(msg){msg.textContent='❌ '+(data?.message||'Không thể gửi đánh giá.');msg.style.color='#b42318'}
+    }else{fail++;if(data?.message)failMessages.push(data.message)}
+  }
+  renderReviewSummaries();
+  if(btn){btn.disabled=false;btn.textContent='⭐ Gửi đánh giá'}
+  if(msg){
+    if(ok){msg.textContent=`✅ Đã gửi ${ok} đánh giá${fail?' · '+fail+' món chưa gửi được':''}.`;msg.style.color='#23733a'}
+    else{msg.textContent='❌ '+(failMessages[0]||'Không thể gửi đánh giá.');msg.style.color='#b42318'}
+  }
+  if(ok){
+    payloads.forEach(item=>{const el=document.querySelector(`[data-review-comment="${CSS.escape(item.productId)}"]`);if(el)el.value=''});
+  }
+}
+function openCustomerReviews(id){
+  const p=productByIdForReview(id);if(!p)return;
+  const modal=document.getElementById('customerReviewsModal'),title=document.getElementById('customerReviewsTitle'),summary=document.getElementById('customerReviewsSummary'),listBox=document.getElementById('customerReviewsList');
+  if(title)title.textContent='💬 Nhận xét món ăn · '+String(p.name||'Món ăn');
+  if(summary){const st=reviewStats(id);summary.innerHTML=`<span class="review-view-stars">${reviewStarsText(Math.round(st.rating))}</span><b>${st.rating.toFixed(1)}/5</b><span>${st.count?' · '+st.count+' đánh giá':' · Chưa có đánh giá'}</span>`}
+  if(listBox)listBox.innerHTML='<div class="review-empty">⏳ Đang tải nhận xét...</div>';
+  if(modal){modal.classList.add('show');modal.setAttribute('aria-hidden','false')}
+  loadProductReviews(id).then(()=>{
+    const list=reviewsForProduct(id);
+    if(listBox){
+      if(!list.length){listBox.innerHTML='<div class="review-empty">Chưa có nhận xét được duyệt cho món này.</div>';return}
+      listBox.innerHTML=list.slice(0,30).map(r=>`<div class="review-item">
+        <div class="review-item-top"><span class="review-item-name">${escapeOrderHistoryHtml(r.name||'Khách hàng')}</span><span class="review-item-stars">${reviewStarsText(Number(r.stars)||5)}</span></div>
+        <div class="review-item-order">📦 Mã đơn: <b>${escapeOrderHistoryHtml(r.orderCode||'—')}</b></div>
+        <div class="review-item-time">${escapeOrderHistoryHtml(r.time||'')}</div>
+        <div class="review-item-text">${escapeOrderHistoryHtml(r.comment||'')}</div>
+      </div>`).join('');
     }
-  };
-
-  s.src=GOOGLE_SCRIPT_URL+'?action=submitReview&productId='+encodeURIComponent(selectedProduct)+'&orderCode='+encodeURIComponent(code)+'&phone='+encodeURIComponent(phone)+'&name='+encodeURIComponent(name.slice(0,40))+'&stars='+encodeURIComponent(reviewSelectedStars)+'&comment='+encodeURIComponent(comment.slice(0,500))+'&callback='+encodeURIComponent(cb);
-  document.body.appendChild(s);
+  });
+}
+function closeCustomerReviewsModal(){
+  const modal=document.getElementById('customerReviewsModal');
+  if(modal){modal.classList.remove('show');modal.setAttribute('aria-hidden','true')}
 }
 setTimeout(renderReviewSummaries,0);
 
