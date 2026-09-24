@@ -650,42 +650,7 @@ button{-webkit-tap-highlight-color:transparent}
     font-size:9px!important;
   }
 }
-
-<style id="review-center-header-ui">
-.header-review-btn{
-  flex:0 0 auto;
-  border:1px solid #d9c2ad;
-  background:#fffaf5;
-  color:#7d5438;
-  border-radius:11px;
-  padding:10px 13px;
-  font-weight:850;
-  font-size:13px;
-  white-space:nowrap;
-  box-shadow:0 2px 7px rgba(91,58,37,.05);
-}
-.header-review-btn:hover{background:#f4e8dc}
-@media(max-width:700px){
-  .header-review-btn{padding:8px 9px;font-size:11px}
-  .header-review-btn span{display:inline!important}
-}
-@media(max-width:520px){
-  .header-review-btn{padding:8px 7px;font-size:10px}
-  .header-review-btn span{display:inline!important}
-}
 </style>
-
-</style>
-
-<!-- ANVAT_REVIEW_STATIC_DATA_START -->
-<script id="ANVAT_REVIEW_STATIC_DATA">
-window.ANVAT_REVIEW_STATIC_DATA = {
-  "version": 1,
-  "updatedAt": "",
-  "products": {}
-};
-</script>
-<!-- ANVAT_REVIEW_STATIC_DATA_END -->
 
 <!-- Firebase Cloud Messaging (Web Push) -->
 <script type="module">
@@ -851,302 +816,6 @@ window.ANVAT_REVIEW_STATIC_DATA = {
   .order-history-card .order-history-detail-title{align-items:flex-start;flex-direction:column;gap:5px}
 }
 </style>
-
-<style id="customer-reviews-v3-ui">
-.review-buttons-wrap{display:flex;flex-direction:column;gap:6px;margin-bottom:8px}
-.review-buttons-wrap .review-open-btn,.review-customer-btn{width:100%;text-align:center}
-.review-customer-btn{border:1px solid #d8c0aa;background:#fff;color:#7d5438;border-radius:8px;padding:6px 9px;font-size:11px;font-weight:850;cursor:pointer}
-.review-customer-btn:hover{background:#f8efe7}
-.review-selection-grid{margin-top:2px}
-.review-order-row{display:flex;gap:8px;align-items:center}
-.review-order-row .review-stars-input{flex:0 0 auto;margin:0}
-.review-order-select,.review-product-select{width:100%;border:1px solid #dfcdbb;background:#fff;color:#3d3028;border-radius:9px;padding:10px 11px;outline:none;font-size:14px}
-.review-order-select{flex:1;min-width:0}
-.review-help{display:block;margin-top:5px;color:#927866;font-size:10px;line-height:1.45}
-.review-order-products-note{margin-top:6px;padding:8px 10px;background:#fff;border:1px dashed #dfcdbb;border-radius:9px;color:#806d5d;font-size:11px;line-height:1.45}
-.review-other-items{margin-top:7px;display:flex;flex-direction:column;gap:5px}
-.review-other-item{display:flex;justify-content:space-between;gap:8px;padding:6px 8px;background:#f8f0e8;border-radius:7px;color:#6f5b4d;font-size:11px}
-.review-other-item b{color:#7d5438;white-space:nowrap}
-.review-list-link{display:inline-block;margin-bottom:8px;color:#8b5e3c;font-size:11px;font-weight:800}
-.review-item-order{font-size:10px;color:#8b6f5d;margin-top:2px}
-@media(max-width:520px){.review-order-row{display:block}.review-order-row .review-stars-input{margin-bottom:7px}.review-order-select{width:100%}}
-</style>
-
-<style id="customer-reviews-v1">
-/* ===== ĐÁNH GIÁ MÓN ĂN ===== */
-.product-review-summary{display:flex;align-items:center;gap:6px;margin:5px 0 8px;flex-wrap:wrap;font-size:11px;color:#7b6b5f}
-.product-review-summary .review-stars{color:#e3a11b;letter-spacing:1px;font-size:12px}
-.product-review-summary .review-count{color:#8b7a6d}
-.review-open-btn{border:1px solid #dec9b6;background:#fffaf5;color:#7d5438;border-radius:8px;padding:6px 9px;font-size:11px;font-weight:850;cursor:pointer}
-.review-open-btn:hover{background:#f3e7d8}
-.review-modal{display:none;position:fixed;inset:0;background:rgba(40,25,15,.58);z-index:700;align-items:center;justify-content:center;padding:14px}
-.review-modal.show{display:flex}
-.review-box{width:min(560px,100%);max-height:90vh;overflow:auto;background:#fffaf5;border:1px solid #eadbca;border-radius:20px;padding:18px;box-shadow:0 18px 55px rgba(0,0,0,.24)}
-.review-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px}.review-head h2{font-size:20px;color:#4d301e}.review-close{border:0;background:#eee1d5;color:#5b3a25;width:34px;height:34px;border-radius:50%;font-size:21px}
-.review-product{padding:12px;border:1px solid #eadbca;border-radius:13px;background:#fff;margin-bottom:12px}.review-product-name{font-weight:900;color:#5b3a25}.review-product-rating{font-size:12px;color:#8b7a6d;margin-top:3px}
-.review-stars-input{display:flex;gap:4px;margin:10px 0}.review-star-btn{border:0;background:transparent;font-size:32px;line-height:1;color:#d8c8bb;padding:2px;cursor:pointer}.review-star-btn.active{color:#e3a11b}.review-field{margin-top:10px}.review-field label{display:block;font-size:12px;font-weight:850;color:#5d493b;margin-bottom:5px}.review-field input,.review-field textarea{width:100%;border:1px solid #dfcdbb;background:#fff;color:#3d3028;border-radius:9px;padding:10px 11px;outline:none}.review-field textarea{min-height:85px;resize:vertical}.review-actions{display:flex;gap:8px;margin-top:13px}.review-submit{flex:1;border:0;background:#8b5e3c;color:#fff;border-radius:10px;padding:11px;font-weight:900}.review-cancel{border:1px solid #d9c0aa;background:#fff;color:#6f472c;border-radius:10px;padding:11px 14px;font-weight:800}
-.review-list{margin-top:14px}.review-list-title{font-size:14px;font-weight:900;color:#5b3a25;margin-bottom:8px}.review-item{padding:10px 0;border-top:1px solid #eee2d8}.review-item-top{display:flex;justify-content:space-between;gap:8px}.review-item-name{font-weight:850;color:#4d392d;font-size:12px}.review-item-stars{color:#e3a11b;font-size:11px;letter-spacing:1px}.review-item-time{font-size:10px;color:#a18d7c;margin-top:2px}.review-item-text{font-size:12px;color:#65564b;margin-top:5px;line-height:1.55;white-space:pre-wrap;word-break:break-word}.review-empty{font-size:12px;color:#927866;background:#fff;border:1px dashed #dfcdbb;border-radius:10px;padding:10px;text-align:center}
-@media(max-width:520px){.review-box{padding:15px;border-radius:17px}.review-head h2{font-size:18px}.review-star-btn{font-size:29px}}
-</style>
-
-<!-- AN VAT LAM THAO CUSTOMER HTML V5 -->
-
-<style id="review-v4-ui">
-/* ===== REVIEW V4: CARD ÔM VIỀN TRÒN + ĐÁNH GIÁ THEO HÀNG ===== */
-.review-center-box{
-  max-width:760px!important;
-  border-radius:26px!important;
-  padding:20px!important;
-  border:1px solid #e6d3c0!important;
-  background:linear-gradient(180deg,#fffaf5 0%,#fff 100%)!important;
-}
-.review-view-box{max-width:600px!important;border-radius:24px!important}
-.review-order-only{
-  padding:14px;
-  background:#fff;
-  border:1px solid #e6d3c0;
-  border-radius:18px;
-  box-shadow:0 3px 12px rgba(91,58,37,.05);
-}
-.review-order-only label{font-size:13px!important;margin-bottom:7px!important}
-.review-order-select{width:100%!important;border-radius:12px!important;padding:12px 13px!important;font-weight:750}
-.review-customer-summary{
-  margin-top:10px;
-  padding:10px 13px;
-  border:1px solid #ead8c6;
-  border-radius:14px;
-  background:#fff;
-  color:#705b4d;
-  font-size:12px;
-  line-height:1.5;
-}
-.review-products-review-wrap{
-  margin-top:12px;
-  padding:13px;
-  border:1px solid #e6d3c0;
-  border-radius:20px;
-  background:#fff;
-  box-shadow:0 4px 14px rgba(91,58,37,.05);
-}
-.review-products-title{
-  font-size:14px;
-  font-weight:900;
-  color:#5b3a25;
-  margin-bottom:9px;
-}
-.review-products-rows{display:flex;flex-direction:column;gap:8px}
-.review-product-row{
-  display:grid;
-  grid-template-columns:minmax(130px,1.1fr) auto minmax(150px,1.3fr);
-  align-items:center;
-  gap:8px;
-  padding:9px 10px;
-  border:1px solid #eadfd5;
-  border-radius:15px;
-  background:#fffaf5;
-}
-.review-product-row-disabled{opacity:.65}
-.review-row-name{
-  min-width:0;
-  color:#4d392d;
-  font-size:12px;
-  font-weight:850;
-  white-space:nowrap;
-  overflow:hidden;
-  text-overflow:ellipsis;
-}
-.review-row-stars{display:flex;gap:1px;align-items:center;white-space:nowrap}
-.review-row-star{
-  border:0;background:transparent;color:#d7c6b8;padding:0 1px;font-size:20px;line-height:1;cursor:pointer;
-}
-.review-row-star.active{color:#e3a11b}
-.review-row-comment{
-  width:100%;
-  min-width:0;
-  border:1px solid #dfcdbb;
-  border-radius:10px;
-  background:#fff;
-  color:#3d3028;
-  padding:8px 9px;
-  font-size:11px;
-  outline:none;
-}
-.review-row-comment:focus{border-color:#b88b67;box-shadow:0 0 0 2px rgba(139,94,60,.08)}
-.review-row-unmatched{font-size:11px;color:#9b6b50}
-.review-view-summary{
-  display:flex;align-items:center;gap:6px;
-  padding:10px 12px;margin-bottom:8px;
-  border:1px solid #ead8c6;border-radius:14px;background:#fff;
-  color:#786456;font-size:12px;
-}
-.review-view-stars{color:#e3a11b;letter-spacing:1px;font-size:16px}
-.review-view-box .review-item{
-  padding:11px 12px;
-  border:1px solid #eadfd5;
-  border-radius:14px;
-  background:#fffaf5;
-  margin-top:8px;
-}
-.review-view-box .review-item:first-child{margin-top:0}
-.review-view-box .review-item-order{font-size:10px;color:#8b6f5d;margin-top:3px}
-.review-view-box .review-item-text{font-size:12px}
-.review-buttons-wrap{margin:5px 0 8px}
-.review-customer-btn{
-  border:1px solid #d8c0aa!important;
-  background:#fff!important;
-  color:#7d5438!important;
-  border-radius:999px!important;
-  padding:6px 10px!important;
-  font-size:11px!important;
-  font-weight:850!important;
-  width:100%!important;
-}
-.review-customer-btn:hover{background:#f8efe7!important}
-@media(max-width:700px){
-  .review-center-box{padding:14px!important;border-radius:20px!important}
-  .review-product-row{
-    grid-template-columns:minmax(105px,1fr) auto;
-    gap:7px;
-    padding:9px;
-  }
-  .review-row-comment{grid-column:1 / -1}
-  .review-row-star{font-size:19px}
-}
-@media(max-width:430px){
-  .review-product-row{grid-template-columns:1fr auto}
-  .review-row-name{font-size:11px}
-  .review-row-comment{font-size:11px}
-}
-</style>
-
-<style id="review-center-v9-style">
-/* V9: nút Đánh giá món ăn bo viền ôm đúng nội dung, không kéo dài toàn ô giữa header */
-.den-header{
-  grid-template-columns:auto auto auto!important;
-  justify-content:space-between!important;
-  align-items:center!important;
-}
-.header-review-btn{
-  justify-self:center!important;
-  width:max-content!important;
-  min-width:0!important;
-  max-width:max-content!important;
-  flex:0 0 auto!important;
-  border:2px solid #b98b62!important;
-  border-radius:999px!important;
-  background:#fff7ef!important;
-  color:#70472d!important;
-  padding:9px 18px!important;
-  line-height:1.2!important;
-  box-shadow:0 3px 10px rgba(91,58,37,.10)!important;
-}
-.header-review-btn:hover{background:#ead8c4!important}
-.review-center-box{
-  max-width:560px!important;
-  border:2px solid #c9a27e!important;
-  border-radius:16px!important;
-  background:#fffaf5!important;
-  box-shadow:0 12px 36px rgba(91,58,37,.18)!important;
-}
-.review-order-only{padding:12px;border:1px solid #dfc9b4;border-radius:13px;background:#fff!important}
-.review-order-only label{color:#70472d!important}
-.review-order-select{border-color:#c9a27e!important;border-radius:11px!important;background:#fff!important}
-.review-products-review-wrap{border:1px solid #dfc9b4!important;border-radius:14px!important;background:#fff!important;padding:10px!important;margin-top:12px}
-.review-products-title{color:#70472d!important;font-weight:900!important}
-.review-product-row{border:1px solid #e3d0bd!important;border-radius:12px!important;background:#fffaf5!important}
-.review-customer-btn{border-color:#b98b62!important;background:#fffaf5!important;color:#70472d!important;border-radius:11px!important}
-.review-customer-btn:hover{background:#f0e1d2!important}
-@media(max-width:700px){
-  .den-header{
-    grid-template-columns:78px minmax(0,1fr) auto!important;
-    justify-content:space-between!important;
-    gap:6px!important;
-  }
-  .header-review-btn{
-    justify-self:center!important;
-    width:max-content!important;
-    max-width:100%!important;
-    padding:8px 11px!important;
-    border-radius:999px!important;
-    font-size:11px!important;
-  }
-}
-@media(max-width:390px){
-  .header-review-btn{padding:7px 9px!important;font-size:10px!important}
-}
-/* V10: Đánh giá món ăn cùng kích thước với Lịch Sử Đơn Hàng + nền nổi bật */
-.header-review-btn{
-  width:170px!important;
-  min-width:170px!important;
-  max-width:170px!important;
-  height:43px!important;
-  min-height:43px!important;
-  max-height:43px!important;
-  box-sizing:border-box!important;
-  display:flex!important;
-  align-items:center!important;
-  justify-content:center!important;
-  gap:4px!important;
-  padding:0 10px!important;
-  border:1px solid #c77a20!important;
-  border-radius:999px!important;
-  background:linear-gradient(135deg,#fff0b8 0%,#ffd166 48%,#f4a261 100%)!important;
-  color:#633b16!important;
-  box-shadow:0 5px 14px rgba(199,122,32,.22)!important;
-  font-weight:900!important;
-}
-.header-review-btn:hover{
-  background:linear-gradient(135deg,#ffe8a0 0%,#ffc94f 48%,#ef9250 100%)!important;
-}
-@media(max-width:800px){
-  .header-review-btn{
-    width:122px!important;
-    min-width:122px!important;
-    max-width:122px!important;
-    height:38px!important;
-    min-height:38px!important;
-    max-height:38px!important;
-    padding:0 6px!important;
-    font-size:10px!important;
-  }
-}
-@media(max-width:390px){
-  .header-review-btn{
-    width:116px!important;
-    min-width:116px!important;
-    max-width:116px!important;
-    height:36px!important;
-    min-height:36px!important;
-    max-height:36px!important;
-    padding:0 5px!important;
-    font-size:9.5px!important;
-  }
-}
-@media(max-width:340px){
-  .header-review-btn{
-    width:110px!important;
-    min-width:110px!important;
-    max-width:110px!important;
-    height:34px!important;
-    min-height:34px!important;
-    max-height:34px!important;
-    font-size:9px!important;
-  }
-}
-</style>
-
-<style id="review-button-click-fix">
-header{position:sticky!important;z-index:1000!important}
-.header-inner{position:relative!important;z-index:1001!important}
-#headerReviewBtn{
-  position:relative!important;
-  z-index:1002!important;
-  pointer-events:auto!important;
-  touch-action:manipulation!important;
-  cursor:pointer!important;
-  -webkit-tap-highlight-color:transparent!important;
-}
-</style>
 </head>
 <body>
 
@@ -1194,64 +863,6 @@ header{position:sticky!important;z-index:1000!important}
   <div class="welcome-toast-text">🍜 Chúc bạn chọn được món ngon và có trải nghiệm thật vui!</div>
 </div>
 
-<!-- ĐÁNH GIÁ MÓN ĂN -->
-<div id="reviewModal" class="review-modal" aria-hidden="true" onclick="if(event.target===this)closeProductReview()">
-  <div class="review-box review-center-box">
-    <div class="review-head">
-      <h2>⭐ Đánh giá món ăn</h2>
-      <button type="button" class="review-close" onclick="closeProductReview()" aria-label="Đóng">×</button>
-    </div>
-
-    <div class="review-field review-order-only">
-      <label for="reviewOrderSelect">📦 Chọn mã đơn cần đánh giá</label>
-      <select id="reviewOrderSelect" class="review-order-select" onchange="onReviewOrderSelected()">
-        <option value="">Chọn mã đơn cần đánh giá</option>
-      </select>
-      <small class="review-help">Chọn mã đơn để hiển thị toàn bộ món trong đơn.</small>
-    </div>
-
-    <div id="reviewCustomerSummary" class="review-customer-summary" style="display:none"></div>
-
-    <div id="reviewOrderProductsWrap" class="review-products-review-wrap" style="display:none">
-      <div class="review-products-title">🍢 Danh sách món trong đơn</div>
-      <div id="reviewProductsRows" class="review-products-rows"></div>
-    </div>
-
-    <div id="reviewMessage" class="voucher-message"></div>
-
-    <div class="review-actions">
-      <button type="button" class="review-cancel" onclick="closeProductReview()">Đóng</button>
-      <button type="button" class="review-submit" onclick="submitProductReview()">⭐ Gửi đánh giá</button>
-    </div>
-  </div>
-</div>
-
-<!-- CẢM ƠN SAU KHI GỬI ĐÁNH GIÁ -->
-<div id="reviewThanksModal" class="review-modal" aria-hidden="true">
-  <div class="review-box review-thanks-box">
-    <div class="review-head">
-      <h2>💖 Cảm ơn bạn!</h2>
-      <button type="button" class="review-close" onclick="closeReviewThanks()" aria-label="Đóng">×</button>
-    </div>
-    <div class="review-thanks-icon">✓</div>
-    <div class="review-thanks-title">Đánh giá đã được gửi thành công</div>
-    <div class="review-thanks-text">Cảm ơn bạn đã dành thời gian đánh giá món ăn. Ý kiến của bạn giúp quán phục vụ tốt hơn! ❤️</div>
-    <button type="button" class="review-thanks-btn" onclick="closeReviewThanks()">Đã hiểu</button>
-  </div>
-</div>
-
-<!-- XEM NHẬN XÉT MÓN ĂN -->
-<div id="customerReviewsModal" class="review-modal" aria-hidden="true" onclick="if(event.target===this)closeCustomerReviewsModal()">
-  <div class="review-box review-view-box">
-    <div class="review-head">
-      <h2 id="customerReviewsTitle">💬 Đánh giá khách hàng</h2>
-      <button type="button" class="review-close" onclick="closeCustomerReviewsModal()" aria-label="Đóng">×</button>
-    </div>
-    <div id="customerReviewsSummary" class="review-view-summary"></div>
-    <div id="customerReviewsList" class="review-list"></div>
-  </div>
-</div>
-
 <!-- ORDER SUCCESS MODAL -->
 <div id="successModal" class="success-modal" aria-hidden="true">
   <div class="success-box success-box-compact">
@@ -1293,7 +904,10 @@ header{position:sticky!important;z-index:1000!important}
 <header>
   <div class="header-inner den-header">
     <div class="logo"><img class="logo-image" src="logowed.png" alt="Ăn Vặt Lâm Thao" loading="eager" decoding="async"></div>
-    <button id="headerReviewBtn" type="button" class="header-review-btn" aria-label="Đánh giá món ăn">⭐ <span>Đánh giá món ăn</span></button>
+    <div class="header-search">
+      <span>🔍</span>
+      <input id="productSearch" type="search" placeholder="Tìm món ăn, đồ uống..." oninput="searchProducts(this.value)">
+    </div>
     <button class="header-cart order-tracker-btn" onclick="openOrderTracker()">📋 <span>Lịch Sử Đơn Hàng</span></button>
     <button id="installAppBtn" class="pwa-install-btn" type="button" onclick="installPWA()" aria-label="Cài ứng dụng Ăn Vặt Lâm Thao">📲 Cài app</button>
   </div>
@@ -1550,7 +1164,7 @@ header{position:sticky!important;z-index:1000!important}
 
         </div>
 
-        <button type="button" id="continueOrderButton" class="confirm-btn"
+        <button class="confirm-btn"
             onclick="openOrderForm()"
         >
             Tiếp tục đặt hàng
@@ -2558,12 +2172,7 @@ function productCard(product){
         </div>
         <div class="product-info">
           <div class="product-name">${product.name || ''}</div>
-          <div class="product-review-summary" data-review-summary="${product.id}">
-            <span class="review-stars">★★★★★</span><span class="review-count">Chưa có đánh giá</span>
-          </div>
-          <div class="review-buttons-wrap">
-            <button type="button" class="review-customer-btn" onclick="openCustomerReviews(${product.id});event.stopPropagation()">💬 Đánh giá khách hàng</button>
-          </div>
+          <div class="product-meta"><span class="stars">${stars}</span><b>${rating}</b>${sold ? `<span class="sold">· ${sold} đã bán</span>` : '<span>· Món ngon</span>'}</div>
           <div class="product-bottom">
             <div><div class="product-price">${money(product.price)}</div>${oldPrice>Number(product.price||0)?`<del style="font-size:11px;color:#a18d7c">${money(oldPrice)}</del>`:''}</div>
             <div class="menu-action" id="menu-action-${product.id}">${menuActionMarkup(product)}</div>
@@ -3246,53 +2855,30 @@ function calculateTotal(){
    ORDER FORM
 ================================================== */
 
-let storeOpen=true;let storeStatusLoaded=false;let storeStatusTimer=null;let storeStatusLastCheck=0;
+let storeOpen=true;let storeStatusLoaded=false;let storeStatusTimer=null;
 function formatReopenTime(value){if(!value)return '';const d=new Date(value);if(isNaN(d.getTime()))return '';return d.toLocaleString('vi-VN',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'});}
 function applyStoreStatus(st){storeOpen=!!(st&&st.open);storeStatusLoaded=true;const banner=document.getElementById('storeClosedBanner'),msg=document.getElementById('storeClosedMessage'),reopen=document.getElementById('storeClosedReopen'),btn=document.getElementById('confirmOrderButton');if(storeOpen){if(banner)banner.classList.remove('show');if(btn){btn.disabled=false;btn.classList.remove('order-store-closed');btn.innerHTML='✅ Xác nhận đặt hàng';}}else{if(banner){banner.classList.add('show');if(msg)msg.textContent=st.message||'🔴 Hiện tại quán đang tạm nghỉ và chưa nhận đơn.';if(reopen)reopen.textContent=st.reopenAt?'⏰ Mở bán lại: '+formatReopenTime(st.reopenAt):'';}if(btn){btn.disabled=true;btn.classList.add('order-store-closed');btn.innerHTML='🔴 Quán đang tạm nghỉ';}}}
-async function refreshStoreStatus(force=false){
-  const now=Date.now();
-  // Không gọi GS liên tục: tối đa 1 lần/60 giây, trừ khi thực sự ép kiểm tra.
-  if(!force && storeStatusLoaded && now-storeStatusLastCheck<60000) return null;
-  storeStatusLastCheck=now;
-  try{
-    const r=await fetch(GOOGLE_SCRIPT_URL+'?action=storeStatus&_t='+now,{cache:'no-store'});
-    if(!r.ok)throw new Error('HTTP '+r.status);
-    const st=await r.json();
-    if(st&&typeof st.open!=='undefined')applyStoreStatus(st);
-    return st;
-  }catch(e){console.warn('Không kiểm tra được trạng thái bán hàng:',e);return null;}
-}
+async function refreshStoreStatus(){try{const r=await fetch(GOOGLE_SCRIPT_URL+'?action=storeStatus&_t='+Date.now(),{cache:'no-store'});if(!r.ok)throw new Error('HTTP '+r.status);const st=await r.json();if(st&&typeof st.open!=='undefined')applyStoreStatus(st);return st;}catch(e){console.warn('Không kiểm tra được trạng thái bán hàng:',e);return null;}}
 function startStoreStatusPolling(){
   clearInterval(storeStatusTimer);
-  // 60 giây mới kiểm tra một lần thay vì 3 giây.
-  storeStatusTimer=setInterval(()=>refreshStoreStatus(true),60000);
+  // Kiểm tra trạng thái liên tục để khách đang mở web thấy Mở bán/Tạm nghỉ gần như ngay lập tức.
+  storeStatusTimer=setInterval(refreshStoreStatus,3000);
 }
 
-// Chỉ kiểm tra khi quay lại tab nếu đã lâu hơn 30 giây.
+// Khi khách quay lại tab/app, kiểm tra ngay thay vì chờ chu kỳ 3 giây.
 document.addEventListener("visibilitychange",function(){
-  if(document.visibilityState === "visible") refreshStoreStatus(false);
+  if(document.visibilityState === "visible") refreshStoreStatus();
 });
-window.addEventListener("focus",function(){ refreshStoreStatus(false); });
+window.addEventListener("focus",function(){ refreshStoreStatus(); });
 
 function openOrderForm(){
-    // Không để việc kiểm tra trạng thái cửa hàng chặn thao tác của khách.
-    // Khách đã có món trong giỏ thì mở form ngay; trạng thái cửa hàng vẫn được kiểm tra song song.
-    if(!Array.isArray(cart) || cart.length === 0){
-        alert("🛒 Vui lòng thêm sản phẩm vào giỏ hàng.");
+
+    if(!storeStatusLoaded){
+        refreshStoreStatus().then(function(st){if(st&&st.open) openOrderForm();});
         return;
     }
 
-    if(!storeStatusLoaded){
-        refreshStoreStatus().then(function(st){
-            if(st && st.open === false){
-                const message=(st.message)||'🔴 Hiện tại quán đang tạm nghỉ và chưa nhận đơn.';
-                // Nếu form đã mở do thao tác của khách thì đóng lại khi server xác nhận quán đang nghỉ.
-                const orderModal=document.getElementById('orderModal');
-                if(orderModal) orderModal.style.display='none';
-                alert(message+(st.reopenAt?'\n\n⏰ Mở bán lại: '+formatReopenTime(st.reopenAt):''));
-            }
-        }).catch(function(){});
-    }else if(!storeOpen){
+    if(!storeOpen){
         refreshStoreStatus().then(function(st){
             const message=(st&&st.message)||'🔴 Hiện tại quán đang tạm nghỉ và chưa nhận đơn.';
             alert(message+(st&&st.reopenAt?'\n\n⏰ Mở bán lại: '+formatReopenTime(st.reopenAt):''));
@@ -3300,22 +2886,35 @@ function openOrderForm(){
         return;
     }
 
-    orderSubmitting=false;
-    const confirmButton=document.getElementById('confirmOrderButton');
+    if(cart.length === 0){
+
+        alert(
+            "🛒 Vui lòng thêm sản phẩm vào giỏ hàng."
+        );
+
+        return;
+
+    }
+
+    // Mỗi lần mở một đơn mới, cho phép nút xác nhận hoạt động lại.
+    orderSubmitting = false;
+
+    const confirmButton =
+        document.getElementById("confirmOrderButton");
+
     if(confirmButton){
-        confirmButton.disabled=false;
-        confirmButton.style.opacity='1';
-        confirmButton.innerHTML='✅ Xác nhận đặt hàng';
+        confirmButton.disabled = false;
+        confirmButton.style.opacity = "1";
+        confirmButton.innerHTML = "✅ Xác nhận đặt hàng";
     }
 
     calculateTotal();
+
     closeCart();
 
-    const modal=document.getElementById('orderModal');
-    if(modal){
-        modal.style.display='flex';
-        modal.setAttribute('aria-hidden','false');
-    }
+    document.getElementById("orderModal")
+        .style.display = "flex";
+
 }
 
 function closeOrderForm(){
@@ -3693,30 +3292,42 @@ const payload = {
 
         const orderBody = JSON.stringify(payload);
 
-        // V12: gửi nền bằng sendBeacon để khách không phải chờ Google Apps Script
-        // xử lý Gmail/FCM/voucher xong mới thấy màn hình thành công.
-        if (navigator.sendBeacon) {
-            try {
-                const blob = new Blob([orderBody], {type:"text/plain;charset=UTF-8"});
-                requestStarted = navigator.sendBeacon(GOOGLE_SCRIPT_URL, blob);
-            } catch (beaconError) {
-                console.warn("sendBeacon error:", beaconError);
+        try {
+            await fetch(
+                GOOGLE_SCRIPT_URL,
+                {
+                    method: "POST",
+                    mode: "no-cors",
+                    headers: {
+                        "Content-Type": "text/plain;charset=utf-8"
+                    },
+                    body: orderBody,
+                    keepalive: true
+                }
+            );
+            requestStarted = true;
+        } catch (fetchError) {
+            console.warn("Fetch đơn hàng lỗi, chuyển sang sendBeacon:", fetchError);
+
+            if (navigator.sendBeacon) {
+                try {
+                    const blob = new Blob(
+                        [orderBody],
+                        {type: "text/plain;charset=UTF-8"}
+                    );
+                    requestStarted = navigator.sendBeacon(
+                        GOOGLE_SCRIPT_URL,
+                        blob
+                    );
+                } catch (beaconError) {
+                    console.warn("sendBeacon error:", beaconError);
+                }
             }
         }
-        // Fallback: không chờ response, chỉ cần trình duyệt bắt đầu gửi request.
+
         if (!requestStarted) {
-            try {
-                fetch(GOOGLE_SCRIPT_URL,{
-                    method:"POST",mode:"no-cors",
-                    headers:{"Content-Type":"text/plain;charset=utf-8"},
-                    body:orderBody,keepalive:true
-                });
-                requestStarted=true;
-            } catch(fetchError) {
-                console.warn("Fallback fetch đơn hàng lỗi:",fetchError);
-            }
+            throw new Error("Không thể gửi yêu cầu đặt hàng.");
         }
-        if (!requestStarted) throw new Error("Không thể gửi yêu cầu đặt hàng.");
 
         /* ==============================
            ĐÃ GỬI ĐƯỢC REQUEST
@@ -3829,7 +3440,7 @@ let welcomeToastTimer = null;
 function openWelcomePopup(){
     const popup = document.getElementById("welcomePopup");
     if(popup){
-        popup.style.setProperty("display","flex","important");
+        popup.style.display = "flex";
     }
 }
 
@@ -3875,7 +3486,7 @@ function closeWelcomePopup(){
     const popup = document.getElementById("welcomePopup");
 
     if(popup){
-        popup.style.setProperty("display","none","important");
+        popup.style.display = "none";
     }
 
     // Sau khi khách bấm "Đã hiểu", hiện thông báo từ trên cùng bên phải.
@@ -4248,410 +3859,10 @@ async function checkOrderStatus(code,phone){
 }
 
 loadShippingZones();
-setTimeout(renderReviewSummaries,0);
 // Kiểm tra trạng thái ngay khi trang tải và bắt đầu polling 3 giây/lần.
 refreshStoreStatus();
 startStoreStatusPolling();
-
-/* ==================================================
-   CUSTOMER REVIEWS V4 - ĐÁNH GIÁ TOÀN BỘ MÓN TRONG ĐƠN
-================================================== */
-const CUSTOMER_REVIEWS_KEY="ANVAT_LAMTHAO_CUSTOMER_REVIEWS_V1";
-let reviewProductId=null;
-let reviewSelectedStars=5;
-let reviewServerCache={};
-let reviewSelectedOrder=null;
-let reviewSelectedOrderItems=[];
-let reviewRowRatings={};
-
-function getCustomerReviews(){try{const raw=localStorage.getItem(CUSTOMER_REVIEWS_KEY);const data=raw?JSON.parse(raw):{};return data&&typeof data==='object'?data:{}}catch(e){return {}}}
-function saveCustomerReviews(data){try{localStorage.setItem(CUSTOMER_REVIEWS_KEY,JSON.stringify(data||{}))}catch(e){}}
-function productByIdForReview(id){return (products||[]).find(p=>String(p.id)===String(id));}
-function reviewStarsText(n){n=Math.max(1,Math.min(5,Number(n)||5));return '★'.repeat(n)+'☆'.repeat(5-n)}
-function reviewsForProduct(id){return Array.isArray(reviewServerCache[String(id)])?reviewServerCache[String(id)]:getCustomerReviews()[String(id)]||[]}
-function reviewStats(id){
-  const server=reviewServerCache['__summary_'+id];
-  if(server)return server;
-  const p=productByIdForReview(id),list=reviewsForProduct(id),base=Number(p?.rating||0);
-  if(!list.length)return{rating:base||5,count:0};
-  const avg=list.reduce((sum,r)=>sum+Number(r.stars||0),0)/list.length;
-  return{rating:Math.round(avg*10)/10,count:list.length};
-}
-function renderReviewSummaries(){
-  document.querySelectorAll('[data-review-summary]').forEach(el=>{
-    const id=el.getAttribute('data-review-summary'),st=reviewStats(id);
-    el.innerHTML=`<span class="review-stars">${reviewStarsText(Math.round(st.rating))}</span><span class="review-count">${st.rating.toFixed(1)}/5${st.count?' · '+st.count+' đánh giá':' · Chưa có đánh giá'}</span>`;
-  });
-}
-function getStaticReviewData(){
-  const d=window.ANVAT_REVIEW_STATIC_DATA;
-  return d&&d.products&&typeof d.products==='object'?d:{version:1,updatedAt:'',products:{}};
-}
-function reviewsForProduct(id){
-  const key=String(id||'');
-  const staticData=getStaticReviewData().products[key];
-  if(staticData && Array.isArray(staticData.comments)) return staticData.comments;
-  return Array.isArray(reviewServerCache[key]) ? reviewServerCache[key] : getCustomerReviews()[key]||[];
-}
-function reviewStats(id){
-  const key=String(id||'');
-  const staticData=getStaticReviewData().products[key];
-  if(staticData){
-    return {
-      rating:Number(staticData.rating)||5,
-      count:Number(staticData.count)||0
-    };
-  }
-  const server=reviewServerCache['__summary_'+key];
-  if(server)return server;
-  const p=productByIdForReview(key),list=reviewsForProduct(key),base=Number(p?.rating||0);
-  if(!list.length)return{rating:base||5,count:0};
-  const avg=list.reduce((sum,r)=>sum+Number(r.stars||0),0)/list.length;
-  return{rating:Math.round(avg*10)/10,count:list.length};
-}
-function renderReviewSummaries(){
-  document.querySelectorAll('[data-review-summary]').forEach(el=>{
-    const id=el.getAttribute('data-review-summary'),st=reviewStats(id);
-    el.innerHTML=`<span class="review-stars">${reviewStarsText(Math.round(st.rating))}</span><span class="review-count">${st.rating.toFixed(1)}/5${st.count?' · '+st.count+' đánh giá':' · Chưa có đánh giá'}</span>`;
-  });
-}
-function loadProductReviews(id){
-  // Dữ liệu review đã được nhúng trong HTML; không gọi Google Apps Script khi mở website.
-  return Promise.resolve(true);
-}
-function loadAllReviewSummaries(){
-  renderReviewSummaries();
-  return Promise.resolve(true);
-}
-
-function getReviewOrderHistory(){
-  try{
-    const list=typeof getOrderHistory==='function'?getOrderHistory():[];
-    return Array.isArray(list)?list:[];
-  }catch(e){return []}
-}
-function parseLocalOrderItems(order){
-  const raw=String(order?.items||'').split(',').map(x=>x.trim()).filter(Boolean),out=[];
-  raw.forEach(part=>{
-    let text=part.replace(/\s+/g,' ').trim(),qty=1;
-    const m=text.match(/\s*x\s*(\d+)\s*$/i);
-    if(m){qty=Math.max(1,Number(m[1])||1);text=text.slice(0,m.index).trim()}
-    if(text)out.push({name:text,qty});
-  });
-  return out;
-}
-function populateReviewOrders(){
-  const select=document.getElementById('reviewOrderSelect');
-  if(!select)return;
-  const history=getReviewOrderHistory();
-  select.innerHTML='<option value="">Chọn mã đơn cần đánh giá</option>'+history.map((o,i)=>{
-    const code=String(o.code||'').trim();
-    if(!code)return '';
-    const time=String(o.time||'').trim();
-    return `<option value="${i}">${escapeOrderHistoryHtml(code)} · ${escapeOrderHistoryHtml(time||'Không rõ thời gian')}</option>`;
-  }).join('');
-}
-function findReviewProduct(item){
-  return (products||[]).find(p=>
-    String(p.name||'').trim().toLowerCase()===
-    String(item.name||'').trim().toLowerCase()
-  )||null;
-}
-function reviewRowStarButtons(productId){
-  const current=Number(reviewRowRatings[String(productId)]||5);
-  return Array.from({length:5},(_,i)=>{
-    const n=i+1;
-    const safeId=String(productId).replace(/'/g,"\\'");
-    return `<button type="button" class="review-row-star ${n<=current?'active':''}" onclick="setReviewRowRating('${safeId}',${n})" aria-label="${n} sao">★</button>`;
-  }).join('');
-}
-function setReviewRowRating(productId,n){
-  reviewRowRatings[String(productId)]=Math.max(1,Math.min(5,Number(n)||5));
-  const selector=`[data-review-row="${String(productId).replace(/\\/g,'\\\\').replace(/"/g,'\\"')}"] .review-row-stars`;
-  const box=document.querySelector(selector);
-  if(box)box.innerHTML=reviewRowStarButtons(productId);
-}
-function renderReviewProductsRows(){
-  const box=document.getElementById('reviewProductsRows');
-  if(!box)return;
-  reviewRowRatings={};
-  const rows=reviewSelectedOrderItems.map(item=>{
-    const p=findReviewProduct(item);
-    if(!p){
-      return `<div class="review-product-row review-product-row-disabled">
-        <div class="review-row-name">🍢 ${escapeOrderHistoryHtml(item.name)}${item.qty>1?' × '+item.qty:''}</div>
-        <div class="review-row-unmatched">Món này chưa khớp dữ liệu hiện tại</div>
-      </div>`;
-    }
-    reviewRowRatings[String(p.id)]=5;
-    return `<div class="review-product-row" data-review-row="${escapeOrderHistoryHtml(String(p.id))}">
-      <div class="review-row-name" title="${escapeOrderHistoryHtml(item.name)}">🍢 ${escapeOrderHistoryHtml(item.name)}${item.qty>1?' × '+item.qty:''}</div>
-      <div class="review-row-stars">${reviewRowStarButtons(p.id)}</div>
-      <input class="review-row-comment" data-review-comment="${escapeOrderHistoryHtml(String(p.id))}" maxlength="500" placeholder="Nhận xét món này...">
-    </div>`;
-  }).join('');
-  box.innerHTML=rows||'<div class="review-empty">Đơn hàng chưa có danh sách món để đánh giá.</div>';
-}
-function onReviewOrderSelected(){
-  const select=document.getElementById('reviewOrderSelect');
-  const wrap=document.getElementById('reviewOrderProductsWrap');
-  const summary=document.getElementById('reviewCustomerSummary');
-  const history=getReviewOrderHistory();
-  const index=Number(select?.value);
-  reviewSelectedOrder=Number.isInteger(index)&&index>=0&&history[index]?history[index]:null;
-  reviewSelectedOrderItems=reviewSelectedOrder?parseLocalOrderItems(reviewSelectedOrder):[];
-  reviewProductId=null;
-  if(!reviewSelectedOrder){
-    if(wrap)wrap.style.display='none';
-    if(summary){summary.style.display='none';summary.innerHTML=''}
-    return;
-  }
-  const customerName=String(reviewSelectedOrder.name||reviewSelectedOrder.customerName||'Khách hàng').trim()||'Khách hàng';
-  if(summary){
-    summary.style.display='block';
-    summary.innerHTML=`👤 <b>${escapeOrderHistoryHtml(customerName)}</b><span> · Mã đơn: <b>${escapeOrderHistoryHtml(reviewSelectedOrder.code||'—')}</b></span><span> · ${escapeOrderHistoryHtml(reviewSelectedOrder.time||'Không rõ thời gian')}</span>`;
-  }
-  if(wrap)wrap.style.display='block';
-  renderReviewProductsRows();
-}
-function openReviewCenter(){
-  reviewProductId=null;
-  reviewSelectedOrder=null;
-  reviewSelectedOrderItems=[];
-  reviewRowRatings={};
-  const modal=document.getElementById('reviewModal');
-  const summary=document.getElementById('reviewCustomerSummary');
-  const msg=document.getElementById('reviewMessage');
-  const wrap=document.getElementById('reviewOrderProductsWrap');
-  if(msg){msg.textContent='';msg.style.color=''}
-  if(summary){summary.style.display='none';summary.innerHTML=''}
-  if(wrap)wrap.style.display='none';
-  populateReviewOrders();
-  const select=document.getElementById('reviewOrderSelect');
-  if(select)select.value='';
-  if(modal){
-    modal.classList.add('show');
-    modal.setAttribute('aria-hidden','false');
-  }
-}
-function openProductReview(id){openReviewCenter()}
-function closeProductReview(){
-  const modal=document.getElementById('reviewModal');
-  if(modal){
-    modal.classList.remove('show');
-    modal.setAttribute('aria-hidden','true');
-  }
-  reviewSelectedOrder=null;
-  reviewSelectedOrderItems=[];
-  reviewProductId=null;
-  reviewRowRatings={};
-}
-
-
-function normalizeReviewClientPhoneV18(value){
-  let x=String(value==null?'':value).replace(/\D/g,'');
-  if(x.startsWith('84') && x.length>=11) x='0'+x.slice(2);
-  if(x.length===9) x='0'+x;
-  return x;
-}
-function getReviewOrderPhoneV18(order){
-  return String(
-    order?.phone ??
-    order?.sdt ??
-    order?.phoneNumber ??
-    order?.customerPhone ??
-    ''
-  ).trim();
-}
-
-function submitAllProductReviews(items,order,name,phone,code){
-  return new Promise(resolve=>{
-    const cb='submitReviewsCallback_'+Date.now()+'_'+Math.floor(Math.random()*10000),s=document.createElement('script');
-    const timer=setTimeout(()=>{cleanup();resolve({success:false,message:'Hệ thống phản hồi quá lâu. Vui lòng thử lại.'})},12000);
-    function cleanup(){clearTimeout(timer);s.remove();try{delete window[cb]}catch(e){window[cb]=undefined}}
-    window[cb]=data=>{cleanup();resolve(data||{success:false,message:'Không nhận được phản hồi.'})};
-    const reviews=items.map(x=>({productId:String(x.productId||''),stars:Number(x.stars)||5,comment:String(x.comment||'').slice(0,500)}));
-    s.src=GOOGLE_SCRIPT_URL+'?action=submitReviews&orderCode='+encodeURIComponent(code)+'&phone='+encodeURIComponent(phone)+'&name='+encodeURIComponent(name.slice(0,40))+'&reviews='+encodeURIComponent(JSON.stringify(reviews))+'&callback='+encodeURIComponent(cb);
-    document.body.appendChild(s);
-  });
-}
-async function submitProductReview(){
-  const msg=document.getElementById('reviewMessage'),order=reviewSelectedOrder;
-  if(!order){if(msg){msg.textContent='⚠️ Vui lòng chọn mã đơn cần đánh giá.';msg.style.color='#b42318'}return}
-  const phone=getReviewOrderPhoneV18(order),code=String(order.code||'').trim().toUpperCase();
-  const name=String(order.name||order.customerName||'Khách hàng').trim()||'Khách hàng';
-  const rows=Array.from(document.querySelectorAll('#reviewProductsRows .review-product-row:not(.review-product-row-disabled)'));
-  if(!rows.length){if(msg){msg.textContent='⚠️ Không có món hợp lệ để đánh giá.';msg.style.color='#b42318'}return}
-  const payloads=rows.map(row=>{
-    const productId=row.getAttribute('data-review-row')||'';
-    const comment=(row.querySelector('.review-row-comment')?.value||'').trim();
-    const productName=(row.querySelector('.review-row-name')?.textContent||'').replace(/^🍢\s*/, '').replace(/\s+×\s*\d+\s*$/,'').trim();
-    return {productId,productName,comment,stars:Number(reviewRowRatings[String(productId)]||5)};
-  }).filter(x=>x.productId);
-  if(!payloads.length){if(msg){msg.textContent='⚠️ Không có món hợp lệ để đánh giá.';msg.style.color='#b42318'}return}
-  if(!phone){if(msg){msg.textContent='⚠️ Lịch sử đơn này chưa lưu số điện thoại. Hãy đánh giá bằng một đơn được đặt trên phiên bản website mới.';msg.style.color='#b42318'}return}
-  const btn=document.querySelector('#reviewModal .review-submit');
-  if(btn){btn.disabled=true;btn.textContent='⏳ Đang gửi...'}
-  if(msg){msg.textContent=`Đang gửi ${payloads.length} đánh giá...`;msg.style.color='#7d5438'}
-  try{
-    // V12: chỉ gửi 1 request cho toàn bộ món trong đơn, thay vì 1 request/món.
-    // Nhận xét có thể để trống; tất cả đánh giá sao vẫn được tính vào tổng số.
-    const data=await submitAllProductReviews(payloads,order,name,phone,code);
-    if(data&&data.success){
-      const reviews=Array.isArray(data.reviews)?data.reviews:[];
-      reviews.forEach(review=>{
-        const k=String(review.productId||'');
-        if(!k)return;
-        const list=reviewsForProduct(k);
-        reviewServerCache[k]=[review].concat(list.filter(x=>x.id!==review.id));
-        reviewServerCache['__loaded_'+k]=true;
-      });
-      // Cập nhật số lượng/rating tại chỗ, không cần gọi lại GS ngay.
-      if(data.summaries){
-        Object.keys(data.summaries).forEach(id=>{
-          const st=data.summaries[id]||{};
-          reviewServerCache['__summary_'+id]={rating:Number(st.rating)||5,count:Number(st.count)||0};
-        });
-      }
-      renderReviewSummaries();
-      if(btn){btn.disabled=false;btn.textContent='⭐ Gửi đánh giá'}
-      closeProductReview();
-      showReviewThanks();
-      return;
-    }
-    let failMessages=[];
-    if(data?.message)failMessages.push(data.message);
-    if(btn){btn.disabled=false;btn.textContent='⭐ Gửi đánh giá'}
-    if(msg){msg.textContent='❌ '+(failMessages[0]||'Không thể gửi đánh giá. Vui lòng thử lại.');msg.style.color='#b42318'}
-  }catch(e){
-    if(btn){btn.disabled=false;btn.textContent='⭐ Gửi đánh giá'}
-    if(msg){msg.textContent='❌ Không thể gửi đánh giá. Vui lòng thử lại.';msg.style.color='#b42318'}
-    console.warn('submitProductReview error:',e);
-  }
-}
-function showReviewThanks(){
-  const modal=document.getElementById('reviewThanksModal');
-  if(modal){modal.classList.add('show');modal.setAttribute('aria-hidden','false')}
-}
-function closeReviewThanks(){
-  const modal=document.getElementById('reviewThanksModal');
-  if(modal){modal.classList.remove('show');modal.setAttribute('aria-hidden','true')}
-}
-function openCustomerReviews(id){
-  const p=productByIdForReview(id);if(!p)return;
-  const modal=document.getElementById('customerReviewsModal'),
-        title=document.getElementById('customerReviewsTitle'),
-        summary=document.getElementById('customerReviewsSummary'),
-        listBox=document.getElementById('customerReviewsList');
-  if(title)title.textContent='💬 Đánh giá khách hàng · '+String(p.name||'Món ăn');
-  const st=reviewStats(id);
-  if(summary){
-    summary.innerHTML=`<span class="review-view-stars">${reviewStarsText(Math.round(st.rating))}</span><b>${st.rating.toFixed(1)}/5</b><span>${st.count?' · '+st.count+' đánh giá':' · Chưa có đánh giá'}</span>`;
-  }
-  const list=reviewsForProduct(id);
-  if(listBox){
-    if(!list.length){
-      listBox.innerHTML='<div class="review-empty">Chưa có nhận xét được duyệt cho món này.</div>';
-    }else{
-      listBox.innerHTML=list.slice(0,30).map(r=>`<div class="review-item">
-        <div class="review-item-top"><span class="review-item-name">${escapeOrderHistoryHtml(r.name||'Khách hàng')}</span><span class="review-item-stars">${reviewStarsText(Number(r.stars)||5)}</span></div>
-        <div class="review-item-order">📦 Mã đơn: <b>${escapeOrderHistoryHtml(r.orderCode||'—')}</b></div>
-        <div class="review-item-time">${escapeOrderHistoryHtml(r.time||'')}</div>
-        <div class="review-item-text">${escapeOrderHistoryHtml(r.comment||'')}</div>
-      </div>`).join('');
-    }
-  }
-  if(modal){modal.classList.add('show');modal.setAttribute('aria-hidden','false')}
-}
-
-function closeCustomerReviewsModal(){
-  const modal=document.getElementById('customerReviewsModal');
-  if(modal){modal.classList.remove('show');modal.setAttribute('aria-hidden','true')}
-}
-setTimeout(()=>{
-  renderReviewSummaries();
-},0);
-
-function reviewButtonDelegationV17(){
-  document.addEventListener('click',function(ev){
-    const btn=ev.target && ev.target.closest ? ev.target.closest('#headerReviewBtn') : null;
-    if(!btn)return;
-    ev.preventDefault();
-    ev.stopPropagation();
-    openReviewCenter();
-  },true);
-}
-function initReviewButtonFix(){
-  const btn=document.getElementById('headerReviewBtn');
-  if(!btn || btn.__reviewBound)return;
-  btn.__reviewBound=true;
-  const open=ev=>{
-    if(ev){
-      ev.preventDefault();
-      ev.stopPropagation();
-    }
-    openReviewCenter();
-  };
-  btn.addEventListener('click',open,false);
-  btn.addEventListener('pointerup',function(ev){
-    if(ev.pointerType==='touch'){
-      ev.preventDefault();
-      openReviewCenter();
-    }
-  },false);
-}
-if(document.readyState==='loading'){
-  document.addEventListener('DOMContentLoaded',initReviewButtonFix,{once:true});
-}else{
-  initReviewButtonFix();
-}
-
 </script>
 
-
-<style id="review-v11-fixes">
-.review-thanks-box{max-width:430px!important;text-align:center;padding:26px 22px 22px!important}
-.review-thanks-icon{width:66px;height:66px;margin:6px auto 14px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(145deg,#d59a4f,#b56f25);color:#fff;font-size:34px;font-weight:900;box-shadow:0 10px 24px rgba(181,111,37,.22)}
-.review-thanks-title{font-size:21px;font-weight:900;color:#5c3a25;margin-bottom:8px}
-.review-thanks-text{font-size:14px;line-height:1.65;color:#806b5d;background:#fff8ef;border:1px solid #ecd8c1;border-radius:13px;padding:12px 13px;margin-bottom:16px}
-.review-thanks-btn{width:100%;border:0;border-radius:12px;padding:12px 16px;background:#c9822d;color:#fff;font-weight:900;font-size:14px;cursor:pointer}
-</style>
-<style id="customer-v5-fixes">
-/* V5: nút tiếp tục luôn nằm trên overlay và chỉ có một luồng xử lý. */
-#continueOrderButton{position:relative;z-index:20!important;pointer-events:auto!important;touch-action:manipulation!important;-webkit-tap-highlight-color:transparent}
-.product-rating{display:none!important}
-.review-buttons-wrap{position:relative;z-index:2}
-.review-customer-btn{display:block!important}
-</style>
-<script>
-// V5: fallback bắt sự kiện ở capture phase để không bị form/voucher/overlay nuốt click.
-(function(){
-  function continueOrderV5(e){
-    const btn=e.target && e.target.closest ? e.target.closest('#continueOrderButton') : null;
-    if(!btn)return;
-    e.preventDefault();
-    e.stopPropagation();
-    if(typeof e.stopImmediatePropagation==='function')e.stopImmediatePropagation();
-    if(typeof openOrderForm==='function')openOrderForm();
-  }
-  document.addEventListener('click',continueOrderV5,true);
-  document.addEventListener('pointerup',function(e){
-    const btn=e.target && e.target.closest ? e.target.closest('#continueOrderButton') : null;
-    if(!btn)return;
-    if(typeof openOrderForm==='function' && !btn.__v5PointerHandled){
-      btn.__v5PointerHandled=true;
-      setTimeout(function(){btn.__v5PointerHandled=false},300);
-    }
-  },true);
-  document.addEventListener('keydown',function(e){
-    if(e.key!=='Enter' && e.key!==' ')return;
-    const btn=e.target && e.target.closest ? e.target.closest('#continueOrderButton') : null;
-    if(!btn)return;
-    e.preventDefault();
-    e.stopPropagation();
-    if(typeof openOrderForm==='function')openOrderForm();
-  },true);
-})();
-</script>
 </body>
 </html>
