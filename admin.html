@@ -4189,6 +4189,7 @@ async function copyOrderCode(){
 }
 
 let welcomePopupOpened = false;
+let welcomePopupDismissed = false;
 let welcomePopupAutoRetreatTimer = null;
 let welcomePopupHideTimer = null;
 
@@ -4321,7 +4322,7 @@ function presentWelcomePopup(){
 }
 
 function openWelcomePopup(){
-    if(welcomePopupOpened) return;
+    if(welcomePopupOpened || welcomePopupDismissed) return;
     const popup=document.getElementById('welcomePopup');
     if(!popup) return;
     welcomePopupOpened=true;
@@ -4329,7 +4330,8 @@ function openWelcomePopup(){
 }
 
 function scheduleWelcomePopup(){
-    const show=()=>setTimeout(openWelcomePopup,1200);
+    if(welcomePopupDismissed) return;
+    const show=()=>setTimeout(function(){ if(!welcomePopupDismissed) openWelcomePopup(); },1200);
     if(document.readyState==='loading'){
         document.addEventListener('DOMContentLoaded',show,{once:true});
     }else{
@@ -4341,19 +4343,24 @@ function scheduleWelcomePopup(){
 }
 
 function closeWelcomePopup(){
-    const popup=document.getElementById('welcomePopup');
+    // Chỉ có một popup chào mừng chính và sau khi khách bấm Đã hiểu
+    // thì popup này không được phép tự xuất hiện lại trong cùng phiên.
+    welcomePopupDismissed=true;
     clearWelcomePopupTimers();
     stopWelcomeFireworks(true);
-    if(popup){
-        popup.classList.add('welcome-retreat');
-        setTimeout(function(){
-            popup.classList.remove('welcome-open','anvat-welcome-v25-open','welcome-retreat');
-            popup.style.setProperty('display','none','important');
-            popup.style.setProperty('visibility','hidden','important');
-            popup.style.setProperty('opacity','0','important');
-            popup.setAttribute('aria-hidden','true');
-        },260);
-    }
+    const popup=document.getElementById('welcomePopup');
+    if(!popup) return;
+    popup.classList.remove('welcome-open','anvat-welcome-v25-open');
+    popup.classList.add('welcome-retreat');
+    popup.style.setProperty('display','none','important');
+    popup.style.setProperty('visibility','hidden','important');
+    popup.style.setProperty('opacity','0','important');
+    popup.setAttribute('aria-hidden','true');
+    // Dọn mọi popup chào mừng dư thừa nếu trình duyệt còn giữ DOM cũ.
+    try{
+      document.querySelectorAll('.welcome-toast').forEach(el=>el.remove());
+      document.querySelectorAll('.welcome-popup').forEach(el=>{ if(el!==popup) el.remove(); });
+    }catch(e){}
 }
 
 /* ==================================================
@@ -5389,61 +5396,28 @@ if(document.readyState==='loading'){
     }
   }
 
-  /* ---------- Welcome popup: dùng chung 1 popup, không tạo form dự phòng ---------- */
-  let welcomeTimer=null;
 
-  function stopFireworks(){
-    try{ stopWelcomeFireworks(true); }catch(e){}
+})();
+</script>
+
+
+<script id="anvat-single-welcome-guard">
+(function(){
+  'use strict';
+  function cleanupWelcomeDuplicates(){
+    try{
+      const main=document.getElementById('welcomePopup');
+      document.querySelectorAll('.welcome-popup').forEach((el,i)=>{
+        if(main && el!==main) el.remove();
+      });
+      document.querySelectorAll('.welcome-toast').forEach(el=>el.remove());
+    }catch(e){}
   }
-
-  function resizeCanvas(){
-    try{ return resizeWelcomeFireworks(); }catch(e){ return null; }
-  }
-
-  function startFireworks(){
-    try{ startWelcomeFireworks(); }catch(e){}
-  }
-
-  function openWelcome(){
-    if(welcomePopupOpened) return;
-    const popup=document.getElementById('welcomePopup');
-    if(!popup) return;
-    welcomePopupOpened=true;
-    presentWelcomePopup();
-  }
-
-  function scheduleWelcome(){
-    if(welcomeTimer) clearTimeout(welcomeTimer);
-    welcomeTimer=setTimeout(function(){
-      openWelcome();
-    },1200);
-  }
-
-  function closeWelcomeV25(){
-    closeWelcomePopup();
-  }
-
-  function init(){
-    initStickyLayout();
-    bindWelcomeClose();
-    scheduleWelcome();
-    window.addEventListener('resize',function(){
-      const popup=document.getElementById('welcomePopup');
-      if(popup && popup.classList.contains('anvat-welcome-v25-open')) resizeCanvas();
-    },{passive:true});
-  }
-
+  cleanupWelcomeDuplicates();
   if(document.readyState==='loading'){
-    document.addEventListener('DOMContentLoaded',init,{once:true});
-  }else{
-    init();
+    document.addEventListener('DOMContentLoaded',cleanupWelcomeDuplicates,{once:true});
   }
-  window.addEventListener('load',function(){
-    refreshStickyLayout();
-    bindWelcomeClose();
-    const popup=document.getElementById('welcomePopup');
-    if(popup && getComputedStyle(popup).display==='none') scheduleWelcome();
-  },{once:true});
+  window.addEventListener('load',cleanupWelcomeDuplicates,{once:true});
 })();
 </script>
 
