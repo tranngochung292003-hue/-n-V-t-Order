@@ -62,7 +62,6 @@ header{background:rgba(255,250,245,.96);border-bottom:1px solid var(--border);pa
 .location-btn{width:100%;border:1px solid var(--brand);background:#fff;color:var(--brand);padding:11px;border-radius:8px;font-size:14px;font-weight:800}
 .payment-qr{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:300;align-items:center;justify-content:center;padding:16px}.payment-box{max-width:400px;width:100%;background:#fff;border-radius:16px;padding:20px;text-align:center;position:relative;box-shadow:0 15px 50px rgba(0,0,0,.25)}.payment-close{position:absolute;right:12px;top:9px;background:#f5f5f5;border:none;color:#444;width:34px;height:34px;border-radius:50%;font-size:23px}.payment-box h2{color:#111;margin-bottom:8px;font-size:20px}.payment-box p{color:#666;margin-bottom:12px;font-size:14px}.payment-box img{width:260px;max-width:100%;border-radius:8px;background:#fff;padding:6px}.payment-info{margin-top:12px;line-height:1.7;color:#444;font-size:14px}.payment-done{width:100%;margin-top:15px;padding:11px;border:none;border-radius:8px;background:var(--brand);color:#fff;font-weight:800}
 .contact-buttons{position:fixed;right:14px;bottom:75px;display:flex;flex-direction:column;gap:8px;z-index:80}.contact-btn{color:#fff;padding:9px 12px;border-radius:22px;font-size:13px;font-weight:700;box-shadow:0 4px 14px rgba(0,0,0,.14)}.contact-btn.facebook{background:#1877f2}.zalo{background:#008fe5}.phone{background:#16a34a}footer{text-align:center;padding:28px 18px;color:#888;border-top:1px solid #eee;background:#fff;font-size:13px}
-.welcome-popup{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:500;align-items:center;justify-content:center;padding:16px}.welcome-box{width:100%;max-width:430px;background:#fff;border-radius:16px;padding:24px 20px;text-align:center;box-shadow:0 15px 50px rgba(0,0,0,.2);animation:welcomeShow .25s ease}.welcome-icon{font-size:48px;margin-bottom:8px}.welcome-box h2{color:#111;font-size:22px;margin-bottom:10px}.welcome-box p{color:#555;line-height:1.7;margin-bottom:18px;font-size:14px}.welcome-close{width:100%;border:none;padding:11px;border-radius:9px;background:var(--brand);color:#fff;font-size:15px;font-weight:800}@keyframes welcomeShow{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:scale(1)}}
 @media(max-width:900px){.products{grid-template-columns:repeat(3,minmax(0,1fr))}.product-image{height:190px}}
 @media(max-width:650px){header{padding:11px 12px}.logo{font-size:20px}.hero{margin:12px 10px 8px;padding:20px 13px;border-radius:12px}.hero h1{font-size:25px}.hero p{font-size:13px}.container{padding:5px 10px 105px}.section-title{font-size:21px;margin:18px 0 12px}.category-menu{top:59px}.products{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.product{border-radius:10px}.product-image{height:170px}.product-info{padding:10px}.product-name{font-size:14px;min-height:40px}.product-price{font-size:17px;margin-bottom:8px}.add-btn{font-size:13px;padding:8px 7px}.cart-bar{padding:9px 10px}.cart-summary{font-size:13px}.checkout-btn{padding:10px 14px;font-size:13px}.contact-buttons{right:8px;bottom:68px}.contact-btn{font-size:12px;padding:8px 10px}}
 
@@ -1407,155 +1406,12 @@ header{
 }
 </style>
 
-<style id="anvat-v25-welcome-force-fix">
-/* V25: đảm bảo popup chào mừng luôn xuất hiện sau khi DOM đã sẵn sàng. */
-#welcomePopup.anvat-welcome-v25-open{
-  display:flex!important;
-  visibility:visible!important;
-  opacity:1!important;
-  position:fixed!important;
-  inset:0!important;
-  z-index:2147483000!important;
-  pointer-events:none!important;
-}
-#welcomePopup.anvat-welcome-v25-open .welcome-box{
-  position:relative!important;
-  z-index:2147483002!important;
-  pointer-events:auto!important;
-}
-#welcomePopup.anvat-welcome-v25-open .welcome-fireworks-canvas{
-  position:absolute!important;
-  inset:0!important;
-  width:100%!important;
-  height:100%!important;
-  z-index:2147483001!important;
-  pointer-events:none!important;
-}
-</style>
 
-<style id="anvat-v27-welcome-popup-fix">
-/* V27: chỉ còn 1 popup chào mừng, nổi trên header và tự thu về bên phải sau ~2,8 giây. */
-#welcomePopup{
-  display:none!important;
-  position:fixed!important;
-  top:8px!important;
-  right:8px!important;
-  left:auto!important;
-  bottom:auto!important;
-  width:auto!important;
-  height:auto!important;
-  inset:auto 8px auto auto!important;
-  padding:0!important;
-  background:transparent!important;
-  z-index:2147483600!important;
-  align-items:flex-start!important;
-  justify-content:flex-end!important;
-  pointer-events:none!important;
-  overflow:visible!important;
-}
-#welcomePopup.welcome-open,
-#welcomePopup.anvat-welcome-v25-open{
-  display:flex!important;
-  visibility:visible!important;
-  opacity:1!important;
-  pointer-events:none!important;
-}
-#welcomePopup > .welcome-box{
-  position:relative!important;
-  width:min(420px,calc(100vw - 16px))!important;
-  max-width:420px!important;
-  margin:0!important;
-  animation:none!important;
-  transform:translate3d(115%,0,0)!important;
-  opacity:0!important;
-  visibility:hidden!important;
-  pointer-events:auto!important;
-  transition:transform .48s cubic-bezier(.22,.8,.24,1),opacity .34s ease,visibility 0s linear .48s!important;
-}
-#welcomePopup.welcome-open > .welcome-box,
-#welcomePopup.anvat-welcome-v25-open > .welcome-box{
-  transform:translate3d(0,0,0)!important;
-  opacity:1!important;
-  visibility:visible!important;
-  transition:transform .48s cubic-bezier(.22,.8,.24,1),opacity .34s ease!important;
-}
-#welcomePopup.welcome-retreat > .welcome-box{
-  transform:translate3d(115%,0,0)!important;
-  opacity:0!important;
-  visibility:hidden!important;
-  pointer-events:none!important;
-  transition:transform .5s cubic-bezier(.55,0,.95,.55),opacity .28s ease,visibility 0s linear .5s!important;
-}
-#welcomePopup .welcome-fireworks-canvas{
-  position:absolute!important;
-  inset:0!important;
-  width:100%!important;
-  height:100%!important;
-  z-index:2147483599!important;
-  pointer-events:none!important;
-}
-@media(max-width:700px){
-  #welcomePopup{
-    top:6px!important;
-    right:6px!important;
-    inset:6px 6px auto auto!important;
-  }
-  #welcomePopup > .welcome-box{
-    width:min(390px,calc(100vw - 12px))!important;
-    max-width:390px!important;
-    border-radius:18px!important;
-    padding:20px 16px 16px!important;
-  }
-  #welcomePopup .welcome-icon{font-size:42px!important}
-  #welcomePopup .welcome-box h2{font-size:20px!important;line-height:1.3!important}
-  #welcomePopup .welcome-box p{font-size:12.5px!important;line-height:1.6!important;margin-bottom:14px!important}
-  #welcomePopup .welcome-close{font-size:14px!important;padding:10px!important}
-}
-@media(prefers-reduced-motion:reduce){
-  #welcomePopup > .welcome-box{transition:none!important}
-}
-</style>
+
 </head>
 <body>
 
 <div id="storeClosedBanner" class="store-closed-banner" role="status" aria-live="polite"><strong>🔴 Quán đang tạm nghỉ</strong><small id="storeClosedMessage">Hiện tại quán chưa nhận đơn.</small><div id="storeClosedReopen" class="reopen"></div></div>
-
-<!-- ==============================
-     POPUP CHÀO MỪNG
-============================== -->
-
-<div id="welcomePopup" class="welcome-popup">
-
-    <canvas id="welcomeFireworksCanvas" class="welcome-fireworks-canvas" aria-hidden="true"></canvas>
-
-    <div class="welcome-box">
-
-        <div class="welcome-icon">
-            🛍️
-        </div>
-
-        <h2>
-            Chào mừng đến Ăn Vặt Lâm Thao!
-        </h2>
-
-        <p>
-            🎉 Cảm ơn bạn đã ghé thăm shop.<br>
-            🎁 Voucher tặng bạn giảm 20% : KHACHMOI
-            🛒 Chúc bạn mua hàng vui vẻ!<br>
-            🚀 Ship hàng hoả tốc 24/7
-            💟 Mua càng nhiều giá càng hời .
-        </p>
-
-        <button
-            class="welcome-close"
-            onclick="closeWelcomePopup()"
-        >
-            ✅ Đã hiểu
-        </button>
-
-    </div>
-
-</div>
 
 <!-- ĐÁNH GIÁ MÓN ĂN -->
 <div id="reviewModal" class="review-modal" aria-hidden="true" onclick="if(event.target===this)closeProductReview()">
@@ -4188,181 +4044,6 @@ async function copyOrderCode(){
   try{await navigator.clipboard.writeText(code);alert('✅ Đã sao chép mã đơn: '+code);}catch(e){alert('Mã đơn: '+code);}
 }
 
-let welcomePopupOpened = false;
-let welcomePopupDismissed = false;
-let welcomePopupAutoRetreatTimer = null;
-let welcomePopupHideTimer = null;
-
-function resizeWelcomeFireworks(){
-    const canvas=document.getElementById('welcomeFireworksCanvas');
-    if(!canvas) return null;
-    const popup=document.getElementById('welcomePopup');
-    const rect=popup ? popup.getBoundingClientRect() : {width:window.innerWidth,height:window.innerHeight};
-    const dpr=Math.min(window.devicePixelRatio||1,2);
-    const w=Math.max(1,Math.floor(rect.width||window.innerWidth));
-    const h=Math.max(1,Math.floor(rect.height||window.innerHeight));
-    canvas.width=Math.floor(w*dpr);
-    canvas.height=Math.floor(h*dpr);
-    canvas.style.width=w+'px';
-    canvas.style.height=h+'px';
-    const ctx=canvas.getContext('2d');
-    if(ctx) ctx.setTransform(dpr,0,0,dpr,0,0);
-    canvas.__w=w; canvas.__h=h;
-    return {canvas,ctx,w,h};
-}
-function spawnWelcomeFirework(){
-    const setup=resizeWelcomeFireworks();
-    if(!setup || !setup.ctx) return;
-    const {w,h}=setup;
-    const x=w*(0.16+Math.random()*0.68);
-    const y=h*(0.12+Math.random()*0.43);
-    const colors=['#ffd166','#ff9f1c','#ff5d8f','#8ecae6','#c77dff','#90be6d'];
-    const color=colors[Math.floor(Math.random()*colors.length)];
-    const count=30+Math.floor(Math.random()*18);
-    const particles=[];
-    for(let i=0;i<count;i++){
-        const a=(Math.PI*2*i/count)+(Math.random()-.5)*.14;
-        const speed=1.4+Math.random()*2.8;
-        particles.push({
-            x,y,
-            vx:Math.cos(a)*speed,
-            vy:Math.sin(a)*speed,
-            life:34+Math.random()*22,
-            age:0,
-            size:1.4+Math.random()*1.7
-        });
-    }
-    welcomeFireworksBursts.push({particles,color});
-    if(welcomeFireworksBursts.length>8) welcomeFireworksBursts.shift();
-}
-function drawWelcomeFireworks(){
-    if(!welcomePopupOpened) return;
-    const setup=resizeWelcomeFireworks();
-    if(!setup || !setup.ctx) return;
-    const {ctx,w,h}=setup;
-    ctx.clearRect(0,0,w,h);
-    const next=[];
-    for(const burst of welcomeFireworksBursts){
-        let alive=false;
-        for(const p of burst.particles){
-            p.age++;
-            if(p.age>=p.life) continue;
-            alive=true;
-            p.vy += 0.035;
-            p.x += p.vx;
-            p.y += p.vy;
-            const alpha=Math.max(0,1-p.age/p.life);
-            ctx.beginPath();
-            ctx.globalAlpha=alpha;
-            ctx.fillStyle=burst.color;
-            ctx.arc(p.x,p.y,p.size,0,Math.PI*2);
-            ctx.fill();
-        }
-        if(alive) next.push(burst);
-    }
-    ctx.globalAlpha=1;
-    welcomeFireworksBursts=next;
-    if(welcomePopupOpened) welcomeFireworksFrame=requestAnimationFrame(drawWelcomeFireworks);
-}
-function startWelcomeFireworks(){
-    stopWelcomeFireworks(true);
-    welcomeFireworksBursts=[];
-    spawnWelcomeFirework();
-    spawnWelcomeFirework();
-    welcomeFireworksTimer=setInterval(spawnWelcomeFirework,620);
-    welcomeFireworksFrame=requestAnimationFrame(drawWelcomeFireworks);
-    window.addEventListener('resize',resizeWelcomeFireworks,{passive:true});
-}
-function stopWelcomeFireworks(clearCanvas){
-    if(welcomeFireworksTimer){clearInterval(welcomeFireworksTimer);welcomeFireworksTimer=null;}
-    if(welcomeFireworksFrame){cancelAnimationFrame(welcomeFireworksFrame);welcomeFireworksFrame=null;}
-    window.removeEventListener('resize',resizeWelcomeFireworks);
-    welcomeFireworksBursts=[];
-    if(clearCanvas){
-        const canvas=document.getElementById('welcomeFireworksCanvas');
-        const ctx=canvas&&canvas.getContext?canvas.getContext('2d'):null;
-        if(canvas&&ctx) ctx.clearRect(0,0,canvas.width,canvas.height);
-    }
-}
-function clearWelcomePopupTimers(){
-    if(welcomePopupAutoRetreatTimer){
-        clearTimeout(welcomePopupAutoRetreatTimer);
-        welcomePopupAutoRetreatTimer=null;
-    }
-    if(welcomePopupHideTimer){
-        clearTimeout(welcomePopupHideTimer);
-        welcomePopupHideTimer=null;
-    }
-}
-
-function presentWelcomePopup(){
-    const popup=document.getElementById('welcomePopup');
-    if(!popup) return;
-    clearWelcomePopupTimers();
-    popup.classList.remove('welcome-retreat');
-    popup.classList.add('welcome-open','anvat-welcome-v25-open');
-    popup.style.setProperty('display','flex','important');
-    popup.style.setProperty('visibility','visible','important');
-    popup.style.setProperty('opacity','1','important');
-    popup.setAttribute('aria-hidden','false');
-    startWelcomeFireworks();
-
-    // Hiện khoảng 2,8 giây rồi tự thu về bên phải.
-    welcomePopupAutoRetreatTimer=setTimeout(function(){
-        popup.classList.add('welcome-retreat');
-        welcomePopupHideTimer=setTimeout(function(){
-            stopWelcomeFireworks(true);
-            popup.classList.remove('welcome-open','anvat-welcome-v25-open','welcome-retreat');
-            popup.style.setProperty('display','none','important');
-            popup.style.setProperty('visibility','hidden','important');
-            popup.style.setProperty('opacity','0','important');
-            popup.setAttribute('aria-hidden','true');
-        },520);
-    },2800);
-}
-
-function openWelcomePopup(){
-    if(welcomePopupOpened || welcomePopupDismissed) return;
-    const popup=document.getElementById('welcomePopup');
-    if(!popup) return;
-    welcomePopupOpened=true;
-    presentWelcomePopup();
-}
-
-function scheduleWelcomePopup(){
-    if(welcomePopupDismissed) return;
-    const show=()=>setTimeout(function(){ if(!welcomePopupDismissed) openWelcomePopup(); },1200);
-    if(document.readyState==='loading'){
-        document.addEventListener('DOMContentLoaded',show,{once:true});
-    }else{
-        show();
-    }
-    window.addEventListener('load',function(){
-        if(!welcomePopupOpened) setTimeout(openWelcomePopup,500);
-    },{once:true});
-}
-
-function closeWelcomePopup(){
-    // Chỉ có một popup chào mừng chính và sau khi khách bấm Đã hiểu
-    // thì popup này không được phép tự xuất hiện lại trong cùng phiên.
-    welcomePopupDismissed=true;
-    clearWelcomePopupTimers();
-    stopWelcomeFireworks(true);
-    const popup=document.getElementById('welcomePopup');
-    if(!popup) return;
-    popup.classList.remove('welcome-open','anvat-welcome-v25-open');
-    popup.classList.add('welcome-retreat');
-    popup.style.setProperty('display','none','important');
-    popup.style.setProperty('visibility','hidden','important');
-    popup.style.setProperty('opacity','0','important');
-    popup.setAttribute('aria-hidden','true');
-    // Dọn mọi popup chào mừng dư thừa nếu trình duyệt còn giữ DOM cũ.
-    try{
-      document.querySelectorAll('.welcome-toast').forEach(el=>el.remove());
-      document.querySelectorAll('.welcome-popup').forEach(el=>{ if(el!==popup) el.remove(); });
-    }catch(e){}
-}
-
 /* ==================================================
    LOAD WEBSITE
 ==================================================
@@ -4443,7 +4124,6 @@ function loadProducts(){
 loadProducts();
 refreshStoreStatus();
 startStoreStatusPolling();
-scheduleWelcomePopup();
 
 /* Đồng bộ chiều cao header để thanh danh mục luôn dính ngay dưới logo/đánh giá/lịch sử. */
 (function initStickyHeaderOffset(){
@@ -5396,28 +5076,19 @@ if(document.readyState==='loading'){
     }
   }
 
-
-})();
-</script>
-
-
-<script id="anvat-single-welcome-guard">
-(function(){
-  'use strict';
-  function cleanupWelcomeDuplicates(){
-    try{
-      const main=document.getElementById('welcomePopup');
-      document.querySelectorAll('.welcome-popup').forEach((el,i)=>{
-        if(main && el!==main) el.remove();
-      });
-      document.querySelectorAll('.welcome-toast').forEach(el=>el.remove());
-    }catch(e){}
+  function init(){
+    initStickyLayout();
   }
-  cleanupWelcomeDuplicates();
+
   if(document.readyState==='loading'){
-    document.addEventListener('DOMContentLoaded',cleanupWelcomeDuplicates,{once:true});
+    document.addEventListener('DOMContentLoaded',init,{once:true});
+  }else{
+    init();
   }
-  window.addEventListener('load',cleanupWelcomeDuplicates,{once:true});
+
+  window.addEventListener('load',function(){
+    refreshStickyLayout();
+  },{once:true});
 })();
 </script>
 
